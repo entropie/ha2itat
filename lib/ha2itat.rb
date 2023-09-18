@@ -32,6 +32,12 @@ module Ha2itat
   require_relative "ha2itat/adapter"
   require_relative "ha2itat/calculated_version_hash"
 
+  require_relative "app/warden"
+  require_relative "app/actions"
+  require_relative "app/views"
+
+  # fixme
+  require_relative "app/content_security_policy_overwrite"
 
   def self.quart=(obj)
     @quart = obj
@@ -59,6 +65,7 @@ module Ha2itat
   def self.add_adapter(name, clz)
     Ha2itat.log "adding adapter #{name}"
     adapter[name.to_sym] = clz.get_default_adapter_initialized
+    clz
   end
 
   def self.quart_from_path(path)
