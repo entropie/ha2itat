@@ -14,7 +14,7 @@ module ViewMethodsCommon
   end
 
   def session_user
-    self._context.request.env["warden"].user.class
+    self._context.request.env["warden"].user
   end
   
   def path(routename)
