@@ -1,0 +1,15 @@
+!!!
+%html{:lang => "en"}<
+  %head<
+    - if Hanami.env?(:production)
+      %link{href: '/assets/screen-cm.css', rel: 'stylesheet', type: 'text/css'}
+    %meta{charset: "utf-8"}
+    %title backend
+    %meta{name: "title", content: "Hanami 2.0 Startup Template"}
+
+  %body#body-backend<
+    %h1 backend
+    = yield
+
+
+  %script{:src => '/assets/bundle-app.js'}

@@ -1,0 +1,12 @@
+%h2 userindex
+
+%p
+  %span= nlink(:index, "index", :class => :foo)
+
+  %span= nlink(:backend_user_index, "userindex", :params => {:foo => :bar}, :class => :foo)
+
+  %span= nlink(:backend_user_login, "login", :params => {:token => "eyJhbGciOiJIUzI1NiJ9.eyJwYXNzd29yZCI6IiQyYSQxMiR2WDdGbGQ0TTlhYTJtWVF2SUFoamVlVFZCWXlHMXloc05YLlVNLi9pZFdBMHR5MFAxSGxHRyIsInVzZXJfaWQiOiJaTEo3cllVS1Fjb0N5bXN4ekFIRGlidTQ1RlBoZWszZCJ9.E-EIlvkPo8bYq_jwwo8E3ftDnd9wHjmm4rwwQKwqdwk", :goto => path(:backend_user_index)})
+
+  %span= nlink(:backend_user_logout, "logout")
+
+%p= session_user
