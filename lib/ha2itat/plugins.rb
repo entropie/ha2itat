@@ -25,6 +25,33 @@ module Ha2itat
     def transaction(&blk)
       yield self
     end
+
+    def write_javascript_include_file!
+      Plugins.write_javascript_include_file!
+    end
+
+    # every loaded plugin might provide a `plugin.js' in its root
+    def self.write_javascript_include_file!
+      toinclude = []
+      Ha2itat.adapter.each_pair do |adapter_ident, adapter|
+        toinclude << adapter_ident
+      end
+
+      Ha2itat.log("writing plugin javascript imports #{ PP.pp(toinclude, "").strip }")
+      incs = toinclude.map(&:to_s).map{ |tinc|
+        file = "vendor/gems/ha2itat/plugins/#{tinc}/plugin.js"
+        next unless::File.exist?( Ha2itat.quart.path(file) )
+        relative_file = "/./#{file}"
+        "import '#{relative_file}';"
+      }.compact
+    
+      slice_include_file = Ha2itat.quart.
+                             path("app/assets/javascript/slice_includes.generated.js")
+      ::File.open(slice_include_file, "w+") { |fp| fp.puts(incs.join("\n")) }
+      Ha2itat.log(" + wrote #{slice_include_file} (#{::File.size(slice_include_file)}kb)")
+      toinclude
+    end
+
   end
 
   class Plugin
@@ -56,7 +83,7 @@ module Ha2itat
     end
     
     def try_load
-      Ha2itat.log " plugin try_load(#{name})..."
+      Ha2itat.log " #{name} plugin try_load..."
       loaded = 0
       loaded_files = ["%s.rb", "lib/%s.rb"].map do |s|
         if ::File.exist?(file=plugin_root(s % name.to_s))

@@ -85,28 +85,6 @@ module Ha2itat
     Ha2itat.log(*args)
   end
 
-  # every loaded plugin might provide a `plugin.js' in its root
-  def self.write_javascript_include_file!
-    toinclude = []
-    Ha2itat.adapter.each_pair do |adapter_ident, adapter|
-      toinclude << adapter_ident
-    end
-
-    Ha2itat.log("collecting plugin javascript imports #{ PP.pp(toinclude, "").strip }")
-    incs = toinclude.map(&:to_s).map{ |tinc|
-      file = "vendor/gems/ha2itat/plugins/#{tinc}/plugin.js"
-      next unless::File.exist?( Ha2itat.quart.path(file) )
-      relative_file = "/./#{file}"
-      "import '#{relative_file}';"
-    }.compact
-    
-    slice_include_file = Ha2itat.quart.
-                           path("app/assets/javascript/slice_includes.generated.js")
-    ::File.open(slice_include_file, "w+") { |fp| fp.puts(incs.join("\n")) }
-    Ha2itat.log(" + wrote #{slice_include_file} (#{::File.size(slice_include_file)}kb)")
-    toinclude
-  end
-
 end
 
 Ha2itat.quart = Ha2itat.quart_from_path(Dir.pwd)
