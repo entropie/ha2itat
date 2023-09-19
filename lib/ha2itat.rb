@@ -15,7 +15,11 @@ module Ha2itat
   end
 
   def self.plugin_root(*argv)
-    Source.join("../plugins", *argv)
+    ::File.join(root, "plugins", *argv)
+  end
+
+  def self.template_root(*argv)
+    ::File.join(root, "templates", *argv)    
   end
 
   def self.media_path(*argv)

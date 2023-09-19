@@ -11,6 +11,10 @@
 
   %body#body-backend<
     .backend-block
-      = yield
+
+      = render "shared/menu"
+      = render "submenu" rescue nil
+      .backend-content
+        = yield
 
   %script{:src => url_with_calculated_version_hash("/assets/bundle-be.js")}

@@ -46,20 +46,58 @@ a
   &:hover
     color: $c3
 
+.backend-block
+  display: flex
+  flex-wrap: wrap
+  justify-content: space-between
+
+.backend-content
+  border-top: 5px solid rgba($c2, .1)
+  flex-basis: 100%
+  order: 2
 
 .module-menu
+  font-size: min(2.5vw, 25px)
+  line-height: 30px
+  height: 60px
   text-align: left
   @include clean-ul
-  background-color: rgba(black, .1)
-  padding: 1vw
+  order: 1
+  flex-grow: 1
+  text-align: right
+  background-color: rgba($c4, .1)
+  padding-right: 10px
   .main
     font-weight: bolder
+  li, ul
+    height: 60px
+  a
+    position: relative
+    display: inline-block
+    height: 60px
+    text-decoration: none
+    padding-top: 15px
+    &.active, &:hover
+      &:after
+        position: absolute
+        top: 0
+        right: 0
+        width: 100%
+        height: calc(100% + 5px)
+        border-bottom: 5px solid rgba($c2, .1)
+        content: ""
+
+.main-module-menu
+  text-align: left
+  font-size: min(3vw, 30px)
+  flex-grow: 10
+  order: 0
+  padding-left: 10px
   
 .backend-block
-  border-top: 1px solid $c3
+  border-top: 5px solid $c3
   max-width: $breakPoint
   margin: 0 auto
-  margin-top: 50px
   padding-left: 3vw
   padding-right: 3vw
   h1,h2,h3,h4,h5
