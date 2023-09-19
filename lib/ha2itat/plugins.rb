@@ -13,12 +13,17 @@ module Ha2itat
 
       new_plugin.try_load
       new_plugin.try_provider_file
+      new_plugin.try_load_slice and new_plugin.register_slice(Hanami.app)
       self << new_plugin
       self
     end
 
     def inspect
       "P(%s)" % map{ |plug| plug.name }.join(",")
+    end
+
+    def transaction(&blk)
+      yield self
     end
   end
 
@@ -43,7 +48,7 @@ module Ha2itat
 
        if ::File.exist?(file)
          Ha2itat.log " + try_provider_file #{file}"
-         load file
+         require file
        else
          Ha2itat.log " X try_provider_file #{file} (not-existing)"
          false
@@ -51,7 +56,7 @@ module Ha2itat
     end
     
     def try_load
-      Ha2itat.log "plugin try_load(#{name})"
+      Ha2itat.log " plugin try_load(#{name})..."
       loaded = 0
       loaded_files = ["%s.rb", "lib/%s.rb"].map do |s|
         if ::File.exist?(file=plugin_root(s % name.to_s))
@@ -64,6 +69,29 @@ module Ha2itat
         end
       end.compact
       Ha2itat.log " + required #{loaded} file(s)"
+    end
+
+    def slice
+      @slice ||= Ha2itat::Slices.const_get(name.to_s.capitalize).const_get(:Slice)
+    rescue
+      nil
+    end
+
+    def try_load_slice
+      Ha2itat.log " + trying slice..."
+      string_name = name.to_s
+      slice_source_file = Ha2itat.root("slices", name.to_s, "#{string_name}.rb")
+      if ::File.exist?(slice_source_file)
+        require slice_source_file
+        Ha2itat.log " + success: #{slice}"
+        return true
+      end
+      Ha2itat.log " ! failed"
+      return false
+    end
+
+    def register_slice(app)
+      app.register_slice(name, slice)
     end
 
   end

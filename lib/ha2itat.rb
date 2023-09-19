@@ -1,4 +1,5 @@
 require "pathname"
+require "pp"
 
 module Ha2itat
 
@@ -91,6 +92,7 @@ module Ha2itat
       toinclude << adapter_ident
     end
 
+    Ha2itat.log("collecting plugin javascript imports #{ PP.pp(toinclude, "").strip }")
     incs = toinclude.map(&:to_s).map{ |tinc|
       file = "vendor/gems/ha2itat/plugins/#{tinc}/plugin.js"
       next unless::File.exist?( Ha2itat.quart.path(file) )
@@ -101,7 +103,7 @@ module Ha2itat
     slice_include_file = Ha2itat.quart.
                            path("app/assets/javascript/slice_includes.generated.js")
     ::File.open(slice_include_file, "w+") { |fp| fp.puts(incs.join("\n")) }
-    Ha2itat.log("wrote #{slice_include_file} (#{::File.size(slice_include_file)}kb)")
+    Ha2itat.log(" + wrote #{slice_include_file} (#{::File.size(slice_include_file)}kb)")
     toinclude
   end
 

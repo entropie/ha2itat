@@ -20,8 +20,12 @@ module Ha2itat
       "<#{ident}: #{plugins.inspect}>"
     end
 
-    def plugins
+    def plugins(&blk)
       @plugins ||= ::Ha2itat::Plugins.new(self)
+      if block_given?
+        @plugins.transaction(&blk)
+      end
+      @plugins
     end
 
     def path(*args)
