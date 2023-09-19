@@ -22,9 +22,6 @@ module Ha2itat
     quart.media_path(*argv)
   end
 
-
-  module Ha2itat::Slices; end
-
   require_relative "mixins/fileutils"
 
   require_relative "ha2itat/database"
@@ -33,12 +30,10 @@ module Ha2itat
   require_relative "ha2itat/adapter"
   require_relative "ha2itat/calculated_version_hash"
 
+  require_relative "app/slices"
   require_relative "app/warden"
   require_relative "app/actions"
   require_relative "app/views"
-
-  # fixme
-  require_relative "app/content_security_policy_overwrite"
 
   def self.quart=(obj)
     @quart = obj

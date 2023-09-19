@@ -5,8 +5,9 @@ require "hanami/slice"
 module Ha2itat::Slices::User
 
 
-  class Slice < Hanami::Slice
+  class Slice < Ha2itat::Slices::BackendSlice
     config.root = __dir__
-    # config.actions.content_security_policy[:script_src] = "'self' 'unsafe-eval'"
+
+    class_eval(&content_security_policy)    
   end
 end

@@ -3,9 +3,11 @@
 
   %span= nlink(:backend_user_index, "userindex", :params => {:foo => :bar}, :class => :foo)
 
-  %span= nlink(:backend_index, "login", :params => {:token => Ha2itat.adapter(:user).user.first.token, :goto => path(:backend_user_index)})
+  - unless session_user
+    %span= nlink(:backend_index, "login", :params => {:token => Ha2itat.adapter(:user).user.first.token, :goto => path(:backend_user_index)})
 
-  %span= nlink(:backend_user_logout, "logout")
+  - if session_user
+    %span= nlink(:backend_user_logout, "logout")
 
 %hr
 - if session_user
