@@ -8,6 +8,7 @@ module Ha2itat::Slices::User
 
     config.renderer_options = { escape_html: false }
 
+    expose :user
   end
 
 end

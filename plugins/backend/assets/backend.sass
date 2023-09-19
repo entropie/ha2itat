@@ -10,6 +10,17 @@ $c5: #D2E8E3
 
 
 
+$breakPoint: 980px
+
+@mixin mobile()
+  @media only screen and (max-width: $breakPoint)
+    @content
+
+@mixin desktop()
+  @media only screen and (min-width: $breakPoint)
+    @content
+
+
 @mixin clean-ul
   margin: 0
   pdding: 0
@@ -19,6 +30,7 @@ $c5: #D2E8E3
     margin: 0
     pdding: 0
     display: inline-block
+
   
 body, html
   min-height: 100%
@@ -40,21 +52,34 @@ a
   @include clean-ul
   background-color: rgba(black, .1)
   padding: 1vw
+  .main
+    font-weight: bolder
   
 .backend-block
   border-top: 1px solid $c3
-  max-width: 1000px
+  max-width: $breakPoint
   margin: 0 auto
   margin-top: 50px
-
+  padding-left: 3vw
+  padding-right: 3vw
   h1,h2,h3,h4,h5
     margin-top: 5vw
     color: $c2
 
 .backend-listing
-  border: 1px solid silver
   display: flex
   flex-wrap: wrap
+  justify-content: space-between
   .backend-list-entry
+    padding: 5px
+    border: 1px solid rgba($c1, .1)
     color: silver
     flex-basis: 100%
+    margin: 5px
+    @include desktop
+      flex-basis: calc(50% - 10px)
+    &:hover
+      border: 1px solid rgba($c1, 1)
+    // only one element: stretch max width
+    &:first-child:nth-last-child(1)
+      flex-basis: 100%

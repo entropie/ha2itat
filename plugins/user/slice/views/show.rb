@@ -4,7 +4,7 @@ module Ha2itat::Slices
   module User
 
     module Views
-      class Test < View
+      class Show < View
       end
     end
 
