@@ -45,5 +45,9 @@ module ViewMethodsCommon
     
     "<a class='#{csscls}' href='#{path}'>#{desc || routename}</a>"
   end
+
+  def url_with_calculated_version_hash(url)
+    vhash = url + "?hash=" + Ha2itat.calculated_version_hash
+  end
 end
 

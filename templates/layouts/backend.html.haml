@@ -1,18 +1,17 @@
 !!!
 %html{:lang => "en"}<
   %head<
-    - if Hanami.env?(:production)
-      %link{href: '/assets/screen-cm.css', rel: 'stylesheet', type: 'text/css'}
     %meta{charset: "utf-8"}
     - title = "ze backend yO?"
     %title= title
     %meta{name: "title", content: "#{title}"}
-    %link{ href: "/assets/favicon.ico", rel: "shortcut icon", type: "image/x-icon" }
+    %link{ href: url_with_calculated_version_hash("/assets/favicon.ico"), rel: "shortcut icon", type: "image/x-icon" }
+    - if Hanami.env?(:production)
+      %link{href: url_with_calculated_version_hash("/assets/screen-cm.css"), rel: 'stylesheet', type: 'text/css'}
 
   %body#body-backend<
     %div
       %h1 backend1
       = yield
 
-
-  %script{:src => '/assets/bundle-be.js'}
+  %script{:src => url_with_calculated_version_hash("/assets/bundle-be.js")}
