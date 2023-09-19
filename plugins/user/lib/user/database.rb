@@ -1,8 +1,9 @@
 require "jwt"
 
 module Plugins
-  module User
 
+
+  module User
 
     def self.get_default_adapter_initialized
       Database::Adapter.const_get(Ha2itat.default_adapter).new(Ha2itat.media_path)

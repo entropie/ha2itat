@@ -22,7 +22,14 @@ module Ha2itat
     quart.media_path(*argv)
   end
 
+  # def self.S(path)
+  #   File.join("./", path.sub(root, ""))
+  # end
+
+
   require_relative "mixins/fileutils"
+  require_relative "mixins/log_in_block"
+
 
   require_relative "ha2itat/database"
   require_relative "ha2itat/quarters"
@@ -59,8 +66,11 @@ module Ha2itat
   end
 
   def self.add_adapter(name, clz)
-    retcls = adapter[name] = clz.get_default_adapter_initialized
-    Ha2itat.log " + added adapter `#{name}' (#{clz})"
+    ret = nil
+    LogInBlock.do_log("initializing adapter") do 
+      ret = adapter[name] = clz.get_default_adapter_initialized
+      ret
+    end
     adapter
   end
 
@@ -68,12 +78,10 @@ module Ha2itat
     Quarters.from_path(path)
   end
 
-  def self.log(*args)
-    Hanami.app["logger"].info(*args)
+  def self.log(msg, what = :info)
+    Hanami.app["logger"].send(msg, *args)
   rescue
-    args.each do |arg|
-      $stdout.puts ">>> #{arg}"
-    end
+    $stdout.puts "h2> #{msg}"
   end
 
   def log(*args)

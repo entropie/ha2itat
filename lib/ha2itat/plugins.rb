@@ -1,5 +1,6 @@
 module Ha2itat
 
+ 
   class Plugins < Array
     def initialize(quart)
       @quart = quart
@@ -9,11 +10,12 @@ module Ha2itat
       plugin_dir = Ha2itat.plugin_root(arg.to_s)
       raise "not existing path `#{plugin_dir}'" unless ::File.directory?(plugin_dir)
       new_plugin = Plugin.new(arg.to_sym)
+      Ha2itat.log("#{arg} #{new_plugin.class}")
       new_plugin.path = plugin_dir
-
       new_plugin.try_load
-      new_plugin.try_provider_file
-      new_plugin.try_load_slice and new_plugin.register_slice(Hanami.app)
+      new_plugin.try_adapter_file
+      new_plugin.try_load_slice
+      new_plugin.register_slice(Hanami.app)
       self << new_plugin
       self
     end
@@ -31,6 +33,8 @@ module Ha2itat
     end
 
     # every loaded plugin might provide a `plugin.js' in its root
+    # collect possible existing files in a list and write an include file to
+    # apps assets
     def self.write_javascript_include_file!
       toinclude = []
       Ha2itat.adapter.each_pair do |adapter_ident, adapter|
@@ -40,14 +44,17 @@ module Ha2itat
       Ha2itat.log("writing plugin javascript imports #{ PP.pp(toinclude, "").strip }")
       incs = toinclude.map(&:to_s).map{ |tinc|
         file = "vendor/gems/ha2itat/plugins/#{tinc}/plugin.js"
-        next unless::File.exist?( Ha2itat.quart.path(file) )
-        relative_file = "/./#{file}"
-        "import '#{relative_file}';"
+        next unless ::File.exist?( Ha2itat.quart.path(file) )
+        "import '/./#{file}';"
       }.compact
     
       slice_include_file = Ha2itat.quart.
                              path("app/assets/javascript/slice_includes.generated.js")
-      ::File.open(slice_include_file, "w+") { |fp| fp.puts(incs.join("\n")) }
+
+      incs.unshift "// File is overwritten everytime the app starts\n"
+      ::File.open(slice_include_file, "w+") { |fp|
+        fp.puts(incs.join("\n"))
+      }
       Ha2itat.log(" + wrote #{slice_include_file} (#{::File.size(slice_include_file)}kb)")
       toinclude
     end
@@ -58,44 +65,43 @@ module Ha2itat
     attr_accessor :path
     attr_reader   :name, :loaded
 
+    include LogInBlock
+
     def initialize(name)
       @name = name.to_sym
     end
 
     def plugin_root(*args)
-      Ha2itat.plugin_root(@name.to_s, *args)
+      File.expand_path(Ha2itat.plugin_root(@name.to_s, *args))
     end
 
     def =~(othersym)
       @name == othersym
     end
 
-    def try_provider_file
-      file = Ha2itat.plugin_root(name.to_s, "provider.rb")
+    def try_adapter_file
+      file = plugin_root("adapter.rb")
 
        if ::File.exist?(file)
-         Ha2itat.log " + try_provider_file #{file}"
-         require file
+         do_log("loading adapter file #{file}") do
+           require file
+         end
        else
-         Ha2itat.log " X try_provider_file #{file} (not-existing)"
          false
        end
     end
     
     def try_load
-      Ha2itat.log " #{name} plugin try_load..."
-      loaded = 0
       loaded_files = ["%s.rb", "lib/%s.rb"].map do |s|
         if ::File.exist?(file=plugin_root(s % name.to_s))
-          loaded =+ 1
-          Ha2itat.log " + require #{file}"
-          require file
-          file
+          do_log("require plugin #{file}") do
+            require file            
+          end
         else
           nil
         end
       end.compact
-      Ha2itat.log " + required #{loaded} file(s)"
+      loaded_files
     end
 
     def slice
@@ -105,15 +111,17 @@ module Ha2itat
     end
 
     def try_load_slice
-      Ha2itat.log " + trying slice..."
       string_name = name.to_s
       slice_source_file = plugin_root("slice", "#{string_name}.rb")
-      if ::File.exist?(slice_source_file)
-        require slice_source_file
-        Ha2itat.log " + success: #{slice}"
-        return true
+      do_log("loading slice #{slice_source_file}") do
+        if ::File.exist?(slice_source_file)
+          require slice_source_file
+          puts slice
+          true
+        else
+          false
+        end
       end
-      Ha2itat.log " ! failed"
       return false
     end
 
