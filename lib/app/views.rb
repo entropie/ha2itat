@@ -33,10 +33,14 @@ module ViewMethodsCommon
     Hanami.app["routes"].path(routename.to_sym, **hargs)
   end
 
-  # Add your view helpers here
   def nlink(routename, desc = nil, opts = {})
     params = opts[:params] || {  }
-    path = Hanami.app["routes"].path(routename.to_sym, params)
+    if routename.kind_of?(Symbol)
+      path = Hanami.app["routes"].path(routename.to_sym, params)
+    else
+      path = routename
+    end
+
     csscls = active_path(path) ? "active" : ""
 
     if opts[:class]
@@ -44,6 +48,10 @@ module ViewMethodsCommon
     end
     
     "<a class='#{csscls}' href='#{path}'>#{desc || routename}</a>"
+  end
+
+  def rpath(route, params)
+    Hanami.app["routes"].path(route, **params)
   end
 
   def url_with_calculated_version_hash(url)
