@@ -26,7 +26,7 @@ module ViewMethodsCommon
   end
 
   def session_user
-    request_env["warden"].user
+    request_env["warden"].user rescue nil
   end
   
   def path(routename, **hargs)

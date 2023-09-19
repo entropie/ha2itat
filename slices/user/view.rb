@@ -8,11 +8,6 @@ module Ha2itat::Slices::User
 
     config.renderer_options = { escape_html: false }
 
-    expose :request
-    expose :testa do |request|
-      "variable from action from user"
-    end
-
   end
 
 end

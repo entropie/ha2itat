@@ -10,8 +10,7 @@
       %link{href: url_with_calculated_version_hash("/assets/screen-cm.css"), rel: 'stylesheet', type: 'text/css'}
 
   %body#body-backend<
-    %div
-      %h1 backend1
+    .backend-block
       = yield
 
   %script{:src => url_with_calculated_version_hash("/assets/bundle-be.js")}

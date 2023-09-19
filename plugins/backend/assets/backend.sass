@@ -1,5 +1,60 @@
+$gradColor1: #111321
+$gradColor2: #021a18
+
+/* Color Theme Swatches in Hex */
+$c1: #2C3532
+$c2: #0F6466
+$c3: #D8B08C
+$c4: #FFCB9A
+$c5: #D2E8E3
+
+
+
+@mixin clean-ul
+  margin: 0
+  pdding: 0
+  ul
+    list-style-type: none
+  ul, li
+    margin: 0
+    pdding: 0
+    display: inline-block
+  
 body, html
   min-height: 100%
 
 #body-backend
-  background-image: linear-gradient(to bottom, #111321, #0f111f, #0c101d, #080e1b, #050c19, #030d19, #010e18, #000f18, #001219, #001519, #001819, #021a18)
+  background-image: linear-gradient(to bottom, $gradColor1, #0f111f, #0c101d, #080e1b, #050c19, #030d19, #010e18, #000f18, #001219, #001519, #001819, $gradColor2)
+
+
+a
+  color: $c4
+  &:visited
+    color: $c4
+  &:hover
+    color: $c3
+
+
+.module-menu
+  text-align: center
+  @include clean-ul
+  background-color: rgba(black, .1)
+  padding: 1vw
+  
+.backend-block
+  border-top: 1px solid $c3
+  max-width: 1000px
+  margin: 0 auto
+  margin-top: 50px
+
+  h1,h2,h3,h4,h5
+    margin-top: 5vw
+    color: $c2
+
+.backend-listing
+  border: 1px solid silver
+  display: flex
+  flex-wrap: wrap
+  .backend-list-entry
+    color: silver
+    flex-basis: 100%

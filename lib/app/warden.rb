@@ -8,6 +8,8 @@ module WardenCheckToken
         response.redirect_to request.params[:goto]
       end
     end
+  rescue
+    false
   end
 end
 
