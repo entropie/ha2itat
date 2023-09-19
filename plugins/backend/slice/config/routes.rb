@@ -1,5 +1,5 @@
 module Ha2itat::Slices::Backend
   class Routes < Hanami::Routes
-    get "/", to: "test", as: "index"
+    get "/", to: "index", as: "index"
   end
 end
