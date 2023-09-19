@@ -1,5 +1,3 @@
-%h2 userindex
-
 %p
   %span= nlink(:index, "index", :class => :foo)
 
@@ -9,4 +7,5 @@
 
   %span= nlink(:backend_user_logout, "logout")
 
-%p= session_user
+- if session_user
+  %p= session_user.name

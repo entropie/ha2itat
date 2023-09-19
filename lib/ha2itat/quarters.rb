@@ -24,6 +24,10 @@ module Ha2itat
       @plugins ||= ::Ha2itat::Plugins.new(self)
     end
 
+    def path(*args)
+      ::File.join(@path, *args)
+    end
+
     def media_path(*args)
       ::File.join(@path, "media", *args)
     end

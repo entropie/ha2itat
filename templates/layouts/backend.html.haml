@@ -4,12 +4,15 @@
     - if Hanami.env?(:production)
       %link{href: '/assets/screen-cm.css', rel: 'stylesheet', type: 'text/css'}
     %meta{charset: "utf-8"}
-    %title backend
-    %meta{name: "title", content: "Hanami 2.0 Startup Template"}
+    - title = "ze backend yO?"
+    %title= title
+    %meta{name: "title", content: "#{title}"}
+    %link{ href: "/assets/favicon.ico", rel: "shortcut icon", type: "image/x-icon" }
 
   %body#body-backend<
-    %h1 backend
-    = yield
+    %div
+      %h1 backend1
+      = yield
 
 
-  %script{:src => '/assets/bundle-app.js'}
+  %script{:src => '/assets/bundle-be.js'}

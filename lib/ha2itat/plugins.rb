@@ -14,8 +14,9 @@ module Ha2itat
       new_plugin.try_load
       new_plugin.try_provider_file
       self << new_plugin
+      self
     end
-    
+
     def inspect
       "P(%s)" % map{ |plug| plug.name }.join(",")
     end
@@ -33,32 +34,36 @@ module Ha2itat
       Ha2itat.plugin_root(@name.to_s, *args)
     end
 
+    def =~(othersym)
+      @name == othersym
+    end
+
     def try_provider_file
       file = Ha2itat.plugin_root(name.to_s, "provider.rb")
 
        if ::File.exist?(file)
-         Ha2itat.log "   ok  try_provider_file(#{file}) success"
+         Ha2itat.log " + try_provider_file #{file}"
          load file
        else
-         Ha2itat.log "   X   try_provider_file(#{file}) no"
+         Ha2itat.log " X try_provider_file #{file} (not-existing)"
          false
        end
     end
     
     def try_load
-      Ha2itat.log " - try_load(#{name})"
+      Ha2itat.log "plugin try_load(#{name})"
       loaded = 0
       loaded_files = ["%s.rb", "lib/%s.rb"].map do |s|
         if ::File.exist?(file=plugin_root(s % name.to_s))
-          require file
           loaded =+ 1
+          Ha2itat.log " + require #{file}"
+          require file
           file
         else
           nil
         end
       end.compact
-      @loaded = true if loaded > 0
-      Ha2itat.log "   ok  loaded #{loaded} file #{loaded_files.join(",")}"
+      Ha2itat.log " + required #{loaded} file(s)"
     end
 
   end

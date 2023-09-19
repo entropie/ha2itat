@@ -1,7 +1,19 @@
 module ViewMethodsCommon
+  def env?(which)
+    yield if Hanami.env == which.to_sym
+  end
+
+  def request_env(arg = nil)
+    renv = self._context.request.env
+    unless arg
+      renv
+    else
+      renv[arg]
+    end
+  end
+
   def active_path(path)
-    env = self._context.request.env
-    rp = env["REQUEST_URI"]
+    rp = request_env["REQUEST_URI"]
     if rp.include?("/s/") and path.include?("/s/") and rp.include?(path)
       true
     elsif rp =~ /^#{path}\//
@@ -14,11 +26,11 @@ module ViewMethodsCommon
   end
 
   def session_user
-    self._context.request.env["warden"].user
+    request_env["warden"].user
   end
   
-  def path(routename)
-    Hanami.app["routes"].path(routename.to_sym)
+  def path(routename, **hargs)
+    Hanami.app["routes"].path(routename.to_sym, **hargs)
   end
 
   # Add your view helpers here

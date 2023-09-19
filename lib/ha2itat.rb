@@ -56,16 +56,16 @@ module Ha2itat
   end
 
   def self.adapter(arg = nil)
-    @adapter ||= Adapter.new
+    @adapter ||= Adapter.new(Ha2itat.quart)
     ret = @adapter[arg.to_sym] if arg
     return ret if ret
     @adapter
   end
 
   def self.add_adapter(name, clz)
-    Ha2itat.log "adding adapter #{name}"
-    adapter[name.to_sym] = clz.get_default_adapter_initialized
-    clz
+    retcls = adapter[name] = clz.get_default_adapter_initialized
+    Ha2itat.log " + added adapter `#{name}' (#{clz})"
+    adapter
   end
 
   def self.quart_from_path(path)
@@ -82,6 +82,27 @@ module Ha2itat
 
   def log(*args)
     Ha2itat.log(*args)
+  end
+
+  # every loaded plugin might provide a `plugin.js' in its root
+  def self.write_javascript_include_file!
+    toinclude = []
+    Ha2itat.adapter.each_pair do |adapter_ident, adapter|
+      toinclude << adapter_ident
+    end
+
+    incs = toinclude.map(&:to_s).map{ |tinc|
+      file = "vendor/gems/ha2itat/plugins/#{tinc}/plugin.js"
+      next unless::File.exist?( Ha2itat.quart.path(file) )
+      relative_file = "/./#{file}"
+      "import '#{relative_file}';"
+    }.compact
+    
+    slice_include_file = Ha2itat.quart.
+                           path("app/assets/javascript/slice_includes.generated.js")
+    ::File.open(slice_include_file, "w+") { |fp| fp.puts(incs.join("\n")) }
+    Ha2itat.log("wrote #{slice_include_file} (#{::File.size(slice_include_file)}kb)")
+    toinclude
   end
 
 end
