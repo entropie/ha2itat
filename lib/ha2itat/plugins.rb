@@ -107,7 +107,7 @@ module Ha2itat
     def try_load_slice
       Ha2itat.log " + trying slice..."
       string_name = name.to_s
-      slice_source_file = Ha2itat.root("slices", name.to_s, "#{string_name}.rb")
+      slice_source_file = plugin_root("slice", "#{string_name}.rb")
       if ::File.exist?(slice_source_file)
         require slice_source_file
         Ha2itat.log " + success: #{slice}"
