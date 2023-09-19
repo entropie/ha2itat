@@ -1,11 +1,7 @@
 module Ha2itat::Slices::Backend
-
+  
   class Action < Hanami::Action
-    include ActionMethodsCommon
-
-    include WardenCheckToken
-    before :check_token
+    instance_eval(&Ha2itat::CD(:action))
   end
-
 end
 

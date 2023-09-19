@@ -7,6 +7,6 @@ module Ha2itat::Slices::Backend
   class Slice < Ha2itat::Slices::BackendSlice
     config.root = __dir__
 
-    class_eval(&content_security_policy)
+    instance_eval(&Ha2itat::CD(:slice))
   end
 end

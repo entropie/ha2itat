@@ -34,6 +34,26 @@ module Ha2itat
   require_relative "mixins/fileutils"
   require_relative "mixins/log_in_block"
 
+  module ComponentDefinitions
+    Action = proc {
+      include ActionMethodsCommon
+
+      include WardenCheckToken
+      before :check_token
+    }
+
+    Slice = proc {
+      environment(:development) do
+        config.actions.content_security_policy[:script_src] = "'self' 'unsafe-eval'"
+      end
+    }
+  end
+
+  def self.CD(obj)
+    newconst = obj.to_s.capitalize
+    ComponentDefinitions.const_get(newconst)
+  end
+  
 
   require_relative "ha2itat/database"
   require_relative "ha2itat/quarters"
