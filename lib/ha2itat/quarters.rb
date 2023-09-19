@@ -36,5 +36,17 @@ module Ha2itat
       ::File.join(@path, "media", *args)
     end
 
+    def env?(wenv)
+      Hanami.env == wenv
+    end
+
+    def development?
+      env?(:development)
+    end
+
+    def production?
+      env?(:production)
+    end
+
   end
 end
