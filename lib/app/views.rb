@@ -16,7 +16,7 @@ module ViewMethodsCommon
     rp = request_env["REQUEST_URI"]
     if rp.include?("/s/") and path.include?("/s/") and rp.include?(path)
       true
-    elsif rp =~ /^#{path}\//
+    elsif rp =~ /^#{path}$\//
       true
     else
       path == rp
