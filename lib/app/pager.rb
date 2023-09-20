@@ -5,7 +5,7 @@ module Ha2itat
       MAX = 10
 
       def self.max
-        (@max || C[:pager] || MAX).to_i
+        (@max || MAX).to_i
       end
 
       def self.max=(i)
@@ -77,7 +77,7 @@ module Ha2itat
           new(params, list, m)
         end
 
-        def initialize(params, list, m = self.max)
+        def initialize(params, list, m = Helper::Pager.max)
           @limit = m
           @params, @list = params, list
           @page = params[:page] && params[:page].to_i || 1
