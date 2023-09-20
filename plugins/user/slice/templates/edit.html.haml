@@ -1,0 +1,4 @@
+%h2 Edit
+.backend-listing
+  .backend-list-entry
+    = render "user_form", action: path(:backend_user_edit, id: user.id), user: user

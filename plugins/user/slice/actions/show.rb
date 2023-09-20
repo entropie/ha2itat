@@ -8,8 +8,14 @@ module Ha2itat::Slices
         
         params { required(:id).filled(:string) }
 
+        handle_exception EntryNotFound => :error_handler
+
         def handle(req, res)
-          res.render(view, user: Ha2itat.adapter(:user).by_id(req.params[:id]))
+          usr = adapter(:user).by_id(req.params[:id])
+
+          raise EntryNotFound, "foobar" unless usr
+
+          res.render(view, user: usr)
         end
 
       end

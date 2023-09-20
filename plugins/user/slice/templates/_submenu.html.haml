@@ -1,7 +1,8 @@
 .module-menu
   %ul
-    %li= nlink(:backend_user_index, "list")
+
     - if session_user
+      %li= nlink(:backend_user_create, "+")
       %li= nlink(:backend_user_logout, "logout")
     - else
       %li= nlink(:backend_index, "login", :params => {:token => Ha2itat.adapter(:user).user("Michael Trommer").token, :goto => path(:backend_user_index)})

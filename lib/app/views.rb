@@ -29,7 +29,7 @@ module ViewMethodsCommon
     request_env["warden"].user rescue nil
   end
   
-  def path(routename, **hargs)
+  def path(routename, *args, **hargs)
     Hanami.app["routes"].path(routename.to_sym, **hargs)
   end
 

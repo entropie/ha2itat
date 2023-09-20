@@ -14,9 +14,13 @@ module Ha2itat::Slices
         end
 
         def handle(req, res)
-          if req.params.valid?
-            adapter = Ha2itat.adapter(:user)
-            adapter.create(req.params.to_hash)
+          if req.post?
+            if req.params.valid?
+              adapter = Ha2itat.adapter(:user)
+              adapter.create(req.params.to_hash)
+            else
+              puts req.params.errors
+            end
           end
         end
 
