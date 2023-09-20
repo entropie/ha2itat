@@ -107,6 +107,19 @@ module Plugins
       def initialize
       end
 
+      def update(paramhash)
+        no_password_submitted = [paramhash[:password], paramhash[:password1]].compact.size == 0
+
+        if not no_password_submitted
+          paramhash.delete(:password1)
+          instance_variable_set("@password", Password.create(paramhash.delete(:password)))
+        end
+
+        paramhash.each do |k, val|
+          instance_variable_set("@#{k}", val)
+        end
+        self
+      end
 
       def add_to_group(grpcls)
         groups.push(grpcls)
@@ -155,6 +168,8 @@ module Plugins
         param_hash.each do |paramkey, paramval|
           instance_variable_set("@#{paramkey}", paramval)
         end
+        remove_instance_variable(:@password1) rescue nil
+        
         self
       end
 
