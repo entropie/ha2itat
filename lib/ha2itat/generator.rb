@@ -307,6 +307,7 @@ end'
       TEMPLATE = '  module %s
     module Views
       class %s < View
+         instance_eval(&Ha2itat::CD(:view))
       end
     end
   end'
