@@ -36,12 +36,16 @@ Gem::Specification.new do |s|
   s.add_dependency "hanami-validations",  "~> 2.1.0.beta"
   s.add_dependency "hanami-view",         "~> 2.1.0.beta"
   s.add_dependency "hanami-webconsole",   "~> 2.1.0.beta"
+
   s.add_dependency "dry-types",           "~> 1.0", ">= 1.6.1"
 
   s.add_dependency "haml"
   s.add_dependency "warden"
   s.add_dependency 'jwt'
   s.add_dependency 'bcrypt'
+
+  s.add_dependency 'nokogiri'
+
 
   s.add_development_dependency "dotenv"
 

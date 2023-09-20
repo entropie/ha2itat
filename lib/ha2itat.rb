@@ -26,6 +26,14 @@ module Ha2itat
     quart.media_path(*argv)
   end
 
+  module Helper
+    # module Html
+    #   def html(&blk)
+    #     Markaby::Builder.new(&blk)
+    #   end
+    # end
+  end
+  
   # def self.S(path)
   #   File.join("./", path.sub(root, ""))
   # end
@@ -41,7 +49,8 @@ module Ha2itat
   require_relative "ha2itat/plugins"
   require_relative "ha2itat/adapter"
   require_relative "ha2itat/calculated_version_hash"
-
+  
+  require_relative "app/pager"
   require_relative "app/slices"
   require_relative "app/warden"
   require_relative "app/actions"
@@ -53,6 +62,15 @@ module Ha2itat
 
   def self.quart
     @quart
+  end
+
+  def app
+    Hanami.app
+  end
+  module_function :app
+  
+  def self.h(helper)
+    Ha2itat::Helper.const_get( app.inflector.camelize(helper) )
   end
 
   def self.default_adapter=(obj)

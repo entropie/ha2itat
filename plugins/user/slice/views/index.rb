@@ -7,7 +7,7 @@ module Ha2itat::Slices
       class Index < View
 
         expose :user do
-          Ha2itat.adapter(:user).user.sort_by{ |u| u.name }
+          adapter(:user).user.sort_by{ |u| u.name }
         end
 
       end

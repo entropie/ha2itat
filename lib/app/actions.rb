@@ -4,9 +4,14 @@ module ActionMethodsCommon
 
   class EntryNotFound < ArgumentError;  end
 
+  def routes
+    Hanami.app["routes"]
+  end
+
+
   def error_handler(req, res, exception)
     res.status = 400
-    res.body   = "%s: %s" % [exception.class, exception.message]
+    res.body  = "%s:\n %s" % [exception.class, exception.message]
   end
 
   def adapter(adptr)

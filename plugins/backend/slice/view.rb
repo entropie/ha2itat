@@ -7,6 +7,8 @@ module Ha2itat::Slices::Backend
     config.layout = "backend"
 
     config.renderer_options = { escape_html: false }
+
+    instance_eval(&Ha2itat::CD(:view))
   end
 
 end
