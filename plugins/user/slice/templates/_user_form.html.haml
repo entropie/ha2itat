@@ -2,7 +2,7 @@
   %form{:method => :post, :action => action}
     .container
       .columns
-        .column.col-1
+        .column.col-1.d-hide
           - h = true ? {:disabled => :disabled} : {}
           %form-group
             %label.form-label ID
@@ -12,7 +12,7 @@
             %label.form-label Name
             %input.form-input{:type => :text, :value => (user.name rescue ""), :name => :name}
 
-        .column.col-5
+        .column.col-6
           %form-group
             %label.form-label EMail
             %input.form-input{:type => :text, :value => (user.email rescue ""), :name => :email}

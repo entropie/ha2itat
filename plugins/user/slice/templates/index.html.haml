@@ -1,5 +1,8 @@
 %h2 User
 
 .backend-listing
-  - user.each do |usr|
+  - pager.each do |usr|
     = render "user_preview", usr: usr
+  
+
+= pager.navigation
