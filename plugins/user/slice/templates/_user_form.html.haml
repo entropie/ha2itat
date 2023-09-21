@@ -7,26 +7,26 @@
           %form-group
             %label.form-label ID
             %input.form-input{h, :type => :text, :value => (user.id rescue ""), :name => :user_id}
-        .column.col-6
+        .column.col-xl-6.col-md-12
           %form-group
             %label.form-label Name
             %input.form-input{:type => :text, :value => (user.name rescue ""), :name => :name}
 
-        .column.col-6
+        .column.col-xl-6.col-md-12
           %form-group
             %label.form-label EMail
             %input.form-input{:type => :text, :value => (user.email rescue ""), :name => :email}
       .columns
-        .column.col-6
+        .column.col-xl-6.col-md-12
           %form-group
             %label.form-label Password
             %input.form-input{:type => :password, :value => "", :name => :password}
-        .column.col-6
+        .column.col-xl-6.col-md-12
           %form-group
             %label.form-label Password²
             %input.form-input{:type => :password, :value => "", :name => :password1}
 
       .columns.mtop
-        .column.col-12
-          %form-group
+        .column.col-md-12
+          %form-group.p-centered
             %input.form-input{:type => :submit, :value => "Absenden"}
