@@ -1,3 +1,7 @@
 .backend-list-entry
-  = nlink(rpath(:backend_user_show, id: usr.id), usr.name)
-  = nlink(rpath(:backend_user_edit,  id: usr.id), "edit")
+  .backend-list-head
+    = nlink(rpath(:backend_user_show, id: usr.id), usr.name)
+    = nlink(rpath(:backend_user_edit,  id: usr.id), "edit")
+
+  .backend-list-content
+    = usr.email
