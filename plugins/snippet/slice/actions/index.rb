@@ -13,7 +13,7 @@ module Ha2itat::Slices
 
           pager = Pager.new(req.params.to_hash, snippets)
           pager.link_proc = -> (n) { routes.path(:backend_snippet_index, page: n) }
-          res.render(view, pager: pager, foo: pager.current_page)
+          res.render(view, pager: pager)
         end
       end
     end
