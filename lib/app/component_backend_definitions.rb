@@ -10,7 +10,6 @@ module Ha2itat
     Action = proc {
       include ActionMethodsCommon
 
-      include WardenCheckToken
       before :check_token
 
     }

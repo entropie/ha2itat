@@ -11,7 +11,7 @@
                 %input.form-input{:value => snippet.ident, :disabled => :disabled, :style => "width:100%"}
               - else
                 %input.form-input{:value => "", :name => :ident, :style => "width:100%"}
-              %select.form-select.cm-mode{:type => :select, :name => :extension}
+              %select.form-select.cm-mode.d-none{:type => :select, :name => :extension}
                 %option{:value => :haml, "selected" => "selected"} HAML
                 %option{:value => :markdown} Markdown
 

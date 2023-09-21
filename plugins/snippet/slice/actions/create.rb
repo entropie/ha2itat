@@ -18,7 +18,8 @@ module Ha2itat::Slices
               ext = req.params[:extension].to_sym != :haml ? :markdown : :haml
 
               adapter = Ha2itat.adapter(:snippet)
-              adapter.create(params[:ident], params[:content], ext)
+              snippet = adapter.create(params[:ident], params[:content], ext)
+              res.redirect_to path(:backend_snippet_show, slug: snippet.slug)
             else
               puts req.params.errors
             end
