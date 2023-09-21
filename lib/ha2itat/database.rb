@@ -9,6 +9,8 @@ module Ha2itat
 
     class EntryNotValid < DataBaseError; end     
 
+    DEFAULT_PERMITTED_CLASSES = []
+
     def self.get_random_id(chrs = 32)
       ary = [*'a'..'z', *'A'..'Z', *0..9].shuffle
       enum = ary.permutation(chrs)
@@ -31,6 +33,15 @@ module Ha2itat
         else
           puts ">>> #{msg}"
         end
+      end
+
+      def permitted_classes
+        @permitted_classes || PERMITTED_CLASSES
+      end
+
+      def yaml_load(file:)
+        raise "not file" unless file
+        YAML::load_file(file, permitted_classes: permitted_classes)
       end
     
       def setup

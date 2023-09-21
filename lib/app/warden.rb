@@ -2,14 +2,23 @@ require "warden"
 
 module WardenCheckToken
   def check_token(request, response)
+    # p request.params[:token]
+    # p request.env["warden"].user
+
+    goto = proc{|path| response.redirect_to path }
+
+    return false if not request.params[:token] or request.env["warden"].user
+
     if ::Warden::Strategies[:token]
-      a = request.env["warden"].authenticate(:token)
-      if a and request.params[:goto]
-        response.redirect_to request.params[:goto]
+      user_authenticated = request.env["warden"].authenticate(:token)
+      if user_authenticated and request.params[:goto]
+        goto.call(request.params[:goto])
+      else
+        goto.call(path(:backend_index))
       end
     end
-  rescue
-    false
+  # rescue
+  #   false
   end
 end
 

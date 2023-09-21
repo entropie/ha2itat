@@ -4,7 +4,7 @@ module Ha2itat::Slices
       class Login < Action
 
         def handle(req, res)
-          # res.render(view)
+          res.render(view)
         end
       end
     end

@@ -26,6 +26,10 @@ module Plugins
             @path = path
           end
 
+          def permitted_classes
+            [Plugins::User::User, BCrypt::Password]
+          end
+
           def path(*args)
             ::File.join(@path, *args)
           end
@@ -53,12 +57,14 @@ module Plugins
           end
 
           def user(username = nil)
+            permitted_classes = [Plugins::User::User, BCrypt::Password]
             if username
               fn = User.filename(username)
-              
-              return YAML::load_file(repository_path(fn))
+              return yaml_load(file: repository_path(fn))
             end
-            user_files.map{|uf| YAML::load_file(uf, permitted_classes: [Plugins::User::User, BCrypt::Password])}
+            user_files.map{|uf|
+              yaml_load(file: uf)
+            }
           end
 
           def by_id(id)

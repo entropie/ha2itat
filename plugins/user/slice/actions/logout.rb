@@ -8,7 +8,7 @@ module Ha2itat::Slices
 
         def handle(req, res)
           req.env["warden"].logout rescue nil
-          res.redirect_to(routes.path(:backend_user_index))
+          res.redirect_to(routes.path(:index))
         end
 
       end

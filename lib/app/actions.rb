@@ -1,6 +1,5 @@
 module ActionMethodsCommon
   include WardenCheckToken
-  # before :check_token
 
   class EntryNotFound < ArgumentError;  end
 
@@ -12,6 +11,9 @@ module ActionMethodsCommon
     routes.path(...)
   end
 
+  def session_user(req)
+    req.env["warden"].user
+  end
 
   def error_handler(req, res, exception)
     res.status = 400
@@ -26,5 +28,13 @@ module ActionMethodsCommon
   def t(*args)
     %Q(<span class='T-error'>%s</span>) % [args.join("-")]
   end
-  
+
+  def refuse_unless_auhtenticated!(req, res)
+    if req.env["REQUEST_PATH"] != path(:backend_user_login)
+      unless req.env["warden"].user
+        res.redirect_to path(:backend_user_login)
+        halt 401
+      end
+    end
+  end
 end
