@@ -41,7 +41,9 @@ module Ha2itat
 
       def yaml_load(file:)
         raise "not file" unless file
-        YAML::load_file(file, permitted_classes: permitted_classes)
+        if ::File.exist?(file)
+          return YAML::load_file(file, permitted_classes: permitted_classes)
+        end
       end
     
       def setup

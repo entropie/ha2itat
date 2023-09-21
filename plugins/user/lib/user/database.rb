@@ -57,18 +57,23 @@ module Plugins
           end
 
           def user(username = nil)
-            permitted_classes = [Plugins::User::User, BCrypt::Password]
             if username
               fn = User.filename(username)
-              return yaml_load(file: repository_path(fn))
+              retuser = yaml_load(file: repository_path(fn))
+              return retuser
+            else
+              user_files.map{|uf|
+                yaml_load(file: uf)
+              }
             end
-            user_files.map{|uf|
-              yaml_load(file: uf)
-            }
           end
 
           def by_id(id)
             user.select{|u| u == id }.first
+          end
+
+          def by_name(name)
+            user.select{|u| u.name == name}.first
           end
 
           def by_token(token)

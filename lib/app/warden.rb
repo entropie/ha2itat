@@ -30,8 +30,13 @@ Warden::Strategies.add(:password) do
   end
   
   def authenticate!
-    u = Ha2itat.adapter(:user).user(params['username']).authenticate(params['password'])
-    u.nil? ? fail!("Could not log in") : success!(u)
+    user = Ha2itat.adapter(:user).by_name(params['name'])
+    return false unless user
+    if u = user.authenticate(params['password'])
+      success!(u)
+    else
+      fail("nope")
+    end
   rescue
     p $!
     false
