@@ -1,4 +1,5 @@
 require "jwt"
+require "bcrypt"
 
 module Plugins
 
@@ -57,7 +58,7 @@ module Plugins
               
               return YAML::load_file(repository_path(fn))
             end
-            user_files.map{|uf| YAML::load_file(uf) }
+            user_files.map{|uf| YAML::load_file(uf, permitted_classes: [Plugins::User::User, BCrypt::Password])}
           end
 
           def by_id(id)

@@ -7,9 +7,6 @@ module Ha2itat::Slices
       class Index < View
 
         expose :pager
-
-        expose :foo
-
         expose :snippets
 
       end

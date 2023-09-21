@@ -25,11 +25,10 @@ module Ha2itat::Slices
             end
             user.update(new_user_params)
             adapter(:user).store(user)
-
+            res.redirect_to path(:backend_user_edit, id: user.id)
           end
 
           res.render(view, user: user)
-
         end
       end
     end

@@ -6,8 +6,7 @@ module Plugins
     DEFAULT_ADAPTER = :File
 
 
-
-    
+   
     # module SnippetsViewMethods
     #   def Snip(arg, env = nil)
     #     Habitat.adapter(:snippets).select(arg, env || locals[:params])
@@ -28,7 +27,7 @@ module Plugins
 
 
     def self.all
-      Habitat.adapter(:snippets).snippets
+      Habitat.adapter(:snippet).snippets
     end
 
     module SnippetCreater
@@ -100,6 +99,12 @@ module Plugins
       def css_class
         self.class.to_s.split("::").last.downcase
       end
+
+      def page?
+        false
+      end
+
+      def slug()= ident
     end
 
     
@@ -200,6 +205,10 @@ module Plugins
     end
 
     class PageSnippet < HAMLSnippet
+      def page?
+        true
+      end
+
       def filename
         super
       end
@@ -210,7 +219,7 @@ module Plugins
 
       def children
         if parent?
-          @children ||= Ha2itat.adapter(:snippets).grep("#{ident}---")
+          @children ||= Ha2itat.adapter(:snippet).grep("#{ident}---")
         end
       end
     end

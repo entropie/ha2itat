@@ -13,13 +13,16 @@ module Ha2itat::Slices
         def handle(req, res)
           params = req.params.to_hash
 
-          if req.params.valid?
-            ext = req.params[:extension].to_sym != :haml ? :markdown : :haml
+          if req.post?
+            if req.params.valid?
+              ext = req.params[:extension].to_sym != :haml ? :markdown : :haml
 
-            adapter = Ha2itat.adapter(:snippet)
-            adapter.create(params[:ident], params[:content], ext)
-          else
-            puts req.params.errors
+              adapter = Ha2itat.adapter(:snippet)
+              adapter.create(params[:ident], params[:content], ext)
+            else
+              puts req.params.errors
+            end
+
           end
           #res.render(view)
         end

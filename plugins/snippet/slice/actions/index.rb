@@ -9,9 +9,9 @@ module Ha2itat::Slices
         include Ha2itat.h(:pager)
 
         def handle(req, res)
-          snippets = Ha2itat.adapter(:snippet).snippets.to_a
+          snippets = Ha2itat.adapter(:snippet).toplevel_snippets
 
-          pager = Pager.new(req.params.to_hash, snippets, 10)
+          pager = Pager.new(req.params.to_hash, snippets)
           pager.link_proc = -> (n) { routes.path(:backend_snippet_index, page: n) }
           res.render(view, pager: pager, foo: pager.current_page)
         end

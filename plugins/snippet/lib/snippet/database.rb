@@ -86,6 +86,16 @@ module Plugins
             ret
           end
 
+          def toplevel_snippets
+            snippets.select{ |s|
+              if s.page?
+                s.parent?
+              else
+                true
+              end
+            }
+          end
+
           def page(obj, sub = [], env = nil)
             subpages = ""
             subpages = sub.map{|sp| "---#{sp}" unless sp.to_s.empty? } 

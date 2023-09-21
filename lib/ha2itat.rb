@@ -1,10 +1,10 @@
+
 require "pathname"
 require "pp"
 
 module Ha2itat
 
   Source = File.expand_path(File.join(File.dirname( File.expand_path(__FILE__))))
-
 
   def Source.join(*fragments)
     File.join(Source, *fragments)
@@ -88,8 +88,11 @@ module Ha2itat
 
   def self.adapter(arg = nil)
     @adapter ||= Adapter.new(Ha2itat.quart)
-    ret = @adapter[arg.to_sym] if arg
-    return ret if ret
+    if arg
+      ret = @adapter[arg.to_sym]
+      raise "adapter #{arg} requested but not found" unless ret
+      return ret
+    end
     @adapter
   end
 

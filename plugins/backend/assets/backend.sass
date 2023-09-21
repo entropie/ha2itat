@@ -1,18 +1,4 @@
-$gradColor1: #111321
-$gradColor2: #021a18
-
-/* Color Theme Swatches in Hex */
-$c1: #2C3532
-$c2: #0F6466
-$c3: #D8B08C
-$c4: #FFCB9A
-$c5: #D2E8E3
-
-
-$textColor: $c5
-
-
-$breakPoint: 980px
+@import "./variables"
 
 @mixin mobile()
   @media only screen and (max-width: $breakPoint)
@@ -41,6 +27,18 @@ body, html
   background-image: linear-gradient(to bottom, $gradColor1, #0f111f, #0c101d, #080e1b, #050c19, #030d19, #010e18, #000f18, #001219, #001519, #001819, $gradColor2)
 
 
+.CodeMirror
+  height: auto !important
+  border: 1px solid $c2
+  min-height: 60px
+.CodeMirror-scroll
+  background-color: $lighterGradientColor
+
+
+code
+  background-color: $lighterGradientColor
+
+
 a
   color: $c4
   &:visited
@@ -57,6 +55,9 @@ a
   border-top: 5px solid rgba($c2, .1)
   flex-basis: 100%
   order: 2
+  h1,h2,h3,h4,h5
+    small
+      color: $c1
 
 .module-menu
   font-size: min(2.5vw, 25px)
@@ -112,7 +113,7 @@ a
   justify-content: space-between
   .backend-list-entry
     padding: 5px
-    border: 1px solid rgba($c1, .1)
+    border: 1px solid rgba($c1, .5)
     color: silver
     flex-basis: 100%
     margin: 5px
@@ -123,6 +124,31 @@ a
     // only one element: stretch max width
     &:first-child:nth-last-child(1)
       flex-basis: 100%
+    .backend-list-list-entry
+      border-left: 5px solid rgba($c1, 1)
+
+
+
+  .backend-list-head
+    font-size: 1.5em
+    display: flex
+    justify-content: space-between
+
+  .backend-list-content
+    background-color: rgba($c1, 1)
+    &.preview
+      position: relative
+      max-height: 200px
+      overflow: hidden
+      &:after
+        content: ""
+        position: absolute
+        top: 100px
+        left: 0
+        height: 100px
+        width: 100%
+        background: linear-gradient(rgba(0,0,0,0), $c1)
+
 
 .backend-page
   background-color: rgba(black, .1)

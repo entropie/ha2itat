@@ -1,1 +1,4 @@
-hello from snippets::edit
+%h2 Edit
+
+.backend-page
+  = render "form", snippet: snippet, action: path(:backend_snippet_edit, slug: snippet.slug)

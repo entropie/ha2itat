@@ -1,8 +1,14 @@
-%h2 Foo
+%h2
+  Snippets
+  %small 'static' pages and short texts
 .backend-listing
   - pager.each do |ele|
     .backend-list-entry
-      %a{href: path(:backend_snippet_show, id: ele.ident)}
-        %strong= ele.ident
-      = ele.render
+      = render "preview", snippet: ele
+
+      - if ele.page?
+        - if not ele.children.empty?
+          .backend-list-list-entry
+            - ele.children.each do |child_ele|
+              = render "preview", snippet: child_ele
 = pager.navigation

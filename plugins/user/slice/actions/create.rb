@@ -17,7 +17,8 @@ module Ha2itat::Slices
           if req.post?
             if req.params.valid?
               adapter = Ha2itat.adapter(:user)
-              adapter.create(req.params.to_hash)
+              newuser = adapter.create(req.params.to_hash)
+              res.redirect_to path(:backend_user_show, id: newuser.id)
             else
               puts req.params.errors
             end

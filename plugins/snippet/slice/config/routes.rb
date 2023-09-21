@@ -5,11 +5,11 @@ module Ha2itat::Slices::Snippet
     get "/create",     to: "create"
     post "/create",    to: "create",  as: :create
 
-    get "/edit/:id",   to: "edit"
-    post "/edit/:id",  to: "edit",    as: :edit
+    get "/edit/:slug", to: "edit"
+    post "/edit/:slug",to: "edit",    as: :edit
 
 
-    get "/show/:id",   to: "show",    as: :show
+    get "/show/:slug",   to: "show",    as: :show
 
 
   end

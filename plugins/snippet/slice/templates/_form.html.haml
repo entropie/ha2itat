@@ -2,7 +2,7 @@
   %form{:method => :post, :action => action}
     .container
       .columns
-        .column.col-6
+        .column.col-xl-6.col-md-12
           .form-group
             .input-group
               %span.input-group-addon
@@ -15,7 +15,7 @@
                 %option{:value => :haml, "selected" => "selected"} HAML
                 %option{:value => :markdown} Markdown
 
-        .column.col-6
+        .column.col-xl-6.col-md-12
           = t("snippet-help-ident")
         .column.col-12.top-seperator
           .form-group

@@ -8,6 +8,10 @@ module ActionMethodsCommon
     Hanami.app["routes"]
   end
 
+  def path(...)
+    routes.path(...)
+  end
+
 
   def error_handler(req, res, exception)
     res.status = 400
