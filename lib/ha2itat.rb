@@ -27,6 +27,11 @@ module Ha2itat
   end
 
   module Helper
+    module T
+      def t(*args)
+        args.join("-").to_s
+      end
+    end
     # module Html
     #   def html(&blk)
     #     Markaby::Builder.new(&blk)

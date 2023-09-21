@@ -17,4 +17,10 @@ module ActionMethodsCommon
   def adapter(adptr)
     Ha2itat.adapter(adptr)
   end
+
+  # Fixme:
+  def t(*args)
+    %Q(<span class='T-error'>%s</span>) % [args.join("-")]
+  end
+  
 end

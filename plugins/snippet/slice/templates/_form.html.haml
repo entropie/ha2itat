@@ -1,0 +1,25 @@
+#BE-form
+  %form{:method => :post, :action => action}
+    .container
+      .columns
+        .column.col-6
+          .form-group
+            .input-group
+              %span.input-group-addon
+                Ident
+              - if snippet
+                %input.form-input{:value => snippet.ident, :disabled => :disabled, :style => "width:100%"}
+              - else
+                %input.form-input{:value => "", :name => :ident, :style => "width:100%"}
+              %select.form-select.cm-mode{:type => :select, :name => :extension}
+                %option{:value => :haml, "selected" => "selected"} HAML
+                %option{:value => :markdown} Markdown
+
+        .column.col-6
+          = t("snippet-help-ident")
+        .column.col-12.top-seperator
+          .form-group
+            %textarea#snippet-form.form-input.cm-form{:rows => 15, :name => :content, "data-codemirror-mode" => "text/x-haml"}= (snippet && snippet.content)
+
+        .column.col-12.text-center.top-seperator
+          %input.btn.btn-primary{:type => :submit, :value => "Absenden"}    

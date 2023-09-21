@@ -12,6 +12,7 @@ module Ha2itat
 
       include WardenCheckToken
       before :check_token
+
     }
 
     Slice = proc {
