@@ -28,11 +28,32 @@ module ViewMethodsCommon
   def session_user
     request_env["warden"].user rescue nil
   end
+
+  def snippet_page_path(*args)
+    ([ "/s" ] + args).join("/")
+  end
   
   def path(routename, *args, **hargs)
     Hanami.app["routes"].path(routename.to_sym, **hargs)
   end
 
+  # link to a snippet page
+  def slink(*args, text: nil, **opts)
+    target_path = snippet_page_path(*args)
+
+    csscls = active_path(target_path) ? "active" : ""
+    if ocss = opts.delete(:class)
+      csscls = "#{csscls} #{ocss}"
+    end
+    parsed_opts = opts.inject("") {|opt, m|
+      opt << "#{m.first}='#{m.last}' "
+    }
+    "<a class='snippet-link #{csscls}' href='#{target_path}'#{parsed_opts}>#{text || args.last}</a>"
+  end
+  alias :sl :slink
+  
+
+  # link to a route
   def nlink(routename, desc = nil, opts = {})
     params = opts[:params] || {  }
     if routename.kind_of?(Symbol)
@@ -42,13 +63,16 @@ module ViewMethodsCommon
     end
 
     csscls = active_path(path) ? "active" : ""
-
-    if opts[:class]
-      csscls = "#{csscls} #{opts[:class]}"
+    if ocss = opts.delete(:class)
+      csscls = "#{csscls} #{ocss}"
     end
-    
-    "<a class='#{csscls}' href='#{path}'>#{desc || routename}</a>"
+    parsed_opts = opts.inject("") {|opt, m|
+      opt << "#{m.first}='#{m.last}' "
+    }
+
+    "<a class='#{csscls}' href='#{path}'#{parsed_opts}>#{desc || routename}</a>"
   end
+  alias :a :nlink
 
   def rpath(route, params)
     Hanami.app["routes"].path(route, **params)
