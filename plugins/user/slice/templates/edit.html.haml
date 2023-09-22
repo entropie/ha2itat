@@ -1,3 +1,3 @@
-%h2 Edit
+%h2= t.be.topics.user.edit
 .backend-page
   = render "user_form", action: path(:backend_user_edit, id: user.id), user: user

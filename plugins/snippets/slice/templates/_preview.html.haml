@@ -3,8 +3,8 @@
     %a{href: path(:backend_snippets_show, slug: snippet.slug)}
       %strong= snippet.ident
 
-    %a{href: path(:backend_snippets_edit, slug: snippet.slug)}
-      edit
+    %a{href: path(:backend_snippets_edit, slug: snippet.slug)}= t.be.links.snippets.edit
+
 
   .backend-list-content.preview
     %code

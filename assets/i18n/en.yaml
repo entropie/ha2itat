@@ -1,3 +1,34 @@
+form:
+  submit: Submit
+
+be:
+  menu:
+    frontend: Frontend
+    user: User
+    snippets: Contents
+  links:
+    user:
+      create: add
+      logout: logout
+      edit: edit
+    snippets:
+      add: add
+      edit: edit
+
+  topics:
+    snippets:
+      show: "Contents <small>static' pages and text snippets</small>"
+      edit: Edit
+    user:
+      index: User
+      create: Add User
+      edit: Edit User
+        
+  help:
+    snippet:
+      ident: "<strong>Uniue</strong> identifier for snippet"
+  
+
 
 robots: !!pl
   0: No robots

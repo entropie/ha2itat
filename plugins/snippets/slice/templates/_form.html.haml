@@ -16,10 +16,10 @@
                 %option{:value => :markdown} Markdown
 
         .column.col-xl-6.col-md-12
-          = t("snippet-help-ident")
+          = t.be.help.snippet.ident
         .column.col-12.top-seperator
           .form-group
             %textarea#snippet-form.form-input.cm-form{:rows => 15, :name => :content, "data-codemirror-mode" => "text/x-haml"}= (snippet && snippet.content)
 
         .column.col-12.text-center.top-seperator
-          %input.btn.btn-primary{:type => :submit, :value => "Absenden"}    
+          %input.btn.btn-primary{:type => :submit, :value => t.form.submit}    

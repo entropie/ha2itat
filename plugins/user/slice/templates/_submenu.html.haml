@@ -1,6 +1,6 @@
-.module-menu
+.module-menu.submenu
   %ul
-    %li= nlink(:backend_user_create, "+")
-    %li= nlink(:backend_user_logout, "logout")
+    %li= nlink(:backend_user_create, t.be.links.user.create)
+    %li= nlink(:backend_user_logout, t.be.links.user.logout)
 
 

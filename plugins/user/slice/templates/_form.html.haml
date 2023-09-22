@@ -1,6 +1,6 @@
 .login-form
   %form{:method => :post, :action => path(:backend_user_login)}
-    %input.form-input{value: "Michael Trommer", name: :name}
-    %input.form-input{value: "moep187", type: :password, name: "password"}
-    %input.btn.btn-primary.mtop{:type => :submit, :value => "Absenden"}
+    %input.form-input{value: "", name: :name}
+    %input.form-input{value: "", type: :password, name: "password"}
+    %input.btn.btn-primary.mtop{:type => :submit, :value => t.form.submit}
 
