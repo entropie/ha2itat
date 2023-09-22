@@ -29,9 +29,9 @@ module Ha2itat
   module Helper
   end
   
-  # def self.S(path)
-  #   File.join("./", path.sub(root, ""))
-  # end
+  def self.S(path)
+    File.join("./", path.sub(root, ""))
+  end
 
   require_relative "mixins/fileutils"
   require_relative "mixins/log_in_block"
