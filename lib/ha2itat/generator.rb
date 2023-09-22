@@ -291,6 +291,7 @@ end'
         collect_component(SliceAction.new(mod: name, clz: :index))
         collect_component(SliceTemplate.new(mod: name, clz: :index))
         collect_component(SliceTemplateSubmenu.new(mod: name, clz: :index))
+        collect_component(SliceHelper.new(mod: name))
 
         write_collection_to(::File.join(target_path, "slice"))
       end
