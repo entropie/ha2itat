@@ -8,7 +8,7 @@
         edit
 
 .snippet-content
-  = snippet.render
+  = snippet.render(self)
 
 - if snippet.page?
   - if not (snippet.children.empty? rescue true)
