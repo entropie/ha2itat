@@ -1,16 +1,11 @@
 module ViewMethodsCommon
 
   def snip(what)
-    #ret = Plugins::Snippets::NotExistingSnippet.new(what).render(self)
     snippet = Ha2itat.adapter(:snippets).select(what)
     snippet.render(self)
   end
 
 end
-
-
-require "haml"
-Haml::Template.options[:escape_html] = false
 
 module Plugins
 
@@ -99,9 +94,6 @@ module Plugins
       def slug()= ident
     end
 
-    
-    
-
     class Env
       attr_reader :locals
 
@@ -144,8 +136,8 @@ module Plugins
 
       def render(env = nil)
         env ||= Env.new
-        ret = "%s" % Haml::Template.new { to_s }.render(env)
-        ret
+        haml_renderer = Haml::Template.new(escape_html: false) { to_s }
+        "%s" % haml_renderer.render(env)
       rescue
         "<div class='warning'>nope: something went wrong while processing <code>#{ident}</code>: <code>#{$!.class}</code></div>"
       end
