@@ -7,8 +7,8 @@ module Ha2itat::Slices
       class Index < Action
 
         def handle(req, res)
-          p t.robots(3)
-          p t.be.bar.keke
+          # p t.robots(3)
+          # p t.be.bar.keke
           res.render(view)
         end
       end

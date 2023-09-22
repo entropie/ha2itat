@@ -1,5 +1,5 @@
-require "r18n-core"
 require "cgi"
+require "r18n-core"
 
 module Ha2itat
 

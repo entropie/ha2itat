@@ -57,6 +57,9 @@ module Ha2itat
       }
       Ha2itat.log(" + wrote #{slice_include_file} (#{::File.size(slice_include_file)}kb)")
       toinclude
+    rescue
+      
+      puts :nope
     end
 
   end

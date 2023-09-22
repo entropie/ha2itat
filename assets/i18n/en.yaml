@@ -6,6 +6,7 @@ be:
     frontend: Frontend
     user: User
     snippets: Contents
+    booking: Calendar
   links:
     user:
       create: add

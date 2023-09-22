@@ -138,8 +138,8 @@ module Plugins
         env ||= Env.new
         haml_renderer = Haml::Template.new(escape_html: false) { to_s }
         "%s" % haml_renderer.render(env)
-      rescue
-        "<div class='warning'>nope: something went wrong while processing <code>#{ident}</code>: <code>#{$!.class}</code></div>"
+        # rescue
+        # "<div class='warning'>nope: something went wrong while processing <code>#{ident}</code>: <code>#{$!.class}</code></div>"
       end
     end
 
