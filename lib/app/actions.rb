@@ -24,11 +24,6 @@ module ActionMethodsCommon
     Ha2itat.adapter(adptr)
   end
 
-  # Fixme:
-  def t(*args)
-    %Q(<span class='T-error'>%s</span>) % [args.join("-")]
-  end
-
   def refuse_unless_auhtenticated!(req, res)
     if req.env["REQUEST_PATH"] != path(:backend_user_login)
       unless req.env["warden"].user

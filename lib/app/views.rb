@@ -57,5 +57,11 @@ module ViewMethodsCommon
   def url_with_calculated_version_hash(url)
     vhash = url + "?hash=" + Ha2itat.calculated_version_hash
   end
+
+
+  # Fixme:
+  def t(*args)
+    %Q(<span class='T-error'>%s</span>) % [args.join("-")]
+  end
 end
 

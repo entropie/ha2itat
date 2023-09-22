@@ -21,7 +21,7 @@ module Ha2itat
     }
 
     View = proc {
-      include ActionMethodsCommon
+      include ViewMethodsCommon
     }
   end
 
