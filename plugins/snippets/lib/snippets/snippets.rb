@@ -1,30 +1,22 @@
-# coding: utf-8
+module ViewMethodsCommon
+
+  def snip(what)
+    #ret = Plugins::Snippets::NotExistingSnippet.new(what).render(self)
+    snippet = Ha2itat.adapter(:snippets).select(what)
+    snippet.render(self)
+  end
+
+end
+
+
+require "haml"
+Haml::Template.options[:escape_html] = false
+
 module Plugins
 
   module Snippets
 
     DEFAULT_ADAPTER = :File
-
-
-   
-    # module SnippetsViewMethods
-    #   def Snip(arg, env = nil)
-    #     Habitat.adapter(:snippets).select(arg, env || locals[:params])
-    #   end
-
-    #   def scrollReveal(enter: "bottom", fvactor: 0.3, scale: "up 20%")
-    #     {"data-sr" => "enter %s, vFactor %s, scale %s" % [enter, fvactor, scale]}
-    #   end
-
-
-    # end
-
-    # module SnippetsControllerMethods
-    #   def snippet_page(arg, lparams = [], env = nil)
-    #     Habitat.adapter(:snippets).page(arg, lparams, env)      
-    #   end
-    # end
-
 
     def self.all
       Habitat.adapter(:snippets).snippets
@@ -113,48 +105,10 @@ module Plugins
     class Env
       attr_reader :locals
 
-      def initialize(locals)
-        # @locals = locals
+      include ViewMethodsCommon
 
-        # if Habitat.quart.plugins.activated?(:flickr)
-        #   extend(Flickr)
-        # end
-
-        # if Habitat.quart.plugins.activated?(:galleries)
-        #   extend(Galleries::GalleriesAccessMethods)
-        # end
-
-        # extend SnippetsViewMethods
+      def initialize
       end
-
-      def routes
-        Hanami.app.routes
-      end
-
-      # # FIXME:
-      def Snip(arg)
-        ret = Ha2itat.adapter(:snippets).snippets[arg.to_sym]
-        ret = NotExistingSnippet.new(arg) unless ret
-        ret
-      end
-
-      def P(*args)
-        routes.page_path(*args)
-      end
-
-      # def accept_cookies?
-      #   locals.accept_cookies
-      # end
-
-      def LINK(path, desc)
-        "<a class='#{active_path(path) ? "active" : ""}' href='#{path}'>#{desc}</a>"
-      end
-
-      def active_path_li(path, desc)
-        "<li class='#{(active_path(path) ? "active" : "")}'>#{LINK(path, desc)}</li>"
-      end
-
-      alias :al :active_path_li
     end
 
 
@@ -188,19 +142,12 @@ module Plugins
         super("haml")
       end
 
-      def render(lcs = {})
-        locals = lcs
-        if env
-          if env.kind_of?(Hash)
-            locals = env.dup
-          elsif env.respond_to?(:env)
-            locals[:request_path] = env.env['REQUEST_PATH']
-          end
-        end
-        ret = "%s" % Haml::Template.new { to_s }.render #(Env.new(locals.merge(lcs)), locals)
+      def render(env = nil)
+        env ||= Env.new
+        ret = "%s" % Haml::Template.new { to_s }.render(env)
         ret
-      # rescue
-      #   "nope: something went wrong while processing #{ident}: '#{$!}'"
+      rescue
+        "<div class='warning'>nope: something went wrong while processing <code>#{ident}</code>: <code>#{$!.class}</code></div>"
       end
     end
 
