@@ -77,6 +77,15 @@ module Ha2itat
           end
         end
 
+        class SliceHelper < Dry::CLI::Command
+          argument :mod, desc: "modulename", require: true
+          desc "generates slice helper file"
+
+          def call(mod:, **options)
+            ::Ha2itat::Generator::SliceHelper.new(mod: mod).write_to
+          end
+        end        
+
         class SliceSourceFile < Dry::CLI::Command
           argument :name, desc: "slicename", require: true
           desc "generates slice source file"
@@ -96,6 +105,7 @@ module Ha2itat
         prefix.register "action",   Generate::SliceAction
         prefix.register "view",     Generate::SliceView
         prefix.register "template", Generate::SliceTemplate
+        prefix.register "helper",   Generate::SliceHelper
 
         prefix.register "slicerb",  Generate::SliceSourceFile
       end
@@ -302,6 +312,23 @@ end'
         ::File.join("actions", "#{clz}.rb")
       end
     end
+
+
+    class SliceHelper < ComponentFileGen
+      TEMPLATE = '
+  module %s
+    module Views
+      module Helpers
+        instance_eval(&Ha2itat::CD(:view))
+      end
+    end
+  end'
+
+      def filename
+        ::File.join("views/helpers.rb")
+      end
+    end
+
  
     class SliceView < ComponentFileGen
       TEMPLATE = '  module %s
