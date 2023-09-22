@@ -1,0 +1,5 @@
+foo: bar
+robots: !!pl
+  0: Kein Roboter
+  1: Ein Roboter
+  n: "%1 Roboter"

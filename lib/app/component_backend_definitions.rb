@@ -9,19 +9,24 @@ module Ha2itat
 
     Action = proc {
       include ActionMethodsCommon
+      include Helper::Translation
 
       before :check_token
       before :refuse_unless_auhtenticated!
+
     }
 
     Slice = proc {
       environment(:development) do
         config.actions.content_security_policy[:script_src] = "'self' 'unsafe-eval'"
       end
+
     }
 
     View = proc {
       include ViewMethodsCommon
+      include Helper::Translation
+
     }
   end
 

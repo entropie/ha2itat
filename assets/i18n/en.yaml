@@ -1,0 +1,5 @@
+
+robots: !!pl
+  0: No robots
+  1: One Robot
+  n: "%1 Robots"

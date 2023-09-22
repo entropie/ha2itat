@@ -58,10 +58,5 @@ module ViewMethodsCommon
     vhash = url + "?hash=" + Ha2itat.calculated_version_hash
   end
 
-
-  # Fixme:
-  def t(*args)
-    %Q(<span class='T-error'>%s</span>) % [args.join("-")]
-  end
 end
 

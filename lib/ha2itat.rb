@@ -27,22 +27,11 @@ module Ha2itat
   end
 
   module Helper
-    module T
-      def t(*args)
-        args.join("-").to_s
-      end
-    end
-    # module Html
-    #   def html(&blk)
-    #     Markaby::Builder.new(&blk)
-    #   end
-    # end
   end
   
   # def self.S(path)
   #   File.join("./", path.sub(root, ""))
   # end
-
 
   require_relative "mixins/fileutils"
   require_relative "mixins/log_in_block"
@@ -54,7 +43,9 @@ module Ha2itat
   require_relative "ha2itat/plugins"
   require_relative "ha2itat/adapter"
   require_relative "ha2itat/calculated_version_hash"
-  
+
+  require_relative "app/i18n"
+
   require_relative "app/pager"
   require_relative "app/slices"
   require_relative "app/warden"
@@ -122,3 +113,5 @@ module Ha2itat
 end
 
 Ha2itat.quart = Ha2itat.quart_from_path(Dir.pwd)
+Ha2itat::I18n.init
+
