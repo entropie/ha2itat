@@ -1,0 +1,12 @@
+.snippet-preview{class: snippet.css_class}
+  .backend-list-head
+    %a{href: path(:backend_snippets_show, slug: snippet.slug)}
+      %strong= snippet.ident
+
+    %a{href: path(:backend_snippets_edit, slug: snippet.slug)}
+      edit
+
+  .backend-list-content.preview
+    %code
+      = snippet.content
+  

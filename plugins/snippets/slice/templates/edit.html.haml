@@ -1,0 +1,13 @@
+%h2
+  Snippet Edit
+  %small
+    %code
+      %a{href: path(:backend_snippets_show, slug: snippet.slug)}
+        = snippet.ident
+
+      
+
+
+
+.backend-page
+  = render "form", snippet: snippet, action: path(:backend_snippets_edit, slug: snippet.slug)
