@@ -114,7 +114,7 @@ module Plugins
 
 
           def load_file(yamlfile)
-            log :debug, "loading #{Habitat.S(yamlfile)}"
+            log "loading #{Habitat.S(yamlfile)}"
             YAML::load_file(yamlfile)
           end
 
@@ -130,14 +130,14 @@ module Plugins
           end
 
           def store(snippet, content)
-            log :info, "snippet:STORE:#{snippet.ident}"
+            log "snippet:STORE:#{snippet.ident}"
             file = repository_path(snippet.filename)
             FileUtils.mkdir_p(::File.dirname(file), :verbose => true) unless ::File.dirname(file)
             write(file, content)
           end
 
           def destroy(snippet)
-            log :info, "snippet:REMOVE:#{snippet.ident}"
+            log "snippet:REMOVE:#{snippet.ident}"
             rm(repository_path(snippet.filename), :verbose => true)
           end
         end
