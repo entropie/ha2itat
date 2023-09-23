@@ -64,6 +64,12 @@ module Ha2itat
     Hanami.app
   end
   module_function :app
+
+  def C(whatsymb)
+    tart = whatsymb.to_sym
+    app["settings"].send(tart)
+  end
+  module_function :C
   
   def self.h(helper)
     Ha2itat::Helper.const_get( app.inflector.camelize(helper) )
@@ -114,4 +120,3 @@ end
 
 Ha2itat.quart = Ha2itat.quart_from_path(Dir.pwd)
 Ha2itat::I18n.init
-

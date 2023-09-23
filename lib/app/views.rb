@@ -30,7 +30,7 @@ module ViewMethodsCommon
   end
 
   def snippet_page_path(*args)
-    ([ "/s" ] + args).join("/")
+    ([ Ha2itat::C(:page_prefix) ] + args).join("/")
   end
   
   def path(routename, *args, **hargs)
