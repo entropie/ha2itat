@@ -1,25 +1,5 @@
 @import "./variables"
 
-@mixin mobile()
-  @media only screen and (max-width: $breakPoint)
-    @content
-
-@mixin desktop()
-  @media only screen and (min-width: $breakPoint)
-    @content
-
-
-@mixin clean-ul
-  margin: 0
-  padding: 0
-  ul
-    list-style-type: none
-  ul, li
-    margin: 0
-    padding: 0
-    display: inline-block
-
-  
 body, html
   min-height: 100%
 
@@ -122,7 +102,7 @@ a
   flex-wrap: wrap
   justify-content: space-between
   .backend-list-entry
-    padding: 5px
+    position: relative
     border: 1px solid rgba($c1, .5)
     color: silver
     flex-basis: 100%
@@ -136,16 +116,20 @@ a
       flex-basis: 100%
     .backend-list-list-entry
       border-left: 5px solid rgba($c1, 1)
-
-
-
+  .backend-list-dates
+    background-color: rgba($c1, 1)
+    text-align: center
+    flex-basis: 100%
+    flex-grow: 1
   .backend-list-head
     font-size: 1.5em
-    display: flex
-    justify-content: space-between
-
+    padding: 5px
+    text-align: center
+    flex-basis: 100%
+    flex-grow: 1
   .backend-list-content
-    background-color: rgba($c1, 1)
+    background-color: rgba($c1, .4)
+    flex-basis: 100%
     &.preview
       position: relative
       max-height: 200px
@@ -159,6 +143,32 @@ a
         width: 100%
         background: linear-gradient(rgba(0,0,0,0), $c1)
 
+  .backend-list-image
+    width: 100%
+    aspect-ratio: 1 / 1
+    background-size: cover
+    background-repeat: no-repeat
+    flex-basis: 100%
+    position: absolute
+    height: 100%
+    z-index: -1
+    opacity: .7
+  .backend-list-footer
+    text-align: center
+    flex-basis: 100%
+    align-self: flex-end
+  .backend-list-controls
+    display: flex
+    justify-content: space-between
+    flex-basis: 100%
+    @include clean-ul
+    justify-content: space-around
+    a
+      display: inline-block
+      padding: 1vw
+      background-color: rgba($c2, .7)
+      margin-top: 3px
+      border-radius: 10px
 
 .backend-page
   padding: 3vw
