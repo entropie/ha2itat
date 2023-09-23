@@ -156,7 +156,11 @@ end
 
       def write_to(target_path = Dir.pwd)
         target_filename = ::File.join(target_path, filename)
-        write(target_filename, to_s)
+        if ::File.exist?(target_filename)
+          Ha2itat.log("existing: #{target_filename}: skipping")
+        else
+          write(target_filename, to_s)
+        end
       end
     end
 
