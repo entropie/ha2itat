@@ -36,6 +36,8 @@ module Ha2itat
   require_relative "mixins/fileutils"
   require_relative "mixins/log_in_block"
 
+  require_relative "mixins/pretty_date"
+
   require_relative "app/component_backend_definitions"
 
   require_relative "ha2itat/database"
@@ -51,6 +53,8 @@ module Ha2itat
   require_relative "app/warden"
   require_relative "app/actions"
   require_relative "app/views"
+
+  require "redcarpet"
 
   def self.quart=(obj)
     @quart = obj
