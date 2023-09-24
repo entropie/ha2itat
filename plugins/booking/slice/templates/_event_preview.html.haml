@@ -1,11 +1,12 @@
 .event-entry{class: event.css_class}
+  - unless event.published?
+    .backend-list-publish-state= t.be.messages.not_published
+
   .backend-list-kind
     =event.type
 
   - if event.has_image?
     .backend-list-image{style: "background-image: url(%s)" % event.image.url}
-
-
 
   .backend-list-controls.floating
     - unless event.archived?
@@ -22,7 +23,7 @@
 
       - if event.published?
         %li.warn
-          %a{title: "archive", href: path(:backend_booking_event_archive, slug: event.slug), :onclick => "return confirm('Are you sure to archive?')"}= t.be.links.booking.archive
+          %a{title: "archive", href: path(:backend_booking_event_archive, slug: event.slug, goto: current_uri), :onclick => "return confirm('Are you sure to archive?')"}= t.be.links.booking.archive
           
 
     %li.warn

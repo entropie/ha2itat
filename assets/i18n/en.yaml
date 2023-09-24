@@ -12,6 +12,8 @@ form:
   another_day_start: Another Day Start
   another_day_end: Another Day End
 be:
+  messages:
+    not_published: not published
   menu:
     frontend: Frontend
     user: User

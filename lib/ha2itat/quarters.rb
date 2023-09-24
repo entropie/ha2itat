@@ -16,6 +16,10 @@ module Ha2itat
       @ident = ::File.basename(path).to_sym
     end
 
+    def identifier
+      ident
+    end
+
     def inspect
       "<#{ident}: #{plugins.inspect}>"
     end

@@ -6,7 +6,7 @@ module Ha2itat::Slices::Booking
     get "/create",     to: "create",  as: :create
 
 
-    get "/event/:slug/archive",        to: "index", as: :event_archive
+    get "/event/:slug/archive",        to: "eventarchive", as: :event_archive
 
     get "/event/:slug/show",           to: "eventshow", as: :event_show
     get "/event/:slug/edit",           to: "eventedit", as: :event_edit

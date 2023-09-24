@@ -2,6 +2,8 @@
 require "pathname"
 require "pp"
 
+require "hanami"
+
 module Ha2itat
 
   Source = File.expand_path(File.join(File.dirname( File.expand_path(__FILE__))))
@@ -123,4 +125,4 @@ module Ha2itat
 end
 
 Ha2itat.quart = Ha2itat.quart_from_path(Dir.pwd)
-Ha2itat::I18n.init
+# Ha2itat::I18n.init

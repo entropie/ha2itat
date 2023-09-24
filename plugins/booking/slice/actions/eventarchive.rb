@@ -8,7 +8,7 @@ module Ha2itat::Slices
           event = booking.events_all.find_or_create(params)
 
           booking.archive(event)
-          res.redirect_to path(:backend_booking_index)
+          res.redirect_to(redirect_target_from_request(req) || path(:backend_booking_index))
         end
       end
     end
