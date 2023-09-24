@@ -9,26 +9,42 @@ be:
     booking: Calendar
   links:
     user:
-      create: add
+      create: add User
       logout: logout
       edit: edit
     snippets:
-      add: add
+      add: add Content
       edit: edit
+    booking:
+      add: add Event
+      archive: archive
+      unarchive: unarchive
+      edit: edit
+      publish: publish
+      unpublish: unpublish
+      dayadd: Add Day
+      dayremove: Remove Day
 
   topics:
     snippets:
       show: "Contents <small>static' pages and text snippets</small>"
       edit: Edit
+      create: create
     user:
       index: User
       create: Add User
       edit: Edit User
+    booking:
+      index: "Events <small>Manage upcoming happenings </small>"
+      create: Add Event
+      edit: Edit Event
         
   help:
+    ident: "<strong>Final</strong> unique (!) identifier"
     snippet:
       ident: "<strong>Uniue</strong> identifier for snippet"
-  
+    booking:
+      ident_examples: "Examples: <code>puppies-september-2023</code> or <code>breakfast-with-tiffany-may-2021</code> always <code>-</code> instead of <code>_</code>"
 
 
 robots: !!pl

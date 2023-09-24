@@ -1,3 +1,10 @@
+be:
+  help:
+    ident: "<strong>ENTGÜLTIG</strong> Eindeutiger (!) bezeichner"
+    snippet:
+      ident: "<strong>Eindeutiger</strong> Bezeichner für inhalt"
+
+
 foo: bar
 robots: !!pl
   0: Kein Roboter
