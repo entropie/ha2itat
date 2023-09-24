@@ -1,9 +1,13 @@
 .snippet-preview{class: snippet.css_class}
+  .backend-list-controls.floating
+    %ul
+      %li
+        %a{href: path(:backend_snippets_edit, slug: snippet.slug)}= t.be.links.snippets.edit
   .backend-list-head
     %a{href: path(:backend_snippets_show, slug: snippet.slug)}
       %strong= snippet.ident
 
-    %a{href: path(:backend_snippets_edit, slug: snippet.slug)}= t.be.links.snippets.edit
+
 
 
   .backend-list-content.preview

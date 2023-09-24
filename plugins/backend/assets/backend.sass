@@ -111,6 +111,7 @@ a
   display: flex
   flex-wrap: wrap
   justify-content: space-between
+  align-items: flex-start
   .backend-list-entry
     position: relative
     border: 1px solid rgba($c1, .5)
@@ -157,6 +158,7 @@ a
     flex-basis: 100%
     padding: 3%
     color: $textColor
+    margin-top: 1vw
     &.preview
       max-height: 25%
       @include gradient-cut
@@ -196,21 +198,35 @@ a
     justify-content: space-around
     li.warn
       a
-        border: 1px solid rgba(red, .4)
+        border-bottom: 1px solid rgba(red, .4)
     a
       display: inline-block
-      padding: 1vw
-      margin-top: 3px
+      padding-left: 5px
+      padding-right: 5px
       border-radius: 10px
+      border-top-left-radius: 0
+      border-top-right-radius: 0
       color: rgba($c5, .5)
       opacity: .5
       background-color: rgba($c1, 1)
       text-decoration: none
       letter-spacing: -2px
+      border: 1px solid transparent
       &:hover
         color: #fff
         opacity: 1
         background-color: rgba($c2, 1)
+
+    &.floating
+      position: absolute
+      top: 0
+      right: 0
+      li
+        &:first-child
+          a
+            border-bottom-left-radius: 10px
+      a
+        border-radius: 0
 
   &.full
     .backend-list-content

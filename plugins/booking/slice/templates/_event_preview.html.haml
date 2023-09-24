@@ -7,18 +7,18 @@
 
 
 
-  .backend-list-controls
+  .backend-list-controls.floating
     - unless event.archived?
+      %li
+        %a{href: path(:backend_booking_event_edit, slug: event.slug)}
+          = t.be.links.booking.edit
+
       %li
         %a.publish-toggle-link{href: path(:backend_booking_event_toggle_publish, slug: event.slug, goto: current_uri) }
           - if event.published?
             = t.be.links.booking.unpublish
           - else
             = t.be.links.booking.publish
-
-      %li
-        %a{href: path(:backend_booking_event_edit, slug: event.slug)}
-          = t.be.links.booking.edit
 
       - if event.published?
         %li.warn
