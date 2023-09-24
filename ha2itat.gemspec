@@ -54,7 +54,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'capistrano-rvm'     #, '~> 0.1.2'
   s.add_dependency 'capistrano-git'     #, '~> 0.1.2'
 
-  s.add_dependency 'puma-daemon', require: false
+  s.add_dependency 'puma-daemon'
 
   s.add_development_dependency "dotenv"
 
