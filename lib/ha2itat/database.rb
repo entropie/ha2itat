@@ -21,6 +21,13 @@ module Ha2itat
       str.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
     end
 
+    def self.yaml_load(file:, permitted_classes: [])
+      raise "not file" unless file
+      if ::File.exist?(file)
+        return YAML::load_file(file, permitted_classes: permitted_classes)
+      end
+    end
+
     class Adapter
 
       NOT_IMPLMENTED_MSG = "not implemented in parent class; use corresponding subclass instead".freeze
@@ -36,16 +43,14 @@ module Ha2itat
       end
 
       def permitted_classes
-        @permitted_classes || PERMITTED_CLASSES
+        @permitted_classes || DEFAULT_PERMITTED_CLASSES
       end
 
-      def yaml_load(file:)
-        raise "not file" unless file
-        if ::File.exist?(file)
-          return YAML::load_file(file, permitted_classes: permitted_classes)
-        end
+      def yaml_load(file:, permitted: nil)
+        permitted_clss = permitted || permitted_classes
+        Database.yaml_load(file: file, permitted_classes: permitted_clss)
       end
-    
+
       def setup
         raise NotImplemented, NOT_IMPLMENTED_MSG
       end
