@@ -40,6 +40,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "dry-types",           "~> 1.0", ">= 1.6.1"
 
+  s.add_dependency "redcarpet"
   s.add_dependency "haml"
   s.add_dependency "warden"
   s.add_dependency 'jwt'
