@@ -2,12 +2,12 @@
   .column.col-5
     .form-group
       .input-group
-        %span.input-group-addon Start weiterer Tag
+        %span.input-group-addon= t.form.another_day_start
         %input.form-input.datepicker{:name => "dates[begin][]", value: begin_date}
   .column.col-5
     .form-group
       .input-group
-        %span.input-group-addon Ende weiterer Tag
+        %span.input-group-addon= t.form.another_day_end
         %input.form-input.datepicker{:name => "dates[end][]", value: end_date}
   .column.col-2.col-md-8.col-mx-auto.aright
     %a.remove-day-link{:href => "#"}= t.be.links.booking.dayremove

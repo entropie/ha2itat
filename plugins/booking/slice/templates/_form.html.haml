@@ -11,14 +11,14 @@
       .column.col-10.col-mx-auto
         .form-group
           .input-group
-            %span.input-group-addon Title
+            %span.input-group-addon= t.form.title
             %input.form-input{:value => event.title, :name => :title}
 
     .columns.mtop
       .column.col-6.col-mx-auto
         .form-group
           .input-group
-            .form-label{:for => :tags} Image
+            .form-label{:for => :tags}= t.form.image
             %input.form-input{:type => :file, :name => :image, :name => :image}
       -# - if event.image.exist?
       -#   .column.col-2
@@ -33,7 +33,7 @@
               %p= t.be.help.ident
               %p= t.be.help.booking.ident_examples
           .input-group
-            %span.input-group-addon Ident
+            %span.input-group-addon=t.form.ident
             - hsh = event.exist? ? {} : {}
             %input.form-input{:disabled => event.exist?, :value => (event.ident || event.ident_suggestion), :name => :ident}
 
@@ -41,7 +41,7 @@
       .column.col-6.col-mx-auto
         .form-group
           .input-group
-            %span.input-group-addon Typ
+            %span.input-group-addon= t.form.type
             %select.form-input{name: :type}
               - Plugins::Booking::Events::EventTypes.frontend_types.each do |et|
                 %option{value: et.type, selected: et.type == event.type, "data-humantype" => Plugins::Booking::Events::Event.find_for_type(et.type).new.human_type.to_s.downcase}= et.type 
@@ -51,13 +51,13 @@
       .column.col-5.col-md-8.col-mx-auto
         .form-group
           .input-group
-            %span.input-group-addon Erster Tag
+            %span.input-group-addon= t.form.first_day
             %input.form-input.datepicker{:name => "dates[begin][]", :value => event.html_date(:start_date)}
 
       .column.col-5.col-md-8.col-mx-auto
         .form-group
           .input-group
-            %span.input-group-addon Ende
+            %span.input-group-addon= t.form.last_day
             %input.form-input.datepicker{:value => event.html_date(:end_date), :name => "dates[end][]"}
       .column.col-2.col-md-8.col-mx-auto.aright
         %a#add-date-template-link= t.be.links.booking.dayadd
@@ -74,26 +74,26 @@
       .column.col-4.col-md-6.col-mx-auto
         .form-group
           .input-group
-            %span.input-group-addon Preis
+            %span.input-group-addon= t.form.price
             %input.form-input{:value => event.price,  :name => :price}
 
       .column.col-4.col-md-6.col-mx-auto
         .form-group
           .input-group
-            %span.input-group-addon Teilnehmeranzahl
+            %span.input-group-addon= t.form.attender_count
             %input.form-input{:value => event.attender_slots, :name => :attender_slots}
 
     .columns.mtop
       .column.col-6.col-md-8.col-mx-auto
         .form-group
           .input-group
-            %span.input-group-addon Protagonisten
+            %span.input-group-addon= t.form.protagonist
             %input.form-input{:value => (event.protagonists.join(",") rescue t.app.person), :name => "protagonists[]"}
 
 
     .columns.mtop
       .column.col-12.text-center.mtop
-        %input.btn.btn-primary{:type => :submit, :value => "Absenden"}    
+        %input.btn.btn-primary{:type => :submit, :value => t.form.submit}    
 
       .column.col-12.mtop
         .form-group

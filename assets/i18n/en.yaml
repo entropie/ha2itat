@@ -1,6 +1,16 @@
 form:
   submit: Submit
-
+  title: Title
+  image: Image
+  ident: Ident
+  type: Type
+  first_day: First Day
+  last_day: Last Day
+  attender_count: Number of possible Attender
+  price: Price
+  protagonist: Protagonist
+  another_day_start: Another Day Start
+  another_day_end: Another Day End
 be:
   menu:
     frontend: Frontend
