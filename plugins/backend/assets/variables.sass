@@ -11,7 +11,49 @@ $c4: #FFCB9A
 $c5: #D2E8E3
 
 
-$textColor: $c5
+$textColor: #111
+$textBackgroundColor: rgba($c5, .5)
 
 
 $breakPoint: 980px
+
+.aright
+  text-align: right
+.aleft
+  text-align: left
+.acenter
+  text-align: center
+
+@mixin mobile()
+  @media only screen and (max-width: $breakPoint)
+    @content
+
+@mixin desktop()
+  @media only screen and (min-width: $breakPoint)
+    @content
+
+@mixin gradient-cut($h: 200px)
+  position: relative
+  overflow: hidden
+  max-height: $h
+  &:after
+    content: ""
+    position: absolute
+    top: 10%
+    left: 0
+    height: $h
+    width: 100%
+    background: linear-gradient(rgba(0,0,0,0), $c1)
+
+
+
+
+@mixin clean-ul
+  margin: 0
+  padding: 0
+  ul
+    list-style-type: none
+  ul, li
+    margin: 0
+    padding: 0
+    display: inline-block

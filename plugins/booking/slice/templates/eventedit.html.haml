@@ -1,0 +1,8 @@
+%h2
+  = t.be.topics.booking.edit
+  %small
+    = nlink(path(:backend_booking_event_show, slug: event.slug), event.title)
+
+.backend-page
+  .backend-padder
+    = render "form", action: path(:backend_booking_event_edit, slug: event.slug), event: event

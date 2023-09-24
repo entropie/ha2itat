@@ -17,6 +17,10 @@ module Plugins
             @path = path
           end
 
+          def permitted_classes
+            [Plugins::Booking::Events::Event]
+          end
+
           def path(*args)
             ::File.join(@path, *args)
           end
@@ -36,7 +40,7 @@ module Plugins
           end
 
           def events(year: Time.now.strftime("%y"), month: Time.now.strftime("%m"))
-            @events = ::Booking::Events.new(self, year: year, month: month).read.sorted
+            @events = Booking::Events.new(self, year: year, month: month).read.sorted
             @events
           end
 
@@ -49,8 +53,8 @@ module Plugins
           end
 
           def events_archived
-            aevents = ::Booking::ArchivedEvents.new(self).read.sorted
-            ::Booking::ArchivedEvents.new(self).push(*aevents)
+            aevents = Booking::ArchivedEvents.new(self).read.sorted
+            Booking::ArchivedEvents.new(self).push(*aevents)
           end
 
           def by_slug(slug)
@@ -60,7 +64,7 @@ module Plugins
           def create(what, params)
             tclazz = case what
                      when :event
-                       ::Booking::Events::Event
+                       Booking::Events::Event
                      end
             to_create = tclazz.create(Booking::Events::Event.normalize_params(params))
             store(to_create)
@@ -85,7 +89,6 @@ module Plugins
           end
 
           def store(what)
-            raise NoUserContext, "trying to call #store without valid user context " unless @user
             raise Ha2itat::Database::EntryNotValid, "#{what.class}#valid? returns not true" unless what.valid?
 
             log :info, "booking:store:#{what.slug}"
@@ -111,7 +114,6 @@ module Plugins
           end
 
           def archive(what)
-            raise NoUserContext, "trying to call #store without valid user context " unless @user
             raise Ha2itat::Database::EntryNotValid, "#{what.class}#valid? returns not true" unless what.valid?
             log :info, "booking:archive:#{what.slug}"
             target_file = repository_path(what.filename)

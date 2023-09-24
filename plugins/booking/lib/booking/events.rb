@@ -7,7 +7,7 @@ module Plugins
     def self.date_identifier(date)
       date.strftime("%y-%m-%d")
     end
-    
+
     class Events < Array
 
       class EventTypes
@@ -163,7 +163,7 @@ module Plugins
         end
 
         def =~(obj)
-          type == obj.to_sym
+          type == obj.to_sym rescue false
         end
 
         def attend(att_hash, slot = nil, &blk)
@@ -443,7 +443,7 @@ module Plugins
 
         def html_text
           markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, footnotes: false)
-          r = markdown.render(content.strip)
+          r = markdown.render(content.to_s.strip)
         end
 
         def corresponding_page
@@ -486,9 +486,22 @@ module Plugins
         @read = false
       end
 
+      def event_constants
+        Plugins::Booking::Events.constants.map{|c| Plugins::Booking::Events.const_get(c) } rescue []
+      end
+
       def read
         @read = true
-        replace(directory_files.map{|df| YAML::load(File.readlines(df).join)})
+        read_events = directory_files.map{|df|
+          pc = [Time,
+                Plugins::Booking::Events::Event,
+                Plugins::Booking::Events::DateRange,
+                Plugins::Booking::Events::Image].
+                 push(*event_constants)
+
+          ::Ha2itat::Database::yaml_load(file: df, permitted_classes: pc)
+        }
+        replace(read_events)
         self
       end
 

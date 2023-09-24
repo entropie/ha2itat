@@ -1,1 +1,8 @@
-hello from booking::index
+%h2= t.be.topics.booking.index
+
+.backend-listing.events-listing
+  - pager.each do |evnt|
+    .backend-list-entry
+      = render "event_preview", event: evnt
+
+= pager.navigation    

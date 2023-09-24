@@ -19,6 +19,13 @@ code
   background-color: $lighterGradientColor
 
 
+.be-date
+  display: inline-block
+
+.be-date-block
+  display: inline-block
+  padding: 1vw
+
 a
   color: $c4
   &:visited
@@ -97,7 +104,10 @@ a
     margin-top: 5vw
     color: $c2
 
+
 .backend-listing
+  img
+    max-width: 100%
   display: flex
   flex-wrap: wrap
   justify-content: space-between
@@ -116,11 +126,26 @@ a
       flex-basis: 100%
     .backend-list-list-entry
       border-left: 5px solid rgba($c1, 1)
+    &:hover
+      .backend-list-kind
+        display: inline-block
+      .backend-list-image
+        opacity: .2
+
+
+
   .backend-list-dates
-    background-color: rgba($c1, 1)
     text-align: center
     flex-basis: 100%
     flex-grow: 1
+    margin-bottom: 3vw
+    .be-date-block
+      background-color: rgba($c4, .5)
+      color: $c4
+      .be-date
+        color: #111
+        font-weight: bolder
+        font-size: 1.2em
   .backend-list-head
     font-size: 1.5em
     padding: 5px
@@ -128,54 +153,83 @@ a
     flex-basis: 100%
     flex-grow: 1
   .backend-list-content
-    background-color: rgba($c1, .4)
+    background-color: $textBackgroundColor
     flex-basis: 100%
+    padding: 3%
+    color: $textColor
     &.preview
-      position: relative
-      max-height: 200px
-      overflow: hidden
-      &:after
-        content: ""
-        position: absolute
-        top: 100px
-        left: 0
-        height: 100px
-        width: 100%
-        background: linear-gradient(rgba(0,0,0,0), $c1)
-
+      max-height: 25%
+      @include gradient-cut
+  .backend-list-kind
+    position: absolute
+    bottom: 0
+    right: 0
+    height: auto
+    padding-top: 5px
+    padding: 5px
+    background-color: rgba($c1, 1)
+    font-variant: small-caps
+    display: none
+    z-index: 1
+    font-size: 1.5em
+    border-top-left-radius: 15px
   .backend-list-image
     width: 100%
     aspect-ratio: 1 / 1
     background-size: cover
+    background-position: bottom 
     background-repeat: no-repeat
     flex-basis: 100%
     position: absolute
     height: 100%
     z-index: -1
-    opacity: .7
+    opacity: .05
+    transition: all 200ms linear
   .backend-list-footer
     text-align: center
     flex-basis: 100%
-    align-self: flex-end
+    display: none
   .backend-list-controls
     display: flex
-    justify-content: space-between
     flex-basis: 100%
     @include clean-ul
     justify-content: space-around
+    li.warn
+      a
+        border: 1px solid rgba(red, .4)
     a
       display: inline-block
       padding: 1vw
-      background-color: rgba($c2, .7)
       margin-top: 3px
       border-radius: 10px
+      color: rgba($c5, .5)
+      opacity: .5
+      background-color: rgba($c1, 1)
+      text-decoration: none
+      letter-spacing: -2px
+      &:hover
+        color: #fff
+        opacity: 1
+        background-color: rgba($c2, 1)
+
+  &.full
+    .backend-list-content
+      max-height: 100%
+      &:after
+        display: none
+    .preview
+      display: none
+    .html-text
+      display: inline-block !important
 
 .backend-page
-  padding: 3vw
+  position: relative
   background-color: rgba(black, .1)
   textarea, input, select, option, .input-group-addon
     background-color: rgba($c1, .1)
     color: #999
+  img
+    max-width: 100%
 
 .mtop
   margin-top: 5vw
@@ -225,3 +279,6 @@ ul.pager
     color: green
     height: 100%
     width: 100%
+
+
+

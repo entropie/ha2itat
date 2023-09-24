@@ -1,10 +1,10 @@
 module Ha2itat::Slices
   module Booking
     module Views
-      class Index < View
-         instance_eval(&Ha2itat::CD(:view))
+      class Eventedit < View
+        instance_eval(&Ha2itat::CD(:view))
 
-         expose :pager
+        expose :event
       end
     end
   end

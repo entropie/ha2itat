@@ -1,0 +1,57 @@
+.event-entry{class: event.css_class}
+  .backend-list-kind
+    =event.type
+
+  - if event.has_image?
+    .backend-list-image{style: "background-image: url(%s)" % event.image.url}
+
+
+
+  .backend-list-controls
+    - unless event.archived?
+      %li
+        %a.publish-toggle-link{href: path(:backend_booking_event_toggle_publish, slug: event.slug) }
+          - if event.published?
+            = t.be.links.booking.unpublish
+          - else
+            = t.be.links.booking.publish
+
+      %li
+        %a{href: path(:backend_booking_event_edit, slug: event.slug)}
+          = t.be.links.booking.edit
+
+      - if event.published?
+        %li.warn
+          %a{title: "archive", href: path(:backend_booking_event_archive, slug: event.slug), :onclick => "return confirm('Are you sure to archive?')"}= t.be.links.booking.archive
+          
+
+    %li.warn
+      %a{href: path(:backend_booking_event_destroy, slug: event.slug), :onclick => "return confirm('Are you sure?')"}
+        remove
+
+  .backend-list-head
+    = nlink(path(:backend_booking_event_show, slug: event.slug), event.title, onclick: "return confirm('Are you sure?')")
+   
+
+  .backend-list-dates
+    .be-date-block
+      .be-date
+        = event.html_date(:start_date)
+        Uhr
+      &mdash;
+      .be-date
+        = event.html_date(:end_date)
+        Uhr
+
+
+  .backend-list-content.preview
+    %code= event.content
+
+  .backend-list-content.html-text.d-none
+    = event.html_text
+
+
+
+  .backend-list-footer
+    %code= "##{event.slug}"
+      

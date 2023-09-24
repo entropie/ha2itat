@@ -7,5 +7,8 @@ module Ha2itat::Slices::Booking
     config.layout = "backend"
 
     config.renderer_options = { escape_html: false }
+
+    expose :event
+    expose :pager
   end
 end

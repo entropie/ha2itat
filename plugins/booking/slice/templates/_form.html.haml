@@ -1,0 +1,100 @@
+#add-date-template{style: "display: none"}
+  = render "dates_add_template", begin_date: event.html_date(:start_date), end_date: event.html_date(:end_date)
+
+
+%form#events-edit{action: action, method: :POST, enctype: 'multipart/form-data'}
+  - if event.image.exist?
+    #event-edit-bg{style: "background-image: url(%s)" % event.image.url}
+  
+  .container
+    .columns.mtop
+      .column.col-10.col-mx-auto
+        .form-group
+          .input-group
+            %span.input-group-addon Title
+            %input.form-input{:value => event.title, :name => :title}
+
+    .columns.mtop
+      .column.col-6.col-mx-auto
+        .form-group
+          .input-group
+            .form-label{:for => :tags} Image
+            %input.form-input{:type => :file, :name => :image, :name => :image}
+      -# - if event.image.exist?
+      -#   .column.col-2
+      -#     %img{:src => event.image.url}
+
+
+    .columns.mtop
+      .column.col-6.col-mx-auto
+        .form-group
+          - unless event.exist?
+            %p.form-input-hint
+              %p= t.be.help.ident
+              %p= t.be.help.booking.ident_examples
+          .input-group
+            %span.input-group-addon Ident
+            - hsh = event.exist? ? {} : {}
+            %input.form-input{:disabled => event.exist?, :value => (event.ident || event.ident_suggestion), :name => :ident}
+
+    .columns.mtop
+      .column.col-6.col-mx-auto
+        .form-group
+          .input-group
+            %span.input-group-addon Typ
+            %select.form-input{name: :type}
+              - Plugins::Booking::Events::EventTypes.frontend_types.each do |et|
+                %option{value: et.type, selected: et.type == event.type, "data-humantype" => Plugins::Booking::Events::Event.find_for_type(et.type).new.human_type.to_s.downcase}= et.type 
+
+
+    .columns.mtop
+      .column.col-5.col-md-8.col-mx-auto
+        .form-group
+          .input-group
+            %span.input-group-addon Erster Tag
+            %input.form-input.datepicker{:name => "dates[begin][]", :value => event.html_date(:start_date)}
+
+      .column.col-5.col-md-8.col-mx-auto
+        .form-group
+          .input-group
+            %span.input-group-addon Ende
+            %input.form-input.datepicker{:value => event.html_date(:end_date), :name => "dates[end][]"}
+      .column.col-2.col-md-8.col-mx-auto.aright
+        %a#add-date-template-link= t.be.links.booking.dayadd
+
+
+    .columns.date-line
+    - if event.dates
+      - event.dates[1..-1].each do |daterange|
+        = render "dates_add_template", begin_date: daterange.begin_date_p, end_date: daterange.end_date_p
+
+
+
+    .columns.mtop
+      .column.col-4.col-md-6.col-mx-auto
+        .form-group
+          .input-group
+            %span.input-group-addon Preis
+            %input.form-input{:value => event.price,  :name => :price}
+
+      .column.col-4.col-md-6.col-mx-auto
+        .form-group
+          .input-group
+            %span.input-group-addon Teilnehmeranzahl
+            %input.form-input{:value => event.attender_slots, :name => :attender_slots}
+
+    .columns.mtop
+      .column.col-6.col-md-8.col-mx-auto
+        .form-group
+          .input-group
+            %span.input-group-addon Protagonisten
+            %input.form-input{:value => (event.protagonists.join(",") rescue t.app.person), :name => "protagonists[]"}
+
+
+    .columns.mtop
+      .column.col-12.text-center.mtop
+        %input.btn.btn-primary{:type => :submit, :value => "Absenden"}    
+
+      .column.col-12.mtop
+        .form-group
+        %textarea#snippet-form.form-input.cm-form{:rows => 15, :name => :content, "data-codemirror-mode" => "text/x-haml"}= event.content

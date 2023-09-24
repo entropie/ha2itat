@@ -1,0 +1,39 @@
+@import "../../backend/assets/variables"
+
+.backend-listing.events-listing
+  .backend-list-entry
+    .event-entry
+      height: 100%
+      display: flex
+      flex-wrap: wrap
+      align-items: flex-start
+      align-content: flex-start
+      &.unpublished
+        /* @include desktop
+        /*   opacity: .5
+        /*   &:hover
+        /*     opacity: 1
+        .publish-toggle-link
+          color: lighten(red, 10)
+    .backend-list-head
+      padding-top: 3vw
+      padding-bottom: 3vw
+
+
+#events-entry
+  text-align: center
+
+
+#events-edit
+  position: relative
+  margin: 0
+  padding: 0
+#event-edit-bg
+  position: absolute
+  top: 0
+  height: 100%
+  width: 100%
+  opacity: .2
+  z-index: -1
+  background-size: cover
+  background-position: center center
