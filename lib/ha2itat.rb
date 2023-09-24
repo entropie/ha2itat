@@ -73,7 +73,7 @@ module Ha2itat
 
   def C(whatsymb)
     tart = whatsymb.to_sym
-    app["settings"].send(tart)
+    SETTING_HASH[tart]
   end
   module_function :C
   
@@ -125,4 +125,3 @@ module Ha2itat
 end
 
 Ha2itat.quart = Ha2itat.quart_from_path(Dir.pwd)
-# Ha2itat::I18n.init
