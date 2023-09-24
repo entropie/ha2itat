@@ -12,6 +12,15 @@ module ViewMethodsCommon
     end
   end
 
+
+  def current_path
+    request_env["REQUEST_PATH"]
+  end
+
+  def current_uri
+    request_env["REQUEST_URI"]    
+  end
+
   def active_path(path)
     rp = request_env["REQUEST_URI"]
     if rp.include?("/s/") and path.include?("/s/") and rp.include?(path)

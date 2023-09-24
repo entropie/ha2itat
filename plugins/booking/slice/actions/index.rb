@@ -8,8 +8,8 @@ module Ha2itat::Slices
                      events_all.
                      sort_by{ |ev| ev.start_date }
 
-          pager = Pager.new(req.params, events, 10)
-          pager.link_proc = -> (n) { routes.path(:backend_booking_index) }
+          pager = Pager.new(req.params, events, 2)
+          pager.link_proc = -> (n) { routes.path(:backend_booking_index, page: n) }
           res.render(view, pager: pager, events: events)
         end
       end

@@ -15,6 +15,10 @@ module ActionMethodsCommon
     req.env["warden"].user
   end
 
+  def redirect_target_from_request(req)
+    req.params[:goto]
+  end
+
   def error_handler(req, res, exception)
     res.status = 400
     res.body  = "%s:\n %s" % [exception.class, exception.message]
