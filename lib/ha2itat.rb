@@ -113,9 +113,12 @@ module Ha2itat
   end
 
   def self.log(msg, what = :info)
-    Hanami.app["logger"].send(msg, *args)
-  rescue
-    $stdout.puts "h2> #{msg}"
+    if Hanami.app.keys.include?("logger")
+      Hanami.app["logger"].info(msg)
+    elsif Ha2itat.quart.development?
+      $stdout.puts "h2> #{msg}"
+    else
+    end
   end
 
   def log(*args)
