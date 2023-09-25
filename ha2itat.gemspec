@@ -57,7 +57,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'puma-daemon'
 
   s.add_development_dependency "dotenv"
-
+  s.add_dependency 'unicorn'
 
   # # s.add_development_dependency 'bundler'
   # s.add_development_dependency 'minitest', '~> 5.14.4'
