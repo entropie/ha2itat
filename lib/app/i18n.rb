@@ -19,24 +19,40 @@ module Ha2itat
 
     include R18n
 
-    def self.init
+    def self.init(locale = ::R18n::I18n.default )
+
       Ha2itat.log "init R18n"
       if Ha2itat.quart.development?
-        Ha2itat.log "clearing cache"
+        Ha2itat.log "R18n clearing cache"
         R18n.clear_cache!
       end
       
       R18n.default_places = [backend_places, default_places].flatten
 
       i18n = ::R18n::I18n.new(
-        "en", ::R18n.default_places, off_filters: :untranslated, on_filters: :untranslated_html
+        locale, ::R18n.default_places, off_filters: :untranslated, on_filters: :untranslated_html
       )
 
-      ::R18n.set(i18n)
+      ::R18n.thread_set(i18n)
     end
   end
 
   module Helper::Translation
+
+    module Actions
+
+      def locales_setup(req, res)
+        locales = ::R18n::I18n.parse_http(req.env['HTTP_ACCEPT_LANGUAGE'])
+
+        if req.params[:locale]
+          locales.unshift(req.params[:locale])
+        elsif res.session[:locale]
+          locales.unshift(res.session[:locale])
+        end
+
+        Ha2itat::I18n.init(locales)
+      end
+    end
 
     def r18n
       ::R18n.get
