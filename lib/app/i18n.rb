@@ -41,6 +41,12 @@ module Ha2itat
 
     module Actions
 
+      def self.included(o)
+        o.class_eval do
+          before :locales_setup
+        end
+      end
+
       def locales_setup(req, res)
         locales = ::R18n::I18n.parse_http(req.env['HTTP_ACCEPT_LANGUAGE'])
 
