@@ -9,11 +9,14 @@ module Ha2itat
 
     Action = proc {
       include ActionMethodsCommon
-      include Helper::Translation
 
       before :check_token
       before :refuse_unless_auhtenticated!
 
+      include Helper::Translation::Actions
+      before :locales_setup
+
+      include Hanami::Action::Session
     }
 
     Slice = proc {
