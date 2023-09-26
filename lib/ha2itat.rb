@@ -108,9 +108,11 @@ module Ha2itat
     if Hanami.app.keys.include?("logger")
       Hanami.app["logger"].info(msg)
     elsif Ha2itat.quart.development?
-      $stdout.puts "h2> #{msg}"
+      raise Hanami::AppLoadError
     else
     end
+  rescue Hanami::AppLoadError
+    $stdout.puts "h2> #{msg}"
   end
 
   def log(*args)
