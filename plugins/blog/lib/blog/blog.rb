@@ -13,11 +13,21 @@ module Plugins
 
     DEFAULT_ADAPTER = :File
 
-    TEMPLATE_PATH = File.join(File.dirname(__FILE__), "../../templates")
-
-
     def self.template_path(*args)
-      File.join(@template_path, *args)
+      possible_template_directories =
+        [Ha2itat.quart.media_path("templates"),
+         Ha2itat.root("plugins/blog/assets/templates").to_s]
+
+      possible_template_directories.each do |ptd|
+        if ::File.exist?(ptd)
+          @template_path = ptd
+          return @template_path
+        end
+      end
+      if not @template_path
+        raise "no template path given or existing; looked in #{PP.pp(possible_template_directories, "")}"
+      end
+      ::File.join(@template_path, *args)
     end
 
     def self.template_path=(obj)

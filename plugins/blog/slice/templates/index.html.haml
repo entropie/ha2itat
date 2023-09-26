@@ -1,1 +1,8 @@
-hello from Blog::index
+%h2= t.be.topics.blog.index
+
+.backend-listing
+  - pager.each do |ele|
+    .backend-list-entry
+      = render "preview", post: ele
+
+= pager.navigation

@@ -2,25 +2,40 @@
   %form{:action => action, :method => :post, enctype: 'multipart/form-data'}
     .container
       .columns
-        .column.col-12
+
+      .columns
+        .column.col-6.col-mx-auto
           .form-group
-            .form-label{:for => :title}= t.form.title
-            %input.form-input{:type => :text, :id => :title, :value => (post && post.title), :name => :title}
-          
-        .column.col-4
-          .form-label{:for => :tags}= t.form.tags
-          %input.form-input.input-tagline{:type => :text, :id => :tags, :value => (post && post.tags && post.tags.join(",")), :name => :tags}
-        .column.col-4
-          - if Ha2itat.C(:default_template)
+            .input-group
+              %span.input-group-addon= t.form.title
+              %input.form-input{value: post.title, name: :title, value: (post && post.title), disabled: (!!post)}
+
+      .columns.mtop
+        .column.col-6.col-mx-auto
+          .form-group
+            .input-group
+              %span.input-group-addon= t.form.tags
+              %input.form-input.input-tagline{:type => :text, :id => :tags, :value => (post && post.tags && post.tags.join(",")), :name => :tags}
+
+        .column.col-6.col-mx-auto
+          .form-group
+            .input-group
+              %span.input-group-addon{:for => :image}= t.form.image
+              %input.form-input{:type => :file, :name => :image, :name => :image}
+
+
+
+      - if true # Ha2itat.C(:default_template)
+        .columns
+          .column.col-6.col-mx-auto
             .form-label{:for => :tags}= t.form.template
             = templates_select(post)
 
-        .column.col-4
-          .form-label{:for => :tags}= t.form.header_image
-          %input.form-input{:type => :file, :name => :image, :name => :image}
 
 
-      .columns
+
+
+      .columns.mtop
         .column.col-12
           .form-label{:for => :text}= t.form.text
           %textarea#blog-post-form.form-input.cm-form{:rows => 15, :name => :content, "data-codemirror-mode" => "text/x-markdown"}= (post && post.content)

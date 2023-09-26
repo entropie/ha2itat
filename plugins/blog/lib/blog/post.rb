@@ -107,6 +107,7 @@ module Plugins
       def backend_display_information
         bdi = [
           [:created, to_human],
+          [:tags, tags.join(", ")],
         ]
       end
 
@@ -137,6 +138,12 @@ module Plugins
       def http_data_dir(*args)
         File.join("/attachments", slug, *args)
       end
+
+      def app_route()
+        Hanami.app["routes"].path(:blog_show, slug: slug)
+      rescue Hanami::Router::MissingRouteError
+        "/post/#{slug}"
+      end
       
       def to_hash
         rethash = {  }
@@ -146,8 +153,7 @@ module Plugins
         rethash[:created_at] = created_at
         rethash[:updated_at] = updated_at
         rethash[:title]      = title
-        # FIXME
-        rethash[:url]        = Ha2itat.quart.default_application.routes.post_path(slug)
+        rethash[:url]        = app_route
         rethash[:slug]       = slug
         rethash[:image]      = image.url rescue ""
         rethash[:tags]       = tags
@@ -161,8 +167,7 @@ module Plugins
         rethash[:created_at] = created_at
         rethash[:updated_at] = updated_at
         rethash[:title]      = title
-        # FIXME
-        rethash[:url]        = "%s" % Ha2itat.quart.default_application.routes.post_path(slug)
+        rethash[:url]        = app_route
         rethash[:slug]       = slug
         rethash[:image]      = image if image
         rethash[:tags]       = tags

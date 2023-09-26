@@ -55,7 +55,7 @@ module Plugins
       end
 
       def http_path(*args)
-        File.join("/attachments", dirname, basename)
+        File.join("/data", dirname, basename)
       end
       
       def url

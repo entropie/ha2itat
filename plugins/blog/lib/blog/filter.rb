@@ -1,3 +1,5 @@
+require "nokogiri"
+
 module Plugins
   
   module Blog
@@ -34,7 +36,7 @@ module Plugins
         res = post.content.dup
         frt.each do |fc|
           begin
-            Ha2itat.log :debug, "filter: #{fc} for #{post.id}"
+            Ha2itat.log "filter: #{fc} for #{post.id}"
             filtered = fc.new(post).filter(res)
             res = filtered
             # rescue NameError
@@ -62,7 +64,7 @@ module Plugins
       # FIXME: what?
       class GalleryProcessor < Filter
         def filter(str)
-          return str unless Ha2itat.quart.plugins.activated?(:galleries) 
+          return str unless Ha2itat.quart.plugins.enabled?(:galleries) 
 
           str.lines.map do |line|
             regex = /\#\{(.*)\}\s?/
@@ -86,6 +88,7 @@ module Plugins
       
       class FlickrImg < Filter
         def filter(str)
+          return str unless Ha2itat.quart.plugins.enabled?(:flickr) 
           ret = nokogiri(str)
           ret.css("p").each_with_index do |node, index|
             node.text.scan(/(\[flickr: (\d+) ?(.*))\]/) do |match|

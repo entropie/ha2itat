@@ -11,6 +11,9 @@ form:
   protagonist: Protagonist
   another_day_start: Another Day Start
   another_day_end: Another Day End
+  header_image: Image
+  tags: Tags
+  text: Text
 be:
   messages:
     not_published: not published
@@ -19,6 +22,7 @@ be:
     user: User
     snippets: Contents
     booking: Calendar
+    blog: Blahg
   links:
     user:
       create: add User
@@ -26,30 +30,43 @@ be:
       edit: edit
     snippets:
       add: add Content
-      edit: edit
+      edit: Edit
     booking:
       add: add Event
-      archive: archive
-      unarchive: unarchive
-      edit: edit
-      publish: publish
-      unpublish: unpublish
+      archive: Archive
+      unarchive: Unarchive
+      edit: Edit
+      publish: Publish
+      unpublish: Unpublish
       dayadd: Add Day
       dayremove: Remove Day
+    blog:
+      publish: Publish
+      unpublish: Unpublish
+      edit: Edit
+      delete: Delete
+      create: Create
+      raw: Raw
+
 
   topics:
     snippets:
-      show: "Contents <small>static' pages and text snippets</small>"
+      show: "Contents <small>'static' pages and text snippets</small>"
       edit: Edit
-      create: create
+      create: Create
     user:
       index: User
       create: Add User
       edit: Edit User
+      show: Show User
     booking:
       index: "Events <small>Manage upcoming happenings </small>"
       create: Add Event
       edit: Edit Event
+    blog:
+      index: Blog
+      create: New Blog
+      edit: Edit Blog Entry
         
   help:
     ident: "<strong>Final</strong> unique (!) identifier"

@@ -53,9 +53,10 @@ Gem::Specification.new do |s|
   s.add_dependency 'capistrano-bundler' #, '~> 2.0.1'
   s.add_dependency 'capistrano-rvm'     #, '~> 0.1.2'
   s.add_dependency 'capistrano-git'     #, '~> 0.1.2'
+  s.add_dependency 'sass'
+  s.add_dependency 'unicorn'
 
   s.add_development_dependency "dotenv"
-  s.add_dependency 'unicorn'
 
   # # s.add_development_dependency 'bundler'
   # s.add_development_dependency 'minitest', '~> 5.14.4'

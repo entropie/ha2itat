@@ -1,0 +1,4 @@
+%h2= t.be.topics.snippets.edit
+
+.backend-page
+  = render "form", action: path(:backend_blog_edit, slug: post.slug), post: post

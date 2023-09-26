@@ -32,7 +32,7 @@ module Plugins
 
           def setup
             @setup = true
-            log :debug, "setting up adapter directory #{path}"
+            log "setting up adapter directory #{path}"
             FileUtils.mkdir_p(path)
             @setup
           end
@@ -68,7 +68,7 @@ module Plugins
           end
 
           def posts(user = nil)
-            @posts = Posts.new(user || @user).push(*post_files.map{|pfile| load_file(pfile)})
+            @posts = Posts.new(user || @user).push( *post_files.map{ |pfile| load_file(pfile) })
           end
 
           def by_slug(slug)
@@ -85,19 +85,18 @@ module Plugins
 
 
           def load_file(yamlfile)
-            log :debug, "loading #{Ha2itat.S(yamlfile)}"
-            YAML::load_file(yamlfile)
+            log "loading %s" % yamlfile
+            pc = [Plugins::Blog::Draft, Plugins::Blog::Post, Plugins::Blog::Image, Time]
+            YAML::load_file(yamlfile,
+                            aliases: true,
+                            permitted_classes: pc)
           end
 
           def create(param_hash)
-            raise NoUserContext, "trying to call #create without valid user context " unless @user
-
             adapter_class(true).new(self).populate(param_hash)
           end
 
           def update_or_create(param_hash)
-            raise NoUserContext, "trying to call #create without valid user context " unless @user
-
             slug = if param_hash[:slug].nil? then Post.make_slug(param_hash[:title]) else param_hash[:slug] end
             post = by_slug(slug)
 
@@ -110,7 +109,6 @@ module Plugins
           end
 
           def store(post_or_draft)
-            raise NoUserContext, "trying to call #store without valid user context " unless @user
             log :info, "blog:STORE:#{post_or_draft.title}"
 
             for_yaml = setup_post(post_or_draft)
@@ -124,12 +122,10 @@ module Plugins
             write(post_or_draft.datafile, content)
 
             # FIXME: ??
-
             # Ha2itat.plugin_enabled?(:cache) do
             #   Cache[:blog_last_modified] = Time.now
             #   Cache[post_or_draft.slug] = Time.now
             # end
-
             # post_or_draft
             for_yaml
           end
@@ -185,7 +181,5 @@ module Plugins
       end
 
     end
-
-
   end
 end

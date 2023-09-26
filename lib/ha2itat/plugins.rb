@@ -24,6 +24,11 @@ module Ha2itat
       "P(%s)" % map{ |plug| plug.name }.join(",")
     end
 
+    def enabled?(wanted_plug)
+      sym_plug = wanted_plug.to_sym
+      any?{|plug| plug.name == sym_plug}
+    end
+
     def transaction(&blk)
       yield self
     end

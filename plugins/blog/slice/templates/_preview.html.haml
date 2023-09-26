@@ -1,0 +1,32 @@
+.post-preview{"class": post.css_class }
+  - if post.image
+    .backend-list-image{style: "background-image: url(%s)" % post.image.url}
+
+  - if post.draft?
+    .backend-list-publish-state= t.be.messages.not_published
+
+  .backend-list-head
+    %a{href: path(:backend_blog_show, slug: post.slug)}= post.title
+
+  .backend-list-additional
+    - post.backend_display_information.each do |bik,biv|
+      .post-info.info{:class => "modinfo-#{bik}"}
+        %strong= bik
+        %span= biv
+    = backend_module_info(post)
+  .backend-list-controls.floating
+    %ul
+      %li>
+        %a{:href => path(:backend_blog_toggle_publish, slug: post.slug, goto: current_uri)}>
+          = (post.draft? ? t.be.links.blog.publish : t.be.links.blog.unpublish)
+      %li>
+        %a{href: path(:backend_blog_show_withoutlayout, slug: post.slug)}>
+          = t.be.links.blog.raw
+
+      %li>
+        %a{href: path(:backend_blog_edit, slug: post.slug)}>
+          = t.be.links.blog.edit
+      %li.warn>
+        %a{href: path(:backend_blog_destroy, slug: post.slug, goto: current_uri), :onclick => "return confirm('Are you sure?')"}>
+          = t.be.links.blog.delete
+

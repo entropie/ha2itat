@@ -1,0 +1,6 @@
+%style{:type => "text/css"}= post_template.styles
+%script{:type => "text/javascript"}= post_template.javascript
+
+.post-container
+  .post{"data-slug" => post.slug}
+    = post_template.result

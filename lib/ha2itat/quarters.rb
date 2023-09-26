@@ -32,6 +32,10 @@ module Ha2itat
       @plugins
     end
 
+    def route_path(route)
+      Hanami.app["routes"].path(route)
+    end
+
     def path(*args)
       ::File.join(@path, *args)
     end

@@ -1,0 +1,14 @@
+.backend-block
+  .backend-content
+    = render "post_topline", post: post
+    %article.blog-post
+      %div{:id => post.slug, :class => post.css_class}
+        .title
+          %h1
+            = post.title
+        %p.subtitle
+          = blog_author(post).name
+          = post.to_human
+        
+        .post-content
+          = post.with_filter

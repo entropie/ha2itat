@@ -28,7 +28,7 @@ module Ha2itat
   end
   
   def self.S(path)
-    File.join("./", path.sub(root, ""))
+    File.join("./", path.to_s.sub(root.to_s, ""))
   end
 
   require_relative "mixins/fileutils"

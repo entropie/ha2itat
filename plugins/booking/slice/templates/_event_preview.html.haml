@@ -3,7 +3,7 @@
     .backend-list-publish-state= t.be.messages.not_published
 
   .backend-list-kind
-    =event.type
+    = event.type
 
   - if event.has_image?
     .backend-list-image{style: "background-image: url(%s)" % event.image.url}

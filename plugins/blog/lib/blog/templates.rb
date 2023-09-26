@@ -1,3 +1,4 @@
+require "sass"
 module Plugins
   
   module Blog
@@ -38,8 +39,8 @@ module Plugins
         attr_reader :path, :target, :result, :styles, :javascript
 
         OPTIONS = {
-          :sass => {},
-          :haml => {:footnotes => true, :foo => :bar}
+          sass: {style: :compressed},
+          haml: {footnotes: true, foo: :bar}
         }
 
         def initialize(path)
@@ -61,6 +62,10 @@ module Plugins
 
         def title
           target.title
+        end
+
+        def author
+          Ha2itat.adapter(:user).by_id(target.user_id).name.to_s
         end
 
         def to_sym
@@ -125,6 +130,7 @@ module Plugins
 
           @javascript = javascript
           @styles     = styles
+
           a = eval(ruby, binding)
           self
         end

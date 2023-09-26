@@ -1,3 +1,7 @@
+app:
+  person: Foobar
+
+
 be:
   help:
     ident: "<strong>ENTGÜLTIG</strong> Eindeutiger (!) bezeichner"

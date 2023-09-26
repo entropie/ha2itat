@@ -7,5 +7,9 @@ module Ha2itat::Slices::Blog
     config.layout = "backend"
 
     config.renderer_options = { escape_html: false }
+
+    expose :pager
+    expose :post
   end
+
 end

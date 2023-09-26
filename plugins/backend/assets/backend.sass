@@ -49,7 +49,6 @@ a
   justify-content: space-between
 
 .backend-content
-  border-top: 5px solid rgba($c2, .1)
   flex-basis: 100%
   order: 2
   h1,h2,h3,h4,h5
@@ -84,7 +83,7 @@ a
         right: 0
         width: 100%
         height: calc(100% + 5px)
-        border-bottom: 5px solid rgba($c2, .1)
+        border-bottom: 5px solid rgba($c4, .7)
         content: ""
 
 .main-module-menu
@@ -95,7 +94,7 @@ a
   padding-left: 10px
   
 .backend-block
-  border-top: 5px solid $c3
+  /* border-top: 5px solid $c3
   max-width: $breakPoint
   margin: 0 auto
   padding-left: 3vw
@@ -120,11 +119,13 @@ a
     margin: 5px
     @include desktop
       flex-basis: calc(50% - 10px)
+      max-width: calc(50% - 10px)
     &:hover
       border: 1px solid rgba($c1, 1)
     // only one element: stretch max width
     &:first-child:nth-last-child(1)
       flex-basis: 100%
+      max-width: 100%
     .backend-list-list-entry
       border-left: 5px solid rgba($c1, 1)
     &:hover
@@ -149,10 +150,18 @@ a
         font-size: 1.2em
   .backend-list-head
     font-size: 1.5em
-    padding: 5px
+    letter-spacing: -2px
+    padding-top: 3vw
+    padding-bottom: .5vw
+    padding-left: 1vw
+    padding-right: 1vw
+
     text-align: center
     flex-basis: 100%
-    flex-grow: 1
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+      
   .backend-list-content
     background-color: $textBackgroundColor
     flex-basis: 100%
@@ -187,6 +196,8 @@ a
     z-index: -1
     opacity: .05
     transition: all 200ms linear
+  /* .backend-list-additional
+
   .backend-list-footer
     text-align: center
     flex-basis: 100%
