@@ -85,13 +85,13 @@ module Ha2itat
     def try_adapter_file
       file = plugin_root("adapter.rb")
 
-       if ::File.exist?(file)
-         do_log("loading adapter file #{file}") do
-           require file
-         end
-       else
-         false
-       end
+      if ::File.exist?(file)
+        do_log("loading adapter file #{file}") do
+          require file
+        end
+      else
+        false
+      end
     end
     
     def try_load
