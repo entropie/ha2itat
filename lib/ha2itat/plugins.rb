@@ -36,15 +36,17 @@ module Ha2itat
     # collect possible existing files in a list and write an include file to
     # apps assets
     def self.write_javascript_include_file!
-      toinclude = []
-      Ha2itat.adapter.each_pair do |adapter_ident, adapter|
-        toinclude << adapter_ident
-      end
+      toinclude =  Ha2itat.adapter.keys.map(&:to_s)
 
       Ha2itat.log("writing plugin javascript imports #{ PP.pp(toinclude, "").strip }")
-      incs = toinclude.map(&:to_s).map{ |tinc|
+
+      incs = toinclude.map{ |tinc|
         file = "vendor/gems/ha2itat/plugins/#{tinc}/plugin.js"
-        next unless ::File.exist?( Ha2itat.quart.path(file) )
+
+        unless ::File.exist?( Ha2itat.quart.path(file) )
+          Ha2itat.log(" - optional include file #{file} not existing; ignoring")
+          next
+        end
         "import '/./#{file}';"
       }.compact
     
@@ -57,9 +59,8 @@ module Ha2itat
       }
       Ha2itat.log(" + wrote #{slice_include_file} (#{::File.size(slice_include_file)}kb)")
       toinclude
-    rescue
-      
-      puts :nope
+    # rescue
+    #   puts :nope
     end
 
   end
