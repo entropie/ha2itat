@@ -1,27 +1,23 @@
-
-require "pathname"
 require "pp"
 
+require "pathname"
 require "hanami"
 
 module Ha2itat
 
   Source = File.expand_path(File.join(File.dirname( File.expand_path(__FILE__))))
 
-  def Source.join(*fragments)
-    File.join(Source, *fragments)
-  end
-  
   def self.root(*argv)
-    ::File.expand_path(Pathname.new(Source).join("..", *argv))
+    expanded_root = ::File.expand_path(::File.join(Source, ".."))
+    Pathname.new(expanded_root).join(*argv)
   end
 
   def self.plugin_root(*argv)
-    ::File.join(root, "plugins", *argv)
+    root.join("plugins", *argv)
   end
 
   def self.template_root(*argv)
-    ::File.join(root, "templates", *argv)    
+    root.join(root, "templates", *argv)    
   end
 
   def self.media_path(*argv)
@@ -37,7 +33,6 @@ module Ha2itat
 
   require_relative "mixins/fileutils"
   require_relative "mixins/log_in_block"
-
   require_relative "mixins/pretty_date"
 
   require_relative "app/component_backend_definitions"
@@ -49,7 +44,6 @@ module Ha2itat
   require_relative "ha2itat/calculated_version_hash"
 
   require_relative "app/i18n"
-
   require_relative "app/pager"
   require_relative "app/slices"
   require_relative "app/warden"
@@ -100,10 +94,8 @@ module Ha2itat
   end
 
   def self.add_adapter(name, clz)
-    ret = nil
     LogInBlock.do_log("initializing adapter") do 
-      ret = adapter[name] = clz.get_default_adapter_initialized
-      ret
+      adapter[name] = clz.get_default_adapter_initialized
     end
     adapter
   end
