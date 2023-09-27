@@ -14,7 +14,13 @@ form:
   header_image: Image
   tags: Tags
   text: Text
+  template: Template
+  haml: HAML
+  markdown: Markdown
 be:
+  ask:
+    destroy: Are you really sure to delete?
+    archive: Are you really sure to archive?
   messages:
     not_published: not published
   menu:
@@ -31,6 +37,7 @@ be:
     snippets:
       add: add Content
       edit: Edit
+      destroy: Delete
     booking:
       add: add Event
       archive: Archive
@@ -40,6 +47,7 @@ be:
       unpublish: Unpublish
       dayadd: Add Day
       dayremove: Remove Day
+      delete: Remove
     blog:
       publish: Publish
       unpublish: Unpublish

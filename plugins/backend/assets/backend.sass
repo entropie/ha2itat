@@ -274,42 +274,48 @@ a
 
 
 $pagerElementBorder: rgba(silver, .1)
-$pagerELementBG: rgba($c1, .1)
+$pagerELementBG: rgba($c1, .5)
 $pagerText: rgba(#555, .9)
 
 ul.pager
   border-top: 5px solid rgba($c3, .05)
   @include clean-ul
-
   display: flex
   flex-wrap: nowrap 
   justify-content: space-evenly
-  height: 50px
+  margin-top: 2.5vw
+  padding-top: 2.5vw
+  margin-bottom: 5vw
   a
     display: inline-block
   li
-    margin-top: 2vw
-
     border: 1px solid $pagerElementBorder
+    border-radius: 15px
+
     background-color: $pagerELementBG
-    border-radius: 25%
     color: $pagerText
-    min-width: 5vw
-    height: 100%
     text-align: center
+    font-size: 2em
+    width: 5vw
     &.disabled
       color: rgba($pagerText, .1)
+      opacity: .3
     &.active
-      background-color: lighten($pagerELementBG, 50)
+      background-color: $c1
       color: $c5
+      opacity: 1
       a
         color: $c5
-    >a,>span
+    > span
       display: inline-block
-      padding: 10px
-      height: 100%
-      aspect-ratio: 1 / 1
       color: $pagerText
+    > a
+      text-decoration: none
+      display: inline-block
+      color: $pagerText
+      width: 100%
+    > .pager-no-a
+
 
   .glyphicon
     display: inline-block
