@@ -24,14 +24,16 @@ function betterTab(cm) {
 }
 
 
-export function codemirror_initializer() {
-    var jform  = $(this)
+export function codemirror_initializer(form, force = false) {
+    var jform = form;
+    
     var beditorid = jform.attr("id");
-            // console.log(beditorid, $(jform).attr("data-codemirror-mode"));
     var cmmode = $(jform).attr("data-codemirror-mode");
-            // if($(".cm-mode")) {
-            //     console.log( $(".cm-mode").find("option:selected").val() );
-            // }
+
+    if((jform.attr("noauto") !== undefined) && force !== true) {
+        return false;
+    }
+
     var beditor = CodeMirror.fromTextArea( document.getElementById(beditorid), {
         lineNumbers: false,
         lineWrapping: true,
@@ -41,5 +43,6 @@ export function codemirror_initializer() {
         extraKeys: { Tab: betterTab },
         height: "100%"
     });
+    return beditor;
 
 }
