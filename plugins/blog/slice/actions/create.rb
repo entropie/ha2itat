@@ -9,6 +9,7 @@ module Ha2itat::Slices
           required(:content).filled(:string)
           optional(:slug).value(:string)
           optional(:image).value(:string)
+          optional(:template).value(:string)
         end
 
         def handle(req, res)

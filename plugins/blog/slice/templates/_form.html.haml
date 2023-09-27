@@ -25,14 +25,13 @@
 
 
 
-      - if true # Ha2itat.C(:default_template)
-        .columns
+      - if Ha2itat.C(:blog_use_templates)
+        .columns.mtop
           .column.col-6.col-mx-auto
-            .form-label{:for => :tags}= t.form.template
-            = templates_select(post)
-
-
-
+            .form-group
+              .input-group
+                %span.input-group-addon= t.form.template
+                = templates_select(post)
 
 
       .columns.mtop

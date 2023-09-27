@@ -1,12 +1,14 @@
 @import "../../backend/assets/variables"
 
 .backend-list-entry
-  padding-bottom: 2vw
   .post-info
     display: flex
     justify-content: space-between
     margin-left: 2vw
     margin-right: 2vw
+  .post-preview
+    padding-bottom: 2vw
+
 
 .blog-post-topline
   margin-top: 1vw
@@ -14,6 +16,9 @@
 .post-info
   strong
     font-variant: small-caps
+  &.modinfo-template
+    > span
+      color: $colorImportant
 
 article.blog-post
   @include contrast-text

@@ -9,8 +9,8 @@ module Ha2itat::Slices
           required(:content).filled(:string)
           required(:slug).filled(:string)
           optional(:image).value(:string)
+          optional(:template).value(:string)
         end
-
 
         def handle(req, res)
           post = create_or_edit_post(req, res)
