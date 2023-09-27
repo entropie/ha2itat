@@ -18,7 +18,7 @@
 
         .column.col-12.mtop
           .form-group
-            %textarea#snippet-form.form-input.cm-form{rows: 15, name: :content, "data-codemirror-mode": "text/x-haml"}= (snippet && snippet.content)
+            %textarea#snippet-form.form-input.cm-form{rows: 15, name: :content, "data-codemirror-mode": (snippet && snippet.content_type || "text/x-haml")}= (snippet && snippet.content)
 
         .column.col-12.text-center.mtop
           %input.btn.btn-primary{type: :submit, value: t.form.submit}    

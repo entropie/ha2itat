@@ -131,6 +131,10 @@ module Plugins
       def kind
         :markdown
       end
+
+      def content_type
+        "text/x-markdown"
+      end
     end
 
     class HAMLSnippet < Snippet
@@ -148,6 +152,11 @@ module Plugins
 
       def kind
         :haml
+      end
+
+      # for codemirror
+      def content_type
+        "text/x-haml"
       end
     end
 

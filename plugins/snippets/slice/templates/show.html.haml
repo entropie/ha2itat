@@ -5,7 +5,7 @@
     %code #{snippet.ident}
     %small
       %a{href: path(:backend_snippets_edit, slug: snippet.slug)}
-        edit
+        = t.be.links.snippets.edit
 
 .snippet-content
   = snippet.render(self)
