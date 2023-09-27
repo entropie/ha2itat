@@ -254,7 +254,7 @@ module Ha2itat
 
           def to_html
             li = "<li class='#{css_cls}'>%s</li>"
-            icnstr = "<span class='#{@pager.icons[@text.to_sym]}'></span>"
+            icnstr = "<span class='pager-no-a #{@pager.icons[@text.to_sym]}'></span>"
             ret = if disabled?
                     li % icnstr
                   else
