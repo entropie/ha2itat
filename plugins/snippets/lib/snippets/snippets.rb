@@ -123,7 +123,7 @@ module Plugins
         super("markdown")
       end
 
-      def render
+      def render(env = nil)
         markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, footnotes: false)
         r = markdown.render(to_s)
       end
