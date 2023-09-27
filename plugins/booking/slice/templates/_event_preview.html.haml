@@ -10,25 +10,26 @@
 
   .backend-list-controls.floating
     - unless event.archived?
-      %li
-        %a{href: path(:backend_booking_event_edit, slug: event.slug)}
-          = t.be.links.booking.edit
-
-      %li
+      %li>
         %a.publish-toggle-link{href: path(:backend_booking_event_toggle_publish, slug: event.slug, goto: current_uri) }
           - if event.published?
             = t.be.links.booking.unpublish
           - else
             = t.be.links.booking.publish
 
+      %li>
+        %a{href: path(:backend_booking_event_edit, slug: event.slug)}
+          = t.be.links.booking.edit
+
+
       - if event.published?
-        %li.warn
+        %li.warn>
           %a{title: "archive", href: path(:backend_booking_event_archive, slug: event.slug, goto: current_uri), :onclick => "return confirm('Are you sure to archive?')"}= t.be.links.booking.archive
           
 
-    %li.warn
+    %li.warn>
       %a{href: path(:backend_booking_event_destroy, slug: event.slug), :onclick => "return confirm('Are you sure?')"}
-        remove
+        = t.be.links.booking.delete
 
   .backend-list-head
     = nlink(path(:backend_booking_event_show, slug: event.slug), event.title, onclick: "return confirm('Are you sure?')")
