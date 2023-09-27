@@ -3,7 +3,6 @@
 require "bundler/setup"
 
 require "dry/cli"
-require "dry/inflector"
 
 require "hanami"
 require_relative "../ha2itat"
@@ -119,6 +118,11 @@ module Ha2itat
 end                      
 '
 
+    def classify(obj)
+      obj.to_s.capitalize
+    end
+    module_function :classify
+
     class ComponentFileGen
       attr_accessor :entire_block, :mod, :clz, :name
 
@@ -143,11 +147,7 @@ end
       end
 
       def to_s
-        entire_block % template % [inflector.classify(mod), inflector.classify(clz)]
-      end
-
-      def inflector
-        @inflector ||= Dry::Inflector.new
+        entire_block % template % [Generator.classify(mod), Generator.classify(clz)]
       end
 
       def template
@@ -179,7 +179,7 @@ end'
         end
 
         def to_s
-          template % inflector.classify(name)
+          template % Generator.classify(name)
         end
       end
 
@@ -219,7 +219,7 @@ end
         end
 
         def to_s
-          template % inflector.classify(name)
+          template % Generator.classify(name)
         end
       end
 
@@ -232,7 +232,7 @@ end
   end
 end'
         def to_s
-          template % inflector.classify(name)
+          template % Generator.classify(name)
         end
 
         def filename
@@ -251,7 +251,7 @@ end'
         end
 
         def to_s
-          template % inflector.classify(name)
+          template % Generator.classify(name)
         end
       end
 
