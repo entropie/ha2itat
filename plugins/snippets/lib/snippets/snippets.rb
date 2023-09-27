@@ -127,6 +127,10 @@ module Plugins
         markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, footnotes: false)
         r = markdown.render(to_s)
       end
+
+      def kind
+        :markdown
+      end
     end
 
     class HAMLSnippet < Snippet
@@ -140,6 +144,10 @@ module Plugins
         "%s" % haml_renderer.render(env)
         # rescue
         # "<div class='warning'>nope: something went wrong while processing <code>#{ident}</code>: <code>#{$!.class}</code></div>"
+      end
+
+      def kind
+        :haml
       end
     end
 

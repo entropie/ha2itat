@@ -1,25 +1,24 @@
 #BE-form
-  %form{:method => :post, :action => action}
+  %form{method: :post, action: action}
     .container
       .columns
         .column.col-xl-6.col-md-12
           .form-group
             .input-group
-              %span.input-group-addon
-                Ident
-              - if snippet
-                %input.form-input{:value => snippet.ident, :disabled => :disabled, :style => "width:100%"}
-              - else
-                %input.form-input{:value => "", :name => :ident, :style => "width:100%"}
-              %select.form-select.cm-mode.d-none{:type => :select, :name => :extension}
-                %option{:value => :haml, "selected" => "selected"} HAML
-                %option{:value => :markdown} Markdown
-
+              %span.input-group-addon= t.form.ident
+              %input.form-input{name: :ident, value: (snippet && snippet.ident), disabled: (snippet ? true : false)}
         .column.col-xl-6.col-md-12
           = t.be.help.snippet.ident
-        .column.col-12.top-seperator
-          .form-group
-            %textarea#snippet-form.form-input.cm-form{:rows => 15, :name => :content, "data-codemirror-mode" => "text/x-haml"}= (snippet && snippet.content)
 
-        .column.col-12.text-center.top-seperator
-          %input.btn.btn-primary{:type => :submit, :value => t.form.submit}    
+        .column.col-xl-6.col-md-12
+          %select.form-select.cm-mode{type: :select, name: :extension, disabled: (snippet ? true : false)}
+            - [:haml, :markdown].each do |option|
+              %option{value: option, selected: (snippet && snippet.kind == option or (option == :haml)) ? true : false}= t.form.send(option)
+
+
+        .column.col-12.mtop
+          .form-group
+            %textarea#snippet-form.form-input.cm-form{rows: 15, name: :content, "data-codemirror-mode": "text/x-haml"}= (snippet && snippet.content)
+
+        .column.col-12.text-center.mtop
+          %input.btn.btn-primary{type: :submit, value: t.form.submit}    
