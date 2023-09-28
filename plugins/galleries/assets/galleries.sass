@@ -6,7 +6,7 @@
   width: 100%
 
   .img-box
-    max-height: 10vw
+    max-height: 15vw
     min-width: 10vw
     aspect-ratio: 1 / 1
     background-size: cover
@@ -23,6 +23,7 @@
       word-wrap: break-word
     &:hover
       > span
+        padding-top: 20px
         display: inline-block
   input
     max-width: 50%
@@ -49,15 +50,16 @@
 ul.galleries-list
   @include clean-ul
   @include galleries-list
-  justify-content: flex-start
+  justify-content: space-around
+  position: relative
   li
-    flex-basis: 25%
     text-align: center
+    flex-basis: 50%
     .img-box
-      min-width: 5vw
+      min-height: 10vh
+      aspect-ratio: auto
     img
-      max-width: 5vw
-      aspect-ratio: 1 / 1
+      aspect-ratio: auto
         
 ul.image-verbose-list
   @include clean-ul
