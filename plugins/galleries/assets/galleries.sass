@@ -1,15 +1,5 @@
 @import "../../backend/assets/variables"
 
-
-.galleries-preview
-  .galleries-head
-    text-align: center
-    background-color: rgba($c1, .4)
-    font-size: 1.5em
-  .backend-list-content
-    padding: 0
-    margin: 0
-
 @mixin galleries-list
   display: flex
   flex-wrap: wrap
@@ -34,7 +24,6 @@
     &:hover
       > span
         display: inline-block
-
   input
     max-width: 50%
   input[type=submit]
@@ -42,6 +31,20 @@
   li
     position: relative
 
+.galleries-image
+  aspect-ratio: 1 / 1
+  background-size: cover
+  background-position: center center
+  height: 100%
+
+.galleries-preview
+  .galleries-head
+    text-align: center
+    background-color: rgba($c1, .4)
+    font-size: 1.5em
+  .backend-list-content
+    padding: 0
+    margin: 0
 
 ul.galleries-list
   @include clean-ul
@@ -68,3 +71,5 @@ ul.image-verbose-list
       display: flex
       justify-content: space-around
       align-items: center
+
+

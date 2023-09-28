@@ -40,29 +40,34 @@ module Ha2itat
     # every loaded plugin might provide a `plugin.js' in its root
     # collect possible existing files in a list and write an include file to
     # apps assets
-    def self.write_javascript_include_file!
+    def self.write_javascript_include_file!(which = "be")
       toinclude =  Ha2itat.adapter.keys.map(&:to_s)
+      included = []
 
-      Ha2itat.log("writing plugin javascript imports #{ PP.pp(toinclude, "").strip }")
+      Ha2itat.log("[#{which}] writing plugin javascript imports #{ PP.pp(toinclude, "").strip }")
 
       incs = toinclude.map{ |tinc|
-        file = "vendor/gems/ha2itat/plugins/#{tinc}/plugin.js"
+        file = "vendor/gems/ha2itat/plugins/#{tinc}/plugin-#{which}.js"
 
         unless ::File.exist?( Ha2itat.quart.path(file) )
-          Ha2itat.log(" - optional include file #{file} not existing; ignoring")
           next
         end
+        included << file
         "import '/./#{file}';"
       }.compact
     
       slice_include_file = Ha2itat.quart.
-                             path("app/assets/javascript/slice_includes.generated.js")
+                             path("app/assets/javascript/slice_includes.generated-#{which}.js")
 
       incs.unshift "// File is overwritten everytime the app starts\n"
       ::File.open(slice_include_file, "w+") { |fp|
         fp.puts(incs.join("\n"))
       }
-      Ha2itat.log(" + wrote #{slice_include_file} (#{::File.size(slice_include_file)}kb)")
+      for_log = included.map{|f| ::File.basename(::File.dirname(f)) }
+      Ha2itat.log(" + wrote #{PP.pp(for_log, "").strip} to #{slice_include_file} (#{::File.size(slice_include_file)}kb)")
+
+      write_javascript_include_file!("fe") if which == "be"
+
       toinclude
     # rescue
     #   puts :nope

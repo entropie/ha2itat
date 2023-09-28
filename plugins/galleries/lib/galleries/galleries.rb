@@ -2,142 +2,83 @@ module Plugins
 
   module Galleries
 
-    # module GalleryPresenter
-    #   include Hanami::Helpers::HtmlHelper
+    module GalleriesAccessMethods
 
-    #   def gallery_dom_id
-    #     "gallery-#{ident}"
-    #   end
+      def CSS_BACKGROUND(gal, ident)
+        gallery = Ha2itat.adapter(:galleries).find(gal)
+        img = gallery.images(ident)
 
-    #   def image_dom_id(img)
-    #     "gallery-image-#{img.hash}"
-    #   end
-
-    #   def select_images(except, only)
-    #     ret = images
-
-    #     except, only = [except].flatten, [only].flatten
-
-    #     if not only.empty?
-    #       only.each do |oi|
-    #         ret = ret.select{|i| i == oi}
-    #       end
-    #     elsif not except.empty?
-    #       except.each do |ei|
-    #         ret = ret.delete_if{|i| i == ei}
-    #       end
-    #     end
-    #     ret      
-    #   end
-
-    #   def to_slider(except: [], only: [], images: nil)
-    #     filtered = images || select_images(except, only)
-
-    #     html.div(:class => "gallery-slider") do
-    #       ul(:class => "gallery-thumbnails") do
-    #         filtered.each_with_index do |img, index|
-    #           li do
-    #             a(:href => img.url, :style => img.css_background_defintion, :class => "popupImg")
-    #           end
-    #         end
-    #       end
-
-    #       div(:class => "gallery-thumbnail-box") do
-    #         ul(:class => "thumbs") do
-    #           filtered.each_with_index do |img, index|
-    #             li do
-    #               a(:href => "##{index+1}", "data-slide" => index+1, :style => img.css_background_defintion)
-    #             end
-    #           end
-    #         end
-    #       end
-    #     end
-    #   end
-    # end
-
-    # module GalleriesAccessMethods
-
-    #   def CSS_BACKGROUND(gal, ident)
-    #     gallery = Habitat.adapter(:galleries).find(gal)
-    #     img = gallery.images(ident)
-
-    #     msg = ""
-    #     if !gallery
-    #       msg = "gallery <i>#{gal}</i> not existing"
-    #     elsif !img
-    #       msg = "image <i>#{ident}</i> not existing in gallery <i>#{gal}</i>."
-    #     else
-    #       begin
-    #         return _raw(img.css_background_defintion)
-    #       rescue
-    #         return img.css_background_defintion
-    #       end
-    #     end
-    #   end
+        msg = ""
+        if !gallery
+          msg = "gallery <i>#{gal}</i> not existing"
+        elsif !img
+          msg = "image <i>#{ident}</i> not existing in gallery <i>#{gal}</i>."
+        else
+          begin
+            return _raw(img.css_background_defintion)
+          rescue
+            return img.css_background_defintion
+          end
+        end
+      end
       
 
-    #   def IMGSRC(gal, ident)
-    #     gallery = Habitat.adapter(:galleries).find(gal)
-    #     img = gallery.images(ident)
+      def IMGSRC(gal, ident)
+        gallery = Ha2itat.adapter(:galleries).find(gal)
+        img = gallery.images(ident)
 
-    #     msg = ""
-    #     if !gallery
-    #       msg = "gallery <i>#{gal}</i> not existing"
-    #     elsif !img
-    #       msg = "image <i>#{ident}</i> not existing in gallery <i>#{gal}</i>."
-    #     else
-    #       begin
-    #         return _raw(img.url)
-    #       rescue
-    #         return img.url
-    #       end
-    #     end
+        msg = ""
+        if !gallery
+          msg = "gallery <i>#{gal}</i> not existing"
+        elsif !img
+          msg = "image <i>#{ident}</i> not existing in gallery <i>#{gal}</i>."
+        else
+          begin
+            return _raw(img.url)
+          rescue
+            return img.url
+          end
+        end
 
-    #     return "<div class='error-msg'>#{msg}</div>"
-    #   end
+        return "<div class='error-msg'>#{msg}</div>"
+      end
 
-    #   def IMG(gal, ident, hsh = {  })
-    #     gallery = Habitat.adapter(:galleries).find(gal)
-    #     img = gallery.images(ident)
+      def IMG(gal, ident, hsh = {  })
+        gal = gal.to_s
+        ident = ident.to_s
+        gallery = Ha2itat.adapter(:galleries).find(gal)
+        img = gallery.images(ident)
 
-    #     msg = ""
-    #     if !gallery
-    #       msg = "gallery <i>#{gal}</i> not existing"
-    #     elsif !img
-    #       msg = "image <i>#{ident}</i> not existing in gallery <i>#{gal}</i>."
-    #     else
-    #       acss = hsh.map{ |h,k| "#{h}:#{k}" }.join(";")
-    #       return "<div id='#{img.dom_id}' href='#{img.url}' class='popupImg galleryImg' style='background-image: url(#{img.url});#{acss}'></div>"
-    #     end
+        msg = ""
+        if !gallery
+          msg = "gallery <i>#{gal}</i> not existing"
+        elsif !img
+          msg = "image <i>#{ident}</i> not existing in gallery <i>#{gal}</i>."
+        else
+          acss = hsh.map{ |h,k| "#{h}:#{k}" }.join(";")
+          return "<div id='#{img.dom_id}' href='#{img.url}' class='galleries-image popup-img' style='background-image: url(#{img.url});#{acss}'></div>"
+        end
 
-    #     return "<div class='error-msg'>#{msg}</div>"
-    #   end
+        return "<div class='error-msg'>#{msg}</div>"
+      end
 
-    #   def SliderGallery(name, except: [], only: [], &blk)
-    #     gallery = Habitat.adapter(:galleries).find(name.to_s)
-    #     gallery = gallery.extend(GalleryPresenter)
-
-
-    #     # if there is only a single image in gallery, we dont need to show the entire gallery
-    #     # but the single img (dispatch to #IMG)
-    #     if (imgs = gallery.select_images(except, only)).size == 1
-    #       return IMG(name.to_s, imgs.first.hash)
-    #     end
-
-    #     gallery.to_slider(except: except, only: only, images: imgs)
-    #   rescue Habitat::Database::EntryNotValid
-    #     return "<div class='error-msg'>Gallery: <i>#{name}</i> not existing</div>."
-    #   end
-
-    # end
+      # def SliderGallery(name, except: [], only: [], &blk)
+      #   gallery = Ha2itat.adapter(:galleries).find(name.to_s)
+      #   gallery = gallery.extend(GalleryPresenter)
 
 
+      #   # if there is only a single image in gallery, we dont need to show the entire gallery
+      #   # but the single img (dispatch to #IMG)
+      #   if (imgs = gallery.select_images(except, only)).size == 1
+      #     return IMG(name.to_s, imgs.first.hash)
+      #   end
 
-    # module ControllerMethods
-    #   def galleries
-    #     Habitat.adapter(:galleries)
-    #   end
-    # end
+      #   gallery.to_slider(except: except, only: only, images: imgs)
+      # rescue Ha2itat::Database::EntryNotValid
+      #   return "<div class='error-msg'>Gallery: <i>#{name}</i> not existing</div>."
+      # end
+
+    end
 
 
     DEFAULT_ADAPTER = :File
@@ -241,7 +182,7 @@ module Plugins
         end
 
         def dom_id
-          "gallery-%s" % [ident]
+          "gallery-%s-%s" % [gallery.ident, ident]
         end
 
         def ==(obj)
