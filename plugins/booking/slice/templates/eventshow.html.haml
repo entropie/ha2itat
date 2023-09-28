@@ -1,7 +1,8 @@
 %h2
-  = t.be.topics.booking.edit
+  = t.be.topics.booking.show
   %small
-    = nlink(path(:backend_booking_event_show, slug: event.slug), event.title)
+    Edit
+    = nlink(path(:backend_booking_event_edit, slug: event.slug), event.title)
 
 .backend-listing.events-listing.full
   .backend-list-entry
