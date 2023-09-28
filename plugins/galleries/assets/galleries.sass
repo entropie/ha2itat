@@ -1,0 +1,70 @@
+@import "../../backend/assets/variables"
+
+
+.galleries-preview
+  .galleries-head
+    text-align: center
+    background-color: rgba($c1, .4)
+    font-size: 1.5em
+  .backend-list-content
+    padding: 0
+    margin: 0
+
+@mixin galleries-list
+  display: flex
+  flex-wrap: wrap
+  width: 100%
+
+  .img-box
+    max-height: 10vw
+    min-width: 10vw
+    aspect-ratio: 1 / 1
+    background-size: cover
+    background-position: center center
+    > span
+      position: absolute
+      top: 0
+      left: 0
+      display: none
+      height: 100%
+      width: 100%
+      background-color: rgba($c1, .7)
+      color: rgba($c4, 1)
+      word-wrap: break-word
+    &:hover
+      > span
+        display: inline-block
+
+  input
+    max-width: 50%
+  input[type=submit]
+    max-width: 50px
+  li
+    position: relative
+
+
+ul.galleries-list
+  @include clean-ul
+  @include galleries-list
+  justify-content: flex-start
+  li
+    flex-basis: 25%
+    text-align: center
+    .img-box
+      min-width: 5vw
+    img
+      max-width: 5vw
+      aspect-ratio: 1 / 1
+        
+ul.image-verbose-list
+  @include clean-ul
+  @include galleries-list
+  justify-content: space-around
+  li
+    flex-basis: 100%
+    margin-bottom: 1vw
+    flex-basis: 50%
+    form
+      display: flex
+      justify-content: space-around
+      align-items: center

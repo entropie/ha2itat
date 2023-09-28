@@ -1,0 +1,9 @@
+.galleries-preview
+  .galleries-head= nlink(path(:backend_galleries_show, slug: gallery.ident), gallery.ident)
+  .backend-list-content
+    .backend-galleries-list
+      %ul.galleries-list
+        - gallery.images.each do |img|
+          %li
+            .img-box.clipboard-click{style: img.css_background_defintion}
+              %span= img.hash

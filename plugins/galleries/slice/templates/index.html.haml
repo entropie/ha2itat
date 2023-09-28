@@ -1,0 +1,7 @@
+%h2= t.be.topics.galleries.index
+
+.backend-listing
+  - pager.each do |ele|
+    .backend-list-entry
+      = render "preview", gallery: ele
+= pager.navigation

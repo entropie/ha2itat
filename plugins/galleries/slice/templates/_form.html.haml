@@ -1,0 +1,10 @@
+#BE-form
+  %form{:action => action, :method => :post, enctype: 'multipart/form-data'}
+    .columns
+      .column.col-12
+        .form-group
+          .form-label{:for => :title} Title
+          %input.form-input{:type => :text, :value => (gallery && gallery.title), :name => :ident}
+
+      
+        %input.btn.btn-primary{:type => :submit, :value => "Absenden"}

@@ -1,0 +1,19 @@
+%h2
+  = t.be.topics.galleries.show
+  %code= gallery.ident
+
+.backend-content
+  .backend-content-head
+    = render "upload_form", gallery: gallery
+
+  %hr
+
+  .backend-listing.mtop
+    %ul.image-verbose-list
+      - pager.each do |ele|
+        %li
+          %form{:action => path(:backend_galleries_setident, slug: gallery.ident, hash: ele.hash, goto: current_uri), :method => :post}
+            .img-box{style: ele.css_background_defintion}
+            %input.form-input{:type => "text", :value => ele.ident, :name => :ident}
+            %input.form-input{:type => "submit", :value => "submit"}
+= pager.navigation

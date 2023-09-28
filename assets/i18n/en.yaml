@@ -3,6 +3,7 @@ form:
   title: Title
   image: Image
   ident: Ident
+  upload: Upload
   type: Type
   first_day: First Day
   last_day: Last Day
@@ -29,17 +30,18 @@ be:
     snippets: Contents
     booking: Calendar
     blog: Blahg
+    galleries: Galleries
   links:
     user:
       create: add User
       logout: logout
       edit: edit
     snippets:
-      add: add Content
+      create: add Content
       edit: Edit
       destroy: Delete
     booking:
-      add: add Event
+      create: add Event
       archive: Archive
       unarchive: Unarchive
       edit: Edit
@@ -47,15 +49,17 @@ be:
       unpublish: Unpublish
       dayadd: Add Day
       dayremove: Remove Day
-      delete: Remove
+      destroy: Remove
     blog:
       publish: Publish
       unpublish: Unpublish
       edit: Edit
-      delete: Delete
+      destroy: Delete
       create: Create
       raw: Raw
-
+    galleries:
+      create: Create Gallery
+      
 
   topics:
     snippets:
@@ -71,10 +75,15 @@ be:
       index: "Events <small>Manage upcoming happenings </small>"
       create: Add Event
       edit: Edit Event
+      show: Show
     blog:
       index: Blog
       create: New Blog
       edit: Edit Blog Entry
+    galleries:
+      show: Gallery
+      index: Overview
+      create: Create
         
   help:
     ident: "<strong>Final</strong> unique (!) identifier"
