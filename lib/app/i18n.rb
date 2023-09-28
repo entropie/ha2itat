@@ -21,11 +21,7 @@ module Ha2itat
 
     def self.init(locale = ::R18n::I18n.default )
 
-      Ha2itat.log "init R18n"
-      if Ha2itat.quart.development?
-        Ha2itat.log "R18n clearing cache"
-        R18n.clear_cache!
-      end
+      R18n.clear_cache! if Ha2itat.quart.development?
       
       R18n.default_places = [backend_places, default_places].flatten
 
