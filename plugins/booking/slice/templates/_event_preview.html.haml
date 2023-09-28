@@ -29,7 +29,7 @@
 
     %li.warn>
       %a{href: path(:backend_booking_event_destroy, slug: event.slug), :onclick => "return confirm('Are you sure?')"}
-        = t.be.links.booking.delete
+        = t.be.links.booking.destroy
 
   .backend-list-head
     = nlink(path(:backend_booking_event_show, slug: event.slug), event.title, onclick: "return confirm('Are you sure?')")
