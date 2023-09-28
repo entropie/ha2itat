@@ -1,8 +1,8 @@
 #BE-form
   %form{:action => action, :method => :post, enctype: 'multipart/form-data'}
+    - if post.image
+      #blog-edit-bg{style: "background-image: url(%s)" % post.image.url}
     .container
-      .columns
-
       .columns
         .column.col-6.col-md-10.col-mx-auto
           .form-group
