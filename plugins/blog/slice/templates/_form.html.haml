@@ -4,20 +4,21 @@
       .columns
 
       .columns
-        .column.col-6.col-mx-auto
+        .column.col-6.col-md-10.col-mx-auto
           .form-group
             .input-group
               %span.input-group-addon= t.form.title
               %input.form-input{value: post.title, name: :title, value: (post && post.title), disabled: (!!post)}
 
-      .columns.mtop
-        .column.col-6.col-mx-auto
+      .columns.ltop
+        .column.col-6.col-md-10.col-mx-auto
           .form-group
             .input-group
               %span.input-group-addon= t.form.tags
               %input.form-input.input-tagline{:type => :text, :id => :tags, :value => (post && post.tags && post.tags.join(",")), :name => :tags}
 
-        .column.col-6.col-mx-auto
+      .columns.ltop
+        .column.col-6.col-md-10.col-mx-auto
           .form-group
             .input-group
               %span.input-group-addon{:for => :image}= t.form.image
@@ -26,18 +27,18 @@
 
 
       - if Ha2itat.C(:blog_use_templates)
-        .columns.mtop
-          .column.col-6.col-mx-auto
+        .columns.ltop
+          .column.col-6.col-md-10.col-mx-auto
             .form-group
               .input-group
                 %span.input-group-addon= t.form.template
                 = templates_select(post)
 
 
-      .columns.mtop
-        .column.col-12
+      .columns.ltop
+        .column.col-12.col-md-10.col-mx-auto
           .form-label{:for => :text}= t.form.text
           %textarea#blog-post-form.form-input.cm-form{:rows => 15, :name => :content, "data-codemirror-mode" => "text/x-markdown"}= (post && post.content)
-      .columns.mtop
+      .columns.ltop
         .column.col-2.col-mx-auto
           %input.btn.btn-primary{:type => :submit, :value => t.form.submit}

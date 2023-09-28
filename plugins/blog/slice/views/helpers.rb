@@ -15,7 +15,7 @@ module Ha2itat::Slices
       
           templates = Plugins::Blog.templates.map(&:last)
           
-          options << "<option value='%s'>%s</option>" % ["", ""]
+          options << "<option value='%s'>%s</option>" % ["", "(none)"]
           templates.each do |tmplinst|
 
             if post and post.template
