@@ -162,7 +162,7 @@ a
 
       
   .backend-list-content
-    background-color: $textBackgroundColor
+    background-color: rgba($textBackgroundColor, .2)
     flex-basis: 100%
     padding: 3%
     color: $textColor
@@ -170,6 +170,8 @@ a
     &.preview
       max-height: 25%
       @include gradient-cut
+    code
+      color: #999
   .backend-list-kind
     position: absolute
     bottom: 0
