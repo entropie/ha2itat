@@ -36,7 +36,7 @@ module Ha2itat
 
       def log(w, msg)
         if Object.constants.include?(:Hanami)
-          Hanami.log(w, msg)
+          Ha2itat.log(msg)
         else
           puts ">>> #{msg}"
         end
