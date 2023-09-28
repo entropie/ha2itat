@@ -7,7 +7,7 @@ module Ha2itat::Slices
           event = booking.by_slug(req.params[:slug])
 
           if req.post?
-            booking.update(event, req.params.to_hash)
+            event = booking.update(event, req.params.to_hash)
           end
           res.render(view, event: event)
         end
