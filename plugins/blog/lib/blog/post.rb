@@ -226,7 +226,7 @@ module Plugins
       end
 
       def datadir(*args)
-        @datadir = File.join("data", slug, *args)
+        @datadir = File.join("public/data", slug, *args)
       end
 
       def images

@@ -53,7 +53,7 @@ module Plugins
           end
 
           def datadir(*args)
-            ::File.join("data", *args)
+            ::File.join("public/data", *args)
           end
 
           def post_files
@@ -160,13 +160,10 @@ module Plugins
           end
 
           def destroy(post_or_draft, lang = nil)
-            if not lang
-              log :info, "blog:REMOVE:#{post_or_draft.title}"
-              rm(post_or_draft.fullpath, :verbose => true)
-            else
-              log :info, "blog:LANGUAGE-REMOVE:#{post_or_draft.title}"
-              rm(post_or_draft.datapath, :verbose => true)
-            end
+            complete_media_path = Ha2itat.quart.media_path(post_or_draft.datadir)
+            log :info, "blog:REMOVE:#{post_or_draft.title}"
+            rm(post_or_draft.fullpath, verbose: true)
+            rm_rf(complete_media_path)
           end
 
           def with_user(user, &blk)
