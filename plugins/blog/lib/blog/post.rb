@@ -213,7 +213,7 @@ module Plugins
       end
 
       def datapath(*args)
-        File.join(Ha2itat.quart.media_path, "data", slug, *args)
+        File.join(Ha2itat.quart.media_path, "public/data", slug, *args)
       end
       
       def intro
