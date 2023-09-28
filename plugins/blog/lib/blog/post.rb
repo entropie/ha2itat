@@ -109,9 +109,6 @@ module Plugins
           [:created, to_human],
           [:tags, tags.join(", ")],
         ]
-        if template
-          bdi << [:template, template]
-        end
         bdi
       end
 
