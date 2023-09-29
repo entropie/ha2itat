@@ -51,7 +51,7 @@ module Plugins
         end
 
         def url
-          File.join("/", dirname, "images", basename)
+          File.join("/data/events/", event.slug, "images", basename)
         end
 
         def http_path
@@ -74,12 +74,7 @@ module Plugins
 
         def css_background_definition
           return "" if url.empty?
-          retstr = "background-image: url(%s)" % url
-          # if Ha2itat.quart.plugins.enabled?(:webp)
-          #   extend(Webp)
-          #   retstr << ";background-image: url(%s)" % webp_url
-          # end
-          retstr
+          "background-image: url(%s)" % url
         end
 
         def alignment
