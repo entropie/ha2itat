@@ -394,7 +394,7 @@ module Plugins
         end
 
         def relative_datapath(*args)
-          ::File.join("data/events/#{slug}", *args)
+          ::File.join("public/data/events/#{slug}", *args)
         end
 
         def datapath(*args)
