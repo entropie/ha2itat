@@ -64,7 +64,7 @@ module Ha2itat
       end
 
       def adapter_class
-        raise "can only be called by subclass of Habitat::Database::Adapter"
+        raise "can only be called by subclass of Ha2itat::Database::Adapter"
       end
 
       def create(param_hash)
