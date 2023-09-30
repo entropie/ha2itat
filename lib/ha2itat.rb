@@ -101,7 +101,7 @@ module Ha2itat
     Quarters.from_path(path)
   end
 
-  def self.log(msg, what = :info)
+  def self.log(msg)
     if Hanami.app.keys.include?("logger")
       Hanami.app["logger"].info(msg)
     elsif Ha2itat.quart.development?
@@ -111,6 +111,31 @@ module Ha2itat
   rescue Hanami::AppLoadError
     $stdout.puts "h2> #{msg}"
   end
+
+  def self.debug(msg)
+    if Hanami.app.keys.include?("logger")
+      Hanami.app["logger"].debug(msg)
+    elsif Ha2itat.quart.development?
+      raise Hanami::AppLoadError
+    else
+    end
+  rescue Hanami::AppLoadError
+    $stdout.puts "h2| #{msg}"
+  end
+
+  def self.warn(msg)
+    if Hanami.app.keys.include?("logger")
+      Hanami.app["logger"].warn(msg)
+    elsif Ha2itat.quart.development?
+      raise Hanami::AppLoadError
+    else
+    end
+  rescue Hanami::AppLoadError
+    $stdout.puts "h2! #{msg}"
+  end
+
+
+
 
   def log(*args)
     Ha2itat.log(*args)
