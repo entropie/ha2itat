@@ -11,7 +11,6 @@ $(document).ready(function() {
             autoFocusLast: false,
             fixedContentPos: false
         });
-
     
     if($(".open-popup-link").length)
         $('.open-popup-link').magnificPopup({
@@ -29,7 +28,11 @@ $(document).ready(function() {
 
     // copy ident to clipboard onClick on :backend_galleries_index
     $(".clipboard-click").click(function() {
+        let dataToCopy = $(this).attr("data-clipboard-content");
         let msg = $(this).find("span").text();
+        if(dataToCopy)
+            msg = dataToCopy;
+
         try {
             navigator.clipboard.writeText(msg)
         } catch (error) {};
