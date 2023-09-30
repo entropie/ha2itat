@@ -4,6 +4,6 @@
       .img-box-head
         %ul
           %li
-            %a{href: path(:backend_galleries_remove, slug: gallery.ident, hash:  ele.hash, goto: current_uri), :onclick => "return confirm('%s')" % t.be.ask.delete }= t.be.icons.delete
+            %a{href: path(:backend_galleries_remove, slug: gallery.ident, hash:  ele.hash, goto: current_uri), :onclick => "return confirm('%s')" % t.be.ask.destroy }= t.be.icons.destroy
     %input.form-input{:type => "text", :value => ele.ident, :name => :ident}
     %input.form-input{:type => "submit", :value => t.form.submit}

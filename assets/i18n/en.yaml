@@ -20,7 +20,7 @@ form:
   markdown: Markdown
 be:
   icons:
-    delete: X
+    destroy: X
   ask:
     destroy: Are you really sure to delete?
     archive: Are you really sure to archive?
