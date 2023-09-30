@@ -57,7 +57,7 @@ module Plugins
           post_with_vgw = post.extend(Plugins::Blog::VGWort)
           
           if post_with_vgw.vgwort.id_attached?
-            ret = "#{post.vgwort.code}"
+            ret = "<code>#{post.vgwort.refid}</code>"
           else
             ret = "<span class='text-warning'>unset</span>"
           end
