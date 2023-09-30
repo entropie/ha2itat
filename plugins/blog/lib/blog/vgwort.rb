@@ -9,7 +9,7 @@ module Plugins
           post_with_vgwort = post.extend(Plugins::Blog::VGWort)
           #"\n
           if Ha2itat.quart.development?
-            "<div class='vgwortCounter visible'>vgwort:%s</div>" % post_with_vgwort.vgwort.code
+            "<div class='vgwortCounter visible'>vgwort:%s</div>" % post_with_vgwort.vgwort.refid
           else
             "<div class='vgwort-counter'>#{post_with_vgwort.vgwort.counter}</div>"
           end
@@ -132,7 +132,6 @@ module Plugins
           end
         end
         Ha2itat.log "no free entry in database found"
-
       end
 
 
@@ -170,7 +169,7 @@ module Plugins
         end
 
         def file
-          post.datapath(".vgwort")      
+          post.datapath(".vgwort")
         end
 
         def id_attached?
@@ -202,11 +201,6 @@ module Plugins
           end
         end
 
-        def code
-          @code ||= contents[1].strip
-        rescue
-          ""
-        end
 
         def refid
           @code ||= contents.last.strip
@@ -217,7 +211,7 @@ module Plugins
         def write(url, code, id)
           img = "<img src='%s' alt='' />" % url
 
-          str = [img, code, id].join("\n")
+          str = [img, id].join("\n")
 
           File.open(file, "w+") {|fp|
             fp.puts str
