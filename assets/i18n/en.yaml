@@ -19,6 +19,8 @@ form:
   haml: HAML
   markdown: Markdown
 be:
+  icons:
+    delete: X
   ask:
     destroy: Are you really sure to delete?
     archive: Are you really sure to archive?
