@@ -53,9 +53,10 @@ module Plugins
         
         def to_html
           ret = ""
-          return "" unless Ha2itat.quart.plugins.enabled?(:vgwort)
+          return "" unless Plugins::Blog::VGWort.initialized?
+          post_with_vgw = post.extend(Plugins::Blog::VGWort)
           
-          if post.vgwort.id_attached?
+          if post_with_vgw.vgwort.id_attached?
             ret = "#{post.vgwort.code}"
           else
             ret = "<span class='text-warning'>unset</span>"

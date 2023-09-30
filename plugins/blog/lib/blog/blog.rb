@@ -3,6 +3,7 @@ require_relative "images"
 require_relative "post"
 require_relative "module_info"
 require_relative "filter"
+require_relative "vgwort"
 require_relative "templates"
 require_relative "readapi"
 

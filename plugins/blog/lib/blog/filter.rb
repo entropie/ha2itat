@@ -36,7 +36,7 @@ module Plugins
         res = post.content.dup
         frt.each do |fc|
           begin
-            Ha2itat.log "filter: #{fc} for #{post.id}"
+            Ha2itat.debug "filter: #{fc} for #{post.id}"
             filtered = fc.new(post).filter(res)
             res = filtered
             # rescue NameError
@@ -70,7 +70,7 @@ module Plugins
             regex = /\#\{(.*)\}\s?/
             if line =~ regex
               ret = dup.extend(Galleries::GalleriesAccessMethods).send(:eval, $1)
-              Ha2itat.log :debug, "#{self.class}: #{$1}"
+              Ha2itat.debug "#{self.class}: #{$1}"
               newline = line.gsub(regex, ret)
             else
               line

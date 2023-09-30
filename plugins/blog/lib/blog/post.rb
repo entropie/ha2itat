@@ -329,6 +329,17 @@ module Plugins
         html.gsub!(/\[\^[0-9]+\]/, "")
         html
       end
+
+      def try_vgwort_attach
+        if VGWort.initialized?
+          post_with_vgw = self.extend(VGWort)
+          if post_with_vgw.id_attached?
+            Ha2itat.log("try_vgwort_attach: already attached to `#{post.slug}'")
+          else
+            puts :notyet
+          end
+        end
+      end
       
     end
 

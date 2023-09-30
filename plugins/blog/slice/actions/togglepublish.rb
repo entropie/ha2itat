@@ -8,14 +8,7 @@ module Ha2itat::Slices
           return unless post
           if post.draft?
             adapter.to_post(post)
-
-            # if Habitat.quart.plugins.enabled?(:vgwort)
-            #   post_with_vgw = post.with_plugin(VGWort)
-            #   if post_with_vgw.id_attached?
-            #   else
-            #     attach_id = post_with_vgw.attach_id
-            #   end
-            # end
+            post.try_vgwort_attach
           else
             adapter.to_draft(post)
           end
