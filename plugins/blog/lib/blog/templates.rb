@@ -83,18 +83,8 @@ module Plugins
           Redcarpet::Render::HTML
         end
 
-        def render_preview(user)
-          post = Ha2itat.adapter(:blog).with_user(user) do |blog|
-            blog.by_slug("preview")
-          end
-          post.with_template(identifier).compile({})
-        end
-
         def content
-          @content ||=
-            begin
-              Redcarpet::Markdown.new(markdown_renderer, OPTIONS[:haml]).render(target.content)
-            end
+          @content ||= target.with_filter
         end
 
         def root(*args)

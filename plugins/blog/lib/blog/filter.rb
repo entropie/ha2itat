@@ -64,8 +64,7 @@ module Plugins
       # FIXME: what?
       class GalleryProcessor < Filter
         def filter(str)
-          # FIXME: 
-          return str unless false # Ha2itat.quart.plugins.enabled?(:galleries) 
+          return str unless Ha2itat.quart.plugins.enabled?(:galleries) 
 
           str.lines.map do |line|
             regex = /\#\{(.*)\}\s?/
