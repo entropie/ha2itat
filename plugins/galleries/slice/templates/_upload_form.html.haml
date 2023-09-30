@@ -1,4 +1,4 @@
-%form.gallery-add-form.form-horizontal{:action => path(:backend_galleries_upload, slug: gallery.ident), :method => :post, :enctype => 'multipart/form-data'}
+%form.gallery-add-form.form-horizontal{:action => path(:backend_galleries_upload, slug: gallery.ident, goto: path(:backend_galleries_show, slug: gallery.ident, page: "last")), :method => :post, :enctype => 'multipart/form-data'}
   .container
     .columns
       .column.col-12

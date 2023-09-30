@@ -8,6 +8,9 @@ module Ha2itat::Slices::Galleries
 
     post "/setident/:slug/:hash",  to: "setident",     as: :setident
 
+    get "/remove/:slug/:hash",  to: "remove",     as: :remove
+
+
     get "/show/:slug", to: "show", as: :show
   end
 end

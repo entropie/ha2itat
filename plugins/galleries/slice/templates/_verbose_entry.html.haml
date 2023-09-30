@@ -1,0 +1,9 @@
+%li
+  %form{:action => path(:backend_galleries_setident, slug: gallery.ident, hash: ele.hash, goto: current_uri), :method => :post}
+    .img-box{style: ele.css_background_defintion}
+      .img-box-head
+        %ul
+          %li
+            %a{href: path(:backend_galleries_remove, slug: gallery.ident, hash:  ele.hash, goto: current_uri )} x
+    %input.form-input{:type => "text", :value => ele.ident, :name => :ident}
+    %input.form-input{:type => "submit", :value => "submit"}

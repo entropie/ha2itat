@@ -1,23 +1,18 @@
 module Ha2itat::Slices
   module Galleries
     module Actions
-      class Upload < Action
+      class Remove < Action
 
         params do
           required(:slug).filled(:string)
-          required(:file)
-          optional(:goto)
-          
+          required(:hash).filled(:string)
         end
 
         def handle(req, res)
-          gallery = adapter.find_or_create(req.params[:slug])
-
-          if req.post?
-            files = req.params[:file]
-            filesarr = files.map{ |f| f[:tempfile].path }
+          if req.params.valid?
+            gallery = adapter.find_or_create(req.params[:slug])
             adapter.transaction(gallery) do |g|
-              g.add(filesarr)
+              g.remove(req.params[:hash])
             end
             res.redirect_to(redirect_target_from_request(req) || path(:backend_galleries_show, slug: gallery.ident))
           end
