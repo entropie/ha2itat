@@ -94,10 +94,7 @@ module Ha2itat
   end
 
   def self.add_adapter(name, clz)
-    LogInBlock.do_log("initializing adapter") do 
-      adapter[name] = clz.get_default_adapter_initialized
-    end
-    adapter
+    adapter[name] = clz.get_default_adapter_initialized
   end
 
   def self.quart_from_path(path)
