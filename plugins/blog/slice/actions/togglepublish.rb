@@ -7,7 +7,7 @@ module Ha2itat::Slices
           post = by_slug(req)
           return unless post
           if post.draft?
-            adapter.to_post(post)
+            post = adapter.to_post(post)
             post.try_vgwort_attach
           else
             adapter.to_draft(post)
