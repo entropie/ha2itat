@@ -334,9 +334,10 @@ module Plugins
         if VGWort.initialized?
           post_with_vgw = self.extend(VGWort)
           if post_with_vgw.id_attached?
-            Ha2itat.log("try_vgwort_attach: already attached to `#{post.slug}'")
+            Ha2itat.log("try_vgwort_attach: already attached to `#{slug}'")
           else
             post_with_vgw.attach_id
+            Ha2itat.log("try_vgwort_attach: attached id #{post_with_vgw.vgwort.refid}`#{slug}'")
           end
         end
       end
