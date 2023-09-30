@@ -1,14 +1,37 @@
+import 'jquery';
+import { magnificPopup } from 'magnific-popup'
+import 'magnific-popup/dist/magnific-popup.css'
+
+
 $(document).ready(function() {
+
+    if($(".popup-img").length)
+        $('.popup-img').magnificPopup({
+            type: 'image',
+            autoFocusLast: false,
+            fixedContentPos: false
+        });
+
+    
+    if($(".open-popup-link").length)
+        $('.open-popup-link').magnificPopup({
+            type:'inline',
+            autoFocusLast: false,
+            fixedContentPos: false
+        });
+
+    if($(".open-popup-alink").length)
+        $('.open-popup-alink').magnificPopup({
+            type:'ajax',
+            autoFocusLast: false,
+            fixedContentPos: false
+        });
+
+    // copy ident to clipboard onClick on :backend_galleries_index
     $(".clipboard-click").click(function() {
         let msg = $(this).find("span").text();
         try {
-            navigator.clipboard.writeText(msg).then(() => {
-                console.log('Content copied to clipboard');
-                
-            },() => {
-                console.error('Failed to copy');
-                /* Rejected - text failed to copy to the clipboard */
-            })
+            navigator.clipboard.writeText(msg)
         } catch (error) {};
         
     })
