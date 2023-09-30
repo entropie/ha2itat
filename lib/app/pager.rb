@@ -44,15 +44,28 @@ module Ha2itat
 
         class PagerArray
 
-          attr_reader :current_page
-
           def initialize(array, current_page, limit, pager)
-            @array, @current_page, @limit, @pager = array, current_page, limit, pager
+            @array, @limit, @pager = array, limit, pager
+            set_after_validation(current_page)
+          end
+
+          def set_after_validation(current_page_input)
+            @page = if current_page_input.to_s.strip == "last"
+                      page_count
+                    elsif current_page_input =~ /^\d+$/
+                      current_page_input.to_i
+                    else
+                      1
+                    end
           end
 
           def page_count
             pages, rest = @array.size.divmod(@limit)
             rest == 0 ? pages : pages + 1
+          end
+
+          def current_page
+            @page
           end
           
           def size
@@ -80,8 +93,7 @@ module Ha2itat
         def initialize(params, list, m = Helper::Pager.max)
           @limit = m
           @params, @list = params, list
-          @page = params[:page] && params[:page].to_i || 1
-          @pager = PagerArray.new(@list, @page, m, self)
+          @pager = PagerArray.new(@list, @params[:page], m, self)
         end
 
         def limit
@@ -126,7 +138,7 @@ module Ha2itat
           items = PagerItems.new
 
           #items << PagerNavigationItem.new(value: 1, text: "fbackward", pager: self)
-          items << PagerNavigationItem.new(value: [@page - 1, 1].max, text: "backward", pager: self)
+          items << PagerNavigationItem.new(value: [current_page - 1, 1].max, text: "backward", pager: self)
 
           center = pager.current_page
           (1..pager.page_count).each_with_index do |pgnr|
@@ -139,7 +151,7 @@ module Ha2itat
             end
           end
 
-          items << PagerNavigationItem.new(value: @page + 1, text: "forward", pager: self)
+          items << PagerNavigationItem.new(value: current_page + 1, text: "forward", pager: self)
           #items << PagerNavigationItem.new(value: pager.page_count, text: "fforward", pager: self)
 
           # iterate over entire list to find multiple succeeding spacer items and flatten them
