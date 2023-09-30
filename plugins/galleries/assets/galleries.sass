@@ -66,9 +66,10 @@ ul.image-verbose-list
   @include galleries-list
   justify-content: space-around
   li
-    flex-basis: 100%
     margin-bottom: 1vw
-    flex-basis: 50%
+    flex-basis: 100%
+    @include desktop
+      flex-basis: 50%
     form
       display: flex
       justify-content: space-around
