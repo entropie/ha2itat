@@ -64,7 +64,7 @@ module Ha2itat::Mixins
     module_function :write
 
     def log(*args)
-      Ha2itat.log(*args)
+      args.each{|a| Ha2itat.log(a) }
     end
     
     
