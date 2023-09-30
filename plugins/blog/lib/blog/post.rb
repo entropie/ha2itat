@@ -336,7 +336,7 @@ module Plugins
           if post_with_vgw.id_attached?
             Ha2itat.log("try_vgwort_attach: already attached to `#{post.slug}'")
           else
-            puts :notyet
+            post_with_vgw.attach_id
           end
         end
       end
