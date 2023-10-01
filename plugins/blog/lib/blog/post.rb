@@ -44,6 +44,8 @@ module Plugins
           return ret.include?(l)
         end
         ret
+      rescue
+        []
       end
 
       def language
@@ -95,7 +97,7 @@ module Plugins
 
       OptionalAttributes = [:image, :template]
       
-      attr_reader :image, *Attributes.keys
+      attr_reader :image, :adapter, *Attributes.keys
 
       attr_accessor :filename, :datadir, :user_id, :created_at, :updated_at
 
@@ -209,11 +211,19 @@ module Plugins
       end
 
       def fullpath(*args)
-        File.join(Ha2itat.adapter(:blog).path, "blog", filename)
+        adapter.repository_path(filename)
+      end
+
+      def datadir(*args)
+        @datadir = adapter.datadir(slug, *args)
       end
 
       def datapath(*args)
-        File.join(Ha2itat.quart.media_path, "public/data", slug, *args)
+        adapter.path( datadir(*args) )
+      end
+
+      def relative_datapath(*args)
+        adapter.datadir(*args)
       end
       
       def intro
@@ -222,11 +232,10 @@ module Plugins
         else
           content.split("\n\n").first
         end
-
       end
 
-      def datadir(*args)
-        @datadir = File.join("public/data", slug, *args)
+      def adapter
+        @adapter || Ha2itat.adapter(:blog)
       end
 
       def images

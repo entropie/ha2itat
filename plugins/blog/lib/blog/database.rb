@@ -53,7 +53,7 @@ module Plugins
           end
 
           def datadir(*args)
-            ::File.join("public/data", *args)
+            ::File.join("public/data/blog", *args)
           end
 
           def post_files

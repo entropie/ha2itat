@@ -42,7 +42,7 @@ module Plugins
       end
 
       def fullpath
-        File.join(Ha2itat.adapter(:blog).path, @post.datadir("..", dirname, basename))
+        Ha2itat.adapter(:blog).repository_path(@post.datadir)
       end
 
       def css_background_defintion
@@ -55,7 +55,7 @@ module Plugins
       end
 
       def http_path(*args)
-        File.join("/data", dirname, basename)
+        ::File.join("/data/blog/", dirname, basename)
       end
       
       def url
