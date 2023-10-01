@@ -106,6 +106,7 @@ module Plugins
       
       class FlickrImgGroup < Filter
         def filter(str)
+          return str unless Ha2itat.quart.plugins.enabled?(:flickr) 
           ret = nokogiri(str)
           ret.css("p").each_with_index do |node, index|
             node.text.scan(/(\[flickgr: (.*)\])/) do |match|
