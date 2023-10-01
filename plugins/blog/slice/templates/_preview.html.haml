@@ -27,6 +27,6 @@
         %a{href: path(:backend_blog_edit, slug: post.slug)}>
           = t.be.links.blog.edit
       %li.warn>
-        %a{href: path(:backend_blog_destroy, slug: post.slug, goto: current_uri), :onclick => "return confirm('Are you sure?')"}>
+        %a{href: path(:backend_blog_destroy, slug: post.slug, goto: current_uri), onclick: "return confirm('%s')" % t.be.ask.destroy}>
           = t.be.links.blog.destroy
 
