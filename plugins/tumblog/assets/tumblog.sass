@@ -1,0 +1,34 @@
+@import "../../backend/assets/variables"
+
+.backend-listing.tumblog, .backend-block.tumblog
+  .backend-list-content
+    padding-top: 2vh
+
+  .tumblpost-preview
+    text-align: center
+    &.private
+      opacity: .4
+      &:hover
+        opacity: 1
+
+  .tumblpost-entry
+    text-align: center
+    &.defaulthandler
+      text-align: left
+      background-color: $textBackgroundColor
+      color: $textColor
+      padding: 15px
+
+  .backend-list-kind
+    position: absolute
+    bottom: 0
+    font-size: 12px
+    border-top-left-radius: 0
+    padding: 0
+    background-color: transparent
+    margin-right: 5px
+
+.backend-listing.tumblog
+  .tumblpost-entry
+    &.defaulthandler
+      padding: 0

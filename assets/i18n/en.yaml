@@ -32,6 +32,7 @@ be:
     snippets: Contents
     booking: Calendar
     blog: Blahg
+    tumblog: TBlog
     galleries: Galleries
   links:
     user:
@@ -57,10 +58,17 @@ be:
       unpublish: Unpublish
       edit: Edit
       destroy: Delete
-      create: Create
+      create: Post
       raw: Raw
+    tumblog:
+      show: Show
+      edit: Edit
+      publish: Publish
+      unpublish: Unpublish
+      destroy: Delete
+      create: Tumbl!
     galleries:
-      create: Create Gallery
+      create: create Gallery
       
 
   topics:
@@ -85,7 +93,13 @@ be:
     galleries:
       show: Gallery
       index: Overview
-      create: Create
+      create: create Gallery
+    tumblog:
+      index: Tumblog
+      create: Tumbl!
+      edit: Edit
+      show: Tumblpost
+      
         
   help:
     ident: "<strong>Final</strong> unique (!) identifier"

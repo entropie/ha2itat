@@ -1,0 +1,8 @@
+%h2= t.be.topics.tumblog.index
+
+.backend-listing.tumblog
+  - pager.each do |ele|
+    .backend-list-entry
+      = render "preview", post: ele
+
+= pager.navigation

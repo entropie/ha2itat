@@ -1,0 +1,5 @@
+%h1= t.be.topics.tumblog.edit
+
+.backend-block
+  .backend-content
+    = render "form", action: path(:backend_tumblog_edit, id: post.id), post: post

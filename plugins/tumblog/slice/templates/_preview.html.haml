@@ -1,0 +1,12 @@
+.tumblpost-preview{:class => post.css_class }
+  
+  - if post.private?
+    .backend-list-publish-state= t.be.messages.not_published
+
+  .backend-list-content
+    %code= post.content
+
+  .backend-list-controls.floating
+    = render "controls", post: post
+
+  .backend-list-kind= post.kind

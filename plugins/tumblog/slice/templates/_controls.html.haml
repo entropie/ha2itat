@@ -1,0 +1,12 @@
+%ul
+  %li.imp>
+    = nlink(path(:backend_tumblog_show, id: post.id), t.be.links.tumblog.show)
+  %li>
+    = nlink(path(:backend_tumblog_toggleprivate, id: post.id, goto: current_uri), post.private? ? t.be.links.tumblog.publish : t.be.links.tumblog.unpublish) 
+  %li>
+    %a{href: path(:backend_tumblog_edit, id: post.id)}>
+      = t.be.links.tumblog.edit
+
+  %li.warn>
+    %a{href: path(:backend_tumblog_destroy, id: post.id, goto: current_uri), onclick: "return confirm('%s')" % t.be.ask.destroy}>
+      = t.be.links.tumblog.destroy

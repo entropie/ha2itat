@@ -1,0 +1,17 @@
+#BE-form
+  %form{method: :post, action: action}
+    .container
+      .columns
+        .column.col-2
+          - h = {disabled: :disabled}
+          %input.form-input{h, type: :text, value: (post && post.id ? post.id : ""), name: :id}
+        .column.col-8
+          %textarea.form-input{name: :content, rows: 10}
+            = post && post.content
+        .column.col-2
+          %input.form-input{type: :submit, value: t.form.submit}
+      .columns.mtop
+        .column.col-2
+          %input.form-input{type: :text, name: "title", :value => (post ? post.title : "")}
+        .column.col-8
+          %input.form-input{type: :text, name: :tags, :value => (post && post.tags ? post.tags.join(", ") : "")}
