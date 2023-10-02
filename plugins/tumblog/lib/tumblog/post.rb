@@ -284,7 +284,7 @@ module Plugins
 
         new_content = hash[:content]
 
-        if new_content && new_content != self.content and 
+        if new_content && new_content != self.content
           changed = true
           @content = hash[:content]
         end
