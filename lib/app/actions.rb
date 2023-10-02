@@ -28,7 +28,7 @@ module ActionMethodsCommon
     Ha2itat.adapter(adptr)
   end
 
-  def refuse_unless_auhtenticated!(req, res)
+  def reject_unless_authenticated!(req, res)
     if req.env["REQUEST_PATH"] != path(:backend_user_login)
       unless req.env["warden"].user
         res.redirect_to path(:backend_user_login)

@@ -55,7 +55,7 @@ module ViewMethodsCommon
       csscls = "#{csscls} #{ocss}"
     end
     parsed_opts = opts.inject("") {|opt, m|
-      opt << "#{m.first}='#{m.last}' "
+      opt << "#{m.first}=\"#{m.last}\" "
     }
     "<a class='snippet-link #{csscls}' href='#{target_path}'#{parsed_opts}>#{text || args.last}</a>"
   end
@@ -76,10 +76,10 @@ module ViewMethodsCommon
       csscls = "#{csscls} #{ocss}"
     end
     parsed_opts = opts.inject("") {|opt, m|
-      opt << "#{m.first}='#{m.last}' "
+      opt << "#{m.first}=\"#{m.last}\" "
     }
 
-    "<a class='#{csscls}' href='#{path}'#{parsed_opts}>#{desc || routename}</a>"
+    "<a class='#{csscls}' href='#{path}'  #{parsed_opts}>#{desc || routename}</a>"
   end
   alias :a :nlink
 

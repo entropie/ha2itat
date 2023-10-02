@@ -11,7 +11,7 @@ module Ha2itat
       include ActionMethodsCommon
 
       before :check_token
-      before :refuse_unless_auhtenticated!
+      before :reject_unless_authenticated!
 
       include Helper::Translation::Actions
       before :locales_setup
