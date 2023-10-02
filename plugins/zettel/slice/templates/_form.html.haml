@@ -1,0 +1,12 @@
+#be-form
+  %form.diary-create-form{action: action, method: "post"}
+    .container.grid-xl
+      .columns
+        .column.col-11
+          %input.form-input{type: :input, name: "title", value: (sheet && sheet.title)}
+        .column.col-1
+          %input.form-input{type: :submit, value: t.form.submit}
+
+      .columns.mtop
+        .column.col-12
+          %textarea#foo.form-input.cm-form{"data-codemirror-mode": "text/x-markdown", name: "content"}= (sheet && sheet.content)

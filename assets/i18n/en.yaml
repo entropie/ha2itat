@@ -34,6 +34,7 @@ be:
     blog: Blahg
     tumblog: TBlog
     galleries: Galleries
+    zettel: Zettel
   links:
     user:
       create: add User
@@ -61,7 +62,6 @@ be:
       create: Post
       raw: Raw
       show: Show
-
     tumblog:
       show: Show
       edit: Edit
@@ -71,7 +71,11 @@ be:
       create: Tumbl!
     galleries:
       create: create Gallery
-      
+    zettel:
+      create: Create
+      show: Show
+      edit: Edit
+      destroy: Delete
 
   topics:
     snippets:
@@ -102,6 +106,9 @@ be:
       create: Tumbl!
       edit: Edit
       show: Tumblpost
+    zettel:
+      index: Overview
+      show: Show
       
         
   help:

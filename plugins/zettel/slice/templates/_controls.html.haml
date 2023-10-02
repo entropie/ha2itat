@@ -1,0 +1,4 @@
+%ul
+  %li.imp>= nlink(path(:backend_zettel_show, id: sheet.id), t.be.links.zettel.show)
+  %li>= nlink(path(:backend_zettel_edit, id: sheet.id), t.be.links.zettel.edit)
+  %li.warn>= nlink(path(:backend_zettel_destroy, id: sheet.id), t.be.links.zettel.destroy, onclick: "return confirm('%s')" % t.be.ask.destroy)

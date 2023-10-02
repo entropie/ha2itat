@@ -1,0 +1,34 @@
+@import "../../backend/assets/variables"
+
+.zettel-preview
+  display: flex
+  justify-content: space-between
+  padding: 10px
+  width: 100%
+  .zettel-ident
+    text-align: center
+  .zettel-refs
+    a
+      color: grey
+    
+.zettel-upload
+  border-bottom: 5px solid rgba(silver, .1)
+  padding-bottom: 2vw
+  margin-bottom: 2vw
+
+.zettel-content
+  border: 1px solid rgba(silver, .1)
+  border-bottom: 5px solid rgba(silver, .1)
+
+.zettel-rendered
+  margin-top: 1.5vw
+  border: 1px solid rgba(red, .1)
+  border-bottom: 5px solid rgba(silver, .1)
+
+.zettel-images
+  margin-top: 1.5vw
+  ul
+    @include clean-ul
+    li
+      img
+        max-width: 10vw

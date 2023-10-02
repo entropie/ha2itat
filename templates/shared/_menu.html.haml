@@ -1,7 +1,7 @@
 .module-menu.main-module-menu
   %ul
     %li= nlink(:index, t.be.menu.frontend)
-    - [:user, :snippets, :blog, :tumblog, :booking, :galleries].each do |slice|
+    - [:user, :snippets, :blog, :tumblog, :booking, :galleries, :zettel].each do |slice|
       - if Ha2itat.quart.plugins.enabled?(slice)
         %li= nlink("backend_#{slice}_index".to_sym, t.be.menu.send(slice))
 

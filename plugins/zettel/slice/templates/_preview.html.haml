@@ -1,0 +1,9 @@
+.zettel-preview
+
+  .zettel-ident
+    = nlink(path(:backend_zettel_show, id: sheet.id), sheet.title)
+
+  
+  .zettel-refs
+    - sheet.references.each do |sr|
+      = nlink(path(:backend_zettel_show, id: sr.id), sr.title)
