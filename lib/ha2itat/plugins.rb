@@ -44,7 +44,7 @@ module Ha2itat
       toinclude =  Ha2itat.adapter.keys.map(&:to_s)
       included = []
 
-      Ha2itat.log("[#{which}] writing plugin javascript imports #{ PP.pp(toinclude, "").strip }")
+      Ha2itat.log("[#{which}] writing plugin javascript imports #{ PP.pp(toinclude, "").strip.gsub("\n", "") }")
 
       incs = toinclude.map{ |tinc|
         file = "vendor/gems/ha2itat/plugins/#{tinc}/plugin-#{which}.js"
@@ -64,7 +64,7 @@ module Ha2itat
         fp.puts(incs.join("\n"))
       }
       for_log = included.map{|f| ::File.basename(::File.dirname(f)) }
-      Ha2itat.log(" + wrote #{PP.pp(for_log, "").strip} to #{slice_include_file} (#{::File.size(slice_include_file)}kb)")
+      Ha2itat.log(" + wrote #{PP.pp(for_log, "").strip.gsub("\n", "")} to #{slice_include_file} (#{::File.size(slice_include_file)}kb)")
 
       write_javascript_include_file!("fe") if which == "be"
 
