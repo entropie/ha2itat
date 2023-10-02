@@ -1,0 +1,7 @@
+%ul
+  %li>= nlink(path(:backend_blog_show, slug: post.slug), t.be.links.blog.show)
+  %li>= nlink(path(:backend_blog_toggle_publish, slug: post.slug, goto: current_uri), post.draft? ? t.be.links.blog.publish : t.be.links.blog.unpublish)
+  %li>= nlink(path(:backend_blog_show_withoutlayout, slug: post.slug), t.be.links.blog.raw)
+  %li>= nlink(path(:backend_blog_edit, slug: post.slug), t.be.links.blog.edit)
+  %li.warn>= nlink(path(:backend_blog_destroy, slug: post.slug, goto: current_uri), t.be.links.blog.destroy, onclick: "return confirm('%s')" % t.be.ask.destroy)
+

@@ -1,14 +1,16 @@
-.backend-block
-  .backend-content
-    = render "post_topline", post: post
-    %article.blog-post
-      %div{:id => post.slug, :class => post.css_class}
-        .title
-          %h1
-            = post.title
-        %p.subtitle
-          = blog_author(post).name
-          = post.to_human
-        
-        .post-content
-          = post.with_filter
+%h1= t.be.topics.blog.show
+
+.backend-content.blog
+  .topline
+    = render "controls", post: post
+
+  %article.blog-post{:id => post.slug, :class => post.css_class}
+    .title
+      %h1
+        = post.title
+    %p.subtitle
+      = blog_author(post).name
+      = post.to_human
+
+    .post-content
+      = post.with_filter

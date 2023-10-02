@@ -15,18 +15,4 @@
         %span= biv
     = backend_module_info(post)
   .backend-list-controls.floating
-    %ul
-      %li>
-        %a{:href => path(:backend_blog_toggle_publish, slug: post.slug, goto: current_uri)}>
-          = (post.draft? ? t.be.links.blog.publish : t.be.links.blog.unpublish)
-      %li>
-        %a{href: path(:backend_blog_show_withoutlayout, slug: post.slug)}>
-          = t.be.links.blog.raw
-
-      %li>
-        %a{href: path(:backend_blog_edit, slug: post.slug)}>
-          = t.be.links.blog.edit
-      %li.warn>
-        %a{href: path(:backend_blog_destroy, slug: post.slug, goto: current_uri), onclick: "return confirm('%s')" % t.be.ask.destroy}>
-          = t.be.links.blog.destroy
-
+    = render "controls", post: post

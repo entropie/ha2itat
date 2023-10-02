@@ -1,11 +1,10 @@
 %h1= t.be.topics.tumblog.show
 
-.backend-block.tumblog
-  .backend-content
-    .backend-content.topline
-      = render "controls", post: post
+.backend-content.tumblog
+  .topline
+    = render "controls", post: post
 
-    %article{class: post.css_class}
-      = post.to_html(true)
+  %article{class: post.css_class}
+    = post.to_html(true)
 
 

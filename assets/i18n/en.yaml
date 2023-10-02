@@ -60,6 +60,8 @@ be:
       destroy: Delete
       create: Post
       raw: Raw
+      show: Show
+
     tumblog:
       show: Show
       edit: Edit
@@ -90,6 +92,7 @@ be:
       index: Blog
       create: New Blog
       edit: Edit Blog Entry
+      show: Show
     galleries:
       show: Gallery
       index: Overview
