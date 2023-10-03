@@ -63,10 +63,39 @@ module Ha2itat
     def t(*params)
       ::R18n.get.t(*params)
     end
+    module_function :t
 
     def l(*params)
       R18n.get.l(*params)
     end  
   end
 
+end
+
+# foobar: !!icon
+#   i: icon-circle
+#   t: text
+#
+R18n::Filters.add('icon', :icon) do |content, config, opt|
+  if Ha2itat.quart.plugins.enabled?(:icons)
+    ::Plugins::Icons.icon(content['i'])
+  else
+    ret = nil
+    
+    # if opt is supplied we get alternate translation
+    if opt
+      current = ::R18n.get
+      opt.split(".").each do |seg|
+        unless current
+          break
+        end
+
+        p current = current[seg]
+      end
+      p current.class
+
+      ret = current
+    end
+    ret || content['t']
+  end
 end

@@ -16,31 +16,9 @@ module Ha2itat
         PagerNew.new(params, list, n || max)
       end
 
-      def self.icons
-        @icons || {
-          :forward   => "glyphicon glyphicon-forward",
-          :backward  => "glyphicon glyphicon-backward",
-          :fforward  => "glyphicon glyphicon-fast-forward",
-          :fbackward => "glyphicon glyphicon-fast-backward",
-        }
-      end
-
-
       class Pager
         attr_reader :params, :list, :link_proc
         attr_reader :pager
-
-        def self.icons=(hsh)
-          @icons = hsh
-        end
-        
-        def self.icons
-          @icons ||= Ha2itat::Helper::Pager.icons
-        end
-
-        def icons
-          self.class.icons
-        end
 
         class PagerArray
 
@@ -254,6 +232,8 @@ module Ha2itat
 
         class PagerNavigationItem < PagerItem
 
+          include Helper::Translation
+
           def initialize(value:, text:, pager:)
             @value = value
             @text = text
@@ -266,7 +246,8 @@ module Ha2itat
 
           def to_html
             li = "<li class='#{css_cls}'>%s</li>"
-            icnstr = "<span class='pager-no-a #{@pager.icons[@text.to_sym]}'></span>"
+            icnstr = "<span class='pager-no-a'>#{t.icons.send(@text)}</span>"
+
             ret = if disabled?
                     li % icnstr
                   else
