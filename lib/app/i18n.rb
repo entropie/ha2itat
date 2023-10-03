@@ -89,10 +89,8 @@ R18n::Filters.add('icon', :icon) do |content, config, opt|
         unless current
           break
         end
-
-        p current = current[seg]
+        current = current[seg]
       end
-      p current.class
 
       ret = current
     end
