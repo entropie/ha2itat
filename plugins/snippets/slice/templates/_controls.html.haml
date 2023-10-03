@@ -1,0 +1,5 @@
+%ul
+  %li.imp>= nlink(path(:backend_snippets_show, slug: snippet.slug), t.icons.show("be.links.snippets.show"), title: t.be.links.snippets.show)
+  %li>= nlink(path(:backend_snippets_edit, slug: snippet.slug), t.icons.edit("be.links.snippets.edit"), title: t.be.links.snippets.edit)
+  %li.warn>= nlink(path(:backend_snippets_edit, slug: snippet.slug), t.icons.destroy("be.links.snippets.destroy"), title: t.be.links.snippets.destroy, onclick: "return confirm('%s')" % t.be.ask.destroy)
+
