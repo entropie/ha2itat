@@ -31,7 +31,7 @@ be:
     frontend: Frontend
     user: User
     snippets: Contents
-    booking: Calendar
+    booking: Events
     blog: Blahg
     tumblog: TBlog
     galleries: Galleries
