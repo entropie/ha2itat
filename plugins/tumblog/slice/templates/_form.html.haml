@@ -14,4 +14,4 @@
         .column.col-2
           %input.form-input{type: :text, name: "title", :value => (post ? post.title : "")}
         .column.col-8
-          %input.form-input{type: :text, name: :tags, :value => (post && post.tags ? post.tags.join(", ") : "")}
+          %input.form-input.tags-input{type: :text, name: :tags, :value => (post && post.tags ? post.tags.join(", ") : "")}
