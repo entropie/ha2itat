@@ -99,10 +99,7 @@ module Plugins
       def uploads
         files = Dir.glob("%s*.*" % File.join(data_dir, "/"))
         files = filter_uploads(files)
-        ret = files.map{|f| DMedia.new(self, File.basename(f))}
-
-        pp ret
-        ret
+        files.map{|f| DMedia.new(self, File.basename(f))}
       end
 
       def initialize(content = nil)
