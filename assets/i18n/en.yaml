@@ -45,6 +45,7 @@ be:
       create: add Content
       edit: Edit
       destroy: Delete
+      show: Show
     booking:
       create: add Event
       archive: Archive
@@ -55,6 +56,7 @@ be:
       dayadd: Add Day
       dayremove: Remove Day
       destroy: Remove
+      show: Show
     blog:
       publish: Publish
       unpublish: Unpublish
@@ -72,6 +74,7 @@ be:
       create: Tumbl!
     galleries:
       create: create Gallery
+      destroy: Remove
     zettel:
       create: Create
       show: Show
@@ -129,18 +132,21 @@ icons:
   edit: !!icon
     i: edit
   show: !!icon
-    i: eye
+    i: monitor
   destroy: !!icon
     i: eye
   publish: !!icon
     i: globe
+  unpublish: !!icon
+    i: eye-off
   destroy: !!icon
     i: eye
   raw: !!icon
     i: file
   destroy: !!icon
     i: x-circle
-
+  archive: !!icon
+    i: archive
 
 robots: !!pl
   0: No robots
