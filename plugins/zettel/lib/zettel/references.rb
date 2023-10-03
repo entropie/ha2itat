@@ -43,7 +43,6 @@ module Plugins
       end
 
       def referenced_by?(osheet)
-        p sheet, osheet
         sheet != osheet && osheet.references.keywords.include?(sheet.title)
       end
 
