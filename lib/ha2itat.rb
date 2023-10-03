@@ -43,6 +43,7 @@ module Ha2itat
   require_relative "ha2itat/plugins"
   require_relative "ha2itat/adapter"
   require_relative "ha2itat/calculated_version_hash"
+  require_relative "ha2itat/renderer"
 
   require_relative "app/i18n"
   require_relative "app/pager"

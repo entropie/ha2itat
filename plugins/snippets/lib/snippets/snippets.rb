@@ -124,8 +124,9 @@ module Plugins
       end
 
       def render(env = nil)
-        markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, footnotes: false)
-        r = markdown.render(to_s)
+        # markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, footnotes: false)
+        # r = markdown.render(to_s)
+        Ha2itat::Renderer.render(:markdown, to_s, env: env)
       end
 
       def kind
@@ -144,9 +145,7 @@ module Plugins
 
       def render(env = nil)
         env ||= Env.new
-        haml_renderer = Haml::Template.new(escape_html: false) { to_s }
-        "%s" % haml_renderer.render(env)
-        # rescue
+        Ha2itat::Renderer.render(:haml, to_s, env: env)
         # "<div class='warning'>nope: something went wrong while processing <code>#{ident}</code>: <code>#{$!.class}</code></div>"
       end
 

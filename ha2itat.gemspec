@@ -55,6 +55,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'capistrano-git'     #, '~> 0.1.2'
   s.add_dependency 'sass'
   s.add_dependency 'unicorn'
+  s.add_dependency 'commonmarker'
 
   s.add_development_dependency "dotenv"
 
