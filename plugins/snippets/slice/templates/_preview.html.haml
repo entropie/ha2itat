@@ -1,10 +1,6 @@
 .snippet-preview{class: snippet.css_class}
   .backend-list-controls.floating
-    %ul
-      %li>
-        %a{href: path(:backend_snippets_edit, slug: snippet.slug)}= t.be.links.snippets.edit
-      %li.warn>
-        %a{href: path(:backend_snippets_destroy, slug: snippet.slug), :onclick => "return confirm('#{t.be.ask.destroy}')"}= t.be.links.snippets.destroy
+    = render "controls", snippet: snippet
   .backend-list-head
     %a{href: path(:backend_snippets_show, slug: snippet.slug)}
       %strong= snippet.ident

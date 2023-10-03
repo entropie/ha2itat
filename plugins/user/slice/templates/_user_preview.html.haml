@@ -1,8 +1,7 @@
 .backend-list-entry
   .backend-list-controls.floating
     %ul
-      %li
-        = nlink(rpath(:backend_user_edit,  id: usr.id), t.be.links.user.edit)
+      %li>= nlink(path(:backend_user_edit, id: usr.id), t.icons.edit("be.links.user.edit"), title: t.be.links.user.edit)
   .backend-list-head
     = nlink(rpath(:backend_user_show, id: usr.id), usr.name)
 

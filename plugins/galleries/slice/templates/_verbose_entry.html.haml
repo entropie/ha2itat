@@ -3,7 +3,7 @@
     .img-box{style: ele.css_background_defintion}
       .img-box-head
         %ul
-          %li
-            %a{href: path(:backend_galleries_remove, slug: gallery.ident, hash:  ele.hash, goto: current_uri), :onclick => "return confirm('%s')" % t.be.ask.destroy }= t.be.icons.destroy
+          %li>= nlink(path(:backend_galleries_remove, slug: gallery.ident, hash: ele.hash, goto: current_uri), t.icons.destroy("be.links.galleries.destroy"), onclick: "return confirm('%s')" % t.be.ask.destroy, title: t.be.links.galleries.destroy)
+
     %input.form-input{:type => "text", :value => ele.ident, :name => :ident}
     %input.form-input{:type => "submit", :value => t.form.submit}
