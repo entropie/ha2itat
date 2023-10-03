@@ -36,6 +36,7 @@ module Ha2itat
   require_relative "mixins/pretty_date"
 
   require_relative "app/component_backend_definitions"
+  require_relative "app/routes_extension"
 
   require_relative "ha2itat/database"
   require_relative "ha2itat/quarters"
