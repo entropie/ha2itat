@@ -1,6 +1,6 @@
 module Ha2itat
 
-  def self.backend_routes_proc
+  def self.module_routes
     proc {
 
       get '/assets/*path',          to: Rack::Directory.new( Ha2itat.quart.media_path("public") )
