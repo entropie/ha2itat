@@ -6,12 +6,6 @@ module Plugins
 
     class Filter
 
-      TO_HTML = -> (content, footnotes = true) {
-        markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, footnotes: footnotes)
-        markdown.render(content)
-      }
-      
-
       attr_reader :post
 
       def self.filter_constants
@@ -81,7 +75,7 @@ module Plugins
 
       class Markdown < Filter
         def filter(str)
-          TO_HTML.call(str)
+          Ha2itat::Renderer.render(:markdown, str)
         end
       end
 
