@@ -113,8 +113,7 @@ module Plugins
           end
           
           def to_html(logged_in = false)
-            markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
-            markdown.render(post.content)
+            Ha2itat::Renderer.render(:markdown, post.content)
           end
 
         end
