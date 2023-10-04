@@ -126,7 +126,11 @@ module Plugins
       end
 
       def groups
-        @groups ||= Groups.new(Groups::Default)
+        @groups || Groups.new
+      end
+
+      def admin?
+        is_grouped? and groups.include?(Plugins::User::Groups::Admin)
       end
 
       def is_grouped?
@@ -156,14 +160,14 @@ module Plugins
         @user_id  = Ha2itat::Database.get_random_id unless param_hash[:user_id]
 
         groups = param_hash.delete(:groups)
-
+        groups_to_write = Groups.new
         if groups
-          groups_to_write = Groups.new
           groups.each_pair {|gn, gv|
             groups_to_write.push(Groups.to_group_cls(gn))
           }
-          param_hash[:groups] = groups_to_write
         end
+        param_hash[:groups] = groups_to_write
+
 
         param_hash.each do |paramkey, paramval|
           instance_variable_set("@#{paramkey}", paramval)

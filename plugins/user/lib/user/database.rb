@@ -26,9 +26,9 @@ module Plugins
             @path = path
           end
 
-          def permitted_classes
-            [Plugins::User::User, BCrypt::Password]
-          end
+          # def permitted_classes
+          #   [Plugins::User::User, BCrypt::Password, Plugins::User::Groups]
+          # end
 
           def path(*args)
             ::File.join(@path, *args)
@@ -56,6 +56,10 @@ module Plugins
             Dir.glob(repository_path + "/*" + USERFILE_EXTENSION)
           end
 
+          def yaml_load(file:)
+            Psych.unsafe_load(::File.readlines(file).join)
+          end
+          
           def user(username = nil)
             if username
               fn = User.filename(username)

@@ -6,15 +6,13 @@ module Ha2itat::Slices
     module Actions
       class Show < Action
         
-        params { required(:id).filled(:string) }
+        params { required(:user_id).filled(:string) }
 
         handle_exception EntryNotFound => :error_handler
 
         def handle(req, res)
-          usr = adapter(:user).by_id(req.params[:id])
-
-          raise EntryNotFound, "foobar" unless usr
-
+          usr = adapter(:user).by_id(req.params[:user_id])
+          raise EntryNotFound, "no user" unless usr
           res.render(view, user: usr)
         end
 

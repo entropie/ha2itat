@@ -6,7 +6,7 @@
           - h = true ? {:disabled => :disabled} : {}
           %form-group
             %label.form-label ID
-            %input.form-input{h, :type => :text, :value => (user.id rescue ""), :name => :user_id}
+            %input.form-input{h, :type => :text, :value => (user.user_id rescue ""), :name => :user_id}
         .column.col-xl-6.col-md-12
           %form-group
             %label.form-label Name
@@ -16,6 +16,19 @@
           %form-group
             %label.form-label EMail
             %input.form-input{:type => :text, :value => (user.email rescue ""), :name => :email}
+
+      .columns
+        .column.col-xl-12.col-md-12
+          .user-groups{:class => (user && user.is_grouped? ? "grouped" : "")}
+            %ul
+              - Plugins::User::Groups.to_a.map{|grp| grp.to_s }.each do |ug|
+                %li
+                  %input{:type => :checkbox, :name => "groups[#{ug}]", :checked => (user.part_of?(ug) rescue false)}
+                  = ug
+
+
+
+
       .columns
         .column.col-xl-6.col-md-12
           %form-group
