@@ -1,10 +1,10 @@
 %ul
   %li>= nlink(path(:backend_booking_event_show, slug: event.slug), t.icons.show("be.links.booking.show"), title: t.be.links.booking.show)
   - if event.published?
-    %li.warn>= nlink(path(:backend_booking_event_archive, slug: event.slug), t.icons.archive("be.links.booking.archive"), title: t.be.links.booking.archive, onclick: "return confirm('%s')" % t.be.ask.archive, title: t.be.links.booking.destroy)
+    %li.warn>= nlink(path(:backend_booking_event_archive, slug: event.slug), t.icons.archive("be.links.booking.archive"), title: t.be.links.booking.archive, onclick: "return confirm('%s')" % t.be.ask.archive, title: t.be.links.booking.archive)
 
   - unless event.archived?
-    %li>= nlink(path(:backend_booking_event_toggle_publish, slug: event.slug, goto: current_uri), (event.published? ? t.icons.publish("be.links.blog.publish") : t.icons.unpublish("be.links.blog.unpublish")), title: (event.published? ? t.be.links.booking.publish : t.be.links.booking.unpublish), class: "publish-toggle-link")
+    %li>= nlink(path(:backend_booking_event_toggle_publish, slug: event.slug, goto: current_uri), (event.published? ? t.icons.publish("be.links.blog.publish") : t.icons.unpublish("be.links.blog.unpublish")), title: (event.published? ? t.be.links.booking.unpublish : t.be.links.booking.publish), class: "publish-toggle-link")
 
     %li>= nlink(path(:backend_booking_event_edit, slug: event.slug), t.icons.edit("be.links.booking.edit"), title: t.be.links.booking.edit)
 
