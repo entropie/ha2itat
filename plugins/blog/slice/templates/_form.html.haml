@@ -1,9 +1,11 @@
 #BE-form
+  .topline
+    = render "controls", post: post
   %form{:action => action, :method => :post, enctype: 'multipart/form-data'}
     .container
       .columns
         .column.col-12
-          .form-background-block.mtop{style: post && post.image ? "background-image: url(%s)" % post.image.url : ""}
+          .form-background-block{style: post && post.image ? "background-image: url(%s)" % post.image.url : ""}
 
       .columns
         .column.col-6.col-md-10.col-mx-auto
