@@ -1,7 +1,7 @@
 %section
   %form.zettel-create-form{enctype: 'multipart/form-data', action: action, method: :post, id: sheet.domid}>
     %input.sheet-id{type: :hidden, value: sheet.id, name: "id"}
-    %input.references-url{type: :hidden, value: path(:backend_zettel_references, slug: sheet.title), name: "id"}
+    %input.references-url{type: :hidden, value: path(:backend_zettel_references, slug: sheet.title)}
     %input{type: :submit, style: "display: none"}
     .zettel-sheet>
 
