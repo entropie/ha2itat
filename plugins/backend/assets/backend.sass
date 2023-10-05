@@ -11,7 +11,6 @@ body, html
 code
   background-color: $lighterGradientColor
 
-
 .be-date
   display: inline-block
   letter-spacing: -2px
@@ -276,9 +275,13 @@ a
 
 .backend-page
   position: relative
-  textarea, input, select, option, .input-group-addon
-    background-color: rgba($c1, .1)
-    color: #999
+  textarea, input, select, option, .input-group-addon, .tagsinput, .CodeMirror
+    background-color: rgba($c1, .7)
+    color: silver
+  textarea, .CodeMirror
+    height: auto !important
+
+    
   img
     max-width: 100%
 
