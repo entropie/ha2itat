@@ -74,19 +74,15 @@ function insertString(editor, str){
     }
 }
 
-
 function dblclickHandler(cm, form) {
     var dbclickFunction = function(e, el) {
         let ele = $(e.srcElement);
         let ec = ele.text();
         let link;
 
-        console.log( $(".references-url", $(form)).attr("value") );
-
-        return false;
+        let refs_url =$(".references-url", $(form)).attr("value");
         if(ele.hasClass("cm-ref")) {
-            link = "/d/references/"+ec.substr(1);
-            window.location.href = link;
+            window.location.href = refs_url + "/" + ec.substr(1);
         } else if (ele.hasClass("cm-url") && ele.hasClass("cm-string")) {
             let mdurl = ec.slice(1, -1).trim();
             if(isUrl(mdurl))

@@ -7,5 +7,5 @@
   .backend-list-additional
     .zettel-refs
       - sheet.references.resolve.each do |sr|
-        = nlink(path(:backend_zettel_show, id: sr.id), sr.title)
+        = nlink(path(:backend_zettel_show, id: sr.id), "#{t.icons.arrowl}#{sr.title}")
   

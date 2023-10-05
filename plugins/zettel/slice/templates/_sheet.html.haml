@@ -1,7 +1,7 @@
 %section
   %form.zettel-create-form{enctype: 'multipart/form-data', action: action, method: :post, id: sheet.domid}>
     %input.sheet-id{type: :hidden, value: sheet.id, name: "id"}
-    %input.references-url{type: :hidden, value: path(:backend_zettel_references, slug: sheet.title)}
+    %input.references-url{type: :hidden, value: path(:backend_zettel_reference_base)}
     %input{type: :submit, style: "display: none"}
     .zettel-sheet>
 
@@ -17,7 +17,7 @@
                 %input{type: :file, name: "files[]", id: "cm-form-files-%s" % sheet.id, style: "display:none"}
 
           %li
-            %a{href: path(:backend_zettel_references, slug: sheet.title)}>
+            %a{href: path(:backend_zettel_references, ref: sheet.title)}>
               = t.icons.references
       .zettel-form>
         .zettel-controls>

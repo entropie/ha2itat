@@ -6,7 +6,7 @@ module Ha2itat::Slices
         include Ha2itat.h(:pager)
 
         def handle(req, res)
-          sheets = adapter.with_user(session_user(req)).by_reference_sorted( req.params[:slug] )
+          sheets = adapter.with_user(session_user(req)).by_reference_sorted( req.params[:ref] )
           # pager = Pager.new(req.params.to_hash, sheets)
           # pager.link_proc = -> (n) { routes.path(:backend_zettel_references, slug: req.params[:slug], page: n) }
           res.render(view, sheets: sheets)
