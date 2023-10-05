@@ -181,9 +181,11 @@ a
     flex-basis: 100%
     padding: 3%
     color: $textColor
+    z-index: 1
     &.preview
       max-height: 25%
       @include gradient-cut
+      z-index: -1
     code
       color: #999
   .backend-list-kind
@@ -197,8 +199,8 @@ a
     font-variant: small-caps
     display: none
     z-index: 1
-    font-size: 1.5em
     border-top-left-radius: 15px
+    z-index: 50
   .backend-list-image
     width: 100%
     aspect-ratio: 1 / 1
@@ -233,6 +235,7 @@ a
     flex-basis: 100%
     @include clean-ul
     justify-content: space-around
+    z-index: 100
     li.warn
       a
         border-bottom: 1px solid $red

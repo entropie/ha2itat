@@ -59,9 +59,9 @@
           .input-group
             %span.input-group-addon= t.form.last_day
             %input.form-input.datepicker{:value => event.html_date(:end_date), :name => "dates[end][]"}
-      .column.col-1.col-md-10.col-mx-auto.aright
+    .columns
+      .column.col-12.col-md-10.col-mx-auto.aright
         %a#add-date-template-link= t.be.links.booking.dayadd
-
 
     .columns.date-line
     - if event.dates
