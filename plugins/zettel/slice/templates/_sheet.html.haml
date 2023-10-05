@@ -10,15 +10,16 @@
 
       .zettel-qmenu>
         %ul
-          %li
-            .zettel-upload-section{"data-upload-url": path(:backend_zettel_upload, id: sheet.id)}
-              %label
-                %a= t.icons.upload
-                %input{type: :file, name: "files[]", id: "cm-form-files-%s" % sheet.id, style: "display:none"}
+          - if sheet.exist?
+            %li
+              .zettel-upload-section{"data-upload-url": path(:backend_zettel_upload, id: sheet.id)}
+                %label
+                  %a= t.icons.upload
+                  %input{type: :file, name: "files[]", id: "cm-form-files-%s" % sheet.id, style: "display:none"}
 
-          %li
-            %a{href: path(:backend_zettel_references, ref: sheet.title)}>
-              = t.icons.references
+            %li
+              %a{href: path(:backend_zettel_references, ref: sheet.title)}>
+                = t.icons.references
       .zettel-form>
         .zettel-controls>
           %ul
