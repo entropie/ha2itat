@@ -1,3 +1,19 @@
 %h1= t.be.topics.zettel.edit
+
 .backend-page
-  = render "form", action: path(:backend_zettel_edit, id: sheet.id), sheet: sheet
+  .backend-content.tumblog
+    .topline
+      = render "controls", sheet: sheet
+
+    .zettel-rendered
+      = sheet.to_html
+
+  .zettel-upload
+    = render "upload", sheet: sheet
+
+  .zettel-images
+    %ul
+      - sheet.uploads.each do |upload|
+        %li
+          %img{src: upload.http_path}
+

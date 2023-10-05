@@ -1,0 +1,37 @@
+%section
+  %form.zettel-create-form{enctype: 'multipart/form-data', action: action, method: :post, id: sheet.domid}>
+    %input.sheet-id{type: :hidden, value: sheet.id, name: "id"}
+    %input.references-url{type: :hidden, value: path(:backend_zettel_references, slug: sheet.title), name: "id"}
+    %input{type: :submit, style: "display: none"}
+    .zettel-sheet>
+
+      .zettel-title
+        %input.sheet-edit-title{:type => :text, :value => sheet.title, :name => "title"}>
+
+      .zettel-qmenu>
+        %ul
+          %li
+            .zettel-upload-section{"data-upload-url": path(:backend_zettel_upload, id: sheet.id)}
+              %label
+                %a= t.icons.upload
+                %input{type: :file, name: "files[]", id: "cm-form-files-%s" % sheet.id, style: "display:none"}
+
+          %li
+            %a{href: path(:backend_zettel_references, slug: sheet.title)}>
+              = t.icons.references
+      .zettel-form>
+        .zettel-controls>
+          %ul
+            %li.edited-button
+              %a.submit.saved{href: "#", onclick: "document.getElementById('#{sheet.domid}').submit()"}>
+                = t.icons.submit
+
+        .zettel-form-main>
+          %textarea.form-input.cm-form-zettel{"data-codemirror-mode" => "text/x-gfm", :name => "content", :id => "cm-form-zettel-%s"%sheet.id}>= sheet.content
+
+          .zettel-uploads
+            - sheet.uploads.each do |upload|
+              = upload.to_html
+
+            
+    .zettel-compiled{:style => "display:none"}

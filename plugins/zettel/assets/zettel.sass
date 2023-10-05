@@ -1,16 +1,28 @@
 @import "../../backend/assets/variables"
 
+$zettelColor: lighten($c5, 10)
+$zettelColorBase: $c5
+$zettelBg: $c1
+/* a classic!
+$zettelColorTopics: #fab444  
+
+
+
 .zettel-preview
   display: flex
   justify-content: space-between
-  padding: 10px
   width: 100%
-  .zettel-ident
-    text-align: center
+  position: relative
+  flex-wrap: wrap
   .zettel-refs
+    text-align: right
     a
       color: grey
-    
+  .backend-list-additional
+    flex-basis: 100%
+
+  ul
+    @include clean-ul
 .zettel-upload
   border-bottom: 5px solid rgba(silver, .1)
   padding-bottom: 2vw
@@ -22,8 +34,80 @@
 
 .zettel-rendered
   margin-top: 1.5vw
-  border: 1px solid rgba(red, .1)
+  border: 1px solid rgba($c1, .1)
   border-bottom: 5px solid rgba(silver, .1)
+  padding: 3vw
+  color: $zettelColorBase
+  background-color: rgba($zettelBg, .5)
+  h1,h2,h3,h4,h5,h6
+    color: $zettelColorTopics
+  ul
+    color: $zettelColorBase
+
+.zettel-sheet
+  margin-bottom: 5vw
+  display: flex
+  flex-wrap: wrap
+  justify-content: space-between
+  align-items: center
+  .zettel-qmenu
+    flex-basis: 20%
+    text-align: right
+    height: 100%
+    ul
+      @include clean-ul
+      li
+        .feather
+          height: 3vh
+          width: unset
+          aspect-ratio: 1 / 1
+  .zettel-title
+    flex-basis: 80%
+    .sheet-edit-title
+      background-color: transparent
+      width: 100%
+      padding-bottom: 5px
+      border: none
+      text-align: left
+      color: $c5
+      font-size: 3em
+      z-index: 1
+      font-variant: small-caps
+
+  .zettel-form
+    transition: border 1s
+    border: 1px solid darken($c1, .5)
+    box-shadow: inset 5px 5px 5px rgba(10, 10, 10, .3)
+    max-width: 100%
+    border-radius: 20px
+    background-color: rgba($zettelBg, .5)
+    position: relative
+    flex-basis: 100%
+    pre
+      z-index: 100
+      color: $zettelColor
+      word-break: break-word
+    .zettel-controls
+      z-index: 10
+      position: absolute
+      top: 1em
+      right: 1em
+      display: none
+      a
+        text-decoration: none
+      ul
+        @include clean-ul
+        .edited-button
+          opacity: 0
+          transition: opacity 600ms 0ms !important
+    .zettel-form-main
+      padding: 20px
+      .zettel-uploads
+        text-align: right
+        margin-top: 2vw
+        span
+          display: inline-block
+          width: 5vw
 
 .zettel-images
   margin-top: 1.5vw
@@ -32,3 +116,117 @@
     li
       img
         max-width: 10vw
+
+
+.zettel-create-form
+  textarea
+    width: 100%
+    height: 100%
+    background-color: transparent
+  &.edited
+    .zettel-controls
+      display: inline-block
+    .zettel-form
+      border-color: rgba(255, 132, 0, 1) !important
+      border: 1px solid
+    .edited-button
+      opacity: 1 !important
+
+
+
+
+
+
+.CodeMirror
+  height: auto
+  border-right: 1px solid #333
+  line-height: normal !important
+  border: none
+  outline: none
+  opacity: 1
+  font-size: 20px
+  line-height: 20px
+  background-color: transparent
+  .cm-def
+    color: $c5
+  .cm-link
+    color: $linkColor
+  .cm-url
+    color: rgba($linkColor, .6)
+    background-color: $zettelBg
+    text-decoration: underline
+    display: inline-block
+  /* .cm-link
+  .sheet-inline-image
+    max-width: 100% !important
+    text-align: center
+  /*   color: $c3
+
+
+  .cm-ref
+    /* background-color: $color3
+    font-variant: small-caps
+    color: #fab444
+    font-size: inherit
+
+  .CodeMirror-cursor
+    border-color: $c5 !important
+
+  .cm-image-alt-text
+    color: $c2
+
+  .cm-header-1
+    color: $zettelColorTopics
+    font-size: 1.5em
+  .cm-header-2
+    color: lighten($zettelColorTopics, 10)
+    font-size: 1.4em
+  .cm-header-3
+    color: lighten($zettelColorTopics, 20)
+    font-size: 1.3em
+  .cm-header-4
+    color: darken($zettelColorTopics, 10)
+    font-size: 1.2em
+  .cm-header-5
+    color: darken($zettelColorTopics, 25)
+    font-size: 1.1em
+  .cm-header-6
+    color: lighten($c1, 30)
+    color: darken($zettelColorTopics, 45)
+    font-size: 1em
+
+  .cm-meta
+    color: $red
+  .cm-property
+    color: green
+
+
+  .cm-variable-1
+    color: $c3
+  .cm-variable-2
+    color: darken($zettelColorBase, 5)
+  .cm-variable-3
+    color: darken($zettelColorBase, 10)
+  .cm-keyword
+    color: darken($zettelColorBase, 15)
+  .cm-comment
+    color: $zettelColor
+    font-family: monospace
+    font-weight: 100
+    background-color: darken($zettelBg, 10)
+  span[role=presentation]
+    .cm-image-alt-text + .cm-url
+      color: $c2
+      letter-spacing: -5px
+      font-size: 16px
+      opacity: .1
+  /* span[role=presentation]
+  /*   .cm-variable-2
+  /*     &:first-child
+  /*       color: #fab444
+  /*   .cm-variable-3
+  /*     &:first-child
+  /*       color: #fab444
+  /*   .cm-keyword
+  /*     &:first-child
+  /*       color: #fab444

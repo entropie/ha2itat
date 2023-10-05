@@ -8,6 +8,6 @@ module Ha2itat::Slices::Zettel
 
     config.renderer_options = { escape_html: false }
 
-    expose :pager, :sheet
+    expose :pager, :sheet, :sheets
   end
 end

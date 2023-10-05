@@ -1,20 +1,3 @@
-%h1= t.be.topics.zettel.show
+.backend-page.mtop
+  = render "sheet", action: path(:backend_zettel_edit, id: sheet.id, goto: current_uri), sheet: sheet
 
-.backend-page
-  .zettel-upload
-    = render "upload", sheet: sheet
-
-
-  .backend-content.tumblog
-    .topline
-      = render "controls", sheet: sheet
-
-    .zettel-content
-      %code= sheet.content
-    .zettel-rendered= sheet.to_html
-
-  .zettel-images
-    %ul
-      - sheet.uploads.each do |upload|
-        %li
-          %img{src: upload.http_path}

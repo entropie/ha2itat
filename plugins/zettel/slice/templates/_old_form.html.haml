@@ -1,5 +1,5 @@
 #be-form
-  %form.diary-create-form{action: action, method: "post"}
+  %form.sheet-create-form{action: action, method: "post"}
     .container.grid-xl
       .columns
         .column.col-11
@@ -9,4 +9,4 @@
 
       .columns.mtop
         .column.col-12
-          %textarea#foo.form-input.cm-form{"data-codemirror-mode": "text/x-markdown", name: "content"}= (sheet && sheet.content)
+          %textarea#foo.form-input.cm-form{"data-codemirror-mode": "text/x-markdown", name: "content", noauto: true}= (sheet && sheet.content)

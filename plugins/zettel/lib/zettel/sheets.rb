@@ -177,8 +177,7 @@ module Plugins
       end
 
       def to_html
-        markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, footnotes: false)
-        r = markdown.render(content)
+        Ha2itat::Renderer.render(:markdown, content)
       end
 
       def to_s

@@ -9,9 +9,15 @@ module Ha2itat::Slices
           if req.post?
             sheet = adapter.update_or_create(req.params)
             adapter.store(sheet)
-            res.redirect_to(path(:backend_zettel_show, id: sheet.id))
+            res.redirect_to(redirect_target_from_request(req) || path(:backend_blog_index))
           end
 
+          # if not sheet and potential_image = req.params[:id]
+          #   p potential_image
+          #   res.status = 400
+          # else
+          #   res.render(view, sheet: sheet)
+          # end
           res.render(view, sheet: sheet)
         end
       end

@@ -1,4 +1,4 @@
-%form.zettel-add-form.form-horizontal{:action => path(:backend_zettel_upload, id: sheet.id, goto: path(:backend_zettel_show, id: sheet.id)), :method => :post, :enctype => 'multipart/form-data'}
+%form.zettel-add-form.form-horizontal{:action => path(:backend_zettel_upload, id: sheet.id, goto: current_uri), :method => :post, :enctype => 'multipart/form-data'}
   .container
     .columns
       .column.col-12

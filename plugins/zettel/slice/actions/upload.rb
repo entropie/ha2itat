@@ -7,7 +7,12 @@ module Ha2itat::Slices
           adptr = adapter.with_user(session_user(req))
           sheet = adptr.by_id(req.params[:id])
           ret = adptr.upload(sheet, req.params[:files])
-          res.redirect_to(redirect_target_from_request(req) || path(:backend_zettel_show, id: sheet.id)) 
+          if req.xhr?
+            res.format = :json
+            res.body = ret.to_json
+          else
+            res.redirect_to(redirect_target_from_request(req) || path(:backend_zettel_show, id: sheet.id)) 
+          end
         end
       end
     end

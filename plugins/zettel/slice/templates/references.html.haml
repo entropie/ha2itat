@@ -1,0 +1,4 @@
+.backend-page.mtop
+  - sheets.each do |sheet|
+    = render "sheet", action: path(:backend_zettel_edit, id: sheet.id, goto: current_uri), sheet: sheet
+
