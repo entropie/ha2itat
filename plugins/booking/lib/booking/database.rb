@@ -91,7 +91,7 @@ module Plugins
           def store(what)
             raise Ha2itat::Database::EntryNotValid, "#{what.class}#valid? returns not true" unless what.valid?
 
-            log :info, "booking:store:#{what.slug}"
+            log "booking:store:#{what.slug}"
 
             target_file = repository_path(what.filename)
 
@@ -115,7 +115,7 @@ module Plugins
 
           def archive(what)
             raise Ha2itat::Database::EntryNotValid, "#{what.class}#valid? returns not true" unless what.valid?
-            log :info, "booking:archive:#{what.slug}"
+            log "booking:archive:#{what.slug}"
             target_file = repository_path(what.filename)
 
             new_filename = ArchivedEvents.event_filename(what)
@@ -126,7 +126,7 @@ module Plugins
           
           def destroy(what)
             raise "trying to destroy not existing `#{what.slug}'" unless what.exist?
-            log :info, "booking:REMOVE:#{what.slug}"
+            log "booking:REMOVE:#{what.slug}"
             begin
               rm(what.image.fullpath, verbose: true)
             rescue
