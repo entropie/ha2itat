@@ -1,8 +1,10 @@
 #BE-form
   %form{:action => action, :method => :post, enctype: 'multipart/form-data'}
-    - if post && post.image
-      #blog-edit-bg{style: "background-image: url(%s)" % post.image.url}
     .container
+      .columns
+        .column.col-12
+          .form-background-block.mtop{style: post && post.image ? "background-image: url(%s)" % post.image.url : ""}
+
       .columns
         .column.col-6.col-md-10.col-mx-auto
           .form-group
@@ -10,7 +12,6 @@
               %span.input-group-addon= t.form.title
               %input.form-input{value: post.title, name: :title, value: (post && post.title), disabled: (!!post)}
 
-      .columns.ltop
         .column.col-6.col-md-10.col-mx-auto
           .form-group
             .input-group
@@ -24,21 +25,22 @@
               %span.input-group-addon{:for => :image}= t.form.image
               %input.form-input{:type => :file, :name => :image, :name => :image}
 
-
-
-      - if Ha2itat.C(:blog_use_templates)
-        .columns.ltop
+        - if Ha2itat.C(:blog_use_templates)
           .column.col-6.col-md-10.col-mx-auto
             .form-group
               .input-group
                 %span.input-group-addon= t.form.template
                 = templates_select(post)
 
+      .columns.ltop
+        .column.col-2.col-mx-auto.acenter
+          %input.btn.btn-primary{:type => :submit, :value => t.form.submit}
 
       .columns.ltop
         .column.col-12.col-md-10.col-mx-auto
           .form-label{:for => :text}= t.form.text
           %textarea#blog-post-form.form-input.cm-form{:rows => 15, :name => :content, "data-codemirror-mode" => "text/x-markdown"}= (post && post.content)
+
       .columns.ltop
         .column.col-2.col-mx-auto
           %input.btn.btn-primary{:type => :submit, :value => t.form.submit}
