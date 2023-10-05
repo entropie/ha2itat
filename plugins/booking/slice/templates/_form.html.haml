@@ -1,12 +1,12 @@
 #add-date-template{style: "display: none"}
   = render "dates_add_template", begin_date: event.html_date(:start_date), end_date: event.html_date(:end_date)
 
-
 %form#events-edit{action: action, method: :POST, enctype: 'multipart/form-data'}
-  - if event.image.exist?
-    #event-edit-bg{style: "background-image: url(%s)" % event.image.url}
-  
   .container
+    .columns
+      .column.col-12
+        .form-background-block{style: event && event.image.exist? ? "background-image: url(%s)" % event.image.url : ""}
+
     .columns.mtop
       .column.col-10.col-mx-auto
         .form-group

@@ -4,4 +4,5 @@
     = nlink(path(:backend_booking_event_show, slug: event.slug), event.title)
 
 .backend-page
-  = render "form", action: path(:backend_booking_event_edit, slug: event.slug), event: event
+  #BE-form
+    = render "form", action: path(:backend_booking_event_edit, slug: event.slug), event: event
