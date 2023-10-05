@@ -15,7 +15,7 @@
           .form-group
             .input-group
               %span.input-group-addon= t.form.tags
-              %input.form-input.input-tagline.tags-input{:type => :text, :id => :tags, :value => (post && post.tags && post.tags.join(",")), :name => :tags}
+              %input.form-input.input-tagline.tags-input{:type => :text, :id => :tags, :value => (post && post.tags && post.tags.join(", ")), :name => :tags}
 
       .columns.ltop
         .column.col-6.col-md-10.col-mx-auto
