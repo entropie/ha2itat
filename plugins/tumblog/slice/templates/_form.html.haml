@@ -1,17 +1,22 @@
 #BE-form
   %form{method: :post, action: action}
+    %input.form-input{type: :hidden, value: (post && post.id ? post.id : ""), name: :id}
     .container
       .columns
-        .column.col-2
-          - h = {disabled: :disabled}
-          %input.form-input{h, type: :text, value: (post && post.id ? post.id : ""), name: :id}
-        .column.col-8
+        .column.col-6.col-md-12.col-mx-auto
+          .input-group
+            %span.input-group-addon= t.form.title
+            %input.form-input{type: :text, name: "title", :value => (post ? post.title : "")}
+          = t.form.optional_field
+        .column.col-6.col-md-12.col-mx-auto
+          .input-group
+            %span.input-group-addon= t.form.tags
+            %input.form-input.tags-input{type: :text, name: :tags, :value => (post && post.tags ? post.tags.join(", ") : "")}
+
+      .columns.mtop
+        .column.col-12
           %textarea.form-input{name: :content, rows: 10}
             = post && post.content
-        .column.col-2
-          %input.form-input{type: :submit, value: t.form.submit}
       .columns.mtop
-        .column.col-2
-          %input.form-input{type: :text, name: "title", :value => (post ? post.title : "")}
-        .column.col-8
-          %input.form-input.tags-input{type: :text, name: :tags, :value => (post && post.tags ? post.tags.join(", ") : "")}
+        .column.col-2.col-mx-auto
+          %input.form-input{type: :submit, value: t.form.submit}

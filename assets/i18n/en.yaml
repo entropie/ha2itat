@@ -19,6 +19,7 @@ form:
   template: Template
   haml: HAML
   markdown: Markdown
+  optional_field: Optional
 be:
   ask:
     destroy: Are you really sure to delete?
