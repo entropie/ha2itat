@@ -5,8 +5,6 @@ module Ha2itat::Slices
 
         def handle(req, res)
           sheet = adapter.with_user(session_user(req)).update_or_create(req.params.to_hash)
-          pp sheet
-
           if req.post? and sheet.valid?
             adapter.store(sheet)
           end
