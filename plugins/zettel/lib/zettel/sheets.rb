@@ -156,6 +156,10 @@ module Plugins
         not missing.any?
       end
 
+      def exist?
+        ::File.exist?(adapter.path(markdown_file))
+      end
+
       def references
         @references ||= References.new(self)
       end
