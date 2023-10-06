@@ -1,6 +1,7 @@
 #BE-form
-  .topline
-    = render "controls", post: post
+  - if post and post.slug
+    .topline
+      = render "controls", post: post
   %form{:action => action, :method => :post, enctype: 'multipart/form-data'}
     .container
       .columns
