@@ -1,0 +1,14 @@
+.bbplayer
+  %span.bb-rewind
+  %span.bb-play
+  %span.bb-forward
+  %span.bb-trackTime
+  %span.bb-trackLength
+  %span.bb-trackTitle
+
+  %audio{"loop" => false, "autoplay" => true}
+    - bagpipe.each do |b|
+      - next if not b.playable?
+      - b.recursive_each do |bp|
+        - next if not bp.playable?
+        %source{ :src => bp.http_path( request_env ) }

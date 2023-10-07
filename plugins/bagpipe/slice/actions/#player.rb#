@@ -1,0 +1,17 @@
+module Ha2itat::Slices
+  module Bagpipe
+    module Actions
+      class Player < Action
+
+        def handle(req, res)
+          bagpipe = adapter.read(params_path(req.params))
+          # p 1
+          # p bagpipe.parent.class
+<internal:/home/mit/.rvm/rubies/ruby-3.2.2/lib/ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:85:in `require': cannot load such file -- hpricot (LoadError)
+	from <internal:/home/mit/.rvm/rubies/ruby-3.2.2/lib/ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:85:in `require'
+	from /home/mit/bin/np:12:in `<main>'          res.render(view, bagpipe: bagpipe)
+        end
+      end
+    end
+  end
+end                      

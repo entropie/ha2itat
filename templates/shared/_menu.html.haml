@@ -5,7 +5,7 @@
     - if session_user.admin?
       %li= nlink(:backend_user_index, t.icons.users)
   %ul.slice-list
-    - [:snippets, :galleries, :blog, :tumblog, :booking, :zettel].each do |slice|
+    - [:snippets, :galleries, :blog, :tumblog, :booking, :zettel, :bagpipe].each do |slice|
       - if Ha2itat.quart.plugins.enabled?(slice)
         %li= nlink("backend_#{slice}_index".to_sym, t.be.menu.send(slice))
 

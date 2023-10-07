@@ -1,0 +1,103 @@
+@import "../../backend/assets/variables.sass"
+
+
+.bagpipe
+  ul
+    @include clean-ul
+    margin-top: 2vh
+    li
+      width: 100%
+
+
+
+.bbplayer
+  font: 200 16px/1.5 Lato,"Helvetica Neue",Helvetica,Arial,sans-serif
+  color: #898989
+  display: flex
+  justify-content: center
+  align-items: center
+
+  span
+    display: inline-block
+    height: 36px
+
+.bb-play
+  width: 36px
+  border: 6px solid #CFCFCF
+  border-radius: 50%
+  background: transparent
+  background-image: url('./img/play.png')
+  background-repeat: no-repeat
+  background-position: 7px center
+  cursor: pointer
+
+.bb-playing
+  width: 36px
+  background-image: url('./img/pause.png')
+  background-position: center center
+
+.bb-forward
+  width: 36px
+  background: transparent
+  background-image: url('./img/forward.png')
+  background-position: center
+  background-repeat: no-repeat
+  cursor: pointer
+
+.bb-rewind
+  width: 36px
+  background: transparent
+  background-image: url('./img/rewind.png')
+  background-position: center
+  background-repeat: no-repeat
+  cursor: pointer
+
+.bb-track-display
+  font-size: 14pt
+
+.bb-trackTime
+  height: auto !important
+  padding-left: 5px
+
+  &:after
+    content: "/"
+    font-weight: bolder
+    color: silver
+
+.bb-trackLength
+  height: auto !important
+  padding-right: 5px
+
+.bb-trackTitle
+  height: auto !important
+
+.bb-album-display
+  display: none
+
+.bb-artist, .bb-album
+  font-size: 14px
+
+.bb-albumCover
+  height: 38px
+  width: 38px
+  line-height: 38px
+  vertical-align: top
+  background: #999999
+  border: 1px solid #666666
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3)
+  margin-left: 5px
+  display: inline-block
+
+.bb-debug
+  height: 10em
+  width: 19em
+  border: 1px solid #DDD
+  border-radius: 5px
+  margin: 10px
+  padding: 10px
+  overflow: auto
+  font-weight: normal
+  font-size: 14px/1.5
+
+.bbplayer div.playerWindow
+  text-align: center

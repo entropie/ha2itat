@@ -1,0 +1,9 @@
+.backend-page.bagpipe
+  %ul
+    - bagpipe.each do |entry|
+      - if entry.directory?
+        = render "directory", entry: entry
+      - elsif entry.playable?
+        = render "playable", entry: entry
+      -# - else
+      -#   = render partial: "other", locals: { entry: entry }

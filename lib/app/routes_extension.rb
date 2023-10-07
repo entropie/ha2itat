@@ -43,6 +43,11 @@ module Ha2itat
         slice :zettel,          at: "/backend/zettel"
       end
 
+      if slices.include?(:bagpipe)
+        get '/bagpipe/*path',   to: Rack::Directory.new( Ha2itat.quart.media_path("public") ), as: :bagpipe
+        slice :bagpipe,         at: "/backend/bagpipe"
+      end
+
       if slices.include?(:galleries)
         get '/galleries/*path', to: Rack::Directory.new( Ha2itat.quart.media_path("public") ), as: :image
         slice :galleries,       at: "/backend/galleries"

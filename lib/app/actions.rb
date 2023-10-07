@@ -28,6 +28,19 @@ module ActionMethodsCommon
     Ha2itat.adapter(adptr)
   end
 
+  def params_path(params)
+    #ret = params.env["REQUEST_PATH"].sub( params.env["SCRIPT_NAME"], "").split("/")[1..-1] || ["/"]
+    ret = params[:fragments] || ""
+    # this is possible, some german umlaut came as
+    # ASCII-8BIT Bj%C3%B6rk
+    ret = [ret].flatten
+    ret = ret.
+            map{ |e| e.force_encoding(Encoding::UTF_8) }.
+            map{ |r| CGI.unescape(r) }
+
+  end
+
+
   def reject_unless_authenticated!(req, res)
     if req.env["REQUEST_PATH"] != path(:backend_user_login)
       unless req.env["warden"].user

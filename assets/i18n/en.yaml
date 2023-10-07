@@ -35,6 +35,7 @@ be:
     tumblog: TBlog
     galleries: Galleries
     zettel: Zettel
+    bagpipe: Bagpipe
   links:
     user:
       create: add User
@@ -162,6 +163,12 @@ icons:
     i: arrow-left
   arrowr: !!icon
     i: arrow-right
+  play: !!icon
+    i: play
+  directory: !!icon
+    i: folder
+  music: !!icon
+    i: music
 
 robots: !!pl
   0: No robots
