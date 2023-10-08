@@ -30,9 +30,9 @@ module Ha2itat
       @title_seperator || "&mdash;"
     end
 
-    def initialize(view, **kwargs)
+    def initialize(view, request, **kwargs)
       @elements = []
-
+      @view = view
       kwargs.each_pair do |k,v|
         instance_variable_set("@#{k}", v)
       end
