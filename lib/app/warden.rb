@@ -2,9 +2,6 @@ require "warden"
 
 module WardenCheckToken
   def check_token(request, response)
-    # p request.params[:token]
-    # p request.env["warden"].user
-
     goto = proc{|path| response.redirect_to path }
 
     return false if not request.params[:token] or request.env["warden"].user
