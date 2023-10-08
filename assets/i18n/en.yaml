@@ -96,6 +96,7 @@ be:
       create: Add Event
       edit: Edit Event
       show: Show
+      archive: Archive
     blog:
       index: Blog
       create: New Blog

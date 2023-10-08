@@ -224,7 +224,7 @@ module Plugins
         def set(params)
           params.each_pair do |pk, pv|
             pv = pv.to_i if pv.kind_of?(String) and pv =~ /^\d+$/
-            send("#{pk}=", pv)
+            send("#{pk}=", pv) rescue nil
           end
           self
         end

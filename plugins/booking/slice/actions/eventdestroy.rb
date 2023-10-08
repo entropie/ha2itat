@@ -12,8 +12,7 @@ module Ha2itat::Slices
             event = booking.events_archived.select{ |ev| ev.slug == params[:slug] }.shift
           end
           booking.destroy(event)
-
-          res.redirect_to path(:backend_booking_index)
+          res.redirect_to(redirect_target_from_request(req) || path(:backend_booking_index))
         end
       end
     end

@@ -1,6 +1,6 @@
 %ul
   %li>= nlink(path(:backend_booking_event_show, slug: event.slug), t.icons.show("be.links.booking.show"), title: t.be.links.booking.show)
-  - if event.published?
+  - if event.published? and not event.archived?
     %li.warn>= nlink(path(:backend_booking_event_archive, slug: event.slug), t.icons.archive("be.links.booking.archive"), onclick: "return confirm('%s')" % t.be.ask.archive, title: t.be.links.booking.archive)
 
   - unless event.archived?
