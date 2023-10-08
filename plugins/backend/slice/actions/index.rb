@@ -7,8 +7,7 @@ module Ha2itat::Slices
       class Index < Action
 
         def handle(req, res)
-          # p t.robots(3)
-          # p t.be.bar.keke
+          set_meta view, title: :backend, image: "foobar", author: "keke"
           res.render(view)
         end
       end

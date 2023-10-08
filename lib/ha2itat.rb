@@ -48,6 +48,7 @@ module Ha2itat
 
   require_relative "app/i18n"
   require_relative "app/pager"
+  require_relative "app/meta"
   require_relative "app/slices"
   require_relative "app/warden"
   require_relative "app/actions"

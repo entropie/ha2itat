@@ -3,6 +3,14 @@ module ActionMethodsCommon
 
   class EntryNotFound < ArgumentError;  end
 
+  def set_meta(view, **kwargs)
+    view.exposures.add(:meta, proc{ Ha2itat::Meta.new(view, **kwargs) }, layout: true)
+  end
+
+  def set_default_meta(req, res)
+    set_meta(view)
+  end
+  
   def routes
     Hanami.app["routes"]
   end

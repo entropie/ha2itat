@@ -17,6 +17,8 @@ module Ha2itat
       before :locales_setup
 
       include Hanami::Action::Session
+
+      before :set_default_meta
     }
 
     Slice = proc {
