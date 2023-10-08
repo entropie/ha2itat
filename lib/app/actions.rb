@@ -31,8 +31,6 @@ module ActionMethodsCommon
   def params_path(params)
     #ret = params.env["REQUEST_PATH"].sub( params.env["SCRIPT_NAME"], "").split("/")[1..-1] || ["/"]
     ret = params[:fragments] || ""
-    # this is possible, some german umlaut came as
-    # ASCII-8BIT Bj%C3%B6rk
     ret = [ret].flatten
     ret = ret.
             map{ |e| e.force_encoding(Encoding::UTF_8) }.
@@ -43,7 +41,7 @@ module ActionMethodsCommon
 
   def reject_unless_authenticated!(req, res)
     if req.env["REQUEST_PATH"] != path(:backend_user_login)
-      unless req.env["warden"].user
+      unless req.env["warden"] and req.env["warden"].user
         res.redirect_to path(:backend_user_login)
         halt 401
       end
