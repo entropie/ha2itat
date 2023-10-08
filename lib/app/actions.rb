@@ -4,7 +4,9 @@ module ActionMethodsCommon
   class EntryNotFound < ArgumentError;  end
 
   def set_meta(view, req, **kwargs)
-    view.exposures.add(:meta, proc{ Ha2itat::Meta.new(view, req, **kwargs) }, layout: true)
+    if view
+      view.exposures.add(:meta, proc{ Ha2itat::Meta.new(view, req, **kwargs) }, layout: true)
+    end
   end
 
   def set_default_meta(req, res)
