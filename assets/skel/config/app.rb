@@ -29,25 +29,6 @@ module %%Identifier%%
       config.logger.options[:colorize] = true
     end
     
-    Ha2itat.quart.plugins do |plugs|
-      Ha2itat.log "loading plugins"
-
-      plugs.register(:backend)
-      plugs.register(:user)
-      plugs.register(:snippets)
-      plugs.register(:galleries)
-
-      # plugs.register(:blog)
-      # plugs.register(:tumblog)
-      # plugs.register(:booking)
-      # plugs.register(:zettel)
-      # plugs.register(:icons)
-      # plugs.register(:notifier)
-      # plugs.register(:bagpipe)
-
-      plugs.write_javascript_include_file!
-    end
-
     Ha2itat::I18n.init
 
     instance_eval(&Ha2itat::CD(:slice))
@@ -60,5 +41,26 @@ module %%Identifier%%
 
   end
 end
+
+Ha2itat.quart.plugins do |plugs|
+  Ha2itat.log "loading plugins"
+
+  plugs.register(:backend)
+  plugs.register(:user)
+  plugs.register(:snippets)
+  plugs.register(:galleries)
+  plugs.register(:icons)
+
+  # plugs.register(:blog)
+  # plugs.register(:tumblog)
+  # plugs.register(:booking)
+  # plugs.register(:zettel)
+  # plugs.register(:notifier)
+  # plugs.register(:bagpipe)
+
+  plugs.write_javascript_include_file!
+end
+
+
 
 require_relative "h2-ext"
