@@ -84,6 +84,10 @@ module Ha2itat
             replace(/%%Identifier%%/, identifier.capitalize)
         end
         Command.new("cd #{name} && bundle install").run
+
+        Command.new("ln -s ~/Source/ha2itat/config/deploy.rb #{name}/config").run
+
+
         Command.new("cd #{name} && rm app/templates/layouts/app.html.erb").run
         # Command.new("cd #{name} && bundle exec hanami generate action pages.page").run
         # Command.new("cd #{name} && bundle exec hanami generate view   pages.page").run

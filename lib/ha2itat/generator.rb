@@ -59,6 +59,68 @@ end
       end
     end
 
+    class FrontendAction < ComponentFileGen
+      TEMPLATE = 'module %s
+  module Actions
+    module %s
+      class %s < %s::Action
+        def handle(request, response)
+        end
+      end
+    end
+  end
+end
+'
+
+      def filename
+        "app/actions/#{mod}/#{clz}.rb"
+      end
+
+      def to_s
+        template % [Ha2itat.quart.identifier,
+                    mod,
+                    clz,
+                    Ha2itat.quart.identifier].map{|ts| Generator.classify(ts) }
+      end
+    end
+
+    class FrontendView < ComponentFileGen
+      TEMPLATE = 'module %s
+  module Views
+    module %s
+      class %s < %s::View
+        expose :snippet, :pager
+      end
+    end
+  end
+end'
+
+      def filename
+        "app/views/#{mod}/#{clz}.rb"
+      end
+
+      def to_s
+        template % [Ha2itat.quart.identifier,
+                    mod,
+                    clz,
+                    Ha2itat.quart.identifier].map{|ts| Generator.classify(ts) }
+      end
+    end
+
+
+
+    class FrontendTemplate < ComponentFileGen
+      TEMPLATE = 'hello from %s::%s'
+      def filename
+        "app/templates/#{mod}/#{clz}.html.haml"
+      end
+
+      def to_s
+        template % [Generator.classify(mod), Generator.classify(clz)]
+      end
+    end
+   
+
     class Slice
 
       include Ha2itat::Mixins::FU

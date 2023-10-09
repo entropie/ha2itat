@@ -13,8 +13,32 @@ module Ha2itat
           argument :clz, desc: "actionname", require: true
         }
 
+        class FrontendAction < Dry::CLI::Command
+          instance_eval(&GET_ARGUMENTS)
+          desc "generates action and view for app"
+          def call(mod:, clz:, **options)
+            ::Ha2itat::Generator::FrontendAction.new(mod: mod, clz: clz).write_to
+          end
+        end
 
-        class ActionViewTemplate < Dry::CLI::Command
+        class FrontendTemplate < Dry::CLI::Command
+          desc "generates template for app"          
+          instance_eval(&GET_ARGUMENTS)
+          def call(mod:, clz:, **options)
+            ::Ha2itat::Generator::FrontendTemplate.new(mod: mod, clz: clz).write_to
+          end
+        end
+
+        class FrontendView < Dry::CLI::Command
+          desc "generates view for app"          
+          instance_eval(&GET_ARGUMENTS)
+          def call(mod:, clz:, **options)
+            ::Ha2itat::Generator::FrontendView.new(mod: mod, clz: clz).write_to
+          end
+        end
+
+
+        class SliceActionViewTemplate < Dry::CLI::Command
           instance_eval(&GET_ARGUMENTS)
           desc "generates view, controller and template package"
 

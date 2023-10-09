@@ -14,8 +14,8 @@ module Ha2itat
       
       extend Dry::CLI::Registry
 
-      register "generate", aliases: ["g"] do |prefix|
-        prefix.register "avw",      Generate::ActionViewTemplate
+      register "backend", aliases: ["be"] do |prefix|
+        prefix.register "avt",      Generate::SliceActionViewTemplate
         prefix.register "slice",    Generate::Slice
 
         prefix.register "action",   Generate::SliceAction
@@ -24,6 +24,12 @@ module Ha2itat
         prefix.register "helper",   Generate::SliceHelper
 
         prefix.register "slicerb",  Generate::SliceSourceFile
+      end
+
+      register "generate", aliases: ["g"] do |prefix|
+        prefix.register "action",   Generate::FrontendAction
+        prefix.register "view",     Generate::FrontendView
+        prefix.register "template", Generate::FrontendTemplate
       end
 
       register "create", App, aliases: ["c"]
