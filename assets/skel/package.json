@@ -1,0 +1,42 @@
+{
+  "name": "wp-ha2itat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "production": "NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=production webpack",
+    "dev": "NODE_ENV=development webpack --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.22.19",
+    "babel-loader": "^9.1.3",
+    "css-loader": "^6.8.1",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "mini-css-extract-plugin": "^2.7.6",
+    "optimize-css-assets-webpack-plugin": "^6.0.1",
+    "sass": "^1.67.0",
+    "sass-loader": "^13.3.2",
+    "spectre.css": "^0.5.9",
+    "style-loader": "^3.3.3",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-manifest-plugin": "^5.0.0"
+  },
+  "dependencies": {
+    "blueimp-file-upload": "^10.31.0",
+    "codemirror": "^5.62.2",
+    "date-fns": "^2.30.0",
+    "jquery": "^3.7.1",
+    "jquery-datetimepicker": "^2.5.21",
+    "jquery-ui": "^1.13.2",
+    "magnific-popup": "^1.1.0",
+    "marked": "^2.0.3"
+  }
+}

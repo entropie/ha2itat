@@ -1,3 +1,5 @@
+require_relative "../generator.rb"
+
 module Ha2itat
 
   module CLI
@@ -80,24 +82,10 @@ module Ha2itat
             ::Ha2itat::Generator::SliceSourceFile.new(name: name).write_to
           end
         end
-        
+
       end
 
-
-      register "generate", aliases: ["g"] do |prefix|
-        prefix.register "avw",      Generate::ActionViewTemplate
-        prefix.register "slice",    Generate::Slice
-
-        prefix.register "action",   Generate::SliceAction
-        prefix.register "view",     Generate::SliceView
-        prefix.register "template", Generate::SliceTemplate
-        prefix.register "helper",   Generate::SliceHelper
-
-        prefix.register "slicerb",  Generate::SliceSourceFile
-      end
-      
     end
   end
-
   
 end

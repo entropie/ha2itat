@@ -1,0 +1,17 @@
+!!!
+%html{:lang => "en"}<
+  %head<
+    %meta{:charset => "utf-8"}
+    - title = "wecoso"
+    %title= title
+    %meta{ name: "title", content: title }
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}
+
+    %link{ href: url_with_calculated_version_hash("/assets/favicon.ico"), rel: "shortcut icon", type: "image/x-icon" }
+    - env?(:production) do
+      %link{ href: url_with_calculated_version_hash("/assets/screen-app.css"), rel: "stylesheet", type: "text/css" }
+
+  %body#body-app<
+    = yield
+
+  %script{:src => url_with_calculated_version_hash("/assets/bundle-app.js")}

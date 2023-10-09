@@ -1,20 +1,12 @@
 #!/usr/bin/env ruby
 
 require "bundler/setup"
-
-require "dry/cli"
-
 require "hanami"
-require_relative "../ha2itat"
 
+require_relative "../ha2itat"
 require_relative "../mixins/fileutils"
 
-require_relative "cli/generator.rb"
-
 module Ha2itat
-  module Generator
-  end
-
   module Generator
     ENTIRE_BLOCK = 'module Ha2itat::Slices
 %s
@@ -265,7 +257,3 @@ end'
   end
 end
 
-
-if __FILE__ == $0
-  Dry::CLI.new(Ha2itat::CLI::Commands).call
-end

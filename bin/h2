@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+require "dry/cli"
+require "hanami"
+
+require_relative "../lib/ha2itat"
+
+require_relative "../lib/ha2itat/cli/generator"
+require_relative "../lib/ha2itat/cli/ha2itat"
+
+module Ha2itat
+  module CLI
+    module Commands
+      
+      extend Dry::CLI::Registry
+
+      register "generate", aliases: ["g"] do |prefix|
+        prefix.register "avw",      Generate::ActionViewTemplate
+        prefix.register "slice",    Generate::Slice
+
+        prefix.register "action",   Generate::SliceAction
+        prefix.register "view",     Generate::SliceView
+        prefix.register "template", Generate::SliceTemplate
+        prefix.register "helper",   Generate::SliceHelper
+
+        prefix.register "slicerb",  Generate::SliceSourceFile
+      end
+
+      register "create", App, aliases: ["c"]
+    end
+  end
+end
+
+Dry::CLI.new(Ha2itat::CLI::Commands).call
