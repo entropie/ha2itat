@@ -3,7 +3,7 @@
 module %%Identifier%%
   module Actions
     module Pages
-      class Index < Wecoso::Action
+      class Index < %%Identifier%%::Action
         def handle(req, res)
           res.render(view)
         end
