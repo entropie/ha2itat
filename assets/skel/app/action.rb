@@ -8,6 +8,7 @@ module %%Identifier%%
     include ActionMethodsCommon
 
     before :check_token
+    before :set_default_meta
 
     include Ha2itat::Helper::Translation::Actions
   end
