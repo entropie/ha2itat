@@ -33,6 +33,25 @@ module %%Identifier%%
 
     instance_eval(&Ha2itat::CD(:slice))
 
+    Ha2itat.quart.plugins do |plugs|
+      Ha2itat.log "loading plugins"
+
+      plugs.register(:backend)
+      plugs.register(:user)
+      plugs.register(:snippets)
+      plugs.register(:galleries)
+      plugs.register(:icons)
+
+      # plugs.register(:blog)
+      # plugs.register(:tumblog)
+      # plugs.register(:booking)
+      # plugs.register(:zettel)
+      # plugs.register(:notifier)
+      # plugs.register(:bagpipe)
+
+      plugs.write_javascript_include_file!
+    end
+
     config.actions.sessions = :cookie, {
       key: SESSION_KEY,
       secret: SECRET,
@@ -42,24 +61,6 @@ module %%Identifier%%
   end
 end
 
-Ha2itat.quart.plugins do |plugs|
-  Ha2itat.log "loading plugins"
-
-  plugs.register(:backend)
-  plugs.register(:user)
-  plugs.register(:snippets)
-  plugs.register(:galleries)
-  plugs.register(:icons)
-
-  # plugs.register(:blog)
-  # plugs.register(:tumblog)
-  # plugs.register(:booking)
-  # plugs.register(:zettel)
-  # plugs.register(:notifier)
-  # plugs.register(:bagpipe)
-
-  plugs.write_javascript_include_file!
-end
 
 
 
