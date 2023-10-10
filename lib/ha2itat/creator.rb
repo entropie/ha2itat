@@ -28,7 +28,6 @@ module Ha2itat
       end
 
       def exist?(subpath = "")
-        puts ::File.join( *[path, subpath].compact )
         ::File.exist?( ::File.join( *[path, subpath].compact ))
       end
 
