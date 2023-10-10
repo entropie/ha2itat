@@ -173,7 +173,7 @@ module Ha2itat
         end
 
         run_list("cd #{name} && bundle install",
-                 "ln -s ~/Source/ha2itat/config/deploy.rb #{name}/config",
+                 "ln -s ../vendor/gems/ha2itat/config/deploy.rb #{name}/config/deploy.rb",
                  "cd #{name} && rm app/templates/layouts/app.html.erb",
                  "cd #{name} && npm install --strict-peer-deps --silent")
       end
