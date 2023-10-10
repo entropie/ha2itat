@@ -11,6 +11,7 @@ module Ha2itat
 
       add_meta name:    "title", content: app_title
       add_meta name:    "description", content: app_desc
+      add_meta name:    "color-scheme", content: "dark light"
       add_title app_title
     }
 
