@@ -1,5 +1,7 @@
 load File.join(File.dirname(File.expand_path(__FILE__)), "../vendor/gems/ha2itat/lib/ha2itat.rb")
 
+Q = Ha2itat.quart
+
 set :application, Q.identifier.to_s
 
 set :ha2itat_repo, "git@github.com:entropie/ha2itat.git"
