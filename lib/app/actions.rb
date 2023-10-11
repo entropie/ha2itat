@@ -10,7 +10,11 @@ module ActionMethodsCommon
   end
 
   def set_default_meta(req, res)
-    set_meta(view, req)
+    hash = {}
+    if req.env["REQUEST_PATH"].split("/")[1] == "backend"
+      hash[:title] = "[be]"
+    end
+    set_meta(view, req, **hash)
   end
 
   def routes
