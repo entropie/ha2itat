@@ -54,8 +54,6 @@ module Ha2itat
   require_relative "app/actions"
   require_relative "app/views"
 
-  require "redcarpet"
-
   def self.quart=(obj)
     @quart = obj
   end
