@@ -102,6 +102,10 @@ module Ha2itat
           items_for(current_page).each(&blk)
         end
 
+        def each_with_index(&blk)
+          items_for(current_page).each_with_index(&blk)
+        end
+
         def current_items
           items_for(current_page)
         end
