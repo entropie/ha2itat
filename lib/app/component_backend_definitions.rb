@@ -24,6 +24,8 @@ module Ha2itat
     Slice = proc {
       environment(:development) do
         config.actions.content_security_policy[:script_src] = "'self' 'unsafe-eval'"
+        config.actions.content_security_policy[:font_src] =
+          '\'self\' data: https://fonts.googleapis.com https://fonts.gstatic.com https://maxcdn.bootstrapcdn.com'
       end
 
     }
