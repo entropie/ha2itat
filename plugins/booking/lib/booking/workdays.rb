@@ -1,5 +1,5 @@
 module Plugins
-  
+
   module Booking
 
     class Workday
@@ -18,7 +18,7 @@ module Plugins
         attr_accessor *DataFields
 
         attr_reader   :slot
-        
+
         def initialize(workday, slot)
           @workday = workday
           @slot  = slot
@@ -60,7 +60,7 @@ module Plugins
 
       class Available < Entry
       end
-      
+
       class Single < Available
         def available?
           false
@@ -101,7 +101,7 @@ module Plugins
       def exist?
         ::File.exist?(Habitat.adapter(:booking).repository_path(filename))
       end
-      
+
       def slots
         @slots ||= Slots.new.push(*Workday::default_slots.map{|s| Available.new(self, s) })
       end
@@ -144,7 +144,7 @@ module Plugins
         end
         @default_slots
       end
-      
+
     end
   end
 

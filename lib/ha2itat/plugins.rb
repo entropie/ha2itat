@@ -1,6 +1,6 @@
 module Ha2itat
 
- 
+
   class Plugins < Array
     def initialize(quart)
       @quart = quart
@@ -55,7 +55,7 @@ module Ha2itat
         included << file
         "import '/./#{file}';"
       }.compact
-    
+
       slice_include_file = Ha2itat.quart.
                              path("app/assets/javascript/slice_includes.generated-#{which}.js")
 
@@ -104,12 +104,12 @@ module Ha2itat
         false
       end
     end
-    
+
     def try_load
       loaded_files = ["%s.rb", "lib/%s.rb"].map do |s|
         if ::File.exist?(file=plugin_root(s % name.to_s))
           do_log("require plugin #{file}") do
-            require file            
+            require file
           end
         else
           nil

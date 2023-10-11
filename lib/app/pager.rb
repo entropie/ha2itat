@@ -45,7 +45,7 @@ module Ha2itat
           def current_page
             @page
           end
-          
+
           def size
             @array.size
           end
@@ -77,7 +77,7 @@ module Ha2itat
         def limit
           @limit
         end
-        
+
         def link_proc=(obj)
           @link_proc = obj
         end
@@ -159,12 +159,12 @@ module Ha2itat
             ret << itm.to_html.to_s
           end
 
-          return "" if pager.page_count < 2 and not force 
+          return "" if pager.page_count < 2 and not force
           "<ul class='pager'>%s</ul>" % ret
         end
 
         alias :navigation :to_html
-        
+
 
         class PagerItem
 
@@ -192,7 +192,7 @@ module Ha2itat
                   else
                     li % "<a href='%s'>%s</a>" % [(begin @pager.link_proc.call(value) end), @text || value]
                   end
-            
+
             ret
           end
 
@@ -256,7 +256,7 @@ module Ha2itat
             ret
           end
 
-       
+
         end
       end
 

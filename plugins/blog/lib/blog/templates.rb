@@ -1,6 +1,6 @@
 require "sass"
 module Plugins
-  
+
   module Blog
 
     def self.templates(path = Blog.template_path || Blog::TEMPLATE_PATH)
@@ -16,7 +16,7 @@ module Plugins
         def initialize(path)
           @path = File.expand_path(path)
         end
-        
+
         def self.read(path)
           new(path).read
         end
@@ -71,7 +71,7 @@ module Plugins
         def to_sym
           identifier
         end
-        
+
         def ==(obj)
           if obj.kind_of?(Template)
             return identifier == obj.identifier
@@ -159,7 +159,7 @@ module Plugins
           hsh = {"template.rb" => ruby,
                  "javascript.js" => javascript,
                  "screen.sass" => sass}
-          
+
           raise "invalid #{PP.pp(hsh, "")}" unless valid?(hsh)
           hsh.each_pair do |file, cnts|
             write(root(file), cnts)
@@ -179,7 +179,7 @@ module Plugins
         def duplicate(newident)
         end
       end
-      
+
       class TemplateDummy < Template
         include TemplateOperations
 
@@ -192,7 +192,7 @@ module Plugins
 
 
     end
-    
+
   end
 end
 

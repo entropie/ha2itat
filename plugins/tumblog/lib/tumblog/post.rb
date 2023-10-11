@@ -36,7 +36,7 @@ module Plugins
         def self.responsible_for?(post)
           match.any?{|r| post.content =~ r}
         end
-        
+
         def initialize(post)
           @post = post
         end
@@ -94,11 +94,11 @@ module Plugins
         def create_interactive?
           false
         end
-        
+
 
         module YoutubeDLMixin
           def media_file
-            Dir.glob("%s/%s.*" % [post.real_datadir, post.id]).first          
+            Dir.glob("%s/%s.*" % [post.real_datadir, post.id]).first
           end
 
           def media_file_src
@@ -111,7 +111,7 @@ module Plugins
           def create_interactive?
             true
           end
-          
+
           def to_html(logged_in = false)
             Ha2itat::Renderer.render(:markdown, post.content)
           end
@@ -122,7 +122,7 @@ module Plugins
 
           include YoutubeDLMixin
           include Ha2itat::Mixins::FU
-          
+
           def thumbnail_file
             post.real_datadir("#{post.id}.jpg")
           end
@@ -154,7 +154,7 @@ module Plugins
           def to_html(logged_in = false)
             ret = super % post.http_data_dir(post.id + ".mp4")
             link = "<a target='_blank' href='#{post.content}'>#{post.content}</a>"
-            return ret + "<div class='source'>#{link}</div>" 
+            return ret + "<div class='source'>#{link}</div>"
           end
         end
 
@@ -233,7 +233,7 @@ module Plugins
           def to_html(logged_in = false)
             super % post.http_data_dir(post.id + ".mp4")
           end
-          
+
         end
       end
 
@@ -399,6 +399,6 @@ module Plugins
         @user = user
       end
     end
-    
+
   end
 end

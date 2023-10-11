@@ -8,7 +8,7 @@ require_relative "templates"
 require_relative "readapi"
 
 module Plugins
-  
+
 
   module Blog
 
@@ -63,7 +63,7 @@ module Plugins
 
         _raw ret.join
       end
-      
+
     end
 
   end

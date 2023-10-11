@@ -3,7 +3,7 @@
 require "hanami/slice"
 
 module Ha2itat::Slices::Snippets
-  
+
   class Slice < Ha2itat::Slices::BackendSlice
     config.root = __dir__
 

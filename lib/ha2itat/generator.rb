@@ -10,7 +10,7 @@ module Ha2itat
   module Generator
     ENTIRE_BLOCK = 'module Ha2itat::Slices
 %s
-end                      
+end
 '
 
     def classify(obj)
@@ -36,7 +36,7 @@ end
       def filename
         "%s.%s" % [clz||name||mod, extension]
       end
-      
+
       def entire_block
         @entire_block ||= ENTIRE_BLOCK
       end
@@ -119,7 +119,7 @@ end'
         template % [Generator.classify(mod), Generator.classify(clz)]
       end
     end
-   
+
 
     class Slice
 
@@ -155,7 +155,7 @@ end'
           template % mod.to_s.downcase
         end
 
-        
+
       end
 
       class SliceMainView < ComponentFileGen
@@ -257,7 +257,7 @@ end'
         write_collection_to(::File.join(target_path, "slice"))
       end
     end
-    
+
 
     class SliceAction < ComponentFileGen
       TEMPLATE = '  module %s
@@ -291,7 +291,7 @@ end'
       end
     end
 
- 
+
     class SliceView < ComponentFileGen
       TEMPLATE = '  module %s
     module Views

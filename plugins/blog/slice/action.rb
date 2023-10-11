@@ -5,7 +5,7 @@ module Ha2itat::Slices::Blog
     def by_slug(req)
       adapter.with_user(session_user(req)).by_slug(req.params[:slug])
     end
-    
+
     def create_or_edit_post(req, res)
       post = by_slug(req)
       if req.post?

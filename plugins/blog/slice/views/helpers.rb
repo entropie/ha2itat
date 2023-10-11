@@ -12,15 +12,15 @@ module Ha2itat::Slices
         def templates_select(post)
           ret = "<select class='form-select' name='template'>%s</select>"
           options = []
-      
+
           templates = Plugins::Blog.templates.map(&:last)
-          
+
           options << "<option value='%s'>%s</option>" % ["", "(none)"]
           templates.each do |tmplinst|
 
             if post and post.template
               if tmplinst == post.template
-                selected = " selected='selected' "              
+                selected = " selected='selected' "
               else
                 selected = ""
               end
@@ -49,4 +49,4 @@ module Ha2itat::Slices
       end
     end
   end
-end                      
+end

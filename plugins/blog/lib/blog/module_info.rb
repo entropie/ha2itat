@@ -1,5 +1,5 @@
 module Plugins
-  
+
 
   module Blog
     module BackendModuleInfo
@@ -8,7 +8,7 @@ module Plugins
         def self.modules
           @modules ||= []
         end
-        
+
         def self.inherited(o)
           modules << o
         end
@@ -34,7 +34,7 @@ module Plugins
         def user
           @user ||= Ha2itat.adapter(:user).by_id(@post.user_id)
         end
-        
+
         def to_html
           if Ha2itat.quart.plugins.enabled?(:user)
             super % user.name
@@ -50,12 +50,12 @@ module Plugins
         def post
           @post.with_plugin(VGWort)
         end
-        
+
         def to_html
           ret = ""
           return "" unless Plugins::Blog::VGWort.initialized?
           post_with_vgw = post.extend(Plugins::Blog::VGWort)
-          
+
           if post_with_vgw.vgwort.id_attached?
             ret = "<code>#{post.vgwort.refid}</code>"
           else
@@ -75,7 +75,7 @@ module Plugins
         end
 
       end
-      
+
       class TemplateInfo < Info
         def to_html
           template = @post.template

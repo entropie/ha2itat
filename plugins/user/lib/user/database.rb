@@ -44,7 +44,7 @@ module Plugins
             warn "does not exist: #{path("user")}"
             path("user", *args)
           end
-          
+
           def setup
             @setup = true
             Ha2itat.log "setting up adapter directory #{path}"
@@ -59,7 +59,7 @@ module Plugins
           def yaml_load(file:)
             Psych.unsafe_load(::File.readlines(file).join)
           end
-          
+
           def user(username = nil)
             if username
               fn = User.filename(username)

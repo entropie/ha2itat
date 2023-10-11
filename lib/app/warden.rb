@@ -25,7 +25,7 @@ Warden::Strategies.add(:password) do
   def valid?
     params['username'] || params['password']
   end
-  
+
   def authenticate!
     user = Ha2itat.adapter(:user).by_name(params['name'])
     return false unless user
@@ -44,7 +44,7 @@ Warden::Strategies.add(:token) do
   def valid?
     params["token"]
   end
-  
+
   def authenticate!
     tkn = params["token"]
 

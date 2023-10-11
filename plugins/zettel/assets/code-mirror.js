@@ -100,7 +100,7 @@ function dblclickHandler(cm, form) {
             return false;
         } else {
             return false;
-                
+
         }
     }
     cm.getWrapperElement().addEventListener('dblclick', dbclickFunction);
@@ -111,7 +111,7 @@ function dblclickHandler(cm, form) {
 
 function installHandler(cm, form) {
     if (!cm) return;
-    
+
     const rx_word = "\" "; // Define what separates a word
 
 
@@ -263,7 +263,7 @@ $(document).ready(function() {
                         let date = new Date();
                         insertString(cm, date.strftime("%Y-%m-%d") );
                     }
-                        
+
                 },
 
             });
@@ -315,7 +315,7 @@ $(document).ready(function() {
 
             var hash = md5(beditor.doc.getValue());
             var orig_title = $(fullform).find(".sheet-edit-title").val();
-            
+
 
             var fChangeFunction = function() {
                 var cur_title = $(fullform).find(".sheet-edit-title");

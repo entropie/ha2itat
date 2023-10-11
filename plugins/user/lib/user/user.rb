@@ -13,7 +13,7 @@ module Plugins
 
     #     if  logging_in
     #     elsif logged_in?
-    #       if session_user.is_grouped? and not session_user.part_of?(:admin) 
+    #       if session_user.is_grouped? and not session_user.part_of?(:admin)
     #         redirect_to "/"
     #         exit 23
     #       end
@@ -81,11 +81,11 @@ module Plugins
       end
 
     end
-    
+
     class User
 
       include BCrypt
-      
+
       Attributes = {
         :name        => String,
         :email       => String,
@@ -139,7 +139,7 @@ module Plugins
 
       def part_of?(grp)
         grp = Groups.const_get(grp.to_s.capitalize) if grp.kind_of?(String) or grp.kind_of?(Symbol)
-        
+
         is_grouped? and groups =~ grp and true
       end
 
@@ -173,7 +173,7 @@ module Plugins
           instance_variable_set("@#{paramkey}", paramval)
         end
         remove_instance_variable(:@password1) rescue nil
-        
+
         self
       end
 

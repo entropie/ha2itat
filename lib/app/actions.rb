@@ -12,7 +12,7 @@ module ActionMethodsCommon
   def set_default_meta(req, res)
     set_meta(view, req)
   end
-  
+
   def routes
     Hanami.app["routes"]
   end

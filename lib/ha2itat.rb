@@ -18,7 +18,7 @@ module Ha2itat
   end
 
   def self.template_root(*argv)
-    root.join(root, "templates", *argv)    
+    root.join(root, "templates", *argv)
   end
 
   def self.media_path(*argv)
@@ -27,7 +27,7 @@ module Ha2itat
 
   module Helper
   end
-  
+
   def self.S(path)
     File.join("./", path.to_s.sub(root.to_s, ""))
   end
@@ -72,7 +72,7 @@ module Ha2itat
     SETTING_HASH[tart]
   end
   module_function :C
-  
+
   def self.h(helper)
     Ha2itat::Helper.const_get( app.inflector.camelize(helper) )
   end

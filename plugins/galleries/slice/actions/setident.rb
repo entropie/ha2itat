@@ -22,9 +22,9 @@ module Ha2itat::Slices
             end
             res.redirect_to(redirect_target_from_request(req) || path(:backend_galleries_show, slug: gallery.ident))
           end
-          
+
         end
       end
     end
   end
-end                      
+end

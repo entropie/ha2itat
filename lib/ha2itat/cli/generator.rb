@@ -22,7 +22,7 @@ module Ha2itat
         end
 
         class FrontendTemplate < Dry::CLI::Command
-          desc "generates template for app"          
+          desc "generates template for app"
           instance_eval(&GET_ARGUMENTS)
           def call(mod:, clz:, **options)
             ::Ha2itat::Generator::FrontendTemplate.new(mod: mod, clz: clz).write_to
@@ -30,7 +30,7 @@ module Ha2itat
         end
 
         class FrontendView < Dry::CLI::Command
-          desc "generates view for app"          
+          desc "generates view for app"
           instance_eval(&GET_ARGUMENTS)
           def call(mod:, clz:, **options)
             ::Ha2itat::Generator::FrontendView.new(mod: mod, clz: clz).write_to
@@ -96,7 +96,7 @@ module Ha2itat
           def call(mod:, **options)
             ::Ha2itat::Generator::SliceHelper.new(mod: mod).write_to
           end
-        end        
+        end
 
         class SliceSourceFile < Dry::CLI::Command
           argument :name, desc: "slicename", require: true
@@ -111,5 +111,5 @@ module Ha2itat
 
     end
   end
-  
+
 end

@@ -1,7 +1,7 @@
 # coding: utf-8
 
 module Plugins
-  
+
   module Zettel
 
     def self.get_default_adapter_initialized
@@ -17,7 +17,7 @@ module Plugins
         class File < Ha2itat::Database::Adapter
 
           SHEET_EXTENSION = ".sheet.yaml".freeze
-          
+
           include Ha2itat::Mixins::FU
 
           attr_reader :path
@@ -54,7 +54,7 @@ module Plugins
           def relative_path_for(sheet)
             ::File.join(user_path, sheet.time_to_path, sheet.id)
           end
-          
+
           def directory_for(sheet)
             realpath( relative_path_for(sheet) )
           end
@@ -80,9 +80,9 @@ module Plugins
           end
 
           def http_data_dir
-            ::File.join("public/data/zettel", user.id, sheet.time_to_path, sheet.id)            
+            ::File.join("public/data/zettel", user.id, sheet.time_to_path, sheet.id)
           end
-          
+
           def setup
             @setup = true
             log :debug, "setting up adapter directory #{path}"
@@ -106,7 +106,7 @@ module Plugins
             ret
           end
 
-          
+
           def sheet_files(user = nil)
             raise Ha2itat::Database::NoUserContext, "cant read sheets without user" if user.nil? and @user.nil?
             complete_path = realpath(user_path + "/**/**/**/*" + SHEET_EXTENSION)
@@ -137,7 +137,7 @@ module Plugins
           end
 
           def ordered(user = nil)
-            raise Ha2itat::Database::NoUserContext, "cant read sheets without user" if @user.nil?            
+            raise Ha2itat::Database::NoUserContext, "cant read sheets without user" if @user.nil?
             sheets(user || @user).sort_by{|s| s.updated_at}.reverse
           end
 
@@ -185,7 +185,7 @@ module Plugins
             if content.kind_of?(Hash)
               hash.merge!(content)
             end
-            
+
             super(hash)
           end
 
@@ -201,7 +201,7 @@ module Plugins
             stw
           end
 
-          
+
           def store(sheet)
             raise "invalid sheet: #{PP.pp(sheet, '')}" unless sheet.valid?
 
@@ -222,7 +222,7 @@ module Plugins
           end
 
           def hash_for_image(file)
-            Digest::SHA1.hexdigest(::File.new(file).read) 
+            Digest::SHA1.hexdigest(::File.new(file).read)
           end
 
           def upload(sheet, params)
@@ -237,7 +237,7 @@ module Plugins
               ::FileUtils.copy(input_hash[:tempfile].path, target, :verbose => true)
               ret.push({fn => sheet.http_path(fn)})
             end
-            ret 
+            ret
           end
 
           def update_sheet(sheet, param_hash)
@@ -256,7 +256,7 @@ module Plugins
             sheet
 
           end
-          
+
         end
       end
     end

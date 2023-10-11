@@ -117,7 +117,7 @@ module Plugins
         false
       end
     end
-    
+
     class MarkdownSnippet < Snippet
       def filename
         super("markdown")

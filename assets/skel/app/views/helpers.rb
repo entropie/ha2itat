@@ -9,7 +9,7 @@ module %%Identifier%%
       if Ha2itat.quart.plugins.enabled?(:galleries)
 
         include Plugins::Galleries::GalleriesAccessMethods
-        
+
       end
 
     end

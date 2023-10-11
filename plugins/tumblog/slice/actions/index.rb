@@ -12,11 +12,11 @@ module Ha2itat::Slices
           if pager.current_items.size == 0 and pager.current_page > 1
             res.redirect_to(path(:backend_tumblog_index, page: "last"))
           end
-          
+
           pager.link_proc = -> (n) { routes.path(:backend_tumblog_index, page: n) }
           res.render(view, pager: pager)
         end
       end
     end
   end
-end                      
+end

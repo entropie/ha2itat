@@ -11,7 +11,7 @@ module Ha2itat::Slices
 
         def handle(req, res)
           if req.params.valid?
-            event = booking.by_slug(req.params[:slug])            
+            event = booking.by_slug(req.params[:slug])
             if event.published? then event.unpublish! else event.publish! end
             booking.store(event)
 
@@ -24,4 +24,4 @@ module Ha2itat::Slices
       end
     end
   end
-end                      
+end

@@ -1,7 +1,7 @@
 module Plugins
   module Booking
     class Events
-      
+
       class Image
 
         attr_accessor :path, :basename, :dirname
@@ -13,7 +13,7 @@ module Plugins
           ret.dirname = ret.dirname.join("/")
           ret
         end
-        
+
         def initialize(path = nil)
           @path = path if path
         end
@@ -67,7 +67,7 @@ module Plugins
 
           cls = "ev-image "
           cls << opts[:class] if opts[:class]
-          
+
           ret << "<img src='%s' class='%s' />" % [url, cls]
           ret
         end
@@ -92,7 +92,7 @@ module Plugins
           ret.basename = basename
           ret
         end
-        
+
       end
 
       class NoImage < Image
@@ -107,15 +107,15 @@ module Plugins
         def exist?
           false
         end
-        
+
         def css_background_defintion
           ""
         end
-        
+
       end
 
 
     end
-    
+
   end
 end

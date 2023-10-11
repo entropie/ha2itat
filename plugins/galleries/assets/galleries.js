@@ -11,7 +11,7 @@ $(document).ready(function() {
             autoFocusLast: false,
             fixedContentPos: false
         });
-    
+
     if($(".open-popup-link").length)
         $('.open-popup-link').magnificPopup({
             type:'inline',
@@ -36,6 +36,6 @@ $(document).ready(function() {
         try {
             navigator.clipboard.writeText(msg)
         } catch (error) {};
-        
+
     })
 });

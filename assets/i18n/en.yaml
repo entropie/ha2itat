@@ -20,6 +20,9 @@ form:
   haml: HAML
   markdown: Markdown
   optional_field: Optional
+  booking:
+    ident_suggestion: week number
+
 be:
   ask:
     destroy: Are you really sure to delete?
@@ -114,8 +117,8 @@ be:
     zettel:
       index: Overview
       show: Show
-      
-        
+
+
   help:
     ident: "<strong>Final</strong> unique (!) identifier"
     snippet:

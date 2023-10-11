@@ -1,5 +1,5 @@
 module Plugins
-  
+
 
   module Blog
 
@@ -110,7 +110,7 @@ module Plugins
         end
         ReadAPI.cached
       end
-      
+
     end
 
   end

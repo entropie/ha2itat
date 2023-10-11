@@ -29,7 +29,7 @@ module Plugins
         end
       end
 
-      
+
       class HTML < BaseRenderer
       end
     end

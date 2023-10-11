@@ -1,7 +1,7 @@
 # coding: utf-8
 
 module Plugins
-  
+
   module Booking
 
     def self.date_identifier(date)
@@ -151,9 +151,13 @@ module Plugins
           @published = false
         end
 
+        def i18n_ident_suggestion_slug
+          ::Ha2itat::Database::make_slug(Ha2itat::Helper::Translation.t.form.booking.ident_suggestion)
+        end
+
         def ident_suggestion
-          default_str = "%s--%s-kalenderwoche-%s"
-          is = begin 
+          default_str = "%s--%s-#{i18n_ident_suggestion_slug}-%s"
+          is = begin
                  Booking::Events::EventTypes.frontend_types.first.type.to_s.downcase
                rescue
                  human_type.downcase
@@ -213,7 +217,7 @@ module Plugins
         def archived=(obj)
           @archived = obj
         end
-        
+
         def valid?
           values = EventAttributes.map do |event_attribute|
             send(event_attribute)
@@ -258,7 +262,7 @@ module Plugins
         def filename=(obj)
           @filename = obj
         end
-        
+
         def filename
           return @filename if @filename
           "%s%s-%s.%s" % [
@@ -450,7 +454,7 @@ module Plugins
         end
       end
 
-      class Recurrent < Event 
+      class Recurrent < Event
         def initialize
           super
           @dates = []
@@ -579,7 +583,7 @@ module Plugins
       def directory
         Ha2itat.adapter(:booking).repository_path("events", *[@year, @month].compact)
       end
-      
+
       def directory_glob
         args = has_range? ? [@year, @month] : ["/**"]
         ret = Ha2itat.adapter(:booking).repository_path("events", *args)

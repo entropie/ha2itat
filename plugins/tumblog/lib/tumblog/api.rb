@@ -9,7 +9,7 @@ module Plugins
       def self.endpoint
         File.join(ENDPOINT, "api/post/new")
       end
-      
+
       def self.submit(what, args: {})
         request = Request.new(endpoint: endpoint, what: what, args: args, token: Tumblog.token)
         request.submit
@@ -17,7 +17,7 @@ module Plugins
 
       class Request
         attr_accessor :endpoint, :what, :token, :args
-        
+
         def initialize(endpoint:, what:, token:, args: {})
           @endpoint = URI.parse(endpoint)
           @what = what

@@ -22,7 +22,7 @@ module Ha2itat
     def self.init(locale = ::R18n::I18n.default )
 
       R18n.clear_cache! if Ha2itat.quart.development?
-      
+
       R18n.default_places = [backend_places, default_places].flatten
 
       i18n = ::R18n::I18n.new(
@@ -67,7 +67,7 @@ module Ha2itat
 
     def l(*params)
       R18n.get.l(*params)
-    end  
+    end
   end
 
 end
@@ -81,7 +81,7 @@ R18n::Filters.add('icon', :icon) do |content, config, opt|
     ::Plugins::Icons.icon(content['i'])
   else
     ret = nil
-    
+
     # if opt is supplied we get alternate translation
     if opt
       current = ::R18n.get

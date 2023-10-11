@@ -13,7 +13,7 @@ module %%Identifier%%
     SESSION_EXPIRY_TIME_IN_SECONDS = 60*60*24*365
 
     config.logger.filters = config.logger.filters + ["token", "password1"]
-    
+
     config.middleware.use Rack::MethodOverride
 
     config.middleware.use Warden::Manager
@@ -28,7 +28,7 @@ module %%Identifier%%
     environment(:development) do
       config.logger.options[:colorize] = true
     end
-    
+
     Ha2itat::I18n.init
 
     instance_eval(&Ha2itat::CD(:slice))

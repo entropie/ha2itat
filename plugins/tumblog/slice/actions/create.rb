@@ -9,7 +9,7 @@ module Ha2itat::Slices
           optional(:title).value(:string)
           optional(:tags).value(:string)
         end
-        
+
 
         def handle(req, res)
 
@@ -31,7 +31,7 @@ module Ha2itat::Slices
         #   ret = {}
         #   content = params[:s]
         #   adapter = Habitat.adapter(:tumblog).with_user(session_user)
-      
+
         #   post = adapter.create(:content => content)
 
         #   if post.handler.create_interactive?
@@ -39,7 +39,7 @@ module Ha2itat::Slices
         #     post.update(content: "[%s](%s)" % [urlwohttp, post.content])
         #     post.private!
         #   end
-      
+
         #   post.handler.process!
         #   adapter.store(post)
 
@@ -55,4 +55,4 @@ module Ha2itat::Slices
       end
     end
   end
-end                      
+end

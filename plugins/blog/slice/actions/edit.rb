@@ -19,4 +19,4 @@ module Ha2itat::Slices
       end
     end
   end
-end                      
+end

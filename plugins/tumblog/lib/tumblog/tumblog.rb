@@ -24,6 +24,6 @@ module Plugins
       end
     end
   end
-  
+
 end
 

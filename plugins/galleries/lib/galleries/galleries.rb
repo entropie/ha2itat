@@ -21,7 +21,7 @@ module Plugins
           end
         end
       end
-      
+
 
       def IMGSRC(gal, ident)
         gallery = Ha2itat.adapter(:galleries).find(gal)
@@ -140,7 +140,7 @@ module Plugins
         def gallery
           Ha2itat.adapter(:galleries).find(@filename.split("/").first)
         end
-        
+
         def path
           Ha2itat.adapter(:galleries).repository_path(@filename)
         end
@@ -164,7 +164,7 @@ module Plugins
         def http_path(*args)
           Hanami.app["routes"].path(:image, path: ::File.join(filename))
         end
-        
+
         def url
           http_path
         end
@@ -172,7 +172,7 @@ module Plugins
         def css_background_defintion
           "background-image: url(%s)" % url
         end
-        
+
         def ident
           @ident || hash
         end
@@ -240,7 +240,7 @@ module Plugins
       def rpath(*args)
         File.join(ident, *args)
       end
-      
+
       def path(*args)
         adapter.repository_path(ident, *args)
       end
@@ -279,7 +279,7 @@ module Plugins
           hashed_filename = Image.hash_filename(imagepath)
 
           relative_path = rpath("images", hashed_filename)
-          
+
           FileUtils.cp(imagepath, path("images", hashed_filename), :verbose => true)
           log "  gallery:#{ident}: adding: #{imagepath} => #{relative_path}"
 
@@ -297,8 +297,8 @@ module Plugins
         img.delete
         self
       end
-      
+
     end
-    
+
   end
 end

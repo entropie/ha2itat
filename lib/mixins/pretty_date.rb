@@ -113,7 +113,7 @@ module PrettyDate
         if v == 0
           "Heute"
         else
-          "in #{v} #{TIME_UNIT_LBLS[time_unit]} "          
+          "in #{v} #{TIME_UNIT_LBLS[time_unit]} "
         end
       end
     end

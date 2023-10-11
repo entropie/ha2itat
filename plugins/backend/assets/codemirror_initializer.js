@@ -26,7 +26,7 @@ function betterTab(cm) {
 
 export function codemirror_initializer(form, force = false) {
     var jform = form;
-    
+
     var beditorid = jform.attr("id");
     var cmmode = $(jform).attr("data-codemirror-mode");
 

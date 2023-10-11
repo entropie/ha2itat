@@ -161,7 +161,7 @@ module Ha2itat
                  "mkdir -p #{name}/vendor/gems",
                  "ln -s ~/Source/ha2itat #{name}/vendor/gems/ha2itat",
                  "ln -s #{::File.join(Creator.environment.fetch(:media_dir), name)} #{name}/media" )
-         
+
         relative_skeleton_files.each do |rf|
           sf = SkeletonFile.new(rf, target).copy
           if rf == "config/app.rb"

@@ -41,7 +41,7 @@ jQuery.datetimepicker.setLocale('de');
 
 
 $(document).ready(function() {
-    
+
     $('.datepicker').datetimepicker(eventFormDatePickerSync);
 
 

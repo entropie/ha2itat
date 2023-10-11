@@ -11,10 +11,10 @@ module Ha2itat::Slices
             res.format = :json
             res.body = ret.to_json
           else
-            res.redirect_to(redirect_target_from_request(req) || path(:backend_zettel_show, id: sheet.id)) 
+            res.redirect_to(redirect_target_from_request(req) || path(:backend_zettel_show, id: sheet.id))
           end
         end
       end
     end
   end
-end                      
+end

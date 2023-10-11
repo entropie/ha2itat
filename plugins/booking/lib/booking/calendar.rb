@@ -1,7 +1,7 @@
 # coding: utf-8
 
 module Plugins
-  
+
   module Booking
 
     module Calendar
@@ -61,7 +61,7 @@ module Plugins
 
 
       end
-      
+
       class Year
         include DEntity
         attr_reader :year
@@ -92,7 +92,7 @@ module Plugins
         def next
           day(last_day + 1).month
         end
-        
+
         def url
           File.join(@year.year.to_s, month.to_s)
         end
@@ -106,7 +106,7 @@ module Plugins
         end
 
         def first_day
-          Date.new(year.year, month, 1)        
+          Date.new(year.year, month, 1)
         end
 
         def days
@@ -170,7 +170,7 @@ module Plugins
         def today?
           date == Date.today
         end
-        
+
         def css_class
           cls = []
           if date < actual_month.first_day
@@ -182,7 +182,7 @@ module Plugins
           end
 
           cls << "today" if today?
-          
+
           cls.join(" ")
         end
 

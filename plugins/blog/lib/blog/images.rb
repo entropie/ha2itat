@@ -1,5 +1,5 @@
 module Plugins
-  
+
   module Blog
 
     class Image
@@ -13,7 +13,7 @@ module Plugins
         ret.dirname = ret.dirname.join("/")
         ret
       end
-      
+
       def initialize(path = nil)
         @path = path if path
       end
@@ -57,7 +57,7 @@ module Plugins
       def http_path(*args)
         ::File.join("/data/blog/", dirname, basename)
       end
-      
+
       def url
         http_path
       end
@@ -71,7 +71,7 @@ module Plugins
 
         cls = "post-image "
         cls << opts[:class] if opts[:class]
-        
+
         ret << "<img src='%s' class='%s' />" % [url, cls]
         ret
       end
@@ -84,8 +84,8 @@ module Plugins
           :horizontal
         end
       end
-      
-    end  
+
+    end
   end
 end
 

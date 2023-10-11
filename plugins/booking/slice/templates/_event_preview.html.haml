@@ -12,7 +12,7 @@
     = render "controls", event: event
   .backend-list-head
     = nlink(path(:backend_booking_event_show, slug: event.slug), event.title)
-   
+
 
   .backend-list-dates
     .be-date-block
@@ -35,4 +35,4 @@
 
   .backend-list-footer
     %code= "##{event.slug}"
-      
+

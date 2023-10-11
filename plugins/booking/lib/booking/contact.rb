@@ -27,7 +27,7 @@ module Plugins
         yield cmsg if block_given?
         cmsg
       end
-      
+
     end
   end
 

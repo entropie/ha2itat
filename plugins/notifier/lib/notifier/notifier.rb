@@ -30,7 +30,7 @@ module Plugins
       @default_notifier ||= Notification.notify_modules.first
     end
     module_function :default_notifier, :default_notifier=
-    
+
 
 
     class Notification
@@ -81,7 +81,7 @@ module Plugins
         raise "settings config_hash not providing for #{self}" unless config_hash
 
         unless mandatory_settings_check(config_hash)
-          raise "settings config_hash[:mail] missing mandatory keys #{MANDATORY_CONFIG_KEYS-config_hash.keys}"          
+          raise "settings config_hash[:mail] missing mandatory keys #{MANDATORY_CONFIG_KEYS-config_hash.keys}"
         end
 
         complete_options = config_hash.merge(kwargs)

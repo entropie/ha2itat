@@ -5,9 +5,9 @@ module Ha2itat
     class DataBaseError < StandardError; end
     class NotImplemented < DataBaseError; end
     class NotAuthorized < DataBaseError; end
-    class NoUserContext < NotAuthorized; end      
+    class NoUserContext < NotAuthorized; end
 
-    class EntryNotValid < DataBaseError; end     
+    class EntryNotValid < DataBaseError; end
 
     DEFAULT_PERMITTED_CLASSES = []
 
@@ -60,7 +60,7 @@ module Ha2itat
       end
 
       def upload(sheet, params)
-        raise NotImplemented, NOT_IMPLMENTED_MSG        
+        raise NotImplemented, NOT_IMPLMENTED_MSG
       end
 
       def adapter_class

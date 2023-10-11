@@ -1,7 +1,7 @@
 require "nokogiri"
 
 module Plugins
-  
+
   module Blog
 
     class Filter
@@ -11,7 +11,7 @@ module Plugins
       def self.filter_constants
         @filter_constants ||= []
       end
-      
+
       def self.inherited(o)
         filter_constants << o
       end
@@ -58,7 +58,7 @@ module Plugins
       # FIXME: what?
       class GalleryProcessor < Filter
         def filter(str)
-          return str unless Ha2itat.quart.plugins.enabled?(:galleries) 
+          return str unless Ha2itat.quart.plugins.enabled?(:galleries)
 
           str.lines.map do |line|
             regex = /\#\{(.*)\}\s?/
@@ -79,10 +79,10 @@ module Plugins
         end
       end
 
-      
+
       class FlickrImg < Filter
         def filter(str)
-          return str unless Ha2itat.quart.plugins.enabled?(:flickr) 
+          return str unless Ha2itat.quart.plugins.enabled?(:flickr)
           ret = nokogiri(str)
           ret.css("p").each_with_index do |node, index|
             node.text.scan(/(\[flickr: (\d+) ?(.*))\]/) do |match|
@@ -97,10 +97,10 @@ module Plugins
         end
       end
 
-      
+
       class FlickrImgGroup < Filter
         def filter(str)
-          return str unless Ha2itat.quart.plugins.enabled?(:flickr) 
+          return str unless Ha2itat.quart.plugins.enabled?(:flickr)
           ret = nokogiri(str)
           ret.css("p").each_with_index do |node, index|
             node.text.scan(/(\[flickgr: (.*)\])/) do |match|
@@ -113,8 +113,8 @@ module Plugins
           ret.to_html
         end
       end
-      
-      
+
+
       class TopicAnchors < Filter
         def filter(str)
           ret = nokogiri(str)
@@ -125,7 +125,7 @@ module Plugins
           ret.to_html
         end
       end
-      
+
       class QuickFacts < Filter
 
         def filter(str)
@@ -141,7 +141,7 @@ module Plugins
           ret.to_html
         end
       end
-      
+
 
       class Paragraphing < Filter
         def filter(str)
@@ -159,7 +159,7 @@ module Plugins
     end
 
 
-    
+
   end
 end
 

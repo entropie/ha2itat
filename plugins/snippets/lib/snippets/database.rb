@@ -20,7 +20,7 @@ module Plugins
           include Ha2itat::Mixins::FU
 
           SNIPPET_EXTENSION = ".snippet."
-          
+
           def initialize(path)
             @path = path
           end
@@ -75,7 +75,7 @@ module Plugins
             str = obj.to_s
             snippets.select{|s| s.ident.to_s.include?(str) }
           end
-          
+
           def select(obj, env = nil)
             ident = obj.to_sym
             ret = snippets[ident]
@@ -98,7 +98,7 @@ module Plugins
 
           def page(obj, sub = [], env = nil)
             subpages = ""
-            subpages = sub.map{|sp| "---#{sp}" unless sp.to_s.empty? } 
+            subpages = sub.map{|sp| "---#{sp}" unless sp.to_s.empty? }
             ident = "page---#{obj}#{subpages.join}"
             r = select(ident, env)
             r

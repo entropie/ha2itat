@@ -57,7 +57,7 @@ module Plugins
 
           def create(param_hash)
             raise NoUserContext, "trying to call #create without valid user context " unless @user
-            raise 
+            raise
           end
 
           def update_or_create(param_hash)

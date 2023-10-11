@@ -1,5 +1,5 @@
 module Plugins
-  
+
   module Booking
 
     module Database
@@ -101,7 +101,7 @@ module Plugins
               if existing.start_date != what.start_date
                 rm(repository_path(existing.filename), verbose: true)
               else
-                rm(target_file, verbose: true)              
+                rm(target_file, verbose: true)
               end
 
               what.updated_at = Time.now
@@ -123,7 +123,7 @@ module Plugins
             nil
           end
 
-          
+
           def destroy(what)
             raise "trying to destroy not existing `#{what.slug}'" unless what.exist?
             log "booking:REMOVE:#{what.slug}"
@@ -145,7 +145,7 @@ module Plugins
             ret = yield self if block_given?
             ret || self
           end
-          
+
         end
 
       end

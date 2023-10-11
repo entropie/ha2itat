@@ -1,10 +1,10 @@
 require "nokogiri"
 
 module Plugins
-  
+
 
   module Zettel
-    
+
     class References
 
       attr_accessor :sheet
@@ -49,7 +49,7 @@ module Plugins
       def to_s
         "<Reference: %s [%s] << (%s)>" % [sheet.title, keywords.join(", "), resolve.map(&:title).join(", ")]
       end
-      
+
       def reference_sheets
         @reference_sheets ||= sheets.map{|s| References.new(s) }
       end
@@ -100,7 +100,7 @@ module Plugins
       #   refs
       # end
 
-    end 
+    end
   end
 
 end

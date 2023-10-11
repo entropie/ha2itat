@@ -1,5 +1,5 @@
 module Plugins
-  
+
   module Blog
 
     module VGWort
@@ -48,13 +48,13 @@ module Plugins
           ::File.exist?(vgwfile)
         }.all?
       end
-      
+
       def self.database=(obj)
         @database = obj
       end
 
       def self.database_path
-        (Ha2itat.quart && Ha2itat.quart.media_path) || TMP_PATH    
+        (Ha2itat.quart && Ha2itat.quart.media_path) || TMP_PATH
       end
 
       def self.database
@@ -71,7 +71,7 @@ module Plugins
 
         unless @database
         end
-        
+
         @database
       end
 
@@ -141,7 +141,7 @@ module Plugins
       def vgwort
         VGWort.new(self)
       end
-      
+
       def id_attached?
         vgwort.id_attached?
       end

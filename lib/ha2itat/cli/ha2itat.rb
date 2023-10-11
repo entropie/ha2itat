@@ -7,7 +7,7 @@ module Ha2itat
       class App < Dry::CLI::Command
         desc "generates app"
 
-        
+
         argument :name, type: :string,  required: true, desc: "name"
         argument :git, type: :string,   required: false, desc: "initialize git repositories on the server (does not create app)"
 

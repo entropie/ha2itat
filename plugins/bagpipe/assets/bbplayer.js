@@ -131,7 +131,7 @@
     // don't autoplay if bbplayer state is paused
     if (this.state === 'paused') {
       this.bbaudio.pause();
-    } 
+    }
     this.currentTrack = trackNumber;
     this.log('func: loadTrack: loaded ' + source);
   };
@@ -276,7 +276,7 @@
       function (el) {
         el.addEventListener('click', function () {
           self.log('event: click .bb-forward');
-          self.loadNext();          
+          self.loadNext();
         });
       }
     );

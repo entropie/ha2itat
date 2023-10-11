@@ -16,7 +16,7 @@ const env = process.env.NODE_ENV
 
 const config = {
     mode: env || 'development',
-    
+
     entry: {
         app: [
             './app/assets/javascript/slice_includes.generated-fe.js',

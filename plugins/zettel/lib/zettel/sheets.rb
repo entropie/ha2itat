@@ -79,7 +79,7 @@ module Plugins
         :updated_at  => Time,
         :user_id     => String
       }
-      
+
       OptionalAttributes = [:title]
 
       attr_accessor :user
@@ -219,7 +219,7 @@ module Plugins
       def data_dir(*args)
         ::File.join(adapter.data_dir_for(self), *args)
       end
-      
+
       def to_hash
         r = {
           :content => content,

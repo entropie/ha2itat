@@ -1,7 +1,7 @@
 # coding: utf-8
 
 module Plugins
-  
+
   module Blog
 
     module I18N
@@ -10,7 +10,7 @@ module Plugins
         en: "This post was originally written in german titled <strong>%title%</strong>, <a href='%url%'>but is also in available english</a>.",
         de: "Dieser Beitrag wurde usprünglich auf Deutsch verfasst und befindet sich hier: <a href='%url%'>%title%</a>."
       }
-      
+
       def request_language=(obj)
         @request_language = obj
       end
@@ -66,7 +66,7 @@ module Plugins
           str.gsub!(/%url%/, u)
           str
         }
-        
+
         languages.each {|lang|
           ret << replacer.call(lang)
         }
@@ -96,7 +96,7 @@ module Plugins
       }
 
       OptionalAttributes = [:image, :template]
-      
+
       attr_reader :image, :adapter, *Attributes.keys
 
       attr_accessor :filename, :datadir, :user_id, :created_at, :updated_at
@@ -114,7 +114,7 @@ module Plugins
         bdi
       end
 
-      
+
       def initialize(adapter)
         @adapter = adapter
       end
@@ -147,7 +147,7 @@ module Plugins
       rescue Hanami::Router::MissingRouteError
         "/post/#{slug}"
       end
-      
+
       def to_hash
         rethash = {  }
         rethash[:content]    = with_filter
@@ -225,7 +225,7 @@ module Plugins
       def relative_datapath(*args)
         adapter.datadir(*args)
       end
-      
+
       def intro
         if content.include?("\r\n")
           content.split("\r\n\r\n").first
@@ -303,7 +303,7 @@ module Plugins
       end
 
       # returns [ "Saturday", "May", 12 ]
-      def to_calendar_ico 
+      def to_calendar_ico
         created_at.strftime("%A;%B;%d").split(";")
       end
 
@@ -350,7 +350,7 @@ module Plugins
           end
         end
       end
-      
+
     end
 
     class Draft < Post
@@ -359,7 +359,7 @@ module Plugins
         super(adapter)
         @updated_at = @created_at = Time.now
       end
-      
+
       def dirname
         "drafts"
       end

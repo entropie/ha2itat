@@ -74,13 +74,13 @@ namespace :ha2itat do
 
   after "deploy:log_revision", "ha2itat:restart"
 
-  
+
   task :link_files do
     on roles(:app) do
       unless remote_link_exists?(fetch(:nginx_config))
         sudo :ln, "-s #{current_path.join("config/nginx.conf")} #{fetch(:nginx_config)}"
       end
-      
+
       unless remote_link_exists?(fetch(:init_file))
         sudo :ln, "-s #{current_path.join("config/init.sh")} #{fetch(:init_file)} "
       end

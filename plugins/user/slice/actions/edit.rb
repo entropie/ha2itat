@@ -25,7 +25,7 @@ module Ha2itat::Slices
             new_user_params = req.params.to_hash
 
             # new_name = new_user_params.delete(:name)
-            # if user.name != new_name 
+            # if user.name != new_name
             #   raise "cannot change name; delete and recreate instead"
             # end
 
@@ -39,4 +39,4 @@ module Ha2itat::Slices
       end
     end
   end
-end                      
+end

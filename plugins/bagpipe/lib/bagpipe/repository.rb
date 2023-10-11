@@ -119,7 +119,7 @@ module Plugins
               str << entry.read.parent.to_pls(env, j, '', false)
             end
           end
-          
+
           if init
             str << "\nNumberOfEntries=#{j.to_i}\n"
             str << "Version=2"
@@ -225,7 +225,7 @@ module Plugins
         def link(prfx = "")
           super(prfx) % ("raw/download/" + path.split("/").map{|part| Rack::Utils.escape(part)}.join("/"))
         end
-        
+
         def image(width = 32, height = 32)
           %Q'<div class="pimg"><img src="/img/zip-d.png" height="#{height}" width="#{width}" /></div>'
         end
@@ -292,7 +292,7 @@ module Plugins
 
           suffix = "bagpipe/" + short_path
           url+suffix
-          
+
         end
 
         def inspect

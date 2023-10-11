@@ -58,5 +58,5 @@ module Ha2itat
       end
     }
   end
-  
+
 end

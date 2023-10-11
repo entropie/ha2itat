@@ -44,7 +44,7 @@
             %span.input-group-addon= t.form.type
             %select.form-input{name: :type}
               - Plugins::Booking::Events::EventTypes.frontend_types.each do |et|
-                %option{value: et.type, selected: et.type == event.type, "data-humantype" => Plugins::Booking::Events::Event.find_for_type(et.type).new.human_type.to_s.downcase}= et.type 
+                %option{value: et.type, selected: et.type == event.type, "data-humantype" => Plugins::Booking::Events::Event.find_for_type(et.type).new.human_type.to_s.downcase}= et.type
 
 
     .columns.mtop
@@ -93,7 +93,7 @@
 
     .columns.mtop
       .column.col-12.text-center.mtop
-        %input.btn.btn-primary{:type => :submit, :value => t.form.submit}    
+        %input.btn.btn-primary{:type => :submit, :value => t.form.submit}
 
       .column.col-12.mtop
         .form-group

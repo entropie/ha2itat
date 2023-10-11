@@ -41,7 +41,7 @@ module Ha2itat::Mixins
       str.gsub(/\r/, "")
     end
     module_function :cleaned_content
-    
+
     def overwrite(file, cnts)
       cnts = cleaned_content(cnts)
       r=File.open(file, "w+") do |fp|
@@ -66,7 +66,7 @@ module Ha2itat::Mixins
     def log(*args)
       args.each{|a| Ha2itat.log(a) }
     end
-    
-    
+
+
   end
 end

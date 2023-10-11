@@ -9,13 +9,13 @@ require_relative "references"
 
 
 module Plugins
-  
+
   module Zettel
 
     DEFAULT_ADAPTER = :File
-    
+
     class ZettelMappe < Array
     end
-    
+
   end
 end

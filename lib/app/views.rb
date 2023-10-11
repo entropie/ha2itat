@@ -18,7 +18,7 @@ module ViewMethodsCommon
   end
 
   def current_uri
-    request_env["REQUEST_URI"]    
+    request_env["REQUEST_URI"]
   end
 
   def active_path(path)
@@ -41,7 +41,7 @@ module ViewMethodsCommon
   def snippet_page_path(*args)
     ([ Ha2itat::C(:page_prefix) ] + args).join("/")
   end
-  
+
   def path(routename, *args, **hargs)
     Hanami.app["routes"].path(routename.to_sym, **hargs)
   end
@@ -60,7 +60,7 @@ module ViewMethodsCommon
     "<a class='snippet-link #{csscls}' href='#{target_path}'#{parsed_opts}>#{text || args.last}</a>"
   end
   alias :sl :slink
-  
+
 
   # link to a route
   def nlink(routename, desc = nil, opts = {})

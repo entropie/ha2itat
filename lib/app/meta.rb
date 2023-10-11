@@ -4,7 +4,7 @@ module Ha2itat
     attr_reader :title, :desc, :image, :type, :author
 
     attr_accessor :elements
-    
+
     DEFAULTS = proc {
       add_meta charset: "utf-8"
       add_meta name:    "viewport", content: "width=device-width, initial-scale=1"
@@ -22,7 +22,7 @@ module Ha2itat
       add_meta property: "og:image", content: @image if @image
       add_meta property: "article:author", content: author || Ha2itat.C(:author)
     }
-    
+
     def self.title_seperator=(obj)
       @title_seperator = obj
     end
@@ -94,6 +94,6 @@ module Ha2itat
     def app_desc
       @desc || Ha2itat.C(:desc) || "[default-desc]"
     end
-    
+
   end
 end

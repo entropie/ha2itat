@@ -5,7 +5,7 @@ module Ha2itat::Slices
 
     module Actions
       class Show < Action
-        
+
         params { required(:user_id).filled(:string) }
 
         handle_exception EntryNotFound => :error_handler
