@@ -430,20 +430,19 @@ module Plugins
           self
         end
 
-        def template
-          default_template_file = "events/default"
-          mp = ::File.basename(Ha2itat::S Ha2itat.quart.media_path)
-          template_file = ::File.join("../../../", mp, "booking/templates", type.to_s)
-          if ::File.exist?(Ha2itat.adapter(:booking).repository_path("templates", "%s.html.haml" % type.to_s))
-            template_file
-          else
-            default_template_file
-          end
-        end
+        # def template
+        #   default_template_file = "events/default"
+        #   mp = ::File.basename(Ha2itat::S Ha2itat.quart.media_path)
+        #   template_file = ::File.join("../../../", mp, "booking/templates", type.to_s)
+        #   if ::File.exist?(Ha2itat.adapter(:booking).repository_path("templates", "%s.html.haml" % type.to_s))
+        #     template_file
+        #   else
+        #     default_template_file
+        #   end
+        # end
 
         def html_text
-          markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, footnotes: false)
-          r = markdown.render(content.to_s.strip)
+          Ha2itat::Renderer.render(:markdown, content.to_s.strip)
         end
 
         def corresponding_page
