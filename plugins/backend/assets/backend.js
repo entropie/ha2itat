@@ -1,5 +1,7 @@
 import "./backend.sass"
 
+import "./pager.sass"
+
 import $ from "jquery";
 
 import { codemirror_initializer } from './codemirror_initializer.js'
