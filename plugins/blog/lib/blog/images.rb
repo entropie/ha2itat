@@ -45,7 +45,7 @@ module Plugins
         Ha2itat.adapter(:blog).repository_path(@post.datadir)
       end
 
-      def css_background_defintion
+      def css_background_definition
         retstr = "background-image: url(%s)" % url
         # if Habitat.quart.plugins.enabled?(:webp)
         #   Webp.encode(fullpath)
@@ -88,4 +88,3 @@ module Plugins
     end
   end
 end
-
