@@ -71,6 +71,14 @@ module Plugins
             @posts = Posts.new(user || @user).push( *post_files.map{ |pfile| load_file(pfile) })
           end
 
+          def sorted(user = nil)
+            @sorted ||= posts.sort_by{|p| p.created_at}.reverse
+          end
+
+          def is_first?(post)
+            sorted.first == post
+          end
+
           def by_slug(slug)
             posts.dup.select{|p| p.slug == slug }.first
           end
@@ -108,12 +116,12 @@ module Plugins
             end
           end
 
-          def store(post_or_draft)
+          def store(post_or_draft, updated_at: Time.now)
             log :info, "blog:STORE:#{post_or_draft.title}"
 
             for_yaml = setup_post(post_or_draft)
 
-            for_yaml.updated_at = Time.now
+            for_yaml.instance_variable_set("@updated_at", updated_at)
 
             write(for_yaml.fullpath, YAML.dump(for_yaml))
             FileUtils.mkdir_p(post_or_draft.datapath, :verbose => true)

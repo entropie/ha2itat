@@ -26,6 +26,7 @@ module Plugins
         end
       end
 
+
       def copy_to(post)
         filename = Digest::SHA1.hexdigest(File.new(@path).read) + ::File.extname(@path)
         target = post.datapath("image", filename)

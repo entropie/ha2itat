@@ -133,7 +133,7 @@ module Plugins
       end
 
       def upload(obj)
-        img = Image.new(obj.path)
+        img = Image.new(obj.path) rescue Image.new(obj)
         img.copy_to(self)
         @image = img
       end
@@ -144,7 +144,7 @@ module Plugins
 
       def app_route()
         Hanami.app["routes"].path(:blog_show, slug: slug)
-      rescue Hanami::Router::MissingRouteError
+      rescue
         "/post/#{slug}"
       end
 
@@ -267,7 +267,10 @@ module Plugins
           end
           #rescue
         end
-        #image.post = nil if image
+        if image
+          image.remove_instance_variable("@post")
+        end
+
         ret
       end
 
@@ -406,4 +409,3 @@ module Plugins
 
   end
 end
-

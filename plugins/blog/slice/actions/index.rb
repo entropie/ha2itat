@@ -8,7 +8,7 @@ module Ha2itat::Slices
         def handle(req, res)
           usr = session_user(req)
           posts = adapter.with_user(usr).posts.sort_by {|p| p.created_at }.reverse
-          pager = Pager.new(req.params.to_hash, posts, 2)
+          pager = Pager.new(req.params.to_hash, posts)
 
           if pager.current_items.size == 0 and pager.current_page > 1
             res.redirect_to(path(:backend_blog_index, page: "last"))

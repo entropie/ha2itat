@@ -151,7 +151,7 @@ module Plugins
           Plugins::Blog::VGWort.fetch_for(self) do |index, code, id, url|
             Ha2itat.log "VGWORT: post: #{slug}: attaching ##{index} #{code}:#{id}"
             Ha2itat.log "VGWORT: post: #{slug}: written #{vgwort.file}"
-            vgwort.write(url, code, id)
+            vgwort.write(url, id)
             true
           end
         else
@@ -208,7 +208,7 @@ module Plugins
           ""
         end
 
-        def write(url, code, id)
+        def write(url, id)
           img = "<img src='%s' alt='' />" % url
 
           str = [img, id].join("\n")
