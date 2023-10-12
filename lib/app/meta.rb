@@ -1,7 +1,7 @@
 module Ha2itat
   class Meta
 
-    attr_reader :title, :desc, :image, :type, :author
+    attr_reader :title, :desc, :image, :type, :author, :color_scheme
 
     attr_accessor :elements
 
@@ -11,7 +11,7 @@ module Ha2itat
 
       add_meta name:    "title", content: app_title
       add_meta name:    "description", content: app_desc
-      add_meta name:    "color-scheme", content: "dark light"
+      add_meta name:    "color-scheme", content: color_scheme
       add_title app_title
     }
 
@@ -49,6 +49,10 @@ module Ha2itat
 
     def self.customized
       @customized
+    end
+
+    def color_scheme
+      @color_scheme || "dark light"
     end
 
     def add_meta(**kwargs)
