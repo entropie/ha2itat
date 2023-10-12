@@ -124,5 +124,7 @@ namespace :ha2itat do
 
   before "bundler:config", "ha2itat:checkout"
 
-end
+  task :setup do;  end
+  before "ha2itat:setup", "ha2itat:link_files"
 
+end
