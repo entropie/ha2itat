@@ -27,6 +27,7 @@ module Ha2itat
       end
 
       register "generate", aliases: ["g"] do |prefix|
+        prefix.register "avt",      Generate::FrontendActionViewTemplate
         prefix.register "action",   Generate::FrontendAction
         prefix.register "view",     Generate::FrontendView
         prefix.register "template", Generate::FrontendTemplate

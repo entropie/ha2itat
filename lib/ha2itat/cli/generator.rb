@@ -37,6 +37,15 @@ module Ha2itat
           end
         end
 
+        class FrontendActionViewTemplate < Dry::CLI::Command
+          desc "generates view/action/templates for app"
+          instance_eval(&GET_ARGUMENTS)
+          def call(mod:, clz:, **options)
+            ::Ha2itat::Generator::FrontendView.new(mod: mod, clz: clz).write_to
+            ::Ha2itat::Generator::FrontendAction.new(mod: mod, clz: clz).write_to
+            ::Ha2itat::Generator::FrontendTemplate.new(mod: mod, clz: clz).write_to
+          end
+        end
 
         class SliceActionViewTemplate < Dry::CLI::Command
           instance_eval(&GET_ARGUMENTS)
