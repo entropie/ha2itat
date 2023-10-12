@@ -173,6 +173,10 @@ icons:
     i: folder
   music: !!icon
     i: music
+  heart: !!icon
+    i: heart
+  colorswitcher: !!icon
+    i: eye
 
 robots: !!pl
   0: No robots
