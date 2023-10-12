@@ -64,7 +64,7 @@ end
   module Actions
     module %s
       class %s < %s::Action
-        def handle(request, response)
+        def handle(req, res)
         end
       end
     end
@@ -318,4 +318,3 @@ end'
 
   end
 end
-
