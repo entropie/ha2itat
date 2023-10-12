@@ -18,10 +18,14 @@
 .post-info
   strong
     font-variant: small-caps
+    padding-right: 10px
   &.modinfo-template
     > span
       color: $colorImportant
-
+  &.modinfo-tags
+    overflow: hidden
+    white-space: nowrap
+    letter-spacing: -2px
 article.blog-post
   @include contrast-text
   padding: 2vw
