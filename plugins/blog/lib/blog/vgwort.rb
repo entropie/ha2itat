@@ -9,7 +9,7 @@ module Plugins
           post_with_vgwort = post.extend(Plugins::Blog::VGWort)
           #"\n
           if Ha2itat.quart.development?
-            "<div class='vgwortCounter visible'>vgwort:%s</div>" % post_with_vgwort.vgwort.refid
+            "<div class='vgwort-counter visible'>vgwort:%s</div>" % post_with_vgwort.vgwort.refid
           else
             "<div class='vgwort-counter'>#{post_with_vgwort.vgwort.counter}</div>"
           end
