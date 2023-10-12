@@ -63,6 +63,12 @@ module Plugins
         http_path
       end
 
+      def full_url
+        ::File.join(Ha2itat.C(:host), url)
+      rescue
+        url
+      end
+
       def dimensions
         Dimensions.dimensions(fullpath)
       end
