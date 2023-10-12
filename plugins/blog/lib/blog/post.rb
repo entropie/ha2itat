@@ -335,7 +335,7 @@ module Plugins
       end
 
       def intro_html
-        html = Filter::TO_HTML.call(intro, false)
+        html = Ha2itat::Renderer.render(:markdown, intro)
         t=Nokogiri::HTML(html)
         html = t.xpath("//text()").remove.to_html
         html.gsub!(/\[\^[0-9]+\]/, "")
@@ -352,6 +352,10 @@ module Plugins
             Ha2itat.log("try_vgwort_attach: attached id #{post_with_vgw.vgwort.refid}`#{slug}'")
           end
         end
+      end
+
+      def user
+        Ha2itat.adapter(:user).by_id(user_id)
       end
 
     end
