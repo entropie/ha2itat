@@ -17,6 +17,10 @@ module ActionMethodsCommon
     set_meta(view, req, **hash)
   end
 
+  def gallery_img(gal, ident)
+    Ha2itat.adapter(:galleries).find(gal.to_s).images(ident.to_s)
+  end
+
   def routes
     Hanami.app["routes"]
   end
@@ -43,13 +47,11 @@ module ActionMethodsCommon
   end
 
   def params_path(params)
-    #ret = params.env["REQUEST_PATH"].sub( params.env["SCRIPT_NAME"], "").split("/")[1..-1] || ["/"]
     ret = params[:fragments] || ""
     ret = [ret].flatten
     ret = ret.
             map{ |e| e.force_encoding(Encoding::UTF_8) }.
             map{ |r| CGI.unescape(r) }
-
   end
 
 
