@@ -143,7 +143,7 @@ module Plugins
       end
 
       def app_route()
-        Hanami.app["routes"].path(:blog_show, slug: slug)
+        Hanami.app["routes"].path(:post, slug: slug)
       rescue
         "/post/#{slug}"
       end
@@ -276,11 +276,11 @@ module Plugins
 
       def url(variant = nil)
         if variant
-          Backend.routes.post_path(slug, variant)
         else
-          Backend.routes.post_path(slug)
+          Hanami.app["routes"].path(:post, slug: slug)
         end
-
+      rescue
+        "/post/#{slug}"
       end
 
       def draft?
