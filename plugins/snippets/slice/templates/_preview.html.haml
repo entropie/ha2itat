@@ -7,6 +7,4 @@
   .backend-list-kind
     = snippet.kind
   .backend-list-content.preview
-    %code
-      = snippet.content
-
+    %code= CGI.escapeHTML(snippet.content)
