@@ -1,7 +1,7 @@
 module Ha2itat
   class Meta
 
-    attr_reader :title, :desc, :image, :type, :author, :color_scheme
+    attr_reader :title, :desc, :image, :type, :author, :color_scheme, :url
 
     attr_accessor :elements
 
@@ -21,6 +21,13 @@ module Ha2itat
       add_meta property: "og:description", content: app_desc
       add_meta property: "og:image", content: @image if @image
       add_meta property: "article:author", content: author || Ha2itat.C(:author)
+
+      add_meta property: "twitter:card",   content: "summary_large_image"
+      add_meta property: "twitter:domain", content: Ha2itat.C(:host)
+      add_meta property: "twitter:url",    content: app_url if @url
+      add_meta property: "twitter:title",  content: app_title
+      add_meta property: "twitter:description", content: app_desc
+      add_meta property: "twitter:image",  content: @image if @image
     }
 
     def self.title_seperator=(obj)
@@ -28,7 +35,7 @@ module Ha2itat
     end
 
     def self.title_seperator
-      @title_seperator || "&mdash;"
+      @title_seperator || " &mdash; "
     end
 
     def initialize(view, request, **kwargs)
@@ -74,7 +81,8 @@ module Ha2itat
     def to_head
       instance_eval(&DEFAULTS)
       instance_eval(&self.class.customized) if self.class.customized
-
+      # pp app_url
+      # exit
       elements.join
     end
 
@@ -85,6 +93,16 @@ module Ha2itat
       else
         cfgtitle
       end
+    end
+
+    def app_url
+      if @url.to_s =~ /^http/
+        @url
+      else
+        ::File.join(Ha2itat.C(:host), @url)
+      end
+    rescue
+      @url
     end
 
     def title
