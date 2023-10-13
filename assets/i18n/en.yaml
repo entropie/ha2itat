@@ -177,6 +177,10 @@ icons:
     i: heart
   colorswitcher: !!icon
     i: eye
+  facebook: !!icon
+    i: facebook
+  twitter: !!icon
+    i: twitter
 
 robots: !!pl
   0: No robots

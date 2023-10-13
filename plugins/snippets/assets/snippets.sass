@@ -1,16 +1,18 @@
 @import "../../backend/assets/variables"
 
-
 .snippet-preview
   position: relative
+  width: 100%
   &.pagesnippet
     background-color: rgba($c2, .1)
+    max-width: 100%
+  .backend-list-content.preview
+    overflow: hidden
 
 .backend-list-list-entry
   .pagesnippet
     &:first-child
       margin: 0
-
 .snippet-content
   border: 1px solid darken($lighterGradientColor, 50)
   background-color: $lighterGradientColor
