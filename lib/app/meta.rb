@@ -35,7 +35,7 @@ module Ha2itat
     end
 
     def self.title_seperator
-      @title_seperator || " &mdash; "
+      @title_seperator || " — "
     end
 
     def initialize(view, request, **kwargs)
