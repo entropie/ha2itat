@@ -4,6 +4,8 @@ import "./pager.sass"
 
 import $ from "jquery";
 
+
+import "./codemirror.sass"
 import { codemirror_initializer } from './codemirror_initializer.js'
 
 
