@@ -19,6 +19,8 @@ module Ha2itat
       include Hanami::Action::Session
 
       before :set_default_meta
+
+      format :html, :json
     }
 
     Slice = proc {
@@ -29,7 +31,7 @@ module Ha2itat
           '\'self\' data: https://fonts.googleapis.com https://fonts.gstatic.com https://maxcdn.bootstrapcdn.com'
 
       end
-
+      config.actions.format :html, :json
     }
 
     View = proc {
