@@ -1,12 +1,13 @@
-%form.gallery-add-form.form-horizontal{:action => path(:backend_galleries_upload, slug: gallery.ident, goto: path(:backend_galleries_show, slug: gallery.ident, page: "last")), :method => :post, :enctype => 'multipart/form-data'}
+%form.gallery-add-form.form-horizontal{action: path(:backend_galleries_upload, slug: gallery.ident, goto: path(:backend_galleries_show, slug: gallery.ident, page: "last")), method: :post, enctype: 'multipart/form-data'}
+  = _csrf_field
   .container
     .columns
       .column.col-12
         .form-group
           .col-2
-            %label.form-label{:for => :file}= t.form.upload
+            %label.form-label{for: :file}= t.form.upload
           .col-7
-            %input.form-input{:type => :file, :name => "file[]"}
+            %input.form-input{type: :file, name: "file[]", multiple: true}
           .col-1
           .col-2
-            %input.form-input.btn{:type => :submit}
+            %input.form-input.btn{type: :submit}
