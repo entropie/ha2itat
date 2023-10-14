@@ -2,6 +2,7 @@
   = render "dates_add_template", begin_date: event.html_date(:start_date), end_date: event.html_date(:end_date)
 
 %form#events-edit{action: action, method: :POST, enctype: 'multipart/form-data'}
+  = _csrf_field
   .container
     .columns
       .column.col-12

@@ -1,5 +1,6 @@
 .login-form
   %form{:method => :post, :action => path(:backend_user_login)}
+    = _csrf_field
     %input.form-input{value: "", name: :name}
     %input.form-input{value: "", type: :password, name: "password"}
     %input.btn.btn-primary.mtop{:type => :submit, :value => t.form.submit}

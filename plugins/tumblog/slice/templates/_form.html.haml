@@ -1,5 +1,6 @@
 #BE-form
   %form{method: :post, action: action}
+    = _csrf_field
     %input.form-input{type: :hidden, value: (post && post.id ? post.id : ""), name: :id}
     .container
       .columns

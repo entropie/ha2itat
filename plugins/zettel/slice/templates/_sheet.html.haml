@@ -1,5 +1,6 @@
 %section
   %form.zettel-create-form{enctype: 'multipart/form-data', action: action, method: :post, id: sheet.domid}>
+    = _csrf_field
     %input.sheet-id{type: :hidden, value: sheet.id, name: "id"}
     %input.references-url{type: :hidden, value: path(:backend_zettel_reference_base)}
     %input{type: :submit, style: "display: none"}

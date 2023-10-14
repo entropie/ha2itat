@@ -3,6 +3,7 @@
     .topline
       = render "controls", post: post
   %form{:action => action, :method => :post, enctype: 'multipart/form-data'}
+    = _csrf_field
     .container
       .columns
         .column.col-12
