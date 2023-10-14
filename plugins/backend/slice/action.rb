@@ -4,4 +4,3 @@ module Ha2itat::Slices::Backend
     instance_eval(&Ha2itat::CD(:action))
   end
 end
-

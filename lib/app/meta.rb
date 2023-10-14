@@ -74,14 +74,14 @@ module Ha2itat
       keyword_string = kwargs.inject("") do |m, pair|
         m << '%s="%s" ' % pair
       end
-      elements << "<meta #{keyword_string}/>"
+      elements << "<meta #{keyword_string}>"
     end
 
     def add_link(**kwargs)
       keyword_string = kwargs.inject("") do |m, pair|
         m << '%s="%s" ' % pair
       end
-      elements << "<link #{keyword_string}/>"
+      elements << "<link #{keyword_string}>"
     end
 
     def add_title(stitle)
