@@ -12,6 +12,9 @@ module ViewMethodsCommon
     end
   end
 
+  def _csrf_field
+    "<input type='hidden' name='_csrf_token' value='#{_context.csrf_token}'>"
+  end
 
   def current_path
     request_env["REQUEST_PATH"]
@@ -92,4 +95,3 @@ module ViewMethodsCommon
   end
 
 end
-

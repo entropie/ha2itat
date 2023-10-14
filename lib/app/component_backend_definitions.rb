@@ -10,17 +10,17 @@ module Ha2itat
     Action = proc {
       include ActionMethodsCommon
 
+
       before :check_token
       before :reject_unless_authenticated!
 
       include Helper::Translation::Actions
       before :locales_setup
 
-      include Hanami::Action::Session
 
+      include Hanami::Action::Session
       before :set_default_meta
 
-      format :html, :json
     }
 
     Slice = proc {
@@ -31,7 +31,13 @@ module Ha2itat
           '\'self\' data: https://fonts.googleapis.com https://fonts.gstatic.com https://maxcdn.bootstrapcdn.com'
 
       end
-      config.actions.format :html, :json
+
+      config.actions.sessions = :cookie, {
+        key: SESSION_KEY,
+        secret: Ha2itat.quart.secret,
+        expire_after: SESSION_EXPIRY_TIME_IN_SECONDS
+      }
+
     }
 
     View = proc {

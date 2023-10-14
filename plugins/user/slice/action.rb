@@ -3,4 +3,3 @@ module Ha2itat::Slices::User
     instance_eval(&Ha2itat::CD(:action))
   end
 end
-
