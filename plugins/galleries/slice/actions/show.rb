@@ -13,7 +13,7 @@ module Ha2itat::Slices
           if req.params.valid?
             gallery = adapter.find_or_create(req.params[:slug])
 
-            pager = Pager.new(req.params.to_hash, gallery.images||[], 4)
+            pager = Pager.new(req.params.to_hash, gallery.images||[])
             pager.link_proc = -> (n) { routes.path(:backend_galleries_show, slug: gallery.ident, page: n ) }
 
 
