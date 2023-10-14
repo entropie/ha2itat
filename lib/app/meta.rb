@@ -13,6 +13,10 @@ module Ha2itat
       add_meta name:    "description", content: app_desc
       add_meta name:    "color-scheme", content: color_scheme
       add_title app_title
+
+      if Ha2itat.quart.plugins.enabled?(:blog)
+        add_link rel: "alternate", type: "application/rss+xml", title: Ha2itat.C(:title), href: routes.path(:feed)
+      end
     }
 
     SOCIAL_MEDIA = proc {
@@ -36,6 +40,10 @@ module Ha2itat
 
     def self.title_seperator
       @title_seperator || " — "
+    end
+
+    def routes
+      Hanami.app["routes"]
     end
 
     def initialize(view, request, **kwargs)
@@ -69,6 +77,13 @@ module Ha2itat
       elements << "<meta #{keyword_string}/>"
     end
 
+    def add_link(**kwargs)
+      keyword_string = kwargs.inject("") do |m, pair|
+        m << '%s="%s" ' % pair
+      end
+      elements << "<link #{keyword_string}/>"
+    end
+
     def add_title(stitle)
       elements << "<title>%s</title>" % stitle
     end
@@ -81,9 +96,7 @@ module Ha2itat
     def to_head
       instance_eval(&DEFAULTS)
       instance_eval(&self.class.customized) if self.class.customized
-      # pp app_url
-      # exit
-      elements.join
+      "\n%s\n" % [elements.join("\n")]
     end
 
     def app_title
