@@ -34,7 +34,7 @@ module Ha2itat
       if slices.include?(:blog)
         slice :blog,            at: "/backend/blog"
 
-        slice :blogtools,       at: "/blog"
+        slice :blogtools,       at: "/"
       end
 
       if slices.include?(:tumblog)
