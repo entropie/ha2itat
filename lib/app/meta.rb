@@ -14,7 +14,7 @@ module Ha2itat
       add_meta name:    "color-scheme", content: color_scheme
       add_title app_title
 
-      if Ha2itat.quart.plugins.enabled?(:blog)
+      if Ha2itat.quart.plugins.enabled?(:blogtools)
         add_link rel: "alternate", type: "application/rss+xml", title: Ha2itat.C(:title), href: routes.path(:feed)
       end
     }
