@@ -12,6 +12,7 @@ module Ha2itat::Slices::Tumblog
     get "/edit/:id",           to: "edit",     as: :edit
     post "/edit/:id",          to: "edit",     as: :edit
 
+    post "/toggle_private/:id", to: "toggleprivate"
     get "/toggle_private/:id", to: "toggleprivate",  as: :toggleprivate
   end
 end
