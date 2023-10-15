@@ -24,6 +24,7 @@ module Ha2itat
           else
             creator.do_create_app
           end
+          puts "dont forget to add user:\n> cd #{name} && ruby ./vendor/gems/ha2itat/bin/user.rb <name> email> <password>"
         end
       end
     end
