@@ -5,7 +5,7 @@ module Ha2itat
       MAX = 10
 
       def self.max
-        (@max || MAX).to_i
+        (@max || Ha2itat.C(:pager_max) || MAX).to_i
       end
 
       def self.max=(i)
