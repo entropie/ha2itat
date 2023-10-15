@@ -8,6 +8,10 @@ module Ha2itat::Slices
           post = adptr.by_id(req.params[:id])
           if post
             adptr.destroy(post)
+            if req.xhr?
+              res.format = :json
+              return res.body = { ok: true, deleted: post.id }.to_json
+            end
             res.redirect_to(redirect_target_from_request(req) || path(:backend_tumblog_index))
           end
         end

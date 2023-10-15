@@ -8,6 +8,7 @@ module Ha2itat::Slices
           required(:content).filled(:string)
           optional(:title).value(:string)
           optional(:tags).value(:string)
+          optional(:token).value(:string)
         end
 
 
@@ -23,11 +24,11 @@ module Ha2itat::Slices
             post.private!
             post.handler.process!
             adapter.with_user(session_user(req)).store(post)
+
             res.redirect_to path(:backend_tumblog_show, id: post.id)
           end
         end
 
-        # def handle(req, res)
         #   ret = {}
         #   content = params[:s]
         #   adapter = Habitat.adapter(:tumblog).with_user(session_user)

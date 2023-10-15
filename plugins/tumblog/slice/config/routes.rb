@@ -7,8 +7,9 @@ module Ha2itat::Slices::Tumblog
 
     get "/show/:id",           to: "show",     as: :show
     post "/settitle/:id",      to: "settitle", as: :settitle
-    get "/destroy/:id",        to: "destroy",  as: :destroy
 
+    post "/destroy/:id",        to: "destroy"
+    get "/destroy/:id",        to: "destroy",  as: :destroy
     get "/edit/:id",           to: "edit",     as: :edit
     post "/edit/:id",          to: "edit",     as: :edit
 

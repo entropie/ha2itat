@@ -19,6 +19,7 @@ module Ha2itat::Slices
             post.handler.process! if needs_processing
             adptr.update(post)
           end
+
           res.render(view, post: post)
         end
       end
