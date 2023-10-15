@@ -77,8 +77,24 @@ module Plugins
           end
         end
 
+        def admin_links_hash
+          {
+            id: post.id,
+            "privacy-toggle-url": Hanami.app["routes"].path(:backend_tumblog_toggleprivate, id: post.id),
+            "edit-url": Hanami.app["routes"].path(:backend_tumblog_edit, id: post.id),
+            "delete-url": Hanami.app["routes"].path(:backend_tumblog_destroy, id: post.id)
+          }
+        end
+
         def to_html(logged_in = false)
-          "<video controls style=''><source src='%s' type='video/mp4'></video>"
+          add = ""
+          if logged_in
+            add = admin_links_hash.to_a.inject(""){|str, pair|
+              str<< " data-%s='%s'" % pair
+            }
+          end
+          ret = "<video#{add} controls style=''><source src='%s' type='video/mp4'></video>"
+          ret
         end
 
         def self.match
