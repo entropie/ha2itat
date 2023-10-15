@@ -131,7 +131,7 @@ module Ha2itat
       end
 
       def dotfiles
-        [".gitignore", ".ruby-version"]
+        [".gitignore", ".ruby-version", "vendor/gems/.keep", "log/.keep"]
       end
 
       def skeleton_path
@@ -174,7 +174,7 @@ module Ha2itat
         run_list("cd #{name} && bundle install",
                  "ln -s ../vendor/gems/ha2itat/config/deploy.rb #{name}/config/deploy.rb",
                  "cd #{name} && rm app/templates/layouts/app.html.erb",
-                 "cd #{name} && npm install --strict-peer-deps --silent")
+                 "cd #{name} && npm install --legacy-peer-deps --silent")
       end
 
       def do_git
