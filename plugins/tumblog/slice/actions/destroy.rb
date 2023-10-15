@@ -8,7 +8,7 @@ module Ha2itat::Slices
           post = adptr.by_id(req.params[:id])
           if post
             adptr.destroy(post)
-            res.redirect_to(redirect_target_from_request(req) || path(:backend_blog_index))
+            res.redirect_to(redirect_target_from_request(req) || path(:backend_tumblog_index))
           end
         end
       end
