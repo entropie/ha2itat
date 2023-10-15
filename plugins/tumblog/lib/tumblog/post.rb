@@ -53,16 +53,20 @@ module Plugins
           ret
         end
 
+        def thumbnail
+          thumbnail_src
+        end
+
         def thumbnail?
           File.exist?(thumbnail_file)
         end
 
         def thumbnail_file
-          post.datadir("thumbnail.jpg")
+          post.datadir("#{post.id}.png")
         end
 
         def thumbnail_src
-          post.http_data_dir("thumbnail.jpg")
+          post.http_data_dir("#{post.id}.png")
         end
 
         def title
@@ -74,13 +78,7 @@ module Plugins
         end
 
         def to_html(logged_in = false)
-          b = "%s"
-          add = ""
-          if thumbnail?
-            add << %Q|<img class='preview' src='#{thumbnail_src}''/>|
-          end
-          ret = "#{add}<video controls style='display:#{thumbnail? ? "none" : "inline-block"}'><source src='%s' type='video/mp4'></video>"
-          b % ret
+          "<video controls style=''><source src='%s' type='video/mp4'></video>"
         end
 
         def self.match
@@ -123,13 +121,13 @@ module Plugins
           include YoutubeDLMixin
           include Ha2itat::Mixins::FU
 
-          def thumbnail_file
-            post.real_datadir("#{post.id}.jpg")
-          end
+          # def thumbnail_file
+          #   post.real_datadir("#{post.id}.jpg")
+          # end
 
-          def thumbnail_src
-            post.http_data_dir("#{post.id}.jpg")
-          end
+          # def thumbnail_src
+          #   post.http_data_dir("#{post.id}.jpg")
+          # end
 
 
           def self.match
@@ -218,15 +216,8 @@ module Plugins
 
             target_file = post.datadir(post.id + ".mp4")
 
-            srcurl, thumbnail = "", ""
-            open(post.content) do |uri|
-              html = Nokogiri::HTML(uri.read)
-              srcurl = html.xpath('//meta[@itemprop="contentURL"]').first[:content]
-              thumbnail = html.xpath('//meta[@itemprop="thumbnailUrl"]').first[:content]
-            end
-            ret = download(srcurl, target_file)
-            download(thumbnail, thumbnail_file)
-            ret
+            ydl = YoutubeDL.download(post.content, output: target_file)
+            true
           end
 
 
@@ -368,6 +359,11 @@ module Plugins
 
       def handler
         @handler ||= Handler.select_for(self)
+      end
+
+      def thumbnail
+        handler.thumbnail
+
       end
 
       def to_html(logged_in = false)
