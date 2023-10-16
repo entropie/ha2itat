@@ -185,6 +185,8 @@ icons:
     i: moon
   sun: !!icon
     i: sun
+  permalink: !!icon
+    i: link
 
 robots: !!pl
   0: No robots
