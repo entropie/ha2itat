@@ -174,7 +174,8 @@ module Ha2itat
         run_list("cd #{name} && bundle install",
                  "ln -s ../vendor/gems/ha2itat/config/deploy.rb #{name}/config/deploy.rb",
                  "cd #{name} && rm app/templates/layouts/app.html.erb",
-                 "cd #{name} && npm install --legacy-peer-deps --silent")
+                 "cd #{name} && rm -rf app/assets/{js,css}",
+                 "cd #{name} && npm install --legacy-peer-deps")
       end
 
       def do_git
@@ -192,6 +193,7 @@ module Ha2itat
 
         ["git init",
          "git add .",
+         "touch vendor/gems/.keep && git add -f vendor/gems/.keep",
          "git remote add origin #{origin}",
          "git commit -am initial",
          "git push --set-upstream origin master"].each do |rc|
