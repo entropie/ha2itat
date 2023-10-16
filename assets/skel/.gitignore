@@ -4,4 +4,4 @@ node_modules
 .bundle
 vendor/gems/*
 app/assets/javascript/*generated*
-log
+log/*

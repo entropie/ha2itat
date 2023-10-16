@@ -131,7 +131,7 @@ module Ha2itat
       end
 
       def dotfiles
-        [".gitignore", ".ruby-version", "vendor/gems/.keep", "log/.keep"]
+        [".gitignore", ".ruby-version"]
       end
 
       def skeleton_path

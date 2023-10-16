@@ -1,0 +1,47 @@
+$breakPoint: 800px
+
+@mixin body-margins
+  max-width: 98%
+  @include desktop
+    max-width: min(90%, 900px)
+  margin: 0 auto
+
+@mixin cleanul
+  margin: 0
+  padding: 0
+  list-style-type: none
+  ul,li
+    margin: 0
+    padding: 0
+  ul
+    list-style-type: none
+    display: flex
+
+@mixin text-shadow-l()
+  text-shadow: 4px 3px 5px rgba(150, 150, 150, .5)
+@mixin box-shadow-light()
+  box-shadow: 3px 3px 15px -4px rgba(0,0,0,0.35)
+
+
+@mixin box-shadow()
+  box-shadow: 10px 10px 28px -4px rgba(0,0,0,0.35)
+@mixin box-shadow-r()
+  box-shadow: 10px 0px 10px -4px rgba(0,0,0,0.35)
+@mixin shadow-top()
+  box-shadow: 0 4px 10px rgba(#333, .5), 0 -4px 8px rgba(#333, .5)
+
+@mixin mobile()
+  @media only screen and (max-width: $breakPoint)
+    @content
+
+@mixin desktop()
+  @media only screen and (min-width: $breakPoint)
+    @content
+
+@mixin dark()
+  @media (prefers-color-scheme: dark)
+    @content
+
+@mixin light()
+  @media (prefers-color-scheme: light)
+    @content
