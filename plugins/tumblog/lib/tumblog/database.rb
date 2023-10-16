@@ -80,7 +80,7 @@ module Plugins
           end
 
           def load_file(yamlfile)
-            YAML::load_file(yamlfile, aliases: true, permitted_classes: [Plugins::Tumblog::Post, Time])
+            YAML::load_file(yamlfile, aliases: true, permitted_classes: [Plugins::Tumblog::Post, Time, Symbol])
           end
 
           def create(param_hash)

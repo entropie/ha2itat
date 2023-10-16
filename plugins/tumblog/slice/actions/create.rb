@@ -13,48 +13,38 @@ module Ha2itat::Slices
         end
 
 
-        def handle(req, res)
+        def convert_input_url(content)
+          urlwohttp = content.dup.gsub(/^https?:\/\//, "").gsub(/\/$/, "").gsub(/^www\./, "")
+          "[%s](%s)" % [urlwohttp, content]
+        end
 
+        def handle(req, res)
           if req.params.valid?
             content = req.params[:content]
             tags = Plugins::Tumblog.tagify(req.params[:tags])
             title = req.params[:title]
 
-            post = adapter.create(:content => content, :tags => tags, :title => title)
+            post = adapter.create(content: content, tags: tags, title: title)
 
-            post.private!
-            post.handler.process!
+            redirect_target = :backend_tumblog_show
+
+            if req.params[:edit] or post.handler.create_interactive?
+              redirect_target = :backend_tumblog_edit
+              post.private!
+              post.update(content: convert_input_url(post.content))
+            end
+
+            begin
+              post.handler.process!
+            rescue
+              post.default_handler.process!
+            end
+
             adapter.with_user(session_user(req)).store(post)
 
-            redirect_target = req.params[:edit] ? :backend_tumblog_edit : :backend_tumblog_show
             res.redirect_to path(redirect_target, id: post.id)
           end
         end
-
-        #   ret = {}
-        #   content = params[:s]
-        #   adapter = Habitat.adapter(:tumblog).with_user(session_user)
-
-        #   post = adapter.create(:content => content)
-
-        #   if post.handler.create_interactive?
-        #     urlwohttp = post.content.dup.gsub(/^https?:\/\//, "").gsub(/\/$/, "")
-        #     post.update(content: "[%s](%s)" % [urlwohttp, post.content])
-        #     post.private!
-        #   end
-
-        #   post.handler.process!
-        #   adapter.store(post)
-
-        #   if post.handler.create_interactive?
-        #     redirect_to Backend.routes.tumblogEdit_path(post.id)
-        #   end
-
-        #   ret[:ok] = true
-        #   self.body = ret.to_json
-
-        #   # res.render(view)
-        # end
       end
     end
   end

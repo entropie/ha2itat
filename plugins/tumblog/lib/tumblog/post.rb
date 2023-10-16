@@ -28,7 +28,6 @@ module Plugins
           handler = DefaultHandler unless handler
 
           Ha2itat.log("tumblog: (#{handler}:'#{post.content}')")
-
           handled = handler.new(post)
           handled
         end
@@ -136,15 +135,6 @@ module Plugins
 
           include YoutubeDLMixin
           include Ha2itat::Mixins::FU
-
-          # def thumbnail_file
-          #   post.real_datadir("#{post.id}.jpg")
-          # end
-
-          # def thumbnail_src
-          #   post.http_data_dir("#{post.id}.jpg")
-          # end
-
 
           def self.match
             [/^https:\/\/reddit\.com/, /^https:\/\/www\.reddit\.com/, /^https:\/\/v\.redd\.it\//]
@@ -347,7 +337,15 @@ module Plugins
       end
 
       def handler
+        if @force_handler
+          @handler = Handler::DefaultHandler.new(self)
+        end
         @handler ||= Handler.select_for(self)
+      end
+
+      def default_handler
+        @force_handler = :default
+        @handler = Handler::DefaultHandler.new(self)
       end
 
       def thumbnail
