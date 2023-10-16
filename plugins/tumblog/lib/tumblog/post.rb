@@ -195,33 +195,6 @@ module Plugins
           end
         end
 
-        class GFYcat < Handler
-          include YoutubeDLMixin
-
-          def self.match
-            [/gfycat\.com/]
-          end
-
-
-          def process!
-            FileUtils.mkdir_p(post.datadir)
-
-            target_file = post.datadir(post.id)
-            ydl = YoutubeDL.download(post.content, output: target_file)
-            post.title = ""
-            true
-          end
-
-
-          def to_html(logged_in = false)
-            # %Q|<img class='preview' src='%s'/>| % post.http_data_dir("#{post.id}")
-            add = "<h3>#{post.title}</h3>"
-            ret = "%s<video controls><source src='%s' type='video/mp4'></video>"
-            ret % [add, post.http_data_dir("#{post.id}")]
-          end
-
-        end
-
         class Img < Handler
           def self.match
             [/\.gifv$/i]
