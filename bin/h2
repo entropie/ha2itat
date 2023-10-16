@@ -7,12 +7,17 @@ require_relative "../lib/ha2itat"
 
 require_relative "../lib/ha2itat/cli/generator"
 require_relative "../lib/ha2itat/cli/ha2itat"
+require_relative "../lib/ha2itat/cli/tools"
 
 module Ha2itat
   module CLI
     module Commands
 
       extend Dry::CLI::Registry
+
+      register "tools" do |prefix|
+        prefix.register "bookmarklet", Tools::Bookmarklet
+      end
 
       register "backend", aliases: ["be"] do |prefix|
         prefix.register "avt",      Generate::SliceActionViewTemplate
