@@ -1,1 +1,1 @@
-@import "../stylesheets/screen.sass"
+import "../stylesheets/screen.sass"
