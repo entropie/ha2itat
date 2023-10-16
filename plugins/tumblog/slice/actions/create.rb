@@ -9,6 +9,7 @@ module Ha2itat::Slices
           optional(:title).value(:string)
           optional(:tags).value(:string)
           optional(:token).value(:string)
+          optional(:edit).value(:string)
         end
 
 
@@ -25,7 +26,8 @@ module Ha2itat::Slices
             post.handler.process!
             adapter.with_user(session_user(req)).store(post)
 
-            res.redirect_to path(:backend_tumblog_show, id: post.id)
+            redirect_target = req.params[:edit] ? :backend_tumblog_edit : :backend_tumblog_show
+            res.redirect_to path(redirect_target, id: post.id)
           end
         end
 
