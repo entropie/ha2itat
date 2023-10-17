@@ -1,5 +1,6 @@
 require "open-uri"
 require "youtube-dl"
+require "nokogiri"
 
 module Plugins
   module Tumblog
@@ -22,9 +23,9 @@ module Plugins
             h.responsible_for?(post)
           }
 
-          raise "multiple handler for #{post} found; cannot continue" if ret.size > 1
-
-          handler = ret.first
+          # pp ret
+          # raise "multiple handler for #{post} found; cannot continue" if ret.size > 1
+          handler = ret.last
           handler = DefaultHandler unless handler
 
           Ha2itat.log("tumblog: (#{handler}:'#{post.content}')")
@@ -185,7 +186,7 @@ module Plugins
           end
         end
 
-        class Img < Handler
+        class Gifv < Handler
           def self.match
             [/\.gifv$/i]
           end
@@ -202,6 +203,72 @@ module Plugins
 
           def to_html(logged_in = false)
             super % post.http_data_dir(post.id + ".mp4")
+          end
+
+        end
+
+
+        class Img < Handler
+          attr_accessor :extension
+
+          def self.match
+            @match ||= [:gif, :jpg, :png, :gif, :tiff, :webp].map{|type|
+              /#{type}/
+            }
+          end
+
+          def parsed_url(str)
+            str.strip
+          end
+
+          def extension
+            @extension ||= parsed_url(post.content).split(".").last
+          end
+
+          def thumbnail_file
+            post.datadir("#{post.id}.#{extension}")
+          end
+
+          def thumbnail_src
+            post.http_data_dir("#{post.id}.#{extension}")
+          end
+
+          def download(url, path)
+            case io = URI.open(url)
+            when StringIO then File.open(path, 'w') { |f| f.write(io.read) }
+            when Tempfile then io.close; ::FileUtils.mv(io.path, path)
+            end
+          end
+
+          def request_result(uristr)
+            URI.open(uristr).read
+          end
+
+
+          include Ha2itat::Mixins::FU
+
+          def process!
+
+            FileUtils.mkdir_p(post.datadir)
+            purl = parsed_url(post.content)
+            @extension = purl.split(".").last
+            if purl =~ /reddit\.com/
+              uuri = URI(purl)
+              purl =  parsed_url(CGI.unescape(uuri.query.split("=").last))
+              Ha2itat.log("reddit image; using uri from query #{purl}")
+            end
+            download(purl, thumbnail_file)
+            true
+          end
+
+          def to_html(logged_in = false)
+            add = ""
+            if logged_in
+              add = admin_links_hash.to_a.inject(""){|str, pair|
+                str<< " data-%s='%s'" % pair
+              }
+            end
+            "<img #{add} src='%s' alt='asd'>" % [parsed_url(post.content)]
           end
 
         end
