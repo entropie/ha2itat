@@ -1,6 +1,5 @@
 require "open-uri"
 require "youtube-dl"
-require "nokogiri"
 
 module Plugins
   module Tumblog
