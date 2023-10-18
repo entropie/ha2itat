@@ -7,9 +7,9 @@ module Ha2itat::Slices
           sheet = adapter.with_user(session_user(req)).by_id(req.params[:id])
 
           if req.post?
-            sheet = adapter.update_or_create(req.params)
+            sheet = adapter.update_or_create(req.params.to_hash)
             adapter.store(sheet)
-            res.redirect_to(redirect_target_from_request(req) || path(:backend_blog_index))
+            res.redirect_to(redirect_target_from_request(req) || path(:backend_zettel_index))
           end
 
           # if not sheet and potential_image = req.params[:id]
