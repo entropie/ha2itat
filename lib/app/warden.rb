@@ -6,7 +6,7 @@ module WardenCheckToken
     goto = proc{|path| response.redirect_to path }
 
     if request.env["warden"] and request.env["warden"].user and request.params[:redirect]
-      goto.call(request.params[:goto])
+      goto.call(request.params[:redirect])
     end
 
     return false if not request.params[:token] or request.env["warden"].user
