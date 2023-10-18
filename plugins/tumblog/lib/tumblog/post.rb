@@ -68,6 +68,10 @@ module Plugins
           post.http_data_dir("#{post.id}.png")
         end
 
+        def target_media_file(filename)
+          post.datadir(filename)
+        end
+
         def title
           if post.title and not post.title.to_s.strip.empty?
             post.title
@@ -111,7 +115,7 @@ module Plugins
 
         module YoutubeDLMixin
           def media_file
-            Dir.glob("%s/%s.*" % [post.real_datadir, post.id]).first
+            Dir.glob("%s/*.*" % [post.real_datadir]).first
           end
 
           def media_file_src
@@ -143,7 +147,8 @@ module Plugins
           def process!
             FileUtils.mkdir_p(post.datadir)
 
-            target_file = post.datadir(post.id + ".mp4")
+            target_file = target_media_file(post.id+".mp4")
+
             if ::File.exist?(target_file)
               rm(target_file)
             end
@@ -156,9 +161,7 @@ module Plugins
           end
 
           def to_html(logged_in = false)
-            ret = super % post.http_data_dir(post.id + ".mp4")
-            link = "<a target='_blank' href='#{post.content}'>#{post.content}</a>"
-            return ret + "<div class='source'>#{link}</div>"
+            super % post.http_data_dir(post.id + ".mp4")
           end
         end
 
@@ -172,7 +175,7 @@ module Plugins
           def process!
             FileUtils.mkdir_p(post.datadir)
 
-            target_file = post.datadir(post.id)
+            target_file = target_media_file(post.id+".mp4")
             ydl = YoutubeDL.download(post.content, output: target_file)
             post.title = ydl.information[:title]
             true
@@ -355,11 +358,11 @@ module Plugins
       end
 
       def http_data_dir(*args)
-        File.join("/data/tumblog/", id, *args)
+        File.join("/data/tumblog/", user_id, id, *args)
       end
 
       def datadir(*args)
-        adapter.datadir(id, *args)
+        adapter.datadir(adapter.user.id, id, *args)
       end
 
       def real_datadir(*args)
@@ -367,7 +370,7 @@ module Plugins
       end
 
       def relative_datadir(*args)
-        ::File.join("public/data/tumblog", id, *args)
+        ::File.join("public/data/tumblog", user.id, id, *args)
       end
 
       def to_filename
