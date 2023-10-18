@@ -189,6 +189,8 @@ icons:
     i: link
   add: !!icon
     i: plus-circle
+  backend: !!icon
+    i: settings
 
 robots: !!pl
   0: No robots
