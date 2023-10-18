@@ -56,6 +56,7 @@ module ActionMethodsCommon
 
 
   def reject_unless_authenticated!(req, res)
+    # return true if path(:bp_path)
     if req.env["REQUEST_PATH"] != path(:backend_user_login)
       unless req.env["warden"] and req.env["warden"].user
         res.redirect_to path(:backend_user_login)

@@ -76,11 +76,11 @@ module Plugins
           end
 
           def data_dir_for(sheet)
-            Ha2itat.quart.media_path(::File.join("public/data/zettel", user.id, sheet.time_to_path, sheet.id))
+            Ha2itat.quart.media_path(::File.join("zettel/data", user.id, sheet.time_to_path, sheet.id))
           end
 
           def http_data_dir
-            ::File.join("public/data/zettel", user.id, sheet.time_to_path, sheet.id)
+            ::File.join("_zettel/data/", user.id, sheet.time_to_path, sheet.id)
           end
 
           def setup

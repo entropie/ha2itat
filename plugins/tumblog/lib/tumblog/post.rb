@@ -358,7 +358,7 @@ module Plugins
       end
 
       def http_data_dir(*args)
-        File.join("/data/tumblog/", user_id, id, *args)
+        File.join("/_tumblog/data/", user_id, id, *args)
       end
 
       def datadir(*args)

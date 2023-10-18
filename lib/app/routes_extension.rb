@@ -40,15 +40,17 @@ module Ha2itat
       end
 
       if slices.include?(:tumblog)
+        get '/_tumblog/data/*fragments', to: proc{ |env| Ha2itat::Slices::Tumblog::Actions::Read.new.call(env) }, as: :tl_read
         slice :tumblog,         at: "/backend/tumblog"
       end
 
       if slices.include?(:zettel)
+        get '/_zettel/data/*fragments', to: proc{ |env| Ha2itat::Slices::Zettel::Actions::Read.new.call(env) }, as: :zl_read
         slice :zettel,          at: "/backend/zettel"
       end
 
       if slices.include?(:bagpipe)
-        get '/bagpipe/*path',   to: Rack::Directory.new( Ha2itat.quart.media_path("public") ), as: :bagpipe
+        get '/_bagpipe/*fragments', to: proc{ |env| Ha2itat::Slices::Bagpipe::Actions::Read.new.call(env) }, as: :bp_read
         slice :bagpipe,         at: "/backend/bagpipe"
       end
 

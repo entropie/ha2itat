@@ -24,7 +24,7 @@ module Ha2itat::Slices
             tags = Plugins::Tumblog.tagify(req.params[:tags])
             title = req.params[:title]
 
-            post = adapter.create(content: content, tags: tags, title: title)
+            post = adapter.with_user(session_user(req)).create(content: content, tags: tags, title: title)
 
             redirect_target = :backend_tumblog_show
 
@@ -36,10 +36,10 @@ module Ha2itat::Slices
 
             begin
               post.handler.process!
-            rescue
-              redirect_target = :backend_tumblog_edit
-              post.private!
-              post.default_handler.process!
+            # rescue
+            #   redirect_target = :backend_tumblog_edit
+            #   post.private!
+            #   post.default_handler.process!
             end
 
             adapter.with_user(session_user(req)).store(post)

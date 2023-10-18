@@ -56,7 +56,7 @@ module Plugins
           end
 
           def relative_datadir(*args)
-            ::File.join("media/public/data/tumblog", *args)
+            ::File.join("media/tumblog/data", *args)
           end
 
           def post_files

@@ -209,7 +209,7 @@ module Plugins
       end
 
       def http_path(*args)
-        File.join("/data/zettel", user.id, time_to_path, id, *args)
+        File.join("/_zettel/data", id, *args)
       end
 
       def relative_data_dir(*args)

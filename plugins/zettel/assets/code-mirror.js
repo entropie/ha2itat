@@ -43,12 +43,12 @@ function betterTab(cm) {
 
 function isUrl(s) {
     if (!isUrl.rx_url) {
-	// taken from https://gist.github.com/dperini/729294
-	isUrl.rx_url=/^(?:(?:https?|ftp):\/\/)?(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?$/i;
-	// valid prefixes
-	isUrl.prefixes=['http:\/\/', 'https:\/\/', 'ftp:\/\/', 'www.'];
-	// taken from https://w3techs.com/technologies/overview/top_level_domain/all
-	isUrl.domains=['com','ru','net','org','de','jp','uk','br','pl','in','it','fr','au','info','nl','ir','cn','es','cz','kr','ua','ca','eu','biz','za','gr','co','ro','se','tw','mx','vn','tr','ch','hu','at','be','dk','tv','me','ar','no','us','sk','xyz','fi','id','cl','by','nz','il','ie','pt','kz','io','my','lt','hk','cc','sg','edu','pk','su','bg','th','top','lv','hr','pe','club','rs','ae','az','si','ph','pro','ng','tk','ee','asia','mobi'];
+        // taken from https://gist.github.com/dperini/729294
+        isUrl.rx_url=/^(?:(?:https?|ftp):\/\/)?(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?$/i;
+        // valid prefixes
+        isUrl.prefixes=['http:\/\/', 'https:\/\/', 'ftp:\/\/', 'www.'];
+        // taken from https://w3techs.com/technologies/overview/top_level_domain/all
+        isUrl.domains=['com','ru','net','org','de','jp','uk','br','pl','in','it','fr','au','info','nl','ir','cn','es','cz','kr','ua','ca','eu','biz','za','gr','co','ro','se','tw','mx','vn','tr','ch','hu','at','be','dk','tv','me','ar','no','us','sk','xyz','fi','id','cl','by','nz','il','ie','pt','kz','io','my','lt','hk','cc','sg','edu','pk','su','bg','th','top','lv','hr','pe','club','rs','ae','az','si','ph','pro','ng','tk','ee','asia','mobi'];
     }
     if (!isUrl.rx_url.test(s)) return false;
     for (let i=0; i<isUrl.prefixes.length; i++)
@@ -116,33 +116,33 @@ function installHandler(cm, form) {
 
 
     function isRef(s) {
-	if (!isRef.rx_url) {
-	    isRef.rx_url=/#(\w+)/i;
+        if (!isRef.rx_url) {
+            isRef.rx_url=/#(\w+)/i;
         }
         if (!isUrl(s) && isRef.rx_url.test(s)) return true;
     }
 
 
     cm.addOverlay({
-	token: function(stream) {
-	    let ch = stream.peek();
-	    let word = "";
+        token: function(stream) {
+            let ch = stream.peek();
+            let word = "";
 
-	    if (rx_word.includes(ch) || ch==='\uE000' || ch==='\uE001') {
-		stream.next();
-		return null;
-	    }
+            if (rx_word.includes(ch) || ch==='\uE000' || ch==='\uE001') {
+                stream.next();
+                return null;
+            }
 
-	    while ((ch = stream.peek()) && !rx_word.includes(ch)) {
-		word += ch;
-		stream.next();
-	    }
+            while ((ch = stream.peek()) && !rx_word.includes(ch)) {
+                word += ch;
+                stream.next();
+            }
 
             if (isRef(word)) {
                 // console.log("found: " + word);
                 return "ref";
             }
-	}}, { opaque : true }  // opaque will remove any spelling overlay etc
+        }}, { opaque : true }  // opaque will remove any spelling overlay etc
     );
 
     dblclickHandler(cm, form);
@@ -273,17 +273,18 @@ $(document).ready(function() {
 
             installHandler(beditor, fullform);
 
+            var csrf_token = $(fullform).find("input[name='_csrf_token']").attr("value");
             var fub = $(fullform).fileupload({
-                dropZone: $(fullform)
+                dropZone: $(fullform),
             });
 
 
             $(fub).on("fileuploadadd", function(e, data) {
                 var url = $(fub).find(".zettel-upload-section").attr("data-upload-url");
-                data.url = url
-                data.formData = data.files
+                data.url = url + "?_csrf_token="+csrf_token;
+                data.formData = data.files;
 
-                var jqXHR = data.submit();
+                var jqXHR = data.submit({foo: "bar"});
                 jqXHR.done(function (result, textStatus, jqXHR) {
                     $.each(result, function(index, jsonObject){
                         $.each(jsonObject, function(key, val){
