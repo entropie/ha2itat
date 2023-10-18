@@ -290,9 +290,8 @@ module Plugins
 
           url = "%s://%s/" % [ scheme, env["HTTP_HOST"] ]
 
-          suffix = "bagpipe/" + short_path
+          suffix = "_bagpipe/" + short_path
           url+suffix
-
         end
 
         def inspect
