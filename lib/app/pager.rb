@@ -113,7 +113,7 @@ module Ha2itat
         def items_for(pagenr)
           from = ((pagenr - 1) * @limit)
           to   = from + @limit
-          @list[from...to] || []
+          @list.to_a[from...to] || []
         end
 
         def collect
