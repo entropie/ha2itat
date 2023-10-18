@@ -215,7 +215,7 @@ module Plugins
 
           def self.match
             @match ||= [:gif, :jpg, :png, :gif, :tiff, :webp].map{|type|
-              /#{type}/
+              /#{type}$/
             }
           end
 
@@ -270,7 +270,7 @@ module Plugins
                 str<< " data-%s='%s'" % pair
               }
             end
-            "<img #{add} src='%s' alt='asd'>" % [parsed_url(post.content)]
+            "<img #{add} src='%s' alt='#{post.title || ""}'>" % [parsed_url(post.content)]
           end
 
         end
