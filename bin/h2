@@ -17,6 +17,7 @@ module Ha2itat
 
       register "tools" do |prefix|
         prefix.register "bookmarklet", Tools::Bookmarklet
+        prefix.register "url",         Tools::TokenURL
       end
 
       register "backend", aliases: ["be"] do |prefix|
