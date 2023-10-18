@@ -187,6 +187,8 @@ icons:
     i: sun
   permalink: !!icon
     i: link
+  add: !!icon
+    i: plus-circle
 
 robots: !!pl
   0: No robots
