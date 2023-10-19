@@ -4,6 +4,12 @@ module Plugins
 
     module GalleriesAccessMethods
 
+      def random_image_from(gal)
+        gallery = Ha2itat.adapter(:galleries).find(gal.to_s)
+        gallery.images.shuffle.first
+      end
+
+
       def CSS_BACKGROUND(gal, ident)
         gallery = Ha2itat.adapter(:galleries).find(gal)
         img = gallery.images(ident)
@@ -15,9 +21,9 @@ module Plugins
           msg = "image <i>#{ident}</i> not existing in gallery <i>#{gal}</i>."
         else
           begin
-            return _raw(img.css_background_defintion)
+            return _raw(img.css_background_definition)
           rescue
-            return img.css_background_defintion
+            return img.css_background_definition
           end
         end
       end
@@ -176,7 +182,7 @@ module Plugins
           url
         end
 
-        def css_background_defintion
+        def css_background_definition
           "background-image: url(%s)" % url
         end
 
