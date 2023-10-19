@@ -6,6 +6,7 @@ module Ha2itat::Slices
         params do
           required(:slug).filled(:string)
           required(:hash).filled(:string)
+          required(:goto).filled(:string)
         end
 
         def handle(req, res)
