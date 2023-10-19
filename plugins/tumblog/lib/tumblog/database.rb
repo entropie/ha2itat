@@ -73,6 +73,11 @@ module Plugins
             entries.select{|e| e.id == id}.first
           end
 
+          def by_tags(*tag)
+            entries.select{|e| e.tags.any?{|pt| tag.include?(pt)} }
+          end
+
+
           def entries(user = nil)
             @posts = Entries.new(user || @user).push(*post_files.map{|pfile| load_file(pfile)})
             @posts.reject!{|post| post.private? } unless @user
