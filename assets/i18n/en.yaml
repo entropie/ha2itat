@@ -179,8 +179,14 @@ icons:
     i: eye
   facebook: !!icon
     i: facebook
+  insta: !!icon
+    i: instagram
   twitter: !!icon
     i: twitter
+  mail: !!icon
+    i: mail
+  phone: !!icon
+    i: phone
   moon: !!icon
     i: moon
   sun: !!icon
