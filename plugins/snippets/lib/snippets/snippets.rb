@@ -14,7 +14,7 @@ module Plugins
     DEFAULT_ADAPTER = :File
 
     def self.all
-      Habitat.adapter(:snippets).snippets
+      Ha2itat.adapter(:snippets).snippets
     end
 
     module SnippetCreater
