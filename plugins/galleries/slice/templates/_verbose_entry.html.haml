@@ -1,5 +1,6 @@
 %li
   %form{:action => path(:backend_galleries_setident, slug: gallery.ident, hash: ele.hash, goto: current_uri), :method => :post}
+    = _csrf_field
     .img-box{style: ele.css_background_definition}
       .img-box-head
         %ul
