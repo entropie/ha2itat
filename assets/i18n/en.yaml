@@ -197,6 +197,8 @@ icons:
     i: plus-circle
   backend: !!icon
     i: settings
+  calendar: !!icon
+    i: calendar
 
 robots: !!pl
   0: No robots
