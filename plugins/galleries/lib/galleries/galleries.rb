@@ -9,6 +9,10 @@ module Plugins
         gallery.images.shuffle.first
       end
 
+      def _img(gal, ident)
+        gallery = Ha2itat.adapter(:galleries).find(gal)
+        gallery.images(ident)
+      end
 
       def CSS_BACKGROUND(gal, ident)
         gallery = Ha2itat.adapter(:galleries).find(gal)
