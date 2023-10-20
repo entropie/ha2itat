@@ -270,7 +270,7 @@ module Plugins
                 str<< " data-%s='%s'" % pair
               }
             end
-            "<img #{add} src='%s' alt='#{post.title || ""}'>" % [parsed_url(post.content)]
+            "<img #{add} src='%s' alt='#{post.title || ""}'>" % [thumbnail_src]
           end
 
         end
