@@ -98,6 +98,9 @@ module Plugins
 
           def page(obj, sub = [], env = nil)
             subpages = ""
+
+            sub = [sub].flatten.compact.map{|s| s.split("/")}.flatten
+
             subpages = sub.map{|sp| "---#{sp}" unless sp.to_s.empty? }
             ident = "page---#{obj}#{subpages.join}"
             r = select(ident, env)
