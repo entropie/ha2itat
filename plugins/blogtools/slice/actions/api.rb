@@ -6,7 +6,6 @@ module Ha2itat::Slices
         def handle(req, res)
           limit = Ha2itat.C(:pager_max) || 10
           posts = adapter.posts.sort_by{|p| p.created_at}.reverse.first(limit).map{ |p| p.to_hash }
-          pp posts.first
           res.format = :json
           res.body = posts.to_json
         end
