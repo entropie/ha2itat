@@ -1,6 +1,10 @@
 module Ha2itat::Slices::Blogtools
   class Action < Hanami::Action
-    instance_eval(&Ha2itat::CD(:action))
+    include ActionMethodsCommon
+    before :check_token
+
+    include Hanami::Action::Session
+
 
     def adapter
       Ha2itat.adapter(:blog)
