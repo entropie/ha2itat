@@ -124,9 +124,11 @@ module Plugins
       end
 
       def render(env = nil)
-        # markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, footnotes: false)
-        # r = markdown.render(to_s)
-        Ha2itat::Renderer.render(:markdown, to_s, env: env)
+        ret = Ha2itat::Renderer.render(:markdown, to_s, env: env)
+        if ret =~ /^<p/
+          return ret[3..-6]
+        end
+        ret
       end
 
       def kind
