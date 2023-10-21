@@ -64,7 +64,7 @@ module Ha2itat
         end
 
 
-        def self.paginate(params, list, m = max)
+        def self.paginate(params, list, m = Helper::Pager.max)
           new(params, list, m)
         end
 
