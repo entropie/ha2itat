@@ -36,7 +36,9 @@ module Plugins
     class Notification
 
       def self.app_subject(str)
-        "[%s] #{str}" % [ Ha2itat.quart.identifier ]
+        "[%s] #{str}" % [ URI(Ha2itat.C(:full_web_address)).hostname ]
+      rescue
+        str
       end
 
       def self.notify_modules
