@@ -199,6 +199,8 @@ icons:
     i: settings
   calendar: !!icon
     i: calendar
+  info: !!icon
+    i: info
 
 robots: !!pl
   0: No robots
