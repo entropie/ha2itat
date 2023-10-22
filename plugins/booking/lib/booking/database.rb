@@ -49,7 +49,7 @@ module Plugins
           end
 
           def events_published
-            ::Booking::Events.new(self).push(*events_all.select{ |e| e.published? })
+            Plugins::Booking::Events.new(self).push(*events_all.select{ |e| e.published? })
           end
 
           def events_archived
