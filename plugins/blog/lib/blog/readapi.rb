@@ -37,7 +37,7 @@ module Plugins
           @image, @api = img, api
         end
 
-        def css_background_defintion
+        def css_background_definition
           "background-image: url(%s)" % api.url(@image)
         end
       end
@@ -92,7 +92,9 @@ module Plugins
           @cached = nil
           return @cached
         end
-        @cached = YAML.load_file(cache_file) rescue nil
+        @cached = YAML.load_file(cache_file, aliases: true, permitted_classes: [Plugins::Blog::APIPost, Plugins::Blog::ReadAPI])
+      rescue
+        nil
       end
 
       def self.cached=(obj)
