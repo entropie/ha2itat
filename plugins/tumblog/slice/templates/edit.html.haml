@@ -2,3 +2,8 @@
 
 .backend-page
   = render "form", action: path(:backend_tumblog_edit, id: post.id), post: post
+
+%hr
+.backend-content
+  %article.snippet-content{class: post.css_class}
+    = post.to_html(true)

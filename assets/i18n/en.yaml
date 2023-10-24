@@ -205,6 +205,8 @@ icons:
     i: check-square
   location: !!icon
     i: map-pin
+  find: !!icon
+    i: search
 
 
 robots: !!pl
