@@ -16,7 +16,7 @@
 
       .columns.mtop
         .column.col-12
-          %textarea.form-input{name: :content}
+          %textarea#tl-form.form-input.cm-form{name: :content, "data-codemirror-mode": "text/x-markdown"}
             = post && post.content
       .columns.mtop
         .column.col-2.col-mx-auto
