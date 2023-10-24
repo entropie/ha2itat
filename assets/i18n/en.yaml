@@ -201,6 +201,11 @@ icons:
     i: calendar
   info: !!icon
     i: info
+  check: !!icon
+    i: check-square
+  location: !!icon
+    i: map-pin
+
 
 robots: !!pl
   0: No robots
