@@ -29,6 +29,17 @@ module ActionMethodsCommon
     routes.path(...)
   end
 
+  def url_to_translation(req, **kwargs)
+    url = nil
+    if req.is_a?(String)
+      substr = req.scan(/#{Ha2itat.C(:page_prefix)}\/(.*)/).flatten.first
+      url = (substr || req).gsub(/[\/\-]/, "_").gsub(/^_/, "")
+    elsif req.is_a?(Symbol)
+      url = path(req, **kwargs)
+    end
+    url.gsub(/[\/\-]/, "_")
+  end
+
   def session_user(req)
     req.env["warden"].user
   end
