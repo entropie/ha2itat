@@ -353,6 +353,10 @@ module Plugins
           type == :group
         end
 
+        def start_datetime
+          current_slot_date.start_date.to_datetime
+        end
+
         def dates=(hash)
           if hash.kind_of?(Array)
             @dates = hash
