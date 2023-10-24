@@ -1,4 +1,3 @@
-
 require "pp"
 
 require "pathname"
@@ -66,6 +65,11 @@ module Ha2itat
     Hanami.app
   end
   module_function :app
+
+  def t
+    ::R18n.get
+  end
+  module_function :t
 
   def C(whatsymb)
     tart = whatsymb.to_sym
