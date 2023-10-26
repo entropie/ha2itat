@@ -6,35 +6,6 @@ module Plugins
 
     DEFAULT_ADAPTER = :File
 
-    # module UserControllerMethods
-    #   def reject_unless_authenticated
-    #     logging_in = [Backend.routes.login_path, Backend.routes.logout_path].
-    #                    include?(params.env["REQUEST_PATH"])
-
-    #     if  logging_in
-    #     elsif logged_in?
-    #       if session_user.is_grouped? and not session_user.part_of?(:admin)
-    #         redirect_to "/"
-    #         exit 23
-    #       end
-    #     elsif logging_in
-    #     else
-    #       halt 404
-    #       exit 23
-    #     end
-    #   end
-
-    #   def check_token
-    #     if ::Warden::Strategies[:token]
-    #       a = params.env["warden"].authenticate(:token)
-    #       if a and params[:goto]
-    #         redirect_to params[:goto]
-    #       end
-    #     end
-    #   end
-
-    # end
-
     class Groups < Array
 
       def self.groups
@@ -107,20 +78,6 @@ module Plugins
       def initialize
       end
 
-      def update(paramhash)
-        no_password_submitted = [paramhash[:password], paramhash[:password1]].compact.size == 0
-
-        if not no_password_submitted
-          paramhash.delete(:password1)
-          instance_variable_set("@password", Password.create(paramhash.delete(:password)))
-        end
-
-        paramhash.each do |k, val|
-          instance_variable_set("@#{k}", val)
-        end
-        self
-      end
-
       def add_to_group(grpcls)
         groups.push(grpcls)
       end
@@ -156,26 +113,34 @@ module Plugins
       end
 
       def populate(param_hash)
-        @password = Password.create(param_hash.delete(:password)) if param_hash[:password]
-        @user_id  = Ha2itat::Database.get_random_id unless param_hash[:user_id]
+        password_submitted = [param_hash[:password], param_hash[:password1]].compact.empty?
+
+        if password_submitted
+          param_hash.delete(:password1)
+          @password = Password.create(param_hash.delete(:password))
+        end
+
+        @user_id = Ha2itat::Database.get_random_id unless param_hash[:user_id]
 
         params = {}
 
+        [:name, :email].each do |attrib|
+          params[attrib] = param_hash[attrib]
+        end
+
         groups = param_hash.delete(:groups)
-        groups_to_write = Groups.new
         if groups
+          groups_to_write = Groups.new
           groups.each_pair {|gn, gv|
             groups_to_write.push(Groups.to_group_cls(gn))
           }
+          params[:groups] = groups_to_write
         end
 
-        params[:groups] = groups_to_write
-        [:name, :email].each do |attrib|
-          value = param_hash[attrib]
+        params.each_pair do |attrib, value|
           raise "user attrib #{attrib} unset" unless value
           instance_variable_set("@#{attrib}", value)
         end
-
         self
       end
 
