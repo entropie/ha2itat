@@ -1,5 +1,10 @@
 %h1= t.be.topics.tumblog.edit
 
+- if post
+  .backend-content.tumblog
+    .topline
+      = render "controls", post: post
+
 .backend-page
   = render "form", action: path(:backend_tumblog_edit, id: post.id), post: post
 
