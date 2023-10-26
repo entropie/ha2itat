@@ -89,7 +89,7 @@
         .form-group
           .input-group
             %span.input-group-addon= t.form.protagonist
-            %input.form-input{:value => (event.protagonists.join(",") rescue t.app.person), :name => "protagonists[]"}
+            %input.form-input{:value => (event.protagonists.join(",") rescue t.person), :name => "protagonists[]"}
 
 
     .columns.mtop
