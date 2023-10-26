@@ -159,6 +159,8 @@ module Plugins
         @password = Password.create(param_hash.delete(:password)) if param_hash[:password]
         @user_id  = Ha2itat::Database.get_random_id unless param_hash[:user_id]
 
+        params = {}
+
         groups = param_hash.delete(:groups)
         groups_to_write = Groups.new
         if groups
@@ -166,13 +168,13 @@ module Plugins
             groups_to_write.push(Groups.to_group_cls(gn))
           }
         end
-        param_hash[:groups] = groups_to_write
 
-
-        param_hash.each do |paramkey, paramval|
-          instance_variable_set("@#{paramkey}", paramval)
+        params[:groups] = groups_to_write
+        [:name, :email].each do |attrib|
+          value = param_hash[attrib]
+          raise "user attrib #{attrib} unset" unless value
+          instance_variable_set("@#{attrib}", value)
         end
-        remove_instance_variable(:@password1) rescue nil
 
         self
       end
