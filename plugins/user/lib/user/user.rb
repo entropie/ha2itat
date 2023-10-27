@@ -113,8 +113,7 @@ module Plugins
       end
 
       def populate(param_hash)
-        password_submitted = [param_hash[:password], param_hash[:password1]].compact.empty?
-
+        password_submitted = [param_hash[:password], param_hash[:password1]].all?
         if password_submitted
           param_hash.delete(:password1)
           @password = Password.create(param_hash.delete(:password))
