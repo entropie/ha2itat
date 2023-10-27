@@ -108,7 +108,7 @@ module Plugins
           Ha2itat.log "readapi: reading #{uri}"
           response = Net::HTTP.get(uri)
           Ha2itat.log "readapi: result: #{ response.size }kb"
-          ReadAPI.cached = JSON.parse(response)["posts"].map{ |apip| APIPost.new(apip, self) }
+          ReadAPI.cached = JSON.parse(response).map{ |apip| APIPost.new(apip, self) }
         end
         ReadAPI.cached
       end
