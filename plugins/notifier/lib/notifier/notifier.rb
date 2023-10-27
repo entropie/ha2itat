@@ -36,7 +36,7 @@ module Plugins
     class Notification
 
       def self.app_subject(str)
-        "[%s] #{str}" % [ URI(Ha2itat.C(:full_web_address)).hostname ]
+        "[%s] #{str}" % [ URI(Ha2itat.C(:host)).hostname ]
       rescue
         str
       end
