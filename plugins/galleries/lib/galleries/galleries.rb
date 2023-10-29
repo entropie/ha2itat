@@ -66,7 +66,7 @@ module Plugins
           msg = "image <i>#{ident}</i> not existing in gallery <i>#{gal}</i>."
         else
           acss = hsh.map{ |h,k| "#{h}:#{k}" }.join(";")
-          gall = "<div id='#{img.dom_id}' href='#{img.url}' class='galleries-image popup-img' style='background-image: url(#{img.url});#{acss}'></div>"
+          gall = "<div id='#{img.dom_id}' class='galleries-image popup-img' style='background-image: url(#{img.url});#{acss}'></div>"
           return "<div class='galleries-block'>%s</div>" % [gall]
         end
 
