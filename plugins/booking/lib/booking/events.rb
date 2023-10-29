@@ -158,7 +158,7 @@ module Plugins
         def ident_suggestion
           default_str = "%s--%s-#{i18n_ident_suggestion_slug}-%s"
           is = begin
-                 Booking::Events::EventTypes.frontend_types.first.type.to_s.downcase
+                 type.to_s || Booking::Events::EventTypes.frontend_types.first.type.to_s.downcase
                rescue
                  human_type.downcase
                end
@@ -501,6 +501,7 @@ module Plugins
         @read = true
         read_events = directory_files.map{|df|
           pc = [Time,
+                Symbol,
                 Plugins::Booking::Events::Event,
                 Plugins::Booking::Events::DateRange,
                 Plugins::Booking::Events::Image].
