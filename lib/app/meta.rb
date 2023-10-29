@@ -74,7 +74,13 @@ module Ha2itat
       keyword_string = kwargs.inject("") do |m, pair|
         m << '%s="%s" ' % pair
       end
-      elements << "<meta #{keyword_string}>"
+      str = "<meta #{keyword_string}>"
+      if kwargs[:charset]
+        elements.unshift(str)
+      else
+        elements << str
+      end
+      self
     end
 
     def add_link(**kwargs)
