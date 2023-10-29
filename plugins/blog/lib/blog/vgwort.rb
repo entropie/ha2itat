@@ -7,7 +7,6 @@ module Plugins
       class VGWortFilter < Blog::Filter
         def vgwort_counter
           post_with_vgwort = post.extend(Plugins::Blog::VGWort)
-          #"\n
           if Ha2itat.quart.development?
             "<div class='vgwort-counter visible'>vgwort:%s</div>" % post_with_vgwort.vgwort.refid
           else
