@@ -96,7 +96,7 @@ module Plugins
       def self.create_database
         dir = database_path
         file = File.join(dir, ".vgwortdb")
-        raise "#{file} existing; nope}" if File.exist?(file)
+        raise "#{file} existing; nope" if File.exist?(file)
         raise "database not seeded; nope" unless database
 
         File.open(file, "w+") {|fp|
