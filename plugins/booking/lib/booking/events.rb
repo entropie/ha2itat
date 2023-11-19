@@ -330,6 +330,10 @@ module Plugins
           @dates.all? { |dr| dr.is_past? }
         end
 
+        def is_due?
+          !is_past?
+        end
+
         def css_class
           "e-%s %s %s %s" % [type.to_s,
                              published? ? "" : "unpublished",
