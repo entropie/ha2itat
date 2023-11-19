@@ -326,11 +326,14 @@ module Plugins
           type.to_s.capitalize
         end
 
+        def is_past?
+          @dates.all? { |dr| dr.is_past? }
+        end
+
         def css_class
-          gone = @dates.all? { |dr| dr.is_past? }
           "e-%s %s %s %s" % [type.to_s,
                              published? ? "" : "unpublished",
-                             (gone and not archived?) ? "event-is-gone" : "",
+                             (is_past? and not archived?) ? "event-is-gone" : "",
                              archived? ? "archived" : ""
                             ]
         end
