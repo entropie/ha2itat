@@ -4,8 +4,8 @@ module Ha2itat
     slices = Hanami.app.slices.keys
     proc {
 
-      get '/assets/*path',      to: Rack::Directory.new( Ha2itat.quart.media_path("public") )
-      get '/data/*path',        to: Rack::Directory.new( Ha2itat.quart.media_path("public") )
+      # get '/assets/*path',      to: Rack::Directory.new( Ha2itat.quart.media_path("public") )
+      # get '/data/*path',        to: Rack::Directory.new( Ha2itat.quart.media_path("public") )
 
       if Ha2itat.quart.plugins.enabled?(:icons)
         slice :icons,           at: "/icons/"
