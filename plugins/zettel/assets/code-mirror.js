@@ -23,7 +23,7 @@ import './mymacs.js'
 
 import 'blueimp-file-upload'
 
-import marked from 'marked'
+import { marked } from 'marked'
 
 import './gfm.js'
 import './md5.js'
