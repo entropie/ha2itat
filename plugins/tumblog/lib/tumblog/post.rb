@@ -156,6 +156,7 @@ module Plugins
             log "ytdl: #{post.id} #{post.content} #{target_file}"
 
             ydl = YoutubeDL.download(post.content, output: target_file, write_thumbnail: true)
+            pp ydl
             post.title = ydl.information[:title]
             true
           end
