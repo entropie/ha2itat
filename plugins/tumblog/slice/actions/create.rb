@@ -39,7 +39,9 @@ module Ha2itat::Slices
             # rescue
             #   redirect_target = :backend_tumblog_edit
             #   post.private!
-            #   post.default_handler.process!
+              #   post.default_handler.process!
+            rescue
+              pp $!
             end
 
             adapter.with_user(session_user(req)).store(post)
