@@ -36,10 +36,8 @@ module Ha2itat::Slices
 
             begin
               post.handler.process!
-            # rescue
-            #   redirect_target = :backend_tumblog_edit
-            #   post.private!
-              #   post.default_handler.process!
+            rescue Plugins::Tumblog::SkipForYTDLPClientVersion
+              res.redirect_to path(:backend_tumblog_clytdlp, { content:, tags:, title: })
             rescue
               pp $!
             end

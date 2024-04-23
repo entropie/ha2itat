@@ -147,6 +147,11 @@ module Plugins
           def process!
             FileUtils.mkdir_p(post.datadir)
 
+            # use client side yt-dlp implementation if C[:clytdlp] == true
+            if Ha2itat::C(:clytdlp)
+              raise Plugins::Tumblog::SkipForYTDLPClientVersion.new("C[:clytdlp] is true, skip to client implementation")
+            end
+
             target_file = target_media_file(post.id+".mp4")
 
             if ::File.exist?(target_file)
