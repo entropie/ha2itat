@@ -38,8 +38,8 @@ module Ha2itat::Slices
               post.handler.process!
             rescue Plugins::Tumblog::SkipForYTDLPClientVersion
               res.redirect_to path(:backend_tumblog_clytdlp, { content:, tags:, title: })
-            rescue
-              pp $!
+            # rescue
+            #   pp $!
             end
 
             adapter.with_user(session_user(req)).store(post)

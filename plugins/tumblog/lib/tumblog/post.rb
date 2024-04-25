@@ -113,6 +113,23 @@ module Plugins
         end
 
 
+        module ResponseCode
+
+          def http_response_code(uri)
+            response = Net::HTTP.get_response(URI(uri))
+            response.code.to_i
+          rescue
+            return 301 # moved permanently
+          end
+
+          def responding?(to = 200)
+            url = URI.extract(post.content).shift.to_s
+            http_response_code(url) == to
+          end
+
+        end
+
+
         module YoutubeDLMixin
           def media_file
             Dir.glob("%s/*.*" % [post.real_datadir]).first
@@ -138,6 +155,8 @@ module Plugins
         class Reddit < Handler
 
           include YoutubeDLMixin
+          include ResponseCode
+
           include Ha2itat::Mixins::FU
 
           def self.match
@@ -147,9 +166,9 @@ module Plugins
           def process!
             FileUtils.mkdir_p(post.datadir)
 
-            # use client side yt-dlp implementation if C[:clytdlp] == true
-            if Ha2itat::C(:clytdlp)
-              raise Plugins::Tumblog::SkipForYTDLPClientVersion.new("C[:clytdlp] is true, skip to client implementation")
+            # use client side yt-dlp implementation if blocked of forced by config
+            if not responding?(302) or Ha2itat::C(:clytdlp)
+              raise Plugins::Tumblog::SkipForYTDLPClientVersion.new("reddit blocked (probably subnetwide)")
             end
 
             target_file = target_media_file(post.id+".mp4")

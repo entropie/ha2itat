@@ -2,6 +2,7 @@ require "pp"
 
 require "pathname"
 require "hanami"
+require "net/http"
 
 module Ha2itat
 
