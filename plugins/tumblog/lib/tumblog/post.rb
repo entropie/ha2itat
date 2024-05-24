@@ -196,6 +196,14 @@ module Plugins
             [/^https:\/\/youtube\.com/, /^https:\/\/www\.youtube\.com/]
           end
 
+          #
+          # FIXME: add this
+          #
+          # def options
+          #   {format: "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"}
+          # end
+
+
           def process!
             FileUtils.mkdir_p(post.datadir)
 
