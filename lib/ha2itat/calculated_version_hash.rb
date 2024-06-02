@@ -6,7 +6,12 @@ module Ha2itat
 
   def self.quart_commit_hash
     raise "quart not initialized but git hash requested" unless @quart
-    @quart_commit_hash ||= `cd #{quart.path} && git rev-parse HEAD`.strip.freeze
+    @quart_commit_hash ||=
+      if File.exist?(quart.path("REVISION"))
+        File.readlines(quart.path("REVISION")).join.strip
+      else
+        `cd #{quart.path} && git rev-parse HEAD`.strip
+      end.freeze
   end
 
   def self.calculated_version_hash
