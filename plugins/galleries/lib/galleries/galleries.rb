@@ -73,6 +73,32 @@ module Plugins
         return "<div class='error-msg'>#{msg}</div>"
       end
 
+      def GALLERY_BLOCK(gal, hsh =  {})
+        gal = gal.to_s
+        gallery = Ha2itat.adapter(:galleries).find(gal)
+        imgs = gallery.images
+        acss = hsh.map{ |h,k| "#{h}:#{k}" }.join(";")
+
+        if limit = hsh.delete(:limit)
+          imgs = imgs.sort_by{rand}.first(limit)
+        end
+
+        msg = ""
+        if !gallery
+          msg = "gallery <i>#{gal}</i> not existing"
+        else
+          img_res = []
+          imgs.each do |img|
+            img_res << "<div id='#{img.dom_id}' href='#{img.url}' class='galleries-block-image popup-img' style='background-image: url(#{img.url});#{acss}'></div>"
+          end
+          # gall = "<div id='#{img.dom_id}' href='#{img.url}' class='galleries-image popup-img' style='background-image: url(#{img.url});#{acss}'></div>"
+          return "<div class='galleries-block'>%s</div>" % [img_res.join]
+        end
+
+        return "<div class='error-msg'>#{msg}</div>"
+
+      end
+
       # def SliderGallery(name, except: [], only: [], &blk)
       #   gallery = Ha2itat.adapter(:galleries).find(name.to_s)
       #   gallery = gallery.extend(GalleryPresenter)
