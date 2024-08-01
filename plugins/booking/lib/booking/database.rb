@@ -72,7 +72,15 @@ module Plugins
           end
 
           def update(what, params)
+            old = what.clone
             updated = what.update(params)
+
+            # bugfix: when day/month/year is changed, we have to remove old source.yaml to avoid
+            # having multiple entries with the same ID
+            if old.filename != updated.filename
+              rm(repository_path(old.filename), verbose: true)
+            end
+
             store(updated)
             updated
           end
