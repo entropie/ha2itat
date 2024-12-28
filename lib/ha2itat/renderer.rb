@@ -12,9 +12,10 @@ module Ha2itat
         haml_renderer.render(env)
 
       when :markdown
-        doc = CommonMarker.render_doc(content, [:STRIKETHROUGH_DOUBLE_TILDE, :FOOTNOTES, :UNSAFE])
-        markdown_renderer = CommonMarker::HtmlRenderer.new(options: [:UNSAFE])
-        markdown_renderer.render(doc)
+        Commonmarker.to_html(content,
+                             options: {
+                               extension: { footnotes: true },
+                               render: { hardbreaks: false, unsafe: true }})
       end
     end
 
