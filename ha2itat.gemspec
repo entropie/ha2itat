@@ -39,14 +39,14 @@ Gem::Specification.new do |s|
   s.add_dependency "hanami-view",         "~> %s" % hanami_version
   s.add_dependency "hanami-webconsole",   "~> %s" % hanami_version
 
-  s.add_dependency "rufus-scheduler"
+  s.add_dependency "rufus-scheduler",     "~> 3.9.2"
 
   s.add_dependency "rdoc"
 
   s.add_dependency "dry-types",           "~> 1.0", ">= 1.6.1"
 
   s.add_dependency "redcarpet"
-  s.add_dependency "haml"
+  s.add_dependency "haml",                "~> 6.3.0"
   s.add_dependency "warden"
   s.add_dependency 'jwt'
   s.add_dependency 'bcrypt'
