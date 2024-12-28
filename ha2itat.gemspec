@@ -39,6 +39,8 @@ Gem::Specification.new do |s|
   s.add_dependency "hanami-view",         "~> %s" % hanami_version
   s.add_dependency "hanami-webconsole",   "~> %s" % hanami_version
 
+  s.add_dependency "rufus-scheduler"
+
   s.add_dependency "rdoc"
 
   s.add_dependency "dry-types",           "~> 1.0", ">= 1.6.1"
