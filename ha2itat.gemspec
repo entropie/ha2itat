@@ -30,12 +30,15 @@ Gem::Specification.new do |s|
     "source_code_uri"   => "https://github.com/entropie/ha2itat"
   }
 
-  s.add_dependency "hanami",              "~> 2.1.0.beta"
-  s.add_dependency "hanami-router",       "~> 2.1.0.beta"
-  s.add_dependency "hanami-controller",   "~> 2.1.0.beta"
-  s.add_dependency "hanami-validations",  "~> 2.1.0.beta"
-  s.add_dependency "hanami-view",         "~> 2.1.0.beta"
-  s.add_dependency "hanami-webconsole",   "~> 2.1.0.beta"
+  hanami_version = "2.2"
+
+  s.add_dependency "hanami",              "~> %s" % hanami_version
+  s.add_dependency "hanami-router",       "~> %s" % hanami_version
+  s.add_dependency "hanami-controller",   "~> %s" % hanami_version
+  s.add_dependency "hanami-validations",  "~> %s" % hanami_version
+  s.add_dependency "hanami-view",         "~> %s" % hanami_version
+  s.add_dependency "hanami-webconsole",   "~> %s" % hanami_version
+
   s.add_dependency "rdoc"
 
   s.add_dependency "dry-types",           "~> 1.0", ">= 1.6.1"
