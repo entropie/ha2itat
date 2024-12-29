@@ -62,6 +62,11 @@ module Ha2itat
       if slices.include?(:i18n)
         slice :i18n,            at: "/backend/i18n"
       end
+
+
+      if slices.include?(:entromind)
+        slice :entromind,            at: "/backend/entromind"
+      end
     }
   end
 
