@@ -5,6 +5,7 @@ require "hanami"
 
 require_relative "../lib/ha2itat"
 
+require_relative "../lib/ha2itat/cli/test"
 require_relative "../lib/ha2itat/cli/generator"
 require_relative "../lib/ha2itat/cli/ha2itat"
 require_relative "../lib/ha2itat/cli/tools"
@@ -18,6 +19,10 @@ module Ha2itat
       register "tools" do |prefix|
         prefix.register "bookmarklet", Tools::Bookmarklet
         prefix.register "url",         Tools::TokenURL
+      end
+
+      register "test" do |prefix|
+        prefix.register "run",         Test::Run
       end
 
       register "backend", aliases: ["be"] do |prefix|

@@ -156,7 +156,7 @@ module Ha2itat
       end
 
       # create entire app skel
-      def do_create_app
+      def do_create_app(skip_npm = false)
         run_list("hanami new #{name} --skip-install",
                  "mkdir -p #{name}/vendor/gems",
                  "ln -s ~/Source/ha2itat #{name}/vendor/gems/ha2itat",
@@ -174,8 +174,9 @@ module Ha2itat
         run_list("cd #{name} && bundle install",
                  "ln -s ../vendor/gems/ha2itat/config/deploy.rb #{name}/config/deploy.rb",
                  "cd #{name} && rm app/templates/layouts/app.html.erb",
-                 "cd #{name} && rm -rf app/assets/{js,css}",
-                 "cd #{name} && npm install --legacy-peer-deps")
+                 "cd #{name} && rm -rf app/assets/{js,css}")
+
+        run_list("cd #{name} && npm install --legacy-peer-deps") if not skip_npm
       end
 
       def do_git
