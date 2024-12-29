@@ -2,13 +2,6 @@
 
 source "https://rubygems.org"
 
-gem "hanami", "~> 2.1.0.beta"
-gem "hanami-router", "~> 2.1.0.beta"
-gem "hanami-controller", "~> 2.1.0.beta"
-gem "hanami-validations", "~> 2.1.0.beta"
-gem "hanami-view", "~> 2.1.0.beta"
-gem "hanami-webconsole", "~> 2.1.0.beta"
-
 gem 'ha2itat', path: "vendor/gems/ha2itat"
 
 gem 'youtube-dl.rb'
