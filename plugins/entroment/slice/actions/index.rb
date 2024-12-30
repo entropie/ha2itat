@@ -1,7 +1,7 @@
 module Ha2itat::Slices
-  module Entromind
+  module Entroment
     module Actions
-      class Edit < Action
+      class Index < Action
 
         def handle(req, res)
           # res.render(view)

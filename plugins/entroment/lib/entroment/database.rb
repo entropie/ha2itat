@@ -1,5 +1,5 @@
 module Plugins
-  module Entromind
+  module Entroment
 
     def self.get_default_adapter_initialized
       Database::Adapter.const_get(Ha2itat.default_adapter).new(Ha2itat.media_path)
@@ -23,10 +23,10 @@ module Plugins
           end
 
           def repository_path(*args)
-            ::File.join(::File.realpath(path), "entromind", *args)
+            ::File.join(::File.realpath(path), "entroment", *args)
           rescue Errno::ENOENT
             warn "does not exist: #{path("user")}"
-            path("entromind", *args)
+            path("entroment", *args)
           end
 
           def relative_path_for(entry)

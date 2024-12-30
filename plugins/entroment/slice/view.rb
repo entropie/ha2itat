@@ -1,4 +1,4 @@
-module Ha2itat::Slices::Entromind
+module Ha2itat::Slices::Entroment
 
   class View < Hanami::View
     config.paths = [Ha2itat.template_root, File.join(__dir__, "templates")]

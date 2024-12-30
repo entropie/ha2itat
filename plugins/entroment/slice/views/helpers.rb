@@ -1,6 +1,6 @@
 module Ha2itat::Slices
 
-  module Entromind
+  module Entroment
     module Views
       module Helpers
         instance_eval(&Ha2itat::CD(:view))

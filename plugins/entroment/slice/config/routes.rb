@@ -1,7 +1,7 @@
-module Ha2itat::Slices::Entromind
+module Ha2itat::Slices::Entroment
   class Routes < Hanami::Routes
     scope "backend" do
-      scope "entromind" do
+      scope "entroment" do
         get "/",               to: "index",   as: :index
         get "/show/:id",       to: "show",   as: :show
         get "/edit/:id",       to: "edit",   as: :edit

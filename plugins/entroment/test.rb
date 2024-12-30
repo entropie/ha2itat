@@ -1,6 +1,6 @@
-puts "hello entromind test"
+puts "hello entroment test"
 
-Ha2itat.quart.plugins.register(:entromind)
+Ha2itat.quart.plugins.register(:entroment)
 #Ha2itat.quart.plugins.write_javascript_include_file!
 
 require "minitest/autorun"
@@ -8,7 +8,7 @@ require "minitest/autorun"
 
 class TestMeme < Minitest::Test
   def setup
-    @adapter = Ha2itat.adapter(:entromind)
+    @adapter = Ha2itat.adapter(:entroment)
   end
 
   def test_foo

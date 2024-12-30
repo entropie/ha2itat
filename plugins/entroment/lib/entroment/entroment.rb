@@ -1,5 +1,5 @@
 module Plugins
-  module Entromind
+  module Entroment
 
     class Entry
 
@@ -12,11 +12,6 @@ module Plugins
       attr_accessor :id
       attr_accessor :content
       attr_accessor *Attributes.keys
-
-
-
     end
-
-    
   end
 end

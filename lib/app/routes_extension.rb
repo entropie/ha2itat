@@ -64,8 +64,8 @@ module Ha2itat
       end
 
 
-      if slices.include?(:entromind)
-        slice :entromind,            at: "/"
+      if slices.include?(:entroment)
+        slice :entroment,            at: "/"
       end
     }
   end
