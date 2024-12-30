@@ -21,7 +21,7 @@ module Ha2itat
     end
 
     def inspect
-      "<#{ident}: #{plugins.inspect}>"
+      "<#{ident}[#{path}]: #{plugins.inspect}>"
     end
 
     def plugins(&blk)
