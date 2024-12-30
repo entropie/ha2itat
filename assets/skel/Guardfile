@@ -2,10 +2,10 @@
 
 group :server do
   guard "puma", port: ENV.fetch("HANAMI_PORT", 2300) do
-    watch(%r{config/*})
-    watch(%r{lib/*})
-    watch(%r{app/*})
-    watch(%r{vendor/gems/ha2itat/*})
-    watch(%r{slices/*})
+    watch(%r{^config/.+\.rb$})
+    watch(%r{^app/.+\.rb$})
+    watch(%r{^lib/.+\.rb$})
+    watch(%r{vendor/gems/ha2itat/.+\.rb$})
+    watch(%r{slices/.+\.rb$})
   end
 end
