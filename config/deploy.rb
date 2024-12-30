@@ -125,6 +125,7 @@ namespace :ha2itat do
   before "bundler:config", "ha2itat:checkout"
 
   task :setup do;  end
-  before "ha2itat:setup", "ha2itat:link_files"
+  # before "ha2itat:setup", "ha2itat:link_files"
+  after "ha2itat:link_media", "ha2itat:link_files"
 
 end
