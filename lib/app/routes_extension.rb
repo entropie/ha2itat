@@ -65,7 +65,7 @@ module Ha2itat
 
 
       if slices.include?(:entromind)
-        slice :entromind,            at: "/backend/entromind"
+        slice :entromind,            at: "/"
       end
     }
   end
