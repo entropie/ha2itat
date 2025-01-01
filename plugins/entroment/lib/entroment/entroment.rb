@@ -23,7 +23,7 @@ module Plugins
       end
 
       def adapter(&blk)
-        Ha2itat.adapter(:entromind).dup.with_user(user, &blk)
+        Ha2itat.adapter(:entroment).dup.with_user(user, &blk)
       end
 
       def parse_params(params)
