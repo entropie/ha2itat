@@ -72,6 +72,10 @@ module Plugins
         path(yaml_filename)
       end
 
+      def exist?
+        Ha2itat.adapter(:entroment).exist?(filename)
+      end
+
     end
   end
 end

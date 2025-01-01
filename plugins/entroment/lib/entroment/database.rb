@@ -100,16 +100,33 @@ module Plugins
             store(entry)
           end
 
+          def exist?(entry)
+            ::File.exist?(repository_path(entry.filename))
+          end
+
           def store(entry)
             validate!(entry)
+
+            human_kind = "creating"
+            if exist?(entry)
+              human_kind = "updating"
+              entry.updated_at = Time.now
+            end
+
+            # do that before we prare for saving because it touches #user
+            # which we dont want to have in our result yaml
+            complete_path = repository_path(entry.filename)
+            
             to_save = prepare_for_save(entry)
             yaml = YAML::dump(to_save)
-            complete_path = repository_path(to_save.filename)
-            ::FileUtils.mkdir_p(::File.dirname(complete_path), verbose: true)
 
-            Ha2itat.log "storing entry:#{entry.id} (#{entry.user.name})"
+            dirname = ::File.dirname(complete_path)
+            ::FileUtils.mkdir_p(dirname, verbose: true) unless ::File.exist?(dirname)
+
+            human_kind = exist?(entry) ? "updating" : "creating"
+            Ha2itat.log "#{human_kind} entry:#{entry.id} (#{entry.user.name})"
             write(complete_path, yaml)
-            entry
+            to_save
           end
         end
       end

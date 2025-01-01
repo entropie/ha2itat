@@ -49,4 +49,20 @@ class TestCreateUserRelated < Minitest::Test
     end
     
   end
+
+  def test_edit
+    testentry = @adapter.with_user(@user) do |adapter|
+      adapter.create(content: TESTCONTENTS.first)
+    end
+    targetid = testentry.id
+
+    @adapter.with_user(@user) do |adpt|
+      entry = adpt.by_id(targetid)
+      entry.content = "henlo world"
+      eid = entry.id
+      adpt.store(entry)
+      assert adpt.by_id(eid).content, "henlo world"
+    end
+    
+  end
 end
