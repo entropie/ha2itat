@@ -105,7 +105,11 @@ module Plugins
       end
 
       def ==(obj)
-        id == obj
+        if obj.kind_of?(User)
+          self.id == obj.id
+        elsif obj.kind_of?(String)
+          user_id == obj
+        end
       end
 
       def token
