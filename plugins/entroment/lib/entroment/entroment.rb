@@ -36,11 +36,16 @@ module Plugins
         remove_instance_variable("@user") rescue nil
         self.updated_at ||= created_at
         self.tags ||= []
+        self.id
         self
       end
 
       def created_at
         @created_at ||= Time.now
+      end
+
+      def =~(idprob)
+        id == idprob.to_s
       end
 
       def id

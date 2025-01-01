@@ -13,7 +13,6 @@ module Plugins
         class File < Ha2itat::Database::Adapter
 
           include Ha2itat::Mixins::FU
-          PERMITTED_CLASSES = []
 
           attr_accessor :user
 
@@ -38,30 +37,27 @@ module Plugins
             ::File.join("entries", target_id)
           end
 
-          # def relative_path_for(entry)
-          #   ::File.join(user_path, entry.time_to_path, sheet.id)
-          # end
-      
-          # def relative_filename_for(entry)
-          #   ::File.join(relative_path_for(entry), entry.filename)
-          # end
-
           def entry_files(uid = nil)
             files = Dir.glob("%s/*/*.yaml" % repository_path(user_path(uid)))
+          end
+
+          def yaml_load(file:)
+            Psych.unsafe_load(::File.readlines(file).join)
           end
 
           def read(uid = nil)
             target_id = uid || @user.id rescue nil
             raise Ha2itat::Database::NoUserContext, "no user context" unless target_id
-            puts
+
             user_entries = []
             entry_files(target_id).each do |entryfile|
-              user_entries << YAML::load(entryfile)
+              user_entries << yaml_load(file: entryfile)
             end
+            user_entries
           end
 
           def by_id(id)
-            read
+            read.select{ |uentry| uentry =~ id }.shift rescue nil
           end
 
           def with_user(user, &blk)
@@ -106,7 +102,6 @@ module Plugins
 
           def store(entry)
             validate!(entry)
-
             to_save = prepare_for_save(entry)
             yaml = YAML::dump(to_save)
             complete_path = repository_path(to_save.filename)
