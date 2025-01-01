@@ -56,8 +56,8 @@ module Plugins
             user_entries
           end
 
-          def by_id(id)
-            read.select{ |uentry| uentry =~ id }.shift rescue nil
+          def by_id(id, uid = nil)
+            read(uid).select{ |uentry| uentry =~ id }.shift
           end
 
           def with_user(user, &blk)
@@ -102,6 +102,14 @@ module Plugins
 
           def exist?(entry)
             ::File.exist?(repository_path(entry.filename))
+          end
+
+          def find(content: nil, tags: [], date: nil)
+            result = []
+            if content
+              result.push *read.select{ |entry| entry.content.include?(content) }
+            end
+            result
           end
 
           def store(entry)

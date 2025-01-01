@@ -21,6 +21,19 @@ class TestCreateUserRelated < Minitest::Test
     }
   end
 
+  def test_read_wo_user
+
+    assert_raises(Ha2itat::Database::NoUserContext) {
+      @adapter.read
+    }
+  end
+
+  def test_read_wo_user_by_id
+    assert_raises(Ha2itat::Database::NoUserContext) {
+      @adapter.by_id("123")
+    }
+  end
+
   def test_create_w_user
     b = @adapter.with_user(@user) do |adapter|
       adapter.create(content: TESTCONTENTS.first)
@@ -42,6 +55,17 @@ class TestCreateUserRelated < Minitest::Test
     end
   end
 
+  def test_find_by_content
+    @adapter.with_user(@user) do |adpt|
+      entry = adpt.create(content: "henlo")
+      entryid = entry.id
+      searched_entry = adpt.find(content: "henlo").any?{ |se|
+        se.id == entryid
+      }
+      assert searched_entry
+    end
+  end
+
   def test_tags
     @adapter.with_user(@user) do |adpt|
       entry = adpt.create(content: TESTCONTENTS.first, tags: ["foo", "bar"])
@@ -55,13 +79,17 @@ class TestCreateUserRelated < Minitest::Test
       adapter.create(content: TESTCONTENTS.first)
     end
     targetid = testentry.id
+    ostamp = testentry.created_at
+    assert_equal testentry.created_at, testentry.updated_at
 
     @adapter.with_user(@user) do |adpt|
       entry = adpt.by_id(targetid)
       entry.content = "henlo world"
       eid = entry.id
       adpt.store(entry)
-      assert adpt.by_id(eid).content, "henlo world"
+      newentry = adpt.by_id(eid)
+      assert newentry.content, "henlo world"
+      assert newentry.updated_at != testentry.updated_at
     end
     
   end
