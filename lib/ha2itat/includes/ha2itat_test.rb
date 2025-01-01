@@ -18,6 +18,15 @@ Ha2itat.quart = Ha2itat::Quart.new(Ha2itat::Test::TEST_QUART_DIR)
 
 require "config/app"
 
+
+# generate test user
+unless Ha2itat.adapter(:user).user("test")
+  user = Plugins::User::User.new.populate(name: "test", email: "test@te.st", password: "test")
+  user.add_to_group(Plugins::User::Groups.to_group_cls("default"))
+  Ha2itat.adapter(:user).store(user)
+end
+
+
 puts "_"*60
 
 
