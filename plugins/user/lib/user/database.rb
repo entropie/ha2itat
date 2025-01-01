@@ -58,6 +58,8 @@ module Plugins
 
           def yaml_load(file:)
             Psych.unsafe_load(::File.readlines(file).join)
+          rescue
+            nil
           end
 
           def user(username = nil)

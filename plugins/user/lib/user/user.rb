@@ -83,7 +83,7 @@ module Plugins
       end
 
       def groups
-        @groups || Groups.new
+        @groups ||= Groups.new
       end
 
       def admin?
