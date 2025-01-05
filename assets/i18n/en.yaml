@@ -125,6 +125,10 @@ be:
     zettel:
       index: Overview
       show: Show
+    entroment:
+      index: Entroment
+      show: Fragment
+      edit: Edit
 
 
   help:
