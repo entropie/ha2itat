@@ -61,6 +61,13 @@ module Plugins
             read(uid).select{ |uentry| uentry =~ id }.shift
           end
 
+          def by_tags(*search_tags)
+            entries.select do |entry|
+              (entry.tags & search_tags).any?
+            end
+          end
+
+          
           def with_user(user, &blk)
             @user = user
             ret = nil
