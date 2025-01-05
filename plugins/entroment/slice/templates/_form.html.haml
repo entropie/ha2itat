@@ -1,0 +1,19 @@
+#BE-form
+  %form{method: :post, action: action}
+    = _csrf_field
+    %input.form-input{type: :hidden, value: (entry && entry.id ? entry.id : ""), name: :id}
+    .container
+
+      .columns
+        .column.col-12
+          %textarea#tl-form.form-input.cm-form{name: :content, "data-codemirror-mode": "text/x-markdown"}
+            = entry && entry.content
+      .columns.mtop
+        .column.col-12.col-md-12.col-mx-auto
+          .input-group
+            %span.input-group-addon= t.form.tags
+            %input.form-input.tags-input{type: :text, name: :tags, :value => (entry && entry.tags ? entry.tags.join(", ") : "")}
+
+      .columns.mtop
+        .column.col-2.col-mx-auto
+          %input.form-input{type: :submit, value: t.form.submit}

@@ -55,6 +55,7 @@ module Plugins
             end
             user_entries
           end
+          alias :entries :read
 
           def by_id(id, uid = nil)
             read(uid).select{ |uentry| uentry =~ id }.shift
@@ -68,7 +69,7 @@ module Plugins
             ensure
               @user = nil
             end
-            return ret || self
+            return ret
           end
 
           def setup
@@ -100,6 +101,13 @@ module Plugins
             store(entry)
           end
 
+          def update(entry, **param_hash)
+            params = param_hash
+            params = param_hash.merge(user_id: @user.id) if @user
+            entry.update(param_hash)
+            store(entry)
+          end
+
           def exist?(entry)
             ::File.exist?(repository_path(entry.filename))
           end
@@ -121,7 +129,7 @@ module Plugins
               entry.updated_at = Time.now
             end
 
-            # do that before we prare for saving because it touches #user
+            # do that before we prepare for saving because it touches #user
             # which we dont want to have in our result yaml
             complete_path = repository_path(entry.filename)
             
@@ -131,10 +139,15 @@ module Plugins
             dirname = ::File.dirname(complete_path)
             ::FileUtils.mkdir_p(dirname, verbose: true) unless ::File.exist?(dirname)
 
-            human_kind = exist?(entry) ? "updating" : "creating"
             Ha2itat.log "#{human_kind} entry:#{entry.id} (#{entry.user.name})"
             write(complete_path, yaml)
             to_save
+          end
+
+          def destroy(entry)
+            Ha2itat.log "entroment: delete %s:%s user '%s'" % [entry.id, entry.filename, entry.user.name]
+            ::FileUtils.rm_rf(entry.complete_path, verbose: true)
+            true
           end
         end
       end

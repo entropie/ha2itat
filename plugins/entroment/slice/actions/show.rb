@@ -4,7 +4,8 @@ module Ha2itat::Slices
       class Show < Action
 
         def handle(req, res)
-          # res.render(view)
+          entry = awu(req){|adptr| adptr.by_id(req.params[:id]) }
+          res.render(view, entry: entry)
         end
       end
     end

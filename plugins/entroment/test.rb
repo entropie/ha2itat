@@ -93,4 +93,41 @@ class TestCreateUserRelated < Minitest::Test
     end
     
   end
+
+  def test_context_edit
+    testentry = @adapter.with_user(@user) do |adapter|
+      adapter.create(content: TESTCONTENTS.first)
+    end
+    targetid = testentry.id
+
+    @adapter.with_user(@user) do |adpt|
+      entry = adpt.by_id(targetid)
+      adpt.update(entry.dup, content: "henlo world", tags: ["foo", "bar"])
+      newentry = adpt.by_id(targetid)
+      assert entry.updated_at != newentry.updated_at
+      assert_equal newentry.tags, ["foo", "bar"]
+    end
+  end
+
+  # def test_api_fetch_index
+  #   eid = nil
+  #   testentry = @adapter.with_user(@user) do |adapter|
+  #     eid = adapter.create(content: TESTCONTENTS.first)
+  #   end
+
+
+
+  # end
+
+
+  # def test_api_post
+  #   uri = URI("https://jsonplaceholder.typicode.com/posts")
+  #   req = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json')
+  #   req.body = { title: "foo", body: "bar", userId: 1 }.to_json
+  #   response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+  #     http.request(req)
+  #   end
+  # end
+  
+
 end

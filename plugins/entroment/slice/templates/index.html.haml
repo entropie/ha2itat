@@ -1,1 +1,9 @@
-hello from entroment::index
+%h2= t.be.topics.entroment.index
+
+.backend-listing.entroment
+  - pager.each do |entry|
+    .backend-list-entry
+      = render "preview", entry: entry
+
+= pager.navigation
+

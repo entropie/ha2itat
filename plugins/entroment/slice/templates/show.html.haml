@@ -1,1 +1,8 @@
-hello from entroment::show
+%h1= t.be.topics.entroment.show
+
+.backend-content.tumblog
+  .topline
+    = render "controls", entry: entry
+
+  %article
+    = entry.to_html

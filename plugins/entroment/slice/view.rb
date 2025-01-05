@@ -7,5 +7,7 @@ module Ha2itat::Slices::Entroment
     config.layout = "backend"
 
     config.renderer_options = { escape_html: false }
+
+    expose :pager, :entries, :entry
   end
 end

@@ -1,6 +1,15 @@
 module Plugins
   module Entroment
 
+    def self.tagify(strorarr)
+      return [] unless strorarr
+      if strorarr.kind_of?(Array)
+        return strorarr
+      else
+        strorarr.split(",").map{ |e| e.strip }.compact
+      end
+    end
+    
     class Entry
 
       Attributes = {
@@ -68,6 +77,10 @@ module Plugins
         adapter{ |a| ::File.join(a.user_path, *args) }
       end
 
+      def complete_path
+        ::File.join(Ha2itat.adapter(:entroment).repository_path, filename)
+      end
+
       def filename
         path(yaml_filename)
       end
@@ -76,6 +89,26 @@ module Plugins
         Ha2itat.adapter(:entroment).exist?(filename)
       end
 
+      def to_html(cls: "entroment-entry")
+        html_content = Ha2itat::Renderer.render(:markdown, content)
+        "<div class='%s' id='%s'>%s</div>" % [cls, "ee-#{id}", html_content]
+      end
+
+      def update(ohash)
+        newhash = ohash.slice(:content, *OptionalFields.keys)
+        parse_params(newhash)
+        self
+      end
+
+      def to_hash
+        { id: id,
+          content: content,
+          tags: tags,
+          url: Hanami.app["routes"].path(:api_entroment_v1_api_fetch, id: id),
+          created_at: created_at, #.strftime("%Y-%m-%d %H:%M:%S"),
+          updated_at: updated_at #.strftime("%Y-%m-%d %H:%M:%S")
+        }
+      end
     end
   end
 end

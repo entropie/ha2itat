@@ -39,6 +39,7 @@ be:
     galleries: Galleries
     zettel: Zettel
     bagpipe: Bagpipe
+    entroment: Entroment
   links:
     user:
       create: add User
@@ -83,6 +84,13 @@ be:
       show: Show
       edit: Edit
       destroy: Delete
+    entroment:
+      show: Show
+      edit: Edit
+      publish: Publish
+      unpublish: Unpublish
+      destroy: Delete
+      create: Tumbl!
 
   topics:
     snippets:
