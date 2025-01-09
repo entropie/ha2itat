@@ -105,9 +105,17 @@ module Plugins
           content: content,
           tags: tags,
           url: Hanami.app["routes"].path(:api_entroment_v1_api_fetch, id: id),
-          created_at: created_at, #.strftime("%Y-%m-%d %H:%M:%S"),
-          updated_at: updated_at #.strftime("%Y-%m-%d %H:%M:%S")
+          created_at: created_at,
+          updated_at: updated_at
         }
+      end
+
+      def tags
+        Tags.from_array(*@tags)
+      end
+
+      def extensions
+        tags.prefixed
       end
     end
   end

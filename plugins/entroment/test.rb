@@ -16,22 +16,15 @@ class TestCreateUserRelated < Minitest::Test
   end
 
   def test_create_wo_user
-    assert_raises(Ha2itat::Database::NoUserContext) {
-      @adapter.create(content: TESTCONTENTS.first)
-    }
+    assert_raises(Ha2itat::Database::NoUserContext) { @adapter.create(content: TESTCONTENTS.first) }
   end
 
   def test_read_wo_user
-
-    assert_raises(Ha2itat::Database::NoUserContext) {
-      @adapter.read
-    }
+    assert_raises(Ha2itat::Database::NoUserContext) { @adapter.read }
   end
 
   def test_read_wo_user_by_id
-    assert_raises(Ha2itat::Database::NoUserContext) {
-      @adapter.by_id("123")
-    }
+    assert_raises(Ha2itat::Database::NoUserContext) { @adapter.by_id("123") }
   end
 
   def test_create_w_user
@@ -109,25 +102,13 @@ class TestCreateUserRelated < Minitest::Test
     end
   end
 
-  # def test_api_fetch_index
-  #   eid = nil
-  #   testentry = @adapter.with_user(@user) do |adapter|
-  #     eid = adapter.create(content: TESTCONTENTS.first)
-  #   end
-
-
-
-  # end
-
-
-  # def test_api_post
-  #   uri = URI("https://jsonplaceholder.typicode.com/posts")
-  #   req = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json')
-  #   req.body = { title: "foo", body: "bar", userId: 1 }.to_json
-  #   response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
-  #     http.request(req)
-  #   end
-  # end
-  
+  def test_tags_ext
+    testentry = @adapter.with_user(@user) do |adapter|
+      adapter.create(content: TESTCONTENTS.first, tags: ["sr:foo", "bar"])
+    end
+    assert testentry.tags.kind_of?(Plugins::Entroment::Tags::Tags)
+    assert testentry.tags.include?("sr:foo")
+    assert testentry.extensions.first.kind_of?(Plugins::Entroment::Tags::PrefixedTag)
+  end
 
 end
