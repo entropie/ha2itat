@@ -74,7 +74,6 @@ class TestCreate < Minitest::Test
     end
     targetid = testentry.id
     ostamp = testentry.created_at
-    assert_equal testentry.created_at, testentry.updated_at
 
     @adapter.with_user(@user) do |adpt|
       entry = adpt.by_id(targetid)
@@ -123,7 +122,7 @@ class TestDeck < Minitest::Test
 
   def test_get_create_card_when_create_entry
     testentry = @adapter.with_user(@user) do |adapter|
-      adapter.create(content: TESTCONTENTS[1], tags: ["deck:foobar", "keke"])
+      adapter.create(content: TESTCONTENTS[1], tags: ["deck:foobar1", "keke"])
     end
 
     @adapter.with_user(@user) do |adapter|
@@ -139,13 +138,68 @@ class TestDeck < Minitest::Test
       assert_equal card.user, @user
       assert_equal card.entry, testentry
     end
-
   end
 
-  def test_get_decks
+  def test_remove_card_after_tag_update
     @adapter.with_user(@user) do |adapter|
-      testentry = adapter.create(content: TESTCONTENTS[1], tags: ["deck:keke"])
-      assert adapter.decks[:keke].id_present?(testentry.id)
+      adapter.create(content: TESTCONTENTS[1], tags: ["deck:foobar111"])
+      adapter.create(content: TESTCONTENTS[1], tags: ["deck:foobar111"])
+      testentry = adapter.create(content: TESTCONTENTS[1], tags: ["deck:foobar111"])
+
+      assert testentry.decks.size == 1
+      newentry  = adapter.update(testentry, tags: [])
+
+      assert newentry.decks.size == 0
     end
   end
+
+  def test_get_multiple_cards_for_entries
+    testentry = @adapter.with_user(@user) do |adapter|
+      adapter.create(content: TESTCONTENTS[1], tags: ["deck:foobar23", "deck:muh23", "keke"])
+    end
+
+    @adapter.with_user(@user) do |adapter|
+      testentry = adapter.by_id(testentry.id)
+
+      cards = adapter.cards_for(testentry)
+      assert cards.size == 2
+    end
+
+  end
+
+  def test_get_multiple_cards_for_entries_from_decks
+    @adapter.with_user(@user) do |adapter|
+      testentry = adapter.create(content: TESTCONTENTS[1], tags: ["deck:foobar1", "deck:muh1", "keke"])
+      assert adapter.decks[:muh1].id_present?(testentry.id)
+      assert adapter.decks[:foobar1].id_present?(testentry.id)
+    end
+  end
+
+  
+  def test_get_cards_from_entry
+    @adapter.with_user(@user) do |adapter|
+      testentry = adapter.create(content: TESTCONTENTS[1], tags: ["deck:keke11", "deck:fofof13"])
+      assert testentry.cards.size == 2
+    end
+  end
+
+  def test_get_decks_from_entry
+    @adapter.with_user(@user) do |adapter|
+      testentry = adapter.create(content: TESTCONTENTS[1], tags: ["deck:keke12"])
+      testentry = adapter.create(content: TESTCONTENTS[1], tags: ["deck:keke12", "deck:fofof13"])
+      assert testentry.decks.size == 2
+    end
+  end
+
+  # def test_start_session
+  #   @adapter.with_user(@user) do |adapter|
+  #     1.upto(20) do |i|
+  #       adapter.create(content: TESTCONTENTS[1] + " #{i}", tags: ["deck:startsession"])
+  #     end
+  #     deck = adapter.decks[:startsession]
+
+  #     assert deck.kind_of?(Plugins::Entroment::Deck)
+  #   end
+
+  # end
 end

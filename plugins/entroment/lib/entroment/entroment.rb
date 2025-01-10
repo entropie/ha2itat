@@ -126,6 +126,16 @@ module Plugins
         (tags.prefixed || []).size > 0
       end
 
+      def cards
+        adapter { |a| a.cards_for(self) }
+      end
+
+      def decks
+        cards.map{ |card|
+          adapter{ |adptr| adptr.decks[card.deck.name] }
+        }
+      end
+
       def prefixed_tags
         tags.prefixed
       end

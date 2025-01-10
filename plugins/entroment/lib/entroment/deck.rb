@@ -67,8 +67,7 @@ module Plugins
       end
     end
 
-    class Cards < Array
-    end
+    class Cards < Array; end
     
     class Card
       include EntromentAdapter
@@ -109,15 +108,15 @@ module Plugins
       end
 
       def entry
-        if @entry
-          @entry
-        else
-          adapter{ |adptr| adptr.by_id(@entry_id) }
-        end
+        @entry ||= adapter{ |adptr| adptr.by_id(@entry_id) }
       end
 
       def user
         @user ||= Ha2itat.adapter(:user).by_id(@user_id)
+      end
+
+      def deck
+        @deck ||= adapter{ |adptr| adptr.decks[@deckname] }
       end
 
       def hash_to_instance_variables(hash)
@@ -147,6 +146,11 @@ module Plugins
 
       def exist?
         ::File.exist?(path)
+      end
+
+      def destroy
+        Ha2itat.log("deck(#{@deckname}): removing card for \##{@entry_id}")
+        ::FileUtils.rm_rf(path, verbose: true)
       end
 
       def yaml_load(file:)
@@ -237,6 +241,18 @@ module Plugins
           @cards.push(yaml_load(file: a))
         end
         @cards
+      end
+
+      def remove(entry)
+        @cards.delete_if{ |card|
+          if card =~ entry.id
+            card.destroy
+            true
+          else
+            false
+          end
+        }
+        self
       end
       
     end

@@ -131,8 +131,6 @@ module Plugins
             card_yaml_files = ::File.join(dp, "*", "card-%s" % ::File.basename(entry.filename))
             cards = Dir.glob(card_yaml_files).map{ |cf|
               yl = yaml_load(file: cf)
-              # yl.user = @user
-              
             }
             cards
           end
@@ -147,7 +145,17 @@ module Plugins
           def update(entry, **param_hash)
             params = param_hash
             params = param_hash.merge(user_id: @user.id) if @user
+
+            oldtags = entry.tags
             entry.update(param_hash)
+            tags = entry.tags
+
+            # remove entry from cards if no longer tagged
+            oldtags.each do |oldtag|
+              unless tags.include?(oldtags)
+                decks[oldtag.to_s].remove(entry)
+              end
+            end
             store(entry)
           end
 
