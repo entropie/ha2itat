@@ -111,4 +111,16 @@ class TestCreateUserRelated < Minitest::Test
     assert testentry.extensions.first.kind_of?(Plugins::Entroment::Tags::PrefixedTag)
   end
 
+  def test_deck
+    testdeck = @adapter.with_user(@user) do |adapter|
+      adapter.decks.create("foo")
+    end
+
+    p @adapter.with_user(@user){ |ad| ad.decks[:foo] }
+    exit
+
+
+
+  end
+
 end

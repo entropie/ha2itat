@@ -67,7 +67,6 @@ module Plugins
             end
           end
 
-          
           def with_user(user, &blk)
             @user = user
             ret = nil
@@ -77,6 +76,15 @@ module Plugins
               @user = nil
             end
             return ret
+          end
+          
+          def decks
+            @decks ||=
+              begin
+                ds = Decks.new(::File.join(user_path, "decks"), @user)
+                ds.read
+                ds
+              end
           end
 
           def setup

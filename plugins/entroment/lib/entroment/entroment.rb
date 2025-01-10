@@ -1,6 +1,12 @@
 module Plugins
   module Entroment
 
+    module EntromentAdapter
+      def adapter(&blk)
+        Ha2itat.adapter(:entroment).dup.with_user(user, &blk)
+      end
+    end
+
     def self.tagify(strorarr)
       return [] unless strorarr
       if strorarr.kind_of?(Array)
@@ -11,6 +17,8 @@ module Plugins
     end
     
     class Entry
+
+      include EntromentAdapter
 
       Attributes = {
         :created_at  => Time,
@@ -29,10 +37,6 @@ module Plugins
 
       def initialize(**params)
         parse_params(params)
-      end
-
-      def adapter(&blk)
-        Ha2itat.adapter(:entroment).dup.with_user(user, &blk)
       end
 
       def parse_params(params)
