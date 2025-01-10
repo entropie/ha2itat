@@ -37,6 +37,15 @@ module Plugins
             ::File.join("entries", target_id)
           end
 
+          def deck_path(uid = nil)
+            ::File.join(user_path(uid), "decks")
+          end
+
+          # def path_for(card)
+          #   #@path ||= adapter{ |adptr| adptr.repository_path(decks.path, deckname_to_path) }
+          #   ::File.join(user_path, decks.path, "foo")
+          # end
+
           def entry_files(uid = nil)
             files = Dir.glob("%s/*/*.yaml" % repository_path(user_path(uid)))
           end
@@ -81,7 +90,7 @@ module Plugins
           def decks
             @decks ||=
               begin
-                ds = Decks.new(::File.join(user_path, "decks"), @user)
+                ds = Decks.new(deck_path, @user)
                 ds.read
                 ds
               end
@@ -107,6 +116,25 @@ module Plugins
 
           def prepare_for_save(entry)
             entry.prepare_for_save
+          end
+
+          def synchronize_decks(entry)
+            decks2sync = decks.for(entry)
+            decks2sync.each do |d2s|
+              d2s.sync(entry)
+            end
+            decks2sync
+          end
+
+          def cards_for(entry)
+            dp = ::File.join(repository_path, deck_path)
+            card_yaml_files = ::File.join(dp, "*", "card-%s" % ::File.basename(entry.filename))
+            cards = Dir.glob(card_yaml_files).map{ |cf|
+              yl = yaml_load(file: cf)
+              # yl.user = @user
+              
+            }
+            cards
           end
 
           def create(**param_hash)
@@ -156,6 +184,10 @@ module Plugins
 
             Ha2itat.log "#{human_kind} entry:#{entry.id} (#{entry.user.name})"
             write(complete_path, yaml)
+
+            if entry.decked?
+              synchronize_decks(entry)
+            end
             to_save
           end
 

@@ -20,7 +20,8 @@ module Plugins
         end
 
         def prefixed
-          dup.reject!{ |t| !t.kind_of?(PrefixedTag) }
+          only_prefixes = dup.select{ |t| t.kind_of?(PrefixedTag) }
+          only_prefixes
         end
       end
 
@@ -49,6 +50,10 @@ module Plugins
 
         def inspect
           "SR(#{identifier})"
+        end
+
+        def to_s
+          identifier
         end
       end
     end

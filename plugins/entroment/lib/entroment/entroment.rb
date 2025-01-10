@@ -45,6 +45,10 @@ module Plugins
         }
       end
 
+      def ==(other)
+        self.id == other.id
+      end
+
       def prepare_for_save
         remove_instance_variable("@user") rescue nil
         self.updated_at ||= created_at
@@ -118,7 +122,11 @@ module Plugins
         Tags.from_array(*@tags)
       end
 
-      def extensions
+      def decked?
+        (tags.prefixed || []).size > 0
+      end
+
+      def prefixed_tags
         tags.prefixed
       end
     end

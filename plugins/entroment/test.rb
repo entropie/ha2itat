@@ -6,10 +6,11 @@ Ha2itat.quart.plugins.register(:entroment)
 require "minitest/autorun"
 
 TESTCONTENTS = [
-  "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  "Lorem ipsum dolor sit amet, consectetur adipisicing elit --- sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",  
 ]
 
-class TestCreateUserRelated < Minitest::Test
+class TestCreate < Minitest::Test
   def setup
     @adapter = Ha2itat.adapter(:entroment)
     @user    = Ha2itat.adapter(:user).user("test")
@@ -108,19 +109,43 @@ class TestCreateUserRelated < Minitest::Test
     end
     assert testentry.tags.kind_of?(Plugins::Entroment::Tags::Tags)
     assert testentry.tags.include?("sr:foo")
-    assert testentry.extensions.first.kind_of?(Plugins::Entroment::Tags::PrefixedTag)
+    assert testentry.tags.first.kind_of?(Plugins::Entroment::Tags::PrefixedTag)
   end
 
-  def test_deck
-    testdeck = @adapter.with_user(@user) do |adapter|
-      adapter.decks.create("foo")
+end
+
+
+class TestDeck < Minitest::Test
+  def setup
+    @adapter = Ha2itat.adapter(:entroment)
+    @user    = Ha2itat.adapter(:user).user("test")
+  end
+
+  def test_get_create_card_when_create_entry
+    testentry = @adapter.with_user(@user) do |adapter|
+      adapter.create(content: TESTCONTENTS[1], tags: ["deck:foobar", "keke"])
     end
 
-    p @adapter.with_user(@user){ |ad| ad.decks[:foo] }
-    exit
+    @adapter.with_user(@user) do |adapter|
+      card = adapter.cards_for(testentry).first
+      assert_equal card.user, @user
+      assert_equal card.entry, testentry
+    end
 
+    @adapter.with_user(@user) do |adapter|
+      testentry = adapter.by_id(testentry.id)
 
+      card = adapter.cards_for(testentry).first
+      assert_equal card.user, @user
+      assert_equal card.entry, testentry
+    end
 
   end
 
+  def test_get_decks
+    @adapter.with_user(@user) do |adapter|
+      testentry = adapter.create(content: TESTCONTENTS[1], tags: ["deck:keke"])
+      assert adapter.decks[:keke].id_present?(testentry.id)
+    end
+  end
 end
