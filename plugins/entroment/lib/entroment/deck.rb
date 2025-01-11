@@ -58,8 +58,11 @@ module Plugins
 
       def [](obj)
         retdeck = @decks.select{ |d| d =~ obj }.shift
-        retdeck.read
-        retdeck
+        if retdeck
+          retdeck.read
+          return retdeck
+        end
+        nil
       end
 
       def inspect
