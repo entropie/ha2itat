@@ -1,4 +1,5 @@
 require_relative "entroment/entroment"
+require_relative "entroment/entry"
 require_relative "entroment/deck"
 require_relative "entroment/card"
 require_relative "entroment/tags"
