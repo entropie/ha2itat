@@ -1,4 +1,4 @@
-puts "hello entroment test"
+puts "hello from entroment testsuite"
 
 Ha2itat.quart.plugins.register(:entroment)
 #Ha2itat.quart.plugins.write_javascript_include_file!

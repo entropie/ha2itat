@@ -74,17 +74,6 @@ module Plugins
 
       attr_reader :entry, :deck
 
-      SRFields = [
-        :last_reviewed,
-        :repetition_count,
-        :correct_count,
-        :incorrect_count,
-        :interval,
-        :easiness_factor,
-      ]
-        #     { "date": "2025-01-09", "response": "hard", "interval": 7 },
-      #     { "date": "2025-01-10", "response": "good", "interval": 15 }
-
       SRFieldsDefaults = {
         last_reviewed: Time.now,
         repetition_count: 0,
@@ -93,7 +82,6 @@ module Plugins
         interval: 1,
         easiness_factor: 2.5
       }
-
 
       def initialize(entry, deck)
         @deck = deck
@@ -128,8 +116,11 @@ module Plugins
       def prepare_for_save
         @deckname = deck.name
         @user_id = entry.user.id
-        remove_instance_variable("@entry") rescue nil
-        remove_instance_variable("@deck") rescue nil
+
+        [:entry, :deck, :user].each{ |iv|
+          remove_instance_variable("@#{iv}") rescue nil
+        }
+
       end
       
       def write

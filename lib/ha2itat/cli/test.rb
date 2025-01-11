@@ -30,15 +30,6 @@ module Ha2itat
             #::FileUtils.rm_rf("/tmp/ha2itattest", verbose: true)
           end
           
-          # require_relative Dir.pwd + "/config/app"
-          # user = Ha2itat.adapter(:user).by_name(name)
-          # route = Hanami.app.boot["routes"].path(route.to_sym)
-
-          # raise "no user named `#{name}' found for `#{Ha2itat.quart.identifier}'" unless user
-          # raise "no route named`#{name}' found for `#{Ha2itat.quart.identifier}'" unless route
-          # puts
-          # puts bookmarklet(goto) % [::File.join(Ha2itat.C(:host), route), user.token]
-          p 1
         end
       end
 
