@@ -139,6 +139,13 @@ module Plugins
             params = param_hash
             params = param_hash.merge(user_id: @user.id) if @user
             entry = Entry.new(**params)
+
+            # to be sure
+            while !(b = by_id(entry.id)).nil?
+              Ha2itat.log("entroment:entry #{entry.id} already in database, requesting new")
+              entry.newid!
+            end
+
             store(entry)
           end
 
