@@ -12,9 +12,7 @@ module Ha2itat
     DEFAULT_PERMITTED_CLASSES = []
 
     def self.get_random_id(chrs = 32)
-      ary = [*'a'..'z', *'A'..'Z', *0..9].shuffle
-      enum = ary.permutation(chrs)
-      enum.next.join
+      SecureRandom.alphanumeric(chrs)
     end
 
     def self.make_slug(str)
