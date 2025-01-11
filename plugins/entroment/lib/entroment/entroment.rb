@@ -66,7 +66,11 @@ module Plugins
       end
 
       def id
-        @id ||= Ha2itat::Database::get_random_id(16)
+        @id ||= newid!
+      end
+
+      def newid!
+        @id = Ha2itat::Database::get_random_id(16)
       end
 
       def user
