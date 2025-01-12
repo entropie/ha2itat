@@ -102,7 +102,6 @@ module Plugins
         @easiness_factor = calculate_easing(rating, @easiness_factor)
 
         if rating >= 3
-          correct = true
           @repetition_count += 1
           @correct_count += 1
           @interval =
