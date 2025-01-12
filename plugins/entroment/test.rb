@@ -190,6 +190,17 @@ class TestDeck < Minitest::Test
       assert testentry.decks.size == 2
     end
   end
+
+  def test_case_update_existing_deck_with_tag
+    @adapter.with_user(@user) do |adapter|
+      testentry = adapter.create(content: TESTCONTENTS[1], tags: ["asd", "fsa"])
+
+      loaded_entry = adapter.by_id(testentry.id)
+      updated_entry = adapter.update(loaded_entry, tags: ["foo", "deck:muhahaha"])
+      assert updated_entry.decks.size == 1
+    end
+  end
+
 end
 
 class TestSession < Minitest::Test
