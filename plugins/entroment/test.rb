@@ -190,16 +190,60 @@ class TestDeck < Minitest::Test
       assert testentry.decks.size == 2
     end
   end
+end
 
-  # def test_start_session
-  #   @adapter.with_user(@user) do |adapter|
-  #     1.upto(20) do |i|
-  #       adapter.create(content: TESTCONTENTS[1] + " #{i}", tags: ["deck:startsession"])
-  #     end
-  #     deck = adapter.decks[:startsession]
+class TestSession < Minitest::Test
 
-  #     assert deck.kind_of?(Plugins::Entroment::Deck)
-  #   end
+  def decksetup(deckname = :sessiontest)
+    retdeck = @adapter.with_user(@user){ |a| a.decks[deckname] }
 
-  # end
+    unless retdeck
+      @adapter.with_user(@user) do |a|
+        1.upto(40) do |i|
+          newe = a.create(content: TESTCONTENTS[1] + " #{i}", tags: ["deck:#{deckname}"])
+          card = newe.cards.first
+          srand i
+          newtime = Time.now - (rand(200)+10)*3600 + (60*rand(60)*rand(60))
+          Ha2itat.log("modulating date for #{card.id}")
+          card.hash_to_instance_variables(last_reviewed: newtime)
+          card.write
+        end
+        retdeck = a.decks[deckname]
+      end
+    end
+    retdeck
+  end
+
+  def setup
+    @adapter = Ha2itat.adapter(:entroment)
+    @user    = Ha2itat.adapter(:user).user("test")
+    @deck    = decksetup
+  end
+
+  def test_standard_session
+    session = @deck.new_session
+    sspool = session.cards
+
+    assert sspool.size == 20
+    t1, t2 = *sspool.first(2)
+    assert t2.next_due_time > t1.next_due_time
+    assert @deck.session.id.kind_of?(String)
+  end
+
+  def test_custom_session_size
+    newspool = @deck.new_session(length: 10).cards
+    assert newspool.size == 10
+  end
+
+  def test_session_load
+    session = @deck.new_session
+    sessionid = session.id
+
+    loaded_session = @deck.sessions[sessionid]
+
+    assert loaded_session.kind_of?(Plugins::Entroment::Session)
+    assert loaded_session.deck.kind_of?(Plugins::Entroment::Deck)
+  end
+  
+
 end

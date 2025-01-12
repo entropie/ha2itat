@@ -125,6 +125,29 @@ module Plugins
         self
       end
 
+      def new_session(**opts)
+        @session = nil
+        session(**opts)
+      end
+
+      def session(**opts)
+        @session = nil if not opts.empty?
+        @session ||=
+          begin
+            session = Session.new(self, **opts)
+            Ha2itat.log("creating session #{session.id} #{PP.pp(opts, '')}")
+            cards.by_due.each do |card|
+              session.add(card)
+            end
+            session.start
+            session
+          end
+      end
+
+      def sessions
+        sessions = Sessions.load(self)
+      end
+
       def create
         unless exist?
           Ha2itat.log("deck: creating #{name}")

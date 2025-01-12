@@ -1,12 +1,25 @@
 module Plugins
   module Entroment
 
-    class Cards < Array; end
+    class Cards < Array
+      def by_due
+        sort_by { |card| card.due_delta(Time.now)}
+      end
+
+      def [](obj)
+        select{ |c| c =~ obj }.shift
+      end
+    end
     
     class Card
       include EntromentAdapter
 
       attr_reader :entry, :deck
+      attr_accessor :logsize
+
+      DefaultLogSize = 10
+
+      RatingMax = 5
 
       SRFieldsDefaults = {
         last_reviewed: Time.now,
@@ -17,16 +30,39 @@ module Plugins
         easiness_factor: 2.5
       }
 
+      class LogEntry
+
+        LogFields = [:easiness_factor, :repetition_count, :incorrect_count, :interval, :rating]
+        attr_reader *LogFields
+
+        def initialize(**hash)
+          @date = Time.now
+          LogFields.each do |lf|
+            instance_variable_set("@%s" % lf, hash[lf])
+          end
+        end
+
+      end
+
       def initialize(entry, deck)
         @deck = deck
         @entry = entry
         @entry_id = entry.id
+        @log = []
+      end
+
+      def id
+        @entry_id
       end
 
       def =~(other)
         if other.kind_of?(String)
           @entry_id == other
         end
+      end
+
+      def logsize
+        @logsize || DefaultLogSize
       end
 
       def entry
@@ -51,10 +87,17 @@ module Plugins
         @deckname = deck.name
         @user_id = entry.user.id
 
-        [:entry, :deck, :user].each{ |iv|
+        [:entry, :deck, :user, :logsize].each{ |iv|
           remove_instance_variable("@#{iv}") rescue nil
         }
+      end
 
+      def next_due_time
+        @last_reviewed + @interval * 24 * 3600
+      end
+
+      def due_delta(ftime)
+        ((next_due_time - ftime) / 3600).to_i
       end
       
       def write
@@ -63,6 +106,54 @@ module Plugins
         yaml = YAML::dump(to_save)
         Ha2itat.log("deck:card writing for \##{entry.id}:#{path}")
         ::File.open(path, "w+") {|fp| fp.puts(yaml) }
+      end
+
+      def calculate_easing(rating, old_easing)
+        rating_max = RatingMax
+        [1.3, old_easing + (0.1 - (rating_max - rating) * (0.08 + (rating_max - rating) * 0.02))].max.round(1)
+      end
+
+      def rate(rating)
+        @easiness_factor = calculate_easing(rating, @easiness_factor)
+
+        if rating >= 3
+          correct = true
+          @repetition_count += 1
+          @correct_count += 1
+          @interval =
+            case @repetition_count
+            when 1 then 1
+            when 2 then 6
+            else (@interval * @easiness_factor).round
+            end
+        else
+          @incorrect_count += 1
+          @repetition_count = 0
+          @interval = 1
+        end
+
+        @last_reviewed = Time.now
+
+        log_hash = {
+          repetition_count: @repetition_count,
+          incorrect_count: @incorrect_count,
+          correct_count: @correct_count,
+          interval: @interval,
+          easiness_factor: @easiness_factor,
+          rating: rating}
+        Ha2itat.log("card:rate #{id}:#{deck.name}: #{PP.pp(log_hash, "").gsub("\n", "")}")
+
+        log_rating(**log_hash)
+        write
+      end
+
+      def truncate_log!
+        @log = @log.last(logsize)
+      end
+
+      def log_rating(**hash)
+        @log.push(LogEntry.new(**hash))
+        truncate_log!
       end
 
       def path
