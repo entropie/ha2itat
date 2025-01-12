@@ -30,20 +30,6 @@ module Plugins
         easiness_factor: 2.5
       }
 
-      class LogEntry
-
-        LogFields = [:easiness_factor, :repetition_count, :incorrect_count, :interval, :rating]
-        attr_reader *LogFields
-
-        def initialize(**hash)
-          @date = Time.now
-          LogFields.each do |lf|
-            instance_variable_set("@%s" % lf, hash[lf])
-          end
-        end
-
-      end
-
       def initialize(entry, deck)
         @deck = deck
         @entry = entry
@@ -90,6 +76,7 @@ module Plugins
         [:entry, :deck, :user, :logsize].each{ |iv|
           remove_instance_variable("@#{iv}") rescue nil
         }
+        self
       end
 
       def next_due_time
@@ -101,11 +88,9 @@ module Plugins
       end
       
       def write
-        to_save = self.dup
-        to_save.prepare_for_save
-        yaml = YAML::dump(to_save)
-        Ha2itat.log("deck:card writing for \##{entry.id}:#{path}")
-        ::File.open(path, "w+") {|fp| fp.puts(yaml) }
+        towrite = prepare_for_save.dup
+        Ha2itat.adapter(:entroment).write_card(towrite)
+        self
       end
 
       def calculate_easing(rating, old_easing)
@@ -145,6 +130,7 @@ module Plugins
 
         log_rating(**log_hash)
         write
+        log_hash.merge(cardid: id)
       end
 
       def truncate_log!

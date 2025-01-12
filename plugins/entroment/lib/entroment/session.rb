@@ -79,7 +79,6 @@ module Plugins
         card_to_deal = cards.shift
         cardid = @cardids.shift
         card_to_deal
-        
       end
 
       def add(*cards)
@@ -88,6 +87,12 @@ module Plugins
           cardids.push(cardtoadd.id)
         end
         self
+      end
+
+      def rate(card, rating)
+        resulthash = card.rate(rating)
+        log_rating(**resulthash)
+        resulthash
       end
 
       def filename
@@ -104,7 +109,9 @@ module Plugins
 
       def prepare_for_save
         cardids
-        remove_instance_variable("@deck")
+        remove_instance_variable("@cards") rescue nil
+        remove_instance_variable("@deck") rescue nil
+        remove_instance_variable("@length") rescue nil
         self
       end
 
@@ -114,20 +121,21 @@ module Plugins
       end
 
       def write
-        Ha2itat.adapter(:entroment).with_user(user) do |adapter|
-          adapter.write_session(self)
-        end
+        Ha2itat.adapter(:entroment).write_session(self)
         self
+      end
+
+      def log_rating(**hash)
+        @log.push(LogEntry.new(**hash))
       end
 
       def transaction(&blk)
         raise "no block given" unless block_given?
-        yield self
-        # fy = to_yaml
-        # p filename
-        # puts fy
-        # # p file
-        # exit
+
+        until cardids.empty?
+          yield [deal!, self]
+        end
+        write
       end
     end
   end

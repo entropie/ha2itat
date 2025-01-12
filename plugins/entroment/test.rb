@@ -204,7 +204,7 @@ class TestSession < Minitest::Test
           card = newe.cards.first
           srand i
           newtime = Time.now - (rand(200)+10)*3600 + (60*rand(60)*rand(60))
-          Ha2itat.log("modulating date for #{card.id}")
+          # Ha2itat.log("modulating date for #{card.id}")
           card.hash_to_instance_variables(last_reviewed: newtime)
           card.write
         end
@@ -245,5 +245,19 @@ class TestSession < Minitest::Test
     assert loaded_session.deck.kind_of?(Plugins::Entroment::Deck)
   end
   
+  def test_session_loop
+    session = @deck.new_session(length: 3)
+    sessionid = session.id
 
+    loaded_session = @deck.sessions[sessionid]
+    i = 3
+    loaded_session.transaction do |card, session|
+      i -= 1
+      assert session.cards.size == session.cardids.size
+      assert session.cards.size == i
+      session.rate(card, 4)
+    end
+    assert loaded_session.cards.size == 0
+    assert loaded_session.log.size == 3
+  end
 end

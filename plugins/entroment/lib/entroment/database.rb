@@ -149,6 +149,14 @@ module Plugins
             store(entry)
           end
 
+          def write_card(card)
+            to_save = card.prepare_for_save.dup
+            yaml = YAML::dump(to_save)
+            Ha2itat.log("deck:card writing for \##{card.id}:#{card.path}")
+            ::File.open(card.path, "w+") {|fp| fp.puts(yaml) }
+            card
+          end
+
           def write_session(session)
             sessiondir = session.path
             ::FileUtils.mkdir_p(sessiondir, verbose: true) unless ::File.exist?(sessiondir)
@@ -207,7 +215,7 @@ module Plugins
             dirname = ::File.dirname(complete_path)
             ::FileUtils.mkdir_p(dirname, verbose: true) unless ::File.exist?(dirname)
 
-            Ha2itat.log "#{human_kind} entry:#{entry.id} (#{entry.user.name})"
+            Ha2itat.log "entry:#{human_kind} #{entry.id} (#{entry.user.name})"
             write(complete_path, yaml)
 
             if entry.decked?
