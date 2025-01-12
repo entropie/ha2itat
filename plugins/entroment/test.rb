@@ -260,4 +260,17 @@ class TestSession < Minitest::Test
     assert loaded_session.cards.size == 0
     assert loaded_session.log.size == 3
   end
+
+  def test_session_loop_with_wrong_ratings
+    session = @deck.new_session(length: 3)
+    sessionid = session.id
+
+    loaded_session = @deck.sessions[sessionid]
+    loaded_session.transaction do |card, session|
+      session.rate(card, 1)
+    end
+    assert loaded_session.cards.size == 0
+    assert loaded_session.log.size == 6 # every card is rated MAX twice
+  end
+
 end

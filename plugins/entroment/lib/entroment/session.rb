@@ -19,6 +19,9 @@ module Plugins
     end
 
     class SessionLog < Array
+      def card_already_rated?(cardid)
+        any?{ |logentry| logentry.cardid == cardid}
+      end
     end
 
     class Session
@@ -89,8 +92,20 @@ module Plugins
         self
       end
 
+      def handle_rated_card(card, resulthash)
+        if resulthash[:rating] < 3
+          if log.card_already_rated?(resulthash[:cardid])
+            Ha2itat.log("session: card rating < 3, but already appended once this session: skip")
+          else
+            Ha2itat.log("session: card rating < 3, appending to current session")
+            cardids.append(resulthash[:cardid])
+          end
+        end
+      end
+
       def rate(card, rating)
         resulthash = card.rate(rating)
+        handle_rated_card(card, resulthash)
         log_rating(**resulthash)
         resulthash
       end
@@ -134,11 +149,15 @@ module Plugins
 
       def transaction(&blk)
         raise "no block given" unless block_given?
+        begin
+          until  cardids.empty?
+            yield [deal!, self]
 
-        until cardids.empty?
-          yield [deal!, self]
+          end
+
+        ensure
+          write
         end
-        write
       end
     end
   end
