@@ -178,7 +178,8 @@ module Plugins
             # remove entry from cards if no longer tagged
             oldtags.each do |oldtag|
               unless tags.include?(oldtags)
-                decks[oldtag.to_s].remove(entry)
+                deck = decks[oldtag.to_s]
+                deck.remove(entry) if deck
               end
             end
             store(entry)
