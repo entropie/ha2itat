@@ -111,7 +111,10 @@ module Plugins
         cardids
         remove_instance_variable("@cards") rescue nil
         remove_instance_variable("@deck") rescue nil
-        remove_instance_variable("@length") rescue nil
+
+        SettingsHash.each_pair do |optn, optv|
+          remove_instance_variable("@%s" % optn) rescue nil
+        end
         self
       end
 
