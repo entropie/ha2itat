@@ -149,6 +149,16 @@ module Plugins
             store(entry)
           end
 
+          def write_session(session)
+            sessiondir = session.path
+            ::FileUtils.mkdir_p(sessiondir, verbose: true) unless ::File.exist?(sessiondir)
+            Ha2itat.log("session:write #{session.id}:#{session.file}")
+            session.updated_at = Time.now
+            yaml = YAML::dump(session.prepare_for_save.dup)
+            ::File.open(session.file, "w+"){ |fp| fp.puts(yaml) }
+            session
+          end
+
           def update(entry, **param_hash)
             params = param_hash
             params = param_hash.merge(user_id: @user.id) if @user

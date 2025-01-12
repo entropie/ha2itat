@@ -22,7 +22,8 @@ module Plugins
     end
 
     class Session
-      attr_reader :deck, :created_at, :updated_at, :log
+      attr_reader :deck, :created_at, :log
+      attr_accessor :updated_at
 
       SettingsHash = {
         length: 20
@@ -52,6 +53,10 @@ module Plugins
 
       def id
         @session_id
+      end
+
+      def user
+        Ha2itat.adapter(:user).by_id(@user_id)
       end
 
       def cardids
@@ -109,11 +114,10 @@ module Plugins
       end
 
       def write
-        sessiondir = path
-        ::FileUtils.mkdir_p(sessiondir, verbose: true) unless ::File.exist?(sessiondir)
-        Ha2itat.log("session: #{id} write #{file}")
-        @updated_at = Time.now
-        ::File.open(file, "w+"){ |fp| fp.puts(to_yaml) }
+        Ha2itat.adapter(:entroment).with_user(user) do |adapter|
+          adapter.write_session(self)
+        end
+        self
       end
 
       def transaction(&blk)
