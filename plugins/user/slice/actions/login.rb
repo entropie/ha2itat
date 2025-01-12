@@ -9,6 +9,7 @@ module Ha2itat::Slices
         end
 
         def handle(req, res)
+          res.redirect_to(path(:backend_index)) if session_user(req)
           if req.post? and req.params.valid?
             req.env['warden'].authenticate(:password)
             res.redirect_to(path(:backend_index))
