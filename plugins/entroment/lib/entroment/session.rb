@@ -73,8 +73,7 @@ module Plugins
       def deck
         @deck ||=
           begin
-            adapter_user = Ha2itat.adapter(:user).by_id(@user_id)
-            Ha2itat.adapter(:entroment).with_user(adapter_user){ |a| a.decks[@deckname] }
+            Ha2itat.adapter(:entroment).with_user(user){ |a| a.decks[@deckname] }
           end
       end
 
@@ -152,9 +151,7 @@ module Plugins
         begin
           until  cardids.empty?
             yield [deal!, self]
-
           end
-
         ensure
           write
         end
