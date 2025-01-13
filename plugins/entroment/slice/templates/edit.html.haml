@@ -8,7 +8,6 @@
 .backend-page
   = render "form", action: path(:backend_entroment_edit, id: entry.id), entry: entry
 
-%hr
-.backend-content.tumblog
-  %article.entroment-content
-    = entry.to_html
+
+.backend-content.entroment-card
+  = entry.to_html
