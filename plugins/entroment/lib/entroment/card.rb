@@ -127,7 +127,7 @@ module Plugins
           interval: @interval,
           easiness_factor: @easiness_factor,
           rating: rating}
-        Ha2itat.log("card:rate #{id}:#{deck.name}: #{PP.pp(log_hash, "").gsub("\n", "")}")
+        Ha2itat.log("entroment card:rate #{id}:#{deck.name}: #{PP.pp(log_hash, "").gsub("\n", "")}")
 
         log_rating(**log_hash)
         write
@@ -152,8 +152,7 @@ module Plugins
       end
 
       def destroy
-        Ha2itat.log("deck(#{@deckname}): removing card for \##{@entry_id}")
-        ::FileUtils.rm_rf(path, verbose: true)
+        adapter{ |adptr| adptr.remove_card(self) }
       end
 
       def yaml_load(file:)

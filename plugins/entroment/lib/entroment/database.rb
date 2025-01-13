@@ -41,11 +41,6 @@ module Plugins
             ::File.join(user_path(uid), "decks")
           end
 
-          # def path_for(card)
-          #   #@path ||= adapter{ |adptr| adptr.repository_path(decks.path, deckname_to_path) }
-          #   ::File.join(user_path, decks.path, "foo")
-          # end
-
           def entry_files(uid = nil)
             files = Dir.glob("%s/*/*.yaml" % repository_path(user_path(uid)))
           end
@@ -142,17 +137,22 @@ module Plugins
 
             # to be sure
             while !(b = by_id(entry.id)).nil?
-              Ha2itat.log("entroment:entry #{entry.id} already in database, requesting new")
+              Ha2itat.log("entroment entry:create #{entry.id} already in database, requesting new")
               entry.newid!
             end
 
             store(entry)
           end
 
+          def remove_card(card)
+            Ha2itat.log("entroment card:remove #{card.id}/#{card.entry.id} by #{user.name}")
+            ::FileUtils.rm_rf(card.path, verbose: true)
+          end
+
           def write_card(card)
             to_save = card.prepare_for_save.dup
             yaml = YAML::dump(to_save)
-            Ha2itat.log("deck:card writing for \##{card.id}:#{card.path}")
+            Ha2itat.log("entroment card:write for \##{card.id}:#{card.path}")
             ::File.open(card.path, "w+") {|fp| fp.puts(yaml) }
             card
           end
@@ -160,7 +160,7 @@ module Plugins
           def write_session(session)
             sessiondir = session.path
             ::FileUtils.mkdir_p(sessiondir, verbose: true) unless ::File.exist?(sessiondir)
-            Ha2itat.log("session:write #{session.id}:#{session.file}")
+            Ha2itat.log("entroment: session:write #{session.id}:#{session.file}")
             session.updated_at = Time.now
             yaml = YAML::dump(session.prepare_for_save.dup)
             ::File.open(session.file, "w+"){ |fp| fp.puts(yaml) }
@@ -216,7 +216,7 @@ module Plugins
             dirname = ::File.dirname(complete_path)
             ::FileUtils.mkdir_p(dirname, verbose: true) unless ::File.exist?(dirname)
 
-            Ha2itat.log "entry:#{human_kind} #{entry.id} (#{entry.user.name})"
+            Ha2itat.log "entroment entry:#{human_kind} #{entry.id} (#{entry.user.name})"
             write(complete_path, yaml)
 
             if entry.decked?
@@ -226,7 +226,10 @@ module Plugins
           end
 
           def destroy(entry)
-            Ha2itat.log "entroment: delete %s:%s user '%s'" % [entry.id, entry.filename, entry.user.name]
+            entry.cards.each do |card|
+              remove_card(card)
+            end
+            Ha2itat.log "entroment entry:delete %s:%s user '%s'" % [entry.id, entry.filename, entry.user.name]
             ::FileUtils.rm_rf(entry.complete_path, verbose: true)
             true
           end

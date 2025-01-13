@@ -203,7 +203,8 @@ class TestDeck < Minitest::Test
 
 end
 
-class TestSession < Minitest::Test
+
+module Decksetup
 
   def decksetup(deckname = :sessiontest)
     retdeck = @adapter.with_user(@user){ |a| a.decks[deckname] }
@@ -224,6 +225,30 @@ class TestSession < Minitest::Test
     end
     retdeck
   end
+
+end
+
+class TestDeck < Minitest::Test
+  include Decksetup
+  def setup
+    @adapter = Ha2itat.adapter(:entroment)
+    @user    = Ha2itat.adapter(:user).user("test")
+    @deck    = decksetup
+  end
+
+  def test_remove_entry_with_cards
+    card = @deck.cards.first
+    todelete_card_id = card.id
+    entry = card.entry
+    entry.destroy
+
+    @deck.read
+    assert_nil @deck.cards[todelete_card_id]
+  end
+end
+
+class TestSession < Minitest::Test
+  include Decksetup
 
   def setup
     @adapter = Ha2itat.adapter(:entroment)

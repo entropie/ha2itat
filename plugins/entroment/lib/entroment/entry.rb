@@ -132,6 +132,10 @@ module Plugins
       def prefixed_tags
         tags.prefixed
       end
+
+      def destroy
+        adapter { |a| a.destroy(self) }
+      end
     end
   end
 end
