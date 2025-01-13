@@ -1,0 +1,15 @@
+%h1
+  = t.be.topics.entroment.deck
+  %small 
+    = deck.name
+    = "(%s/<strong>%s</strong>)" % [pager.current_items.size, deck.size]
+
+.backend-listing.entroment
+  - pager.each do |card|
+    .backend-list-entry
+      = render "preview", entry: card.entry
+      .spacer
+      = render "cardpreview", card: card, deck: deck
+
+= pager.navigation
+

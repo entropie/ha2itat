@@ -37,6 +37,11 @@ module Plugins
         def inspect
           "#{@tag}"
         end
+
+        def to_s
+          @tag
+        end
+        alias :complete_string :to_s
       end
 
       class PrefixedTag < Tag
@@ -54,6 +59,10 @@ module Plugins
 
         def to_s
           identifier
+        end
+
+        def complete_string
+          @tag
         end
       end
     end

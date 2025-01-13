@@ -1,0 +1,7 @@
+%h1= t.be.topics.entroment.decks
+
+.backend-listing.entroment.entroment-decks
+  - pager.each do |deck|
+    .backend-list-entry
+      %p= render "deckpreview", deck: deck
+

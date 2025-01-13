@@ -30,6 +30,14 @@ module Plugins
         @decks.each(&blk)
       end
 
+      def size
+        @decks.size
+      end
+
+      def to_a
+        @decks
+      end
+
       def for(entry)
         read
         decks = Decks.new(path, user)
@@ -112,6 +120,10 @@ module Plugins
 
       def cards
         @cards ||= Cards.new
+      end
+
+      def size
+        cards.size
       end
 
       def id_present?(oid)

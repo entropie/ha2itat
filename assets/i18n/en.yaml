@@ -126,9 +126,13 @@ be:
       index: Overview
       show: Show
     entroment:
-      index: Entroment
+      index: Entroment <small>cards</small>
       show: Fragment
       edit: Edit
+      decks: Decks
+      deck: Deck
+      create: Create
+      card: Rate
 
 
   help:

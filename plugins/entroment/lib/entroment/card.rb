@@ -30,6 +30,8 @@ module Plugins
         easiness_factor: 2.5
       }
 
+      attr_accessor *SRFieldsDefaults.keys
+
       def initialize(entry, deck)
         @deck = deck
         @entry = entry
@@ -156,6 +158,10 @@ module Plugins
 
       def yaml_load(file:)
         Psych.unsafe_load(::File.readlines(file).join)
+      end
+
+      def to_html(collapsed = false)
+        entry.to_html(collapsed: collapsed)
       end
 
       def read_or_setup

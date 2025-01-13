@@ -85,8 +85,13 @@ module Plugins
         Ha2itat.adapter(:entroment).exist?(filename)
       end
 
-      def to_html(cls: "entroment-entry")
-        html_content = Ha2itat::Renderer.render(:markdown, content)
+      def to_html(cls: "entroment-entry", collapsed: false)
+        content_to_handle = content
+        if collapsed
+          content_to_handle = content_to_handle.split("---").first
+        end
+
+        html_content = Ha2itat::Renderer.render(:markdown, content_to_handle)
         "<div class='%s' id='%s'>%s</div>" % [cls, "ee-#{id}", html_content]
       end
 

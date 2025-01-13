@@ -59,13 +59,16 @@ a
     margin-top: 5vw
     color: $c2
 
+
   .backend-content
     flex-basis: 100%
     order: 2
     h1,h2,h3,h4,h5
       small
         color: $c1
-
+        a
+          color: $c1
+          text-decoration: none
     .topline
       text-align: right
       ul
@@ -215,7 +218,9 @@ a
     opacity: .05
     transition: all 200ms linear
   /* .backend-list-additional
-
+  .backend-list-foot-block
+    text-align: right
+    @include clean-ul
   .backend-list-footer
     text-align: center
     flex-basis: 100%

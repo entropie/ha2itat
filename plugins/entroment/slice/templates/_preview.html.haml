@@ -5,5 +5,8 @@
 
   .backend-list-controls.floating
     = render "controls", entry: entry
-
+  .backend-list-foot-block
+    %ul
+      - entry.decks.each do |deck|
+        = nlink(path(:backend_entroment_deck, name: deck.name), deck.name)
 

@@ -12,7 +12,7 @@
         .column.col-12.col-md-12.col-mx-auto
           .input-group
             %span.input-group-addon= t.form.tags
-            %input.form-input.tags-input{type: :text, name: :tags, :value => (entry && entry.tags ? entry.tags.join(", ") : "")}
+            %input.form-input.tags-input{type: :text, name: :tags, :value => (entry && entry.tags ? entry.tags.map(&:complete_string).join(", ") : "")}
 
       .columns.mtop
         .column.col-2.col-mx-auto

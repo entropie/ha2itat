@@ -1,0 +1,76 @@
+@import "../../backend/assets/variables"
+
+$rColor5: lime
+$rColor4: green
+$rColor3: yellow
+$rColor2: maroon
+$rColor1: red
+
+.cardid-link
+  color: silver
+  font-variant: small-caps
+  code,.l-pfx
+    color: $c2
+
+.cardpreview
+  table
+    border-top: 1px solid rgba(silver, .3)
+    font-size: .8em
+    width: 100%
+    th
+      width: 30%
+      text-align: left
+    td.tright
+      text-align: right
+
+.backend-content.entroment-card
+  padding: 5vw
+  background-color: rgba($c1, .3)
+  color: $c5
+  hr
+    border-color: rgba(#111, .2)
+    margin-bottom: 5vh
+  &.rated-1
+    background-color: rgba($rColor1, .2)
+  &.rated-2
+    background-color: rgba($rColor2, .2)
+  &.rated-3
+    background-color: rgba($rColor3, .2)
+  &.rated-4
+    background-color: rgba($rColor4, .2)
+  &.rated-5
+    background-color: rgba($rColor5, .2)
+
+
+.backend-content.entroment-cardbuttons
+  text-align: center
+  @include clean-ul
+  ul
+    margin-top: 5vh
+    margin-bottom: 5vh
+    display: flex
+    justify-content: space-around
+    li
+      flex-basis: 15%
+      a
+        border-radius: 20px
+        background-color: rgba(silver, .1)
+        display: block
+        opacity: .4
+        font-size: 2em
+        text-decoration: none
+        color: black
+        font-weight: bold
+        &:hover
+          opacity: .8
+      &.cone a
+        background-color: $rColor1
+      &.ctwo a
+        background-color: $rColor2
+      &.cthree a
+        background-color: $rColor3
+      &.cfour a
+        background-color: $rColor4
+      &.cfive a
+        background-color: $rColor5
+        
