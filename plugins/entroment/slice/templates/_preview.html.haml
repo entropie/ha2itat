@@ -4,7 +4,7 @@
     %code= entry.content
 
   .backend-list-controls.floating
-    = render "controls", entry: entry
+    = render "controls", entry: entry, deck: (deck rescue nil)
   - if (show_decks rescue nil)
     .backend-list-foot-decks
       %ul

@@ -6,6 +6,24 @@ $rColor3: yellow
 $rColor2: maroon
 $rColor1: red
 
+.entroment-show
+  .topline
+    a
+      color: $c2
+
+@mixin entroment-body-box
+  margin-top: 1vh
+  border-radius: 20px
+
+
+.entroment-entry
+  @include entroment-body-box
+  background-color: rgba($c2, .1)
+  padding: 2vw
+  color: $c5
+  hr
+    border-color: rgba($c2, .2)
+
 .backend-list-foot-decks
   @include clean-ul
   a
@@ -21,6 +39,7 @@ $rColor1: red
   justify-content: space-between
   padding: 5px
   .stats-line
+    white-space: nowrap
     .field-correct
       color: $rColor4
     .field-incorrect
@@ -35,7 +54,18 @@ $rColor1: red
 
 .cardpreview
   .streaktext
-    color: orange
+    &.sn-1, &.sn-2, &.sn-3, &.sn-4, &.sn-5
+      color: green
+    &.sn-6, &.sn-7, &.sn-8, &.sn-9, &.sn-10
+      color: orange
+    &.sn-11, &.sn-12, &.sn-13, &.sn-14, &.sn-15
+      color: gold
+    &.sn-16, &.sn-17, &.sn-18, &.sn-19
+      color: magenta
+    &.sn-20
+      color: gold
+      font-weight: bold
+
   color: $c2
   table
     border-top: 1px solid rgba(silver, .3)
@@ -48,12 +78,9 @@ $rColor1: red
       text-align: right
 
 .backend-content.entroment-card
-  padding: 5vw
-  background-color: rgba($c1, .3)
-  color: $c5
+  @include entroment-body-box
   hr
     border-color: rgba(#111, .2)
-    margin-bottom: 5vh
   &.rated-1
     background-color: rgba($rColor1, .2)
   &.rated-2

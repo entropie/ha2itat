@@ -208,10 +208,10 @@ module Plugins
           total: total_count
         }
         fields = fields.sort_by{ |f,k| f.to_s}.map{ |f,k| '<span class="%s">%s</span>' % ["field-#{f}", k]}
+        
+        streaktxt = if repetition_count == 0 then "" else " | <span class='streaktext sn-#{ [repetition_count, 20].min }'>#{streaktext(repetition_count)}</span>" end
 
-        streaktxt = if repetition_count == 0 then "" else " &mdash; <span class='streaktext'>#{streaktext(repetition_count)}</span>" end
-
-        statsline = "%s/%s/<strong>%s</strong> (%s%%) &mdash; Streak: %s %s" % [fields[0], fields[1], fields[4], fields[2], fields[3], streaktxt]
+        statsline = "%s/%s/<strong>%s</strong> (%s%%) | Streak: %s %s" % [fields[0], fields[1], fields[4], fields[2], fields[3], streaktxt]
         statsline   = "<div class='stats-line'>%s</div>" % [statsline]
 
         html_block % [dateline, statsline]

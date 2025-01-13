@@ -87,10 +87,10 @@ be:
     entroment:
       show: Show
       edit: Edit
+      rate: Rate!
       publish: Publish
       unpublish: Unpublish
       destroy: Delete
-      create: Tumbl!
 
   topics:
     snippets:
