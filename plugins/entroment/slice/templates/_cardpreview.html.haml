@@ -10,7 +10,7 @@
         &mdash;
         %time= RelativeTime.in_words(card.last_reviewed)
 
-    - [:repetition_count, :easiness_factor, :correct_count, :incorrect_count, :interval].each do |fieldname|
+    - [:repetition_count, :correct_count, :incorrect_count, :interval, :easiness_factor].each do |fieldname|
       %tr
         %th
           = fieldname
