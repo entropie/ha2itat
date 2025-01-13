@@ -1,0 +1,8 @@
+.backend-content.entroment-cardbuttons
+  - default_argument_hash = -> (rating) {{cardid: card.id, name: deck.name, rating: rating}.merge(sessionid.nil? ? {} : {sessionid: sessionid}) }
+  %ul
+    %li.cone= nlink(path(:backend_entroment_rate, **default_argument_hash.call(1)), 1)
+    %li.ctwo= nlink(path(:backend_entroment_rate, **default_argument_hash.call(2)), 2)
+    %li.cthree= nlink(path(:backend_entroment_rate, **default_argument_hash.call(3)), 3)
+    %li.cfour= nlink(path(:backend_entroment_rate, **default_argument_hash.call(4)), 4)
+    %li.cfive= nlink(path(:backend_entroment_rate, **default_argument_hash.call(5)), 5)
