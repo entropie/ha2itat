@@ -8,7 +8,6 @@
   - pager.each do |card|
     .backend-list-entry
       = render "preview", entry: card.entry
-      .spacer
       = render "cardpreview", card: card, deck: deck
 
 = pager.navigation

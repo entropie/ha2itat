@@ -1,21 +1,13 @@
 %h1
   = t.be.topics.entroment.card
-  %small #{html_link(card, deck, true)} in Deck #{nlink(path(:backend_entroment_deck, name: deck.name), deck.name)}
+  %small #{html_link(card, deck, 1)} in Deck #{nlink(path(:backend_entroment_deck, name: deck.name), deck.name)}
 
 - if collapsed
-  .backend-content.entroment-cardbuttons
-    %ul
-      %li.cone= nlink(path(:backend_entroment_card, cardid: card.id, name: deck.name, rating: 1), 1)
-      %li.ctwo= nlink(path(:backend_entroment_card, cardid: card.id, name: deck.name, rating: 2), 2)
-      %li.cthree= nlink(path(:backend_entroment_card, cardid: card.id, name: deck.name, rating: 3), 3)
-      %li.cfour= nlink(path(:backend_entroment_card, cardid: card.id, name: deck.name, rating: 4), 4)
-      %li.cfive= nlink(path(:backend_entroment_card, cardid: card.id, name: deck.name, rating: 5), 5)
+  = render "cardbuttons", card: card, deck: deck, sessionid: nil
 
-
-
-.backend-content.entroment-card{class: "rated-%s" % rating}
+.backend-content.entroment-card{class: "rated-%s" % [rated || "unrated"]}
   %article
     = card.to_html(collapsed)
-
-- if rating
-  = render "cardpreview", card: card, deck: deck
+.backend-content
+  - if rated
+    = render "cardpreview", card: card, deck: deck

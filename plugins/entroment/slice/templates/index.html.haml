@@ -3,7 +3,7 @@
 .backend-listing.entroment
   - pager.each do |entry|
     .backend-list-entry
-      = render "preview", entry: entry
+      = render "preview", entry: entry, show_decks: true
 
 = pager.navigation
 

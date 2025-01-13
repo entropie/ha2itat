@@ -6,6 +6,27 @@ $rColor3: yellow
 $rColor2: maroon
 $rColor1: red
 
+.backend-list-foot-decks
+  @include clean-ul
+  a
+    color: $c1
+  span.do-card-link
+    a
+      color: silver
+  ul
+    display: flex
+    justify-content: space-around
+.card-stats
+  display: flex
+  justify-content: space-between
+  padding: 5px
+  .stats-line
+    .field-correct
+      color: $rColor4
+    .field-incorrect
+      color: $rColor2
+
+
 .cardid-link
   color: silver
   font-variant: small-caps
@@ -13,6 +34,9 @@ $rColor1: red
     color: $c2
 
 .cardpreview
+  .streaktext
+    color: orange
+  color: $c2
   table
     border-top: 1px solid rgba(silver, .3)
     font-size: .8em

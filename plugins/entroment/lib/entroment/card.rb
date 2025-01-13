@@ -10,7 +10,7 @@ module Plugins
         select{ |c| c =~ obj }.shift
       end
     end
-    
+
     class Card
       include EntromentAdapter
 
@@ -88,7 +88,7 @@ module Plugins
       def due_delta(ftime)
         ((next_due_time - ftime) / 3600).to_i
       end
-      
+
       def write
         towrite = prepare_for_save.dup
         Ha2itat.adapter(:entroment).write_card(towrite)
@@ -162,6 +162,59 @@ module Plugins
 
       def to_html(collapsed = false)
         entry.to_html(collapsed: collapsed)
+      end
+
+      def encouragements
+        [
+          "Nice!",
+          "Good job!",
+          "Keep it up!",
+          "Solid effort!",
+          "Not bad at all!",
+          "Well played!",
+          "Clean!",
+          "You're getting there!",
+          "That's the way!",
+          "Smooth move!",
+          "Big brain!",
+          "You're on fire!",
+          "Poggers!",
+          "Mega streak!",
+          "Insane!",
+          "Absolute legend!",
+          "God tier!",
+          "Unstoppable!",
+          "Omega Pog!",
+          "Giga Chad vibes!"
+        ]
+      end
+
+      def streaktext(repetition_count)
+        encouragements[[repetition_count, encouragements.size].min - 1]
+      end
+
+      def html_stats
+        html_block = "<div class='card-stats'>%s%s</div>"
+        numbers = "123"
+        dateline   = "<div class='date-line'><time title='%s'>%s</time></div>" % [last_reviewed.to_human_time, RelativeTime.in_words(last_reviewed)]
+
+        total_count = correct_count+incorrect_count
+        percent = ((correct_count.to_f/total_count) * 100).round(1)
+        fields = {
+          correct: correct_count,
+          incorrect: incorrect_count,
+          percent: percent.nan? ? 0 : percent,
+          streak: repetition_count,
+          total: total_count
+        }
+        fields = fields.sort_by{ |f,k| f.to_s}.map{ |f,k| '<span class="%s">%s</span>' % ["field-#{f}", k]}
+
+        streaktxt = if repetition_count == 0 then "" else " &mdash; <span class='streaktext'>#{streaktext(repetition_count)}</span>" end
+
+        statsline = "%s/%s/<strong>%s</strong> (%s%%) &mdash; Streak: %s %s" % [fields[0], fields[1], fields[4], fields[2], fields[3], streaktxt]
+        statsline   = "<div class='stats-line'>%s</div>" % [statsline]
+
+        html_block % [dateline, statsline]
       end
 
       def read_or_setup

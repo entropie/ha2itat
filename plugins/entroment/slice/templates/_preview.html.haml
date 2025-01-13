@@ -5,8 +5,12 @@
 
   .backend-list-controls.floating
     = render "controls", entry: entry
-  .backend-list-foot-block
-    %ul
-      - entry.decks.each do |deck|
-        = nlink(path(:backend_entroment_deck, name: deck.name), deck.name)
+  - if (show_decks rescue nil)
+    .backend-list-foot-decks
+      %ul
+        - entry.decks.each do |deck|
+          %li
+            %small= nlink(path(:backend_entroment_deck, name: deck.name), deck.name, title: "Show Deck")
+            = " "
+            %span.do-card-link= nlink(path(:backend_entroment_card, cardid: entry.id, name: deck.name, collapsed: 1), "λ", title: "Do Card")          
 

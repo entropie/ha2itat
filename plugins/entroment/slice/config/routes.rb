@@ -13,6 +13,7 @@ module Ha2itat::Slices::Entroment
         get "/decks",          to: "decks", as: :decks
         get "/deck/:name",     to: "deck", as: :deck
         get "/deck/:name/card/:cardid", to: "card", as: :card
+        get "/deck/:name/rate/:cardid", to: "rate", as: :rate
       end
     end
 
