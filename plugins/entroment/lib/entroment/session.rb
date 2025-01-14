@@ -165,9 +165,7 @@ module Plugins
       def transaction(&blk)
         raise "no block given" unless block_given?
         begin
-          # until cardids.empty?
-            yield [deal!, self]
-          # end
+          yield [deal!, self]
         ensure
           write
         end
