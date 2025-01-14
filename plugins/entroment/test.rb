@@ -322,3 +322,29 @@ class TestSession < Minitest::Test
 
 end
 
+
+class TestDeck < Minitest::Test
+  include Decksetup
+  def setup
+    @adapter = Ha2itat.adapter(:entroment)
+    @user    = Ha2itat.adapter(:user).user("test")
+    @deck    = decksetup
+  end
+
+  def test_session_rating_simple
+    session = @deck.new_session(length: 3)
+    sessionid = session.id
+
+    ratings = [2,3,5]
+    session.transaction do |session|
+      0.upto(2) do |i|
+        card = session.deal!
+        session.rate(card, 5)
+
+        assert session.session_score, ratings.unshift
+      end
+    end
+
+  end
+end
+

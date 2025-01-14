@@ -22,6 +22,10 @@ module Plugins
       def card_already_rated?(cardid)
         any?{ |logentry| logentry.cardid == cardid}
       end
+
+      def goods
+        select{ |logentry| logentry.rating >= 3 }
+      end
     end
 
     class Session
@@ -78,6 +82,10 @@ module Plugins
         remaining_count + done_count
       end
 
+      def correct_count
+        log.goods.size
+      end
+
       def due_left?
         not @cardids.empty?
       end
@@ -102,11 +110,10 @@ module Plugins
       def session_score
         answered_count = total_count - remaining_count
         return 0 if answered_count.zero?
-
         accuracy = correct_count.to_f / answered_count
         progress = answered_count.to_f / total_count
         score = 5 * accuracy * progress
-        score.round(2)
+        score.round
       end
 
       def add(*cards)
