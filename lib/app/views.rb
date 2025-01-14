@@ -35,6 +35,7 @@ module ViewMethodsCommon
 
   def active_path(path)
     rp = request_env["REQUEST_URI"]
+    rp = rp.split("?").first
     if rp.include?("/s/") and path.include?("/s/") and rp.include?(path)
       true
     elsif rp =~ /^#{path}\//
