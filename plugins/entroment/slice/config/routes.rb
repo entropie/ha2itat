@@ -19,6 +19,7 @@ module Ha2itat::Slices::Entroment
         get "/deck/:name/session/",  to: "session", as: :session_start
         get "/deck/:name/session/finalize",  to: "sessionend", as: :session_end
         get "/deck/:name/session/:sessionid",  to: "session", as: :session
+        get "/deck/:name/sessiondestroy/:sessionid",  to: "sessiondestroy", as: :session_destroy
       end
     end
 

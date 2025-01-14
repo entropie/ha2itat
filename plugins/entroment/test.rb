@@ -286,14 +286,22 @@ class TestSession < Minitest::Test
     sessionid = session.id
 
     loaded_session = @deck.sessions[sessionid]
-    i = 3
-    loaded_session.transaction do |card, session|
+    pp loaded_session.cards
+
+    loaded_session.transaction do |session|
+      card = session.deal!
       assert session.cards.size == session.cardids.size
       assert session.cards.size == 2
       session.rate(card, 4)
+
+      card = session.deal!
+      assert session.cards.size == session.cardids.size
+      assert session.cards.size == 1
+      session.rate(card, 4)
+
     end
-    assert loaded_session.cards.size == 2
-    assert loaded_session.log.size == 1
+    assert loaded_session.cards.size == 1
+    assert loaded_session.log.size == 2
   end
 
   def test_session_loop_with_wrong_ratings
@@ -301,7 +309,8 @@ class TestSession < Minitest::Test
     sessionid = session.id
 
     loaded_session = @deck.sessions[sessionid]
-    loaded_session.transaction do |card, session|
+    loaded_session.transaction do |session|
+      card = session.deal!
       session.rate(card, 1)
     end
     assert loaded_session.cards.size == 3
@@ -312,3 +321,4 @@ class TestSession < Minitest::Test
   end
 
 end
+

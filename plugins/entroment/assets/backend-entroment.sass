@@ -18,6 +18,65 @@ a.session-start-link
   margin-top: 1vh
   border-radius: 20px
 
+.entroment-report
+  .entroment-report-entry
+    position: relative
+    &.rated-1
+      background-color: rgba($rColor1, .1)
+    &.rated-2
+      background-color: rgba($rColor2, .1)
+    &.rated-3
+      background-color: rgba($rColor3, .1)
+    &.rated-4
+      background-color: rgba($rColor4, .1)
+    &.rated-5
+      background-color: rgba($rColor5, .1)
+
+
+    .part-card
+      background-color: rgba(grey, .1)
+      height: 50px
+      display: flex
+      align-items: center
+      p
+        margin: 0
+        padding: 0
+        padding-left: 3px
+        padding-right: 3px
+    .part-stats
+    .part-rating
+      width: 100%
+      height: 100%
+      position: absolute
+      z-index: -1
+      top: 35%
+      left: 0
+      font-size: 4em
+      text-align: center
+      opacity: .05
+
+.cardpreview
+  color: $c2
+  .lines
+    display: flex
+    flex-wrap: wrap
+    .line
+      flex-basis: 100%
+      display: flex
+      padding-left: 3px
+      padding-right: 3px
+      .left
+        width: auto
+        white-space: nowrap
+      .right
+        width: 100%
+        text-align: right
+        &.field-incorrect_count
+          color: $rColor2
+        &.field-correct_count
+          color: $rColor4
+
+
 
 .entroment-entry
   @include entroment-body-box
@@ -26,6 +85,24 @@ a.session-start-link
   color: $c5
   hr
     border-color: rgba($c2, .2)
+
+.backend-list-entroment-sessions
+  padding: 5px
+  ul
+    @include clean-ul
+    li
+      display: flex
+      justify-content: space-between
+      svg
+        margin-top: 3px
+      a
+        display: inline-block
+      line-height: 34px
+      width: 100%
+      .finished
+        color: $rColor4
+      .unfinished
+        color: $rColor2
 
 .backend-list-foot-decks
   @include clean-ul
@@ -37,11 +114,14 @@ a.session-start-link
   ul
     display: flex
     justify-content: space-around
+
+
 .card-stats
   display: flex
   justify-content: space-between
   padding: 5px
   .stats-line
+    color: #555
     white-space: nowrap
     .field-total
       color: darken($c5, 20)
@@ -60,33 +140,22 @@ a.session-start-link
   code,.l-pfx
     color: $c2
 
-.cardpreview
-  .streaktext
-    display: inline-block
-    margin-left: 1vw
-    opacity: .7
-    &.sn-1, &.sn-2, &.sn-3, &.sn-4, &.sn-5
-      color: green
-    &.sn-6, &.sn-7, &.sn-8, &.sn-9, &.sn-10
-      color: orange
-    &.sn-11, &.sn-12, &.sn-13, &.sn-14, &.sn-15
-      color: gold
-    &.sn-16, &.sn-17, &.sn-18, &.sn-19
-      color: magenta
-    &.sn-20
-      color: magenta
-      font-weight: bold
+.streaktext
+  display: inline-block
+  margin-left: 1vw
+  opacity: .7
+  &.sn-1, &.sn-2, &.sn-3, &.sn-4, &.sn-5
+    color: green
+  &.sn-6, &.sn-7, &.sn-8, &.sn-9, &.sn-10
+    color: orange
+  &.sn-11, &.sn-12, &.sn-13, &.sn-14, &.sn-15
+    color: gold
+  &.sn-16, &.sn-17, &.sn-18, &.sn-19
+    color: magenta
+  &.sn-20
+    color: magenta
+    font-weight: bold
 
-  color: $c2
-  table
-    border-top: 1px solid rgba(silver, .3)
-    font-size: .8em
-    width: 100%
-    th
-      width: 30%
-      text-align: left
-    td.tright
-      text-align: right
 
 .backend-content.entroment-card
   @include entroment-body-box

@@ -101,6 +101,8 @@ module Plugins
       end
 
       def rate(rating)
+        rating = [[rating.to_i, 1].max, RatingMax].min
+
         @easiness_factor = calculate_easing(rating, @easiness_factor)
 
         if rating >= 3

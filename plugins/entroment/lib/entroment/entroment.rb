@@ -6,6 +6,7 @@ module Plugins
       LogFields = [:easiness_factor, :repetition_count, :incorrect_count, :interval, :rating, :cardid]
       attr_reader *LogFields
 
+      alias :rated :rating
       def initialize(**hash)
         @date = Time.now
         LogFields.each do |lf|

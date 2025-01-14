@@ -1,1 +1,13 @@
-hello from entroment::sessionend
+%h1= t.be.topics.entroment.sessionend
+
+.backend-listing.entroment.entroment-report
+
+  - pager.each do |card, logentry|
+    .backend-list-entry.entroment-report-entry{"class": "rated-#{logentry.rated}"}
+      .part-card
+        %p= card.entry.short_content
+      .part-stats
+        = render "cardpreview", card: card, deck: deck
+      .part-rating
+        = logentry.rated
+= pager.navigation

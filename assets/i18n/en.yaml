@@ -24,6 +24,13 @@ form:
     ident_suggestion: week number
 
 be:
+  entroment:
+    last_reviewed: Last Reviewed
+    repetition_count: Streak
+    correct_count: Total Correct
+    incorrect_count: Total Incorrect
+    interval: Interval
+    easiness_factor: Easiness
   ask:
     destroy: Are you really sure to delete?
     archive: Are you really sure to archive?
@@ -134,6 +141,7 @@ be:
       create: Create
       card: Rate
       session: Session
+      sessionend: Session Report
 
   help:
     ident: "<strong>Final</strong> unique (!) identifier"

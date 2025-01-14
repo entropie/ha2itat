@@ -23,7 +23,8 @@ module Ha2itat::Slices
 
           if session = deck.sessions[sessionid]
             ohash.merge!(sessionid: session.id)
-            session.transaction do |scard, sssn|
+            session.transaction do |sssn|
+              scard = sssn.deal!
               sssn.rate(scard, rating.to_i)
             end
             res.redirect_to path(:backend_entroment_session, ohash)

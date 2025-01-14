@@ -10,7 +10,7 @@ module Plugins
         session_list = Dir.glob("%s/sessions/*.yaml"  % deck.path).map do |deckfile|
           yaml_load(file: deckfile)
         end
-        ret = new.push(*session_list)
+        ret = new.push(*session_list.sort_by{ |s| s.created_at }.reverse)
       end
 
       def [](sid)
@@ -99,6 +99,16 @@ module Plugins
         card_to_deal
       end
 
+      def session_score
+        answered_count = total_count - remaining_count
+        return 0 if answered_count.zero?
+
+        accuracy = correct_count.to_f / answered_count
+        progress = answered_count.to_f / total_count
+        score = 5 * accuracy * progress
+        score.round(2)
+      end
+
       def add(*cards)
         cards.each do |cardtoadd|
           next if cardids.size >= length
@@ -153,8 +163,19 @@ module Plugins
         YAML::dump(foryaml)
       end
 
+      def verbose_link(url:)
+        cls = due_left? ? "unfinished" : "finished"
+        short_stats = "<span class='%s'>%s/%s</span>" % [cls, done_count, total_count]
+        "<a href='%s'>%s</a> %s" % [url, created_at.strftime("%y%m-%d&mdash;%H:%M"), short_stats]
+      end
+
       def write
         Ha2itat.adapter(:entroment).write_session(dup.prepare_for_save)
+        self
+      end
+
+      def destroy
+        Ha2itat.adapter(:entroment).destroy_session(self)
         self
       end
 
@@ -165,10 +186,21 @@ module Plugins
       def transaction(&blk)
         raise "no block given" unless block_given?
         begin
-          yield [deal!, self]
+          yield self
         ensure
           write
         end
+      end
+
+      def report(&blk)
+        result = []
+        log.each do |logentry|
+          card = deck.cards[logentry.cardid]
+          pair = [card, logentry]
+          result << pair
+          yield *pair if block_given?
+        end
+        result
       end
     end
   end

@@ -167,6 +167,11 @@ module Plugins
             session
           end
 
+          def destroy_session(session)
+            Ha2itat.log("entroment: session:destroy #{session.id}:#{session.file}")
+            ::FileUtils.rm_rf(session.file, verbose: true)
+          end
+
           def update(entry, **param_hash)
             params = param_hash
             params = param_hash.merge(user_id: @user.id) if @user
@@ -175,7 +180,7 @@ module Plugins
             entry.update(param_hash)
             tags = entry.tags
 
-            # remove entry from cards if no longer tagged
+            # remove entry from deck if no longer tagged
             oldtags.each do |oldtag|
               unless tags.include?(oldtags)
                 deck = decks[oldtag.to_s]

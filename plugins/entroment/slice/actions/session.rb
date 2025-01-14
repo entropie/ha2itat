@@ -18,7 +18,7 @@ module Ha2itat::Slices
           session = nil
 
           if not sessionid
-            sopts = req.params[:length] ? { length: req.params[:length] } : {  }
+            sopts = req.params[:length] ? { length: req.params[:length] } : { }
             session = deck.new_session(**sopts)
             sessionid = session.id
             res.redirect_to(path(:backend_entroment_session, sessionid: sessionid, name: req.params[:name]))

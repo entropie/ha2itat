@@ -30,12 +30,20 @@ module Plugins
         @decks.each(&blk)
       end
 
+      def map(&blk)
+        @decks.map(&blk)
+      end
+
       def size
         @decks.size
       end
 
       def to_a
         @decks
+      end
+
+      def read_all
+        @decks.map!{ |d| d.read }
       end
 
       def for(entry)
@@ -177,7 +185,7 @@ module Plugins
         Dir.glob("%s/card*" % path).each do |a|
           @cards.push(yaml_load(file: a))
         end
-        @cards
+        self
       end
 
       def remove(entry)

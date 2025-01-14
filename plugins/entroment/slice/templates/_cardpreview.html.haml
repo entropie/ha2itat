@@ -1,23 +1,13 @@
 .cardpreview
-  = card.html_stats(show_time: !(rated rescue nil))
-  %table{style: "display:none"}
-    %tr
-      %th
-        last_reviewed
-      %td.tright
-
-
-        %time= card.last_reviewed.to_human_time
-        &mdash;
-        %time= RelativeTime.in_words(card.last_reviewed)
-
+  .lines
     - [:repetition_count, :correct_count, :incorrect_count, :interval, :easiness_factor].each do |fieldname|
-      %tr
-        %th
-          = fieldname
-        %td.tright
+      .line
+        .left
+          = t.be.entroment.send(fieldname)
+        .right{"class": "field-#{fieldname}"}
           = card.send(fieldname)
-    %tr
-      %th
-      %td.tright
-        = nlink(path(:backend_entroment_card, cardid: card.id, name: deck.name, collapsed: true), "rate")
+    .line
+      .left
+        = t.be.entroment.last_reviewed
+      .right
+        %time= RelativeTime.in_words(card.last_reviewed)

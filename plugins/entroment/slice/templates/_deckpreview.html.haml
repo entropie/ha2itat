@@ -1,2 +1,9 @@
 .backend-list-head
   %a.deck-link{href: path(:backend_entroment_deck, name: deck.name)}= deck.name
+  %small= "(%s)" % deck.size
+.backend-list-entroment-sessions
+  %ul
+    - deck.sessions.each do |ss|
+      %li
+        = ss.verbose_link(url: path(:backend_entroment_session, sessionid: ss.id, name: deck.name))
+        = nlink(path(:backend_entroment_session_destroy, sessionid: ss.id, name: deck.name, goto: path(:backend_entroment_decks, name: deck.name)), t.icons.destroy, onclick: "return confirm('%s')" % t.be.ask.destroy)

@@ -87,12 +87,14 @@ module Plugins
 
       def to_html(cls: "entroment-entry", collapsed: false)
         content_to_handle = content
-        if collapsed
-          content_to_handle = content_to_handle.split("---").first
-        end
+        content_to_handle = short_content if collapsed
 
         html_content = Ha2itat::Renderer.render(:markdown, content_to_handle)
         "<div class='%s' id='%s'>%s</div>" % [cls, "ee-#{id}", html_content]
+      end
+
+      def short_content
+        content.split("---").first
       end
 
       def update(ohash)
