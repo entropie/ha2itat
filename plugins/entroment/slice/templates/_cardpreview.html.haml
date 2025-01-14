@@ -1,6 +1,5 @@
 .cardpreview
-  = card.html_stats
-
+  = card.html_stats(show_time: !(rated rescue nil))
   %table{style: "display:none"}
     %tr
       %th

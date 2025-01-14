@@ -40,11 +40,16 @@ $rColor1: red
   padding: 5px
   .stats-line
     white-space: nowrap
+    .field-total
+      color: darken($c5, 20)
     .field-correct
       color: $rColor4
     .field-incorrect
       color: $rColor2
-
+  > *:only-child
+    flex-basis: 100%
+    text-align: center
+    font-size: 1.5em
 
 .cardid-link
   color: silver

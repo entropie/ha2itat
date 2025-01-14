@@ -192,10 +192,12 @@ module Plugins
         encouragements[[repetition_count, encouragements.size].min - 1]
       end
 
-      def html_stats
+      def html_stats(show_time: true)
         html_block = "<div class='card-stats'>%s%s</div>"
         numbers = "123"
         dateline   = "<div class='date-line'><time title='%s'>%s</time></div>" % [last_reviewed.to_human_time, RelativeTime.in_words(last_reviewed)]
+
+        dateline = "" unless show_time
 
         total_count = correct_count+incorrect_count
         percent = ((correct_count.to_f/total_count) * 100).round(1)
