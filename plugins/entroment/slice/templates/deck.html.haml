@@ -1,8 +1,11 @@
 %h1
   = t.be.topics.entroment.deck
+  = nlink(path(:backend_entroment_session_start, name: deck.name), t.icons.play, "class": "session-start-link", title: "Start Session")
+
   %small 
     = deck.name
     = "(%s/<strong>%s</strong>)" % [pager.current_items.size, deck.size]
+
 
 .backend-listing.entroment
   - pager.each do |card|

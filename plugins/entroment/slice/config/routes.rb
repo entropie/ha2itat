@@ -14,6 +14,11 @@ module Ha2itat::Slices::Entroment
         get "/deck/:name",     to: "deck", as: :deck
         get "/deck/:name/card/:cardid", to: "card", as: :card
         get "/deck/:name/rate/:cardid", to: "rate", as: :rate
+
+        get "/sessions",       to: "sessions", as: :sessions
+        get "/deck/:name/session/",  to: "session", as: :session_start
+        get "/deck/:name/session/finalize",  to: "sessionend", as: :session_end
+        get "/deck/:name/session/:sessionid",  to: "session", as: :session
       end
     end
 

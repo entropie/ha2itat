@@ -66,6 +66,22 @@ module Plugins
         @cardids ||= []
       end
 
+      def done_count
+        log.size
+      end
+
+      def remaining_count
+        cardids.size
+      end
+
+      def total_count
+        remaining_count + done_count
+      end
+
+      def due_left?
+        not @cardids.empty?
+      end
+
       def cards
         @cards = cardids.map{ |cid| deck.cards[cid] }
       end
@@ -138,7 +154,7 @@ module Plugins
       end
 
       def write
-        Ha2itat.adapter(:entroment).write_session(self)
+        Ha2itat.adapter(:entroment).write_session(dup.prepare_for_save)
         self
       end
 
@@ -149,9 +165,9 @@ module Plugins
       def transaction(&blk)
         raise "no block given" unless block_given?
         begin
-          until  cardids.empty?
+          # until cardids.empty?
             yield [deal!, self]
-          end
+          # end
         ensure
           write
         end

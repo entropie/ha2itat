@@ -8,7 +8,7 @@ module Ha2itat::Slices::Entroment
 
     config.renderer_options = { escape_html: false }
 
-    expose :pager, :entries, :entry, :decks, :deck, :card, :cards, :collapsed, :rating, :rated
+    expose :pager, :entries, :entry, :decks, :deck, :card, :cards, :collapsed, :rating, :rated, :sessionid, :s
 
   end
 end

@@ -133,7 +133,7 @@ be:
       deck: Deck
       create: Create
       card: Rate
-
+      session: Session
 
   help:
     ident: "<strong>Final</strong> unique (!) identifier"

@@ -7,19 +7,35 @@ module Ha2itat::Slices
           required(:rating).filled(:integer)
           required(:cardid).filled(:string)
           required(:name).filled(:string)
+          optional(:sessionid).filled(:string)
         end
 
         def handle(req, res)
           deck = awu(res) { |adptr| adptr.decks[req.params[:name]] }
           card = deck.cards[req.params[:cardid]]
           rating = req.params[:rating]
-          if req.params.valid?
+          sessionid = req.params[:sessionid]
+
+
+          halt 500 unless req.params.valid?
+
+          ohash = { name: deck.name, cardid: card.id, rated: rating }
+
+          if session = deck.sessions[sessionid]
+            ohash.merge!(sessionid: session.id)
+            session.transaction do |scard, sssn|
+              sssn.rate(scard, rating.to_i)
+            end
+            res.redirect_to path(:backend_entroment_session, ohash)
+          else
             card.rate(rating.to_i)
-            res.redirect_to path(:backend_entroment_card, name: deck.name, cardid: card.id, rated: rating)
+            res.redirect_to path(:backend_entroment_card, ohash)
           end
-          halt 500
+
         end
+
       end
     end
   end
 end
+
