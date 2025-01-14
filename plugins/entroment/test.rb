@@ -286,7 +286,6 @@ class TestSession < Minitest::Test
     sessionid = session.id
 
     loaded_session = @deck.sessions[sessionid]
-    pp loaded_session.cards
 
     loaded_session.transaction do |session|
       card = session.deal!
