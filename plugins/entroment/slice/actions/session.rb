@@ -16,8 +16,8 @@ module Ha2itat::Slices
           deck = awu(res) { |adptr| adptr.decks[req.params[:name]] }
           sessionid = req.params[:sessionid]
           session = nil
-          if not sessionid
 
+          if not sessionid
             sopts = req.params[:length] ? { length: req.params[:length] } : {  }
             session = deck.new_session(**sopts)
             sessionid = session.id

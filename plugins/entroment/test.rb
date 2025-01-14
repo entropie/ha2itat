@@ -305,6 +305,9 @@ class TestSession < Minitest::Test
       session.rate(card, 1)
     end
     assert loaded_session.cards.size == 3
+    assert loaded_session.done_count == 1
+    assert loaded_session.total_count == 4
+    assert loaded_session.remaining_count == 3
     assert loaded_session.log.size == 1
   end
 
