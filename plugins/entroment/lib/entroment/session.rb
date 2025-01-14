@@ -2,7 +2,16 @@ module Plugins
   module Entroment
 
     class Sessions < Array
-     def self.yaml_load(file:)
+      KEEP_SESSION_NUMBER = 8
+
+      def self.keep_session_number=(n)
+        @keep_session_number = n
+      end
+      def self.keep_session_number
+        @keep_session_number || KEEP_SESSION_NUMBER
+      end
+
+      def self.yaml_load(file:)
         Psych.unsafe_load(::File.readlines(file).join)
       end
 
@@ -11,6 +20,16 @@ module Plugins
           yaml_load(file: deckfile)
         end
         ret = new.push(*session_list.sort_by{ |s| s.created_at }.reverse)
+        ret.truncated
+        # ret
+      end
+
+      def truncated
+        result = Sessions.new.push(*first(Sessions.keep_session_number))
+        (self - result).each do |session_to_truncate|
+          session_to_truncate.destroy
+        end
+        result
       end
 
       def [](sid)
@@ -25,6 +44,10 @@ module Plugins
 
       def goods
         select{ |logentry| logentry.rating >= 3 }
+      end
+
+      def bads
+        select{ |logentry| logentry.rating <= 2 }
       end
     end
 
@@ -82,8 +105,16 @@ module Plugins
         remaining_count + done_count
       end
 
+      def progress_percent
+        (done_count.to_f/total_count * 100).round
+      end
+
       def correct_count
         log.goods.size
+      end
+
+      def incorrect_count
+        log.bads.size
       end
 
       def due_left?
@@ -112,7 +143,12 @@ module Plugins
         return 0 if answered_count.zero?
         accuracy = correct_count.to_f / answered_count
         progress = answered_count.to_f / total_count
-        score = 5 * accuracy * progress
+
+        penalty = 0.5 * (1 - progress)
+
+        # score = 5 * accuracy * progress
+        score = (5 * accuracy * progress) - penalty
+          
         score.round
       end
 
@@ -172,8 +208,10 @@ module Plugins
 
       def verbose_link(url:)
         cls = due_left? ? "unfinished" : "finished"
-        short_stats = "<span class='%s'>%s/%s</span>" % [cls, done_count, total_count]
-        "<a href='%s'>%s</a> %s" % [url, created_at.strftime("%y%m-%d&mdash;%H:%M"), short_stats]
+        short_progress = "<span class='%s'>Progress: %s/%s <i>%s%%</i></span>" % [cls, done_count, total_count, progress_percent]
+        short_stats = "<strong class='goods-and-wrongs'><span class='rights'>%s</span>/<span class='wrongs'>%s</span></strong>" % [
+          correct_count, incorrect_count]
+        "<strong class='session-score score-#{session_score}'>%s</strong> <a href='%s'>%s</a>%s %s" % [session_score, url, created_at.strftime("%y%m-%d&mdash;%H:%M"), short_progress, short_stats]
       end
 
       def write
