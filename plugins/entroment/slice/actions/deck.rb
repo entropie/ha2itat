@@ -8,7 +8,7 @@ module Ha2itat::Slices
         def handle(req, res)
           deck = awu(res) { |adptr| adptr.decks[req.params[:name]] }
 
-          cards = deck.cards
+          cards = deck.cards.by_due
           pager = Pager.new(req.params.to_hash, cards)
 
           pager.link_proc = -> (n) { routes.path(:backend_entroment_deck, name: req.params[:name], page: n) }
