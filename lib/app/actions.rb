@@ -11,7 +11,8 @@ module ActionMethodsCommon
 
   def set_default_meta(req, res)
     hash = {}
-    if req.env["REQUEST_PATH"].split("/")[1] == "backend"
+    if req.env["REQUEST_PATH"] and
+      req.env["REQUEST_PATH"].split("/")[1] == "backend"
       hash[:title] = "[be]"
     end
     set_meta(view, req, **hash)
