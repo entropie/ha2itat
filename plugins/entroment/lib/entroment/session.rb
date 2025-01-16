@@ -2,7 +2,7 @@ module Plugins
   module Entroment
 
     class Sessions < Array
-      KEEP_SESSION_NUMBER = 8
+      KEEP_SESSION_NUMBER = 10
 
       def self.keep_session_number=(n)
         @keep_session_number = n
