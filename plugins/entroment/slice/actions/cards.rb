@@ -10,10 +10,10 @@ module Ha2itat::Slices
           pager = Pager.new(req.params.to_hash, entries)
 
          if pager.current_items.size == 0 and pager.current_page > 1
-           res.redirect_to(path(:backend_entroment_index, page: "last"))
+           res.redirect_to(path(:backend_entroment_cards, page: "last"))
          end
 
-         pager.link_proc = -> (n) { routes.path(:backend_entroment_index, page: n) }
+         pager.link_proc = -> (n) { routes.path(:backend_entroment_cards, page: n) }
                    
          res.render(view, pager: pager)
         end

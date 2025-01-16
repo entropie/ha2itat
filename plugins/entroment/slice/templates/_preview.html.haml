@@ -1,7 +1,6 @@
 .entroment-preview
 
-  .backend-list-content.preview
-    %code= entry.content
+  .backend-list-content.preview= entry.to_html(cls: "entroment-card-entry")
 
   .backend-list-controls.floating
     = render "controls", entry: entry, deck: (deck rescue nil)

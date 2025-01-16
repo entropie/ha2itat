@@ -1,28 +1,27 @@
 module Ha2itat::Slices::Entroment
   class Routes < Hanami::Routes
     scope "backend" do
-      scope "entroment" do
-        get "/",               to: "index",  as: :index
-        get "/cards",          to: "cards",  as: :cards
-        get "/show/:id",       to: "show",   as: :show
-        get "/edit/:id",       to: "edit",   as: :edit
-        post "/edit/:id",      to: "edit"
-        get "/destroy/:id",    to: "destroy",as: :destroy
-        get "/create",         to: "create", as: :create
-        post "/create",        to: "create"
+      scope  "entroment" do
+        get  "/",               to: "index",  as: :index
+        get  "/cards",          to: "cards",  as: :cards
+        get  "/show/:id",       to: "show",   as: :show
+        get  "/edit/:id",       to: "edit",   as: :edit
+        post "/edit/:id",       to: "edit"
+        get  "/destroy/:id",    to: "destroy",as: :destroy
+        get  "/create",         to: "create", as: :create
+        post "/create",         to: "create"
 
-        get "/decks",          to: "decks",  as: :index
-        get "/decks",          to: "decks",  as: :decks
+        get  "/decks",                                to: "decks",  as: :decks
 
-        get "/deck/:name",     to: "deck",   as: :deck
-        get "/deck/:name/card/:cardid", to: "card", as: :card
-        get "/deck/:name/rate/:cardid", to: "rate", as: :rate
+        get  "/deck/:name",                           to: "deck",   as: :deck
+        get  "/deck/:name/card/:cardid",              to: "card", as: :card
+        get  "/deck/:name/rate/:cardid",              to: "rate", as: :rate
 
-        get "/sessions",       to: "sessions", as: :sessions
-        get "/deck/:name/session/",  to: "session", as: :session_start
-        get "/deck/:name/session/finalize",  to: "sessionend", as: :session_end
-        get "/deck/:name/session/:sessionid",  to: "session", as: :session
-        get "/deck/:name/sessiondestroy/:sessionid",  to: "sessiondestroy", as: :session_destroy
+        get  "/sessions",                             to: "sessions", as: :sessions
+        get  "/deck/:name/session/",                  to: "session", as: :session_start
+        get  "/deck/:name/session/finalize",          to: "sessionend", as: :session_end
+        get  "/deck/:name/session/:sessionid",        to: "session", as: :session
+        get  "/deck/:name/sessiondestroy/:sessionid", to: "sessiondestroy", as: :session_destroy
       end
     end
 

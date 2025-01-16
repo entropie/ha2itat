@@ -4,6 +4,7 @@ module Ha2itat::Slices
       class Index < Action
 
         def handle(req, res)
+          res.redirect_to(path(:backend_entroment_decks))
           # res.render(view)
         end
       end
