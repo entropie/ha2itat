@@ -133,7 +133,8 @@ be:
       index: Overview
       show: Show
     entroment:
-      index: Entroment <small>cards</small>
+      index: Dashboard
+      cards: Entroment <small>cards</small>
       show: Fragment
       edit: Edit
       decks: Decks

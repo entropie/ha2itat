@@ -160,7 +160,7 @@ module Plugins
           def write_session(session)
             sessiondir = session.path
             ::FileUtils.mkdir_p(sessiondir, verbose: true) unless ::File.exist?(sessiondir)
-            Ha2itat.log("entroment: session:write #{session.id}:#{session.file}")
+            Ha2itat.log("entroment session:write #{session.id}:#{session.file}")
             session.updated_at = Time.now
             yaml = YAML::dump(session.prepare_for_save.dup)
             ::File.open(session.file, "w+"){ |fp| fp.puts(yaml) }
@@ -168,7 +168,7 @@ module Plugins
           end
 
           def destroy_session(session)
-            Ha2itat.log("entroment: session:destroy #{session.id}:#{session.file}")
+            Ha2itat.log("entroment session:destroy #{session.id}:#{session.file}")
             ::FileUtils.rm_rf(session.file, verbose: true)
           end
 

@@ -155,7 +155,7 @@ module Plugins
         @session ||=
           begin
             session = Session.new(self, **opts)
-            Ha2itat.log("creating session #{session.id} #{PP.pp(opts, '')}")
+            Ha2itat.log("entroment session:start #{session.id} #{PP.pp(opts, '')}")
             cards.by_due.each do |card|
               session.add(card)
             end
@@ -170,7 +170,7 @@ module Plugins
 
       def create
         unless exist?
-          Ha2itat.log("deck: creating #{name}")
+          Ha2itat.log("entroment deck:create #{name}")
           FileUtils.mkdir_p(path, verbose: true)
         end
         self

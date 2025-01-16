@@ -2,7 +2,8 @@ module Ha2itat::Slices::Entroment
   class Routes < Hanami::Routes
     scope "backend" do
       scope "entroment" do
-        get "/cards",          to: "index",  as: :cards
+        get "/",               to: "index",  as: :index
+        get "/cards",          to: "cards",  as: :cards
         get "/show/:id",       to: "show",   as: :show
         get "/edit/:id",       to: "edit",   as: :edit
         post "/edit/:id",      to: "edit"

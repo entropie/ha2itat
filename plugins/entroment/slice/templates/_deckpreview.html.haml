@@ -1,7 +1,9 @@
 .backend-list-head
 
+  = nlink(path(:backend_entroment_session_start, name: deck.name), t.icons.play, "class": "session-start-link", title: "Start Session")
   %a.deck-link{href: path(:backend_entroment_deck, name: deck.name)}= deck.name
   %small= "(%s)" % deck.size
+
 
 .backend-list-entroment-sessions
   %ul

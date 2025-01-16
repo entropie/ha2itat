@@ -26,8 +26,13 @@ module Plugins
 
       def truncated
         result = Sessions.new.push(*first(Sessions.keep_session_number))
-        (self - result).each do |session_to_truncate|
-          session_to_truncate.destroy
+        sessions_to_truncate = self - result
+
+        if sessions_to_truncate.size > 0
+          Ha2itat.log("entroment session:truncate #{sessions_to_truncate.size} sessions to truncate")
+          sessions_to_truncate.each do |session_to_truncate|
+            session_to_truncate.destroy
+          end
         end
         result
       end
@@ -163,9 +168,9 @@ module Plugins
       def handle_rated_card(card, resulthash)
         if resulthash[:rating] < 3
           if log.card_already_rated?(resulthash[:cardid])
-            Ha2itat.log("session: card rating < 3, but already appended once this session: skip")
+            Ha2itat.log("entroment session: card rating < 3, but already appended once this session: skip")
           else
-            Ha2itat.log("session: card rating < 3, appending to current session")
+            Ha2itat.log("entroment session: card rating < 3, appending to current session")
             cardids.append(resulthash[:cardid])
           end
         end
