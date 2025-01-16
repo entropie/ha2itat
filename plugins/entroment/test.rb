@@ -153,6 +153,22 @@ class TestDeck < Minitest::Test
     end
   end
 
+  def test_remove_card_after_tag_update_multiple
+    @adapter.with_user(@user) do |adapter|
+      adapter.create(content: TESTCONTENTS[1],             tags: ["deck:foobar111", "deck:kekelala123"])
+      adapter.create(content: TESTCONTENTS[1],             tags: ["deck:foobar111", "deck:kekelala123"])
+      testentry = adapter.create(content: TESTCONTENTS[1], tags: ["deck:foobar111", "deck:kekelala123"])
+
+      assert testentry.decks.size == 2
+      newentry  = adapter.update(testentry, tags: ["deck:kekelala123"])
+
+      assert newentry.decks.size == 1
+      exit
+    end
+  end
+
+
+
   def test_get_multiple_cards_for_entries
     testentry = @adapter.with_user(@user) do |adapter|
       adapter.create(content: TESTCONTENTS[1], tags: ["deck:foobar23", "deck:muh23", "keke"])

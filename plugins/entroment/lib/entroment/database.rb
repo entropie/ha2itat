@@ -115,6 +115,7 @@ module Plugins
 
           def synchronize_decks(entry)
             decks2sync = decks.for(entry)
+            # add card to deck for entry
             decks2sync.each do |d2s|
               d2s.sync(entry)
             end
@@ -145,7 +146,7 @@ module Plugins
           end
 
           def remove_card(card)
-            Ha2itat.log("entroment card:remove #{card.id}/#{card.entry.id} by #{user.name}")
+            Ha2itat.log("entroment card:remove #{card.id} from deck:#{card.deck.name} by #{user.name}")
             ::FileUtils.rm_rf(card.path, verbose: true)
           end
 
@@ -181,11 +182,9 @@ module Plugins
             tags = entry.tags
 
             # remove entry from deck if no longer tagged
-            oldtags.each do |oldtag|
-              unless tags.include?(oldtags)
-                deck = decks[oldtag.to_s]
-                deck.remove(entry) if deck
-              end
+            oldtags.select{ |ot| not tags.include?(ot) }.each do |oldtag|
+              deck = decks[oldtag.to_s]
+              deck.remove(entry) if deck
             end
             store(entry)
           end
