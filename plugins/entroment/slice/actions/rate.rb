@@ -11,13 +11,12 @@ module Ha2itat::Slices
         end
 
         def handle(req, res)
+          halt 422 unless req.params.valid?
+
           deck = awu(res) { |adptr| adptr.decks[req.params[:name]] }
           card = deck.cards[req.params[:cardid]]
           rating = req.params[:rating]
           sessionid = req.params[:sessionid]
-
-
-          halt 500 unless req.params.valid?
 
           ohash = { name: deck.name, cardid: card.id, rated: rating }
 
