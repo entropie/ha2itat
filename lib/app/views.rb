@@ -17,7 +17,7 @@ module ViewMethodsCommon
   end
 
   def current_path
-    request_env["REQUEST_PATH"]
+    request_env["REQUEST_PATH"] || "/"
   end
 
   def current_uri
@@ -27,7 +27,6 @@ module ViewMethodsCommon
   def active_segment
     current_path.split("/")[1]
   end
-
 
   def current_segment(seg)
     active_segment == seg.to_s
