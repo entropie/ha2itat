@@ -6,6 +6,7 @@
       %li= nlink(:backend_user_index, t.icons.users)
   %ul.slice-list
     - [:snippets, :galleries, :blog, :tumblog, :booking, :zettel, :entroment, :bagpipe].each do |slice|
-      - if Ha2itat.quart.plugins.enabled?(slice)
-        %li= nlink("backend_#{slice}_index".to_sym, t.be.menu.send(slice))
+      - if session_user.admin? or session_user.part_of?(slice)
+        - if Ha2itat.quart.plugins.enabled?(slice)
+          %li= nlink("backend_#{slice}_index".to_sym, t.be.menu.send(slice))
 

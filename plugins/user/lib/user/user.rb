@@ -96,8 +96,9 @@ module Plugins
 
       def part_of?(grp)
         grp = Groups.const_get(grp.to_s.capitalize) if grp.kind_of?(String) or grp.kind_of?(Symbol)
-
         is_grouped? and groups =~ grp and true
+      rescue
+        false
       end
 
       def id

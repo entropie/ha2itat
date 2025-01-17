@@ -37,6 +37,21 @@ module Ha2itat
       Plugins.write_javascript_include_file!
     end
 
+    def interactive_plugins
+      [:snippets, :galleries, :tumblog, :zettel, :bagpipe, :entroment]
+    end
+
+    def generate_user_groups
+      if Ha2itat.quart.plugins.enabled?(:user)
+        interactive_plugins.each do |loaded_plugin|
+          cname = loaded_plugin.name.to_s.capitalize
+          r = Class.new(::Plugins::User::Groups::UserGroup)
+          ::Plugins::User::Groups.const_set(cname, r)
+        end
+      end
+
+    end
+
     # every loaded plugin might provide a `plugin.js' in its root
     # collect possible existing files in a list and write an include file to
     # apps assets
