@@ -5,9 +5,9 @@
   - pager.each do |card, logentry|
     .backend-list-entry.entroment-report-entry{"class": "rated-#{logentry.rated}"}
       .part-card
-        %p= card.entry.short_content
+        %p= card.short_content
       .part-stats
-        = render "cardpreview", card: card, deck: deck
+        = render "cardpreview", card: card, deck: deck, entry: logentry
       .part-rating
         = logentry.rated
 = pager.navigation

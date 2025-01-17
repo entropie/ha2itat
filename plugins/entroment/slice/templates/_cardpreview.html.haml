@@ -1,13 +1,23 @@
 .cardpreview
   .lines
+    .line
+      .left
+        Card
+
+      .right
+        - if card.id
+          = nlink(path(:backend_entroment_card, name: deck.name, cardid: card.id), card.id)
+        - else
+          %em= entry.cardid
     - [:repetition_count, :correct_count, :incorrect_count, :interval, :easiness_factor].each do |fieldname|
       .line
         .left
           = t.be.entroment.send(fieldname)
         .right{"class": "field-#{fieldname}"}
-          = card.send(fieldname)
+          = entry.send(fieldname)
     .line
       .left
         = t.be.entroment.last_reviewed
       .right
-        %time= RelativeTime.in_words(card.last_reviewed)
+        - if entry.last_reviewed
+          %time= RelativeTime.in_words(entry.last_reviewed)

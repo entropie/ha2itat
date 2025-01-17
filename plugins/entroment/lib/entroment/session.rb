@@ -245,7 +245,7 @@ module Plugins
       def report(&blk)
         result = []
         log.each do |logentry|
-          card = deck.cards[logentry.cardid]
+          card = deck.cards[logentry.cardid] || MissingCard.new(deck)
           pair = [card, logentry]
           result << pair
           yield *pair if block_given?

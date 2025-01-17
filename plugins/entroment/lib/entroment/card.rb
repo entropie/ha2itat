@@ -165,6 +165,18 @@ module Plugins
         entry.to_html(collapsed: collapsed)
       end
 
+      def content
+        entry.content
+      rescue
+        "#{entry_id} missing"
+      end
+
+      def short_content
+        entry.short_content
+      rescue
+        content
+      end
+
       def encouragements
         [
           "Nice!",
@@ -228,6 +240,36 @@ module Plugins
         else
           yaml_load(file: path)
         end
+      end
+    end
+
+    class MissingCard < Card
+      def initialize(deck)
+        @deck = deck
+      end
+
+      def entry_id
+        @card_id
+      end
+
+      def entry
+        nil
+      end
+
+      def exist?
+        false
+      end
+
+      def read_or_setup
+        false
+      end
+
+      def read
+        false
+      end
+
+      def path
+        "/dev/null"
       end
     end
   end
