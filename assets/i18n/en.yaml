@@ -138,6 +138,7 @@ be:
       index: Dashboard
       cards: Entroment <small>cards</small>
       show: Fragment
+      import: Import
       edit: Edit
       decks: Decks
       deck: Deck
@@ -234,6 +235,8 @@ icons:
     i: map-pin
   find: !!icon
     i: search
+  import: !!icon
+    i: file-text
 
 
 robots: !!pl

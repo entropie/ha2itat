@@ -1,0 +1,7 @@
+%h1
+  = t.be.topics.entroment.import
+  %small #{deck.name}
+
+.backend-content.import
+  = render "import_form", deck: deck, action: path(:backend_entroment_deckimport, name: deck.name)
+

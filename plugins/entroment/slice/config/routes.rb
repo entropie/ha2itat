@@ -13,6 +13,9 @@ module Ha2itat::Slices::Entroment
 
         get  "/decks",                                to: "decks",  as: :decks
 
+        get  "/import/deck/:name",                    to: "import",   as: :deckimport
+        post "/import/deck/:name",                    to: "import"
+
         get  "/deck/:name",                           to: "deck",   as: :deck
         get  "/deck/:name/card/:cardid",              to: "card", as: :card
         get  "/deck/:name/rate/:cardid",              to: "rate", as: :rate

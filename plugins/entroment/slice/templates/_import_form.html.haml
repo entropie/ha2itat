@@ -1,0 +1,5 @@
+%form{method: :post, action: action}
+  = _csrf_field
+  %div{style: "text-align: right"}
+    %input{type: :submit}
+  %textarea{style: "width:100%;min-height:80%", name: :text}
