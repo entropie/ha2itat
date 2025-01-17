@@ -25,12 +25,13 @@ form:
 
 be:
   entroment:
-    last_reviewed: Last Reviewed
+    last_reviewed: Reviewed
     repetition_count: Streak
     correct_count: Total Correct
     incorrect_count: Total Incorrect
     interval: Interval
     easiness_factor: Easiness
+    message: CCCCombo
   ask:
     destroy: Are you really sure to delete?
     archive: Are you really sure to archive?

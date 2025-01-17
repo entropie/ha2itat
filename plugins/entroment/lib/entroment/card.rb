@@ -21,6 +21,8 @@ module Plugins
 
       RatingMax = 5
 
+      include Encouragements
+
       SRFieldsDefaults = {
         last_reviewed: Time.now,
         repetition_count: 0,
@@ -100,6 +102,10 @@ module Plugins
         [1.3, old_easing + (0.1 - (rating_max - rating) * (0.08 + (rating_max - rating) * 0.02))].max.round(1)
       end
 
+      def message(repetition_count)
+        serial_encouragement(repetition_count)
+      end
+
       def rate(rating)
         rating = [[rating.to_i, 1].max, RatingMax].min
 
@@ -128,7 +134,9 @@ module Plugins
           correct_count: @correct_count,
           interval: @interval,
           easiness_factor: @easiness_factor,
-          rating: rating}
+          rating: rating,
+          message: message(@repetition_count)
+        }
         Ha2itat.log("entroment card:rate #{id}:#{deck.name}: #{PP.pp(log_hash, "").gsub("\n", "")}")
 
         log_rating(**log_hash)
@@ -161,8 +169,12 @@ module Plugins
         Psych.unsafe_load(::File.readlines(file).join)
       end
 
-      def to_html(collapsed = false)
-        entry.to_html(collapsed: collapsed)
+      def to_html(collapsed = false, cls: nil)
+        entry.to_html(cls:, collapsed: collapsed)
+      end
+
+      def html_content
+        entry.html_content
       end
 
       def content
@@ -175,35 +187,6 @@ module Plugins
         entry.short_content
       rescue
         content
-      end
-
-      def encouragements
-        [
-          "Nice!",
-          "Good job!",
-          "Keep it up!",
-          "Solid effort!",
-          "Not bad at all!",
-          "Well played!",
-          "Clean!",
-          "You're getting there!",
-          "That's the way!",
-          "Smooth move!",
-          "Big brain!",
-          "You're on fire!",
-          "Poggers!",
-          "Mega streak!",
-          "Insane!",
-          "Absolute legend!",
-          "God tier!",
-          "Unstoppable!",
-          "Omega Pog!",
-          "Giga Chad vibes!"
-        ]
-      end
-
-      def streaktext(repetition_count)
-        encouragements[[repetition_count, encouragements.size].min - 1]
       end
 
       def html_stats(show_time: true)
@@ -224,7 +207,7 @@ module Plugins
         }
         fields = fields.sort_by{ |f,k| f.to_s}.map{ |f,k| '<span class="%s">%s</span>' % ["field-#{f}", k]}
         
-        streaktxt = if repetition_count == 0 then "" else "<span class='streaktext sn-#{ [repetition_count, 20].min }'>#{streaktext(repetition_count)}</span> <small>(#{fields[3]})</small>" end
+        streaktxt = if repetition_count == 0 then "" else "#{html_encouragement(repetition_count)} <small>(#{fields[3]})</small>" end
 
         statsline = "%s/%s/<strong>%s</strong> <small>(%s%%)</small> %s" % [fields[0], fields[1], fields[4], fields[2], streaktxt]
         statsline   = "<div class='stats-line'>%s</div>" % [statsline]

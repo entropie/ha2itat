@@ -20,4 +20,10 @@
         = t.be.entroment.last_reviewed
       .right
         - if entry.last_reviewed
-          %time= RelativeTime.in_words(entry.last_reviewed)
+          %time= entry.to_human_time
+    .line
+      .left
+        Message
+
+      .right
+        = entry.html_encouragement

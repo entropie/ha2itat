@@ -1,3 +1,4 @@
+require_relative "entroment/encouragement"
 require_relative "entroment/entroment"
 require_relative "entroment/entry"
 require_relative "entroment/deck"

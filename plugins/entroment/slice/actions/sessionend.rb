@@ -18,7 +18,7 @@ module Ha2itat::Slices
           report = session.report
           pager = Pager.new(req.params.to_hash, report)
           pager.link_proc = -> (n) { routes.path(:backend_entroment_session_end, name: req.params[:name], sessionid: sessionid, page: n) }
-          res.render(view, pager: pager, deck: deck)
+          res.render(view, pager: pager, deck: deck, s: session)
         end
       end
     end

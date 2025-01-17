@@ -1,11 +1,16 @@
-%h1= t.be.topics.entroment.sessionend
+%h1
+  = t.be.topics.entroment.sessionend
+  %br
+  %small
+    = "%s Uhr " % s.created_at.to_human_time
+    = "&mdash; %s" % RelativeTime.in_words(s.created_at)
 
 .backend-listing.entroment.entroment-report
 
   - pager.each do |card, logentry|
     .backend-list-entry.entroment-report-entry{"class": "rated-#{logentry.rated}"}
       .part-card
-        %p= card.short_content
+        = card.to_html(cls: "render")
       .part-stats
         = render "cardpreview", card: card, deck: deck, entry: logentry
       .part-rating
