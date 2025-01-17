@@ -9,6 +9,10 @@
 
   - pager.each do |card, logentry|
     .backend-list-entry.entroment-report-entry{"class": "rated-#{logentry.rated}"}
+      - if logentry.mark_done_twice
+        .part-twice
+          &#x2022;
+
       .part-card
         = card.to_html(cls: "render")
       .part-stats

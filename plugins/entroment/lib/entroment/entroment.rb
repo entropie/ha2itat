@@ -6,6 +6,12 @@ module Plugins
       LogFields = [:easiness_factor, :repetition_count, :correct_count, :incorrect_count, :interval, :rating, :cardid, :message]
       attr_reader *LogFields
 
+      attr_accessor :mark_done_twice
+
+      def mark_done_twice
+        @mark_done_twice || false
+      end
+
       include Encouragements
 
       alias :rated :rating
@@ -19,7 +25,6 @@ module Plugins
       def last_reviewed
         @date
       end
-
 
       def html_encouragement(n = nil)
         super(n || repetition_count)

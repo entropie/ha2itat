@@ -111,7 +111,7 @@ module Plugins
       end
 
       def progress_percent
-        (done_count.to_f/total_count * 100).round
+        (done_count.to_f/total_count * 100).round rescue 0
       end
 
       def correct_count
@@ -249,8 +249,10 @@ module Plugins
 
       def report(&blk)
         result = []
-        log.each do |logentry|
+        logged_ids = log.map{ |log| log.cardid }
+        log.reverse.each do |logentry|
           card = deck.cards[logentry.cardid] || MissingCard.new(deck)
+          logentry.mark_done_twice = true if logged_ids.select{ |lids| lids == card.id }.size > 1
           pair = [card, logentry]
           result << pair
           yield *pair if block_given?
