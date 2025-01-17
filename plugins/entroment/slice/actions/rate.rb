@@ -18,7 +18,7 @@ module Ha2itat::Slices
           rating = req.params[:rating]
           sessionid = req.params[:sessionid]
 
-          ohash = { name: deck.name, cardid: card.id, rated: rating }
+          ohash = { name: deck.name, rated: rating, lastcardid: card.id }
 
           if session = deck.sessions[sessionid]
             ohash.merge!(sessionid: session.id)
@@ -29,6 +29,7 @@ module Ha2itat::Slices
             res.redirect_to path(:backend_entroment_session, ohash)
           else
             card.rate(rating.to_i)
+            ohash.merge!(cardid: card.id)
             res.redirect_to path(:backend_entroment_card, ohash)
           end
 

@@ -81,13 +81,30 @@ module Plugins
         path(yaml_filename)
       end
 
-      def exist?
+      def exist
         Ha2itat.adapter(:entroment).exist?(filename)
       end
 
-      def to_html(cls: "entroment-entry", collapsed: false)
+      def to_html(cls: "entroment-entry", collapsed: false, highlight: [])
         content_to_handle = content
-        content_to_handle = short_content if collapsed
+        highlight = [highlight].flatten
+
+        if content.include?("---")
+          clss = [:front, :back]
+          arr = [content.split("---")].flatten.map{ |cf| cf.strip }
+          vh = Hash[clss.zip(arr) ]
+          content_to_handle = clss.map{ |c|
+            add = highlight.include?(c) ? " hl" : ""
+            "<div class='card-side-%s#{add}'>%s</div>" % [c, vh[c]]
+          }
+        end
+
+        content_to_handle =
+          if collapsed
+            content_to_handle.first
+          else
+            [content_to_handle].flatten.insert(1, "<div class='spacer'><hr /></div>").join
+          end
 
         html_content = Ha2itat::Renderer.render(:markdown, content_to_handle)
         "<div class='%s' id='%s'>%s</div>" % [cls, "ee-#{id}", html_content]

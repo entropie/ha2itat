@@ -4,11 +4,11 @@
   %small #{deck.name}
   %small= session_html_progress(s)
 
-- if lastcard
-  #lastcard.entroment-entry
-    = lastcard.to_html
+- if lastcardid
+  #lastcard.entroment-entry{"class": "rated-%s"%rated}
+    = s.last_card.to_html(highlight: :back)
 
-= render "cardbuttons", card: card, deck: deck, sessionid: sessionid, lastcard: lastcard, s: s
+= render "cardbuttons", card: card, deck: deck, sessionid: sessionid, s: s
 
 .backend-content.entroment-card
   .entroment-entry

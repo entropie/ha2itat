@@ -10,12 +10,15 @@ module Ha2itat::Slices
           optional(:length).filled(:integer)
           optional(:sessionid).filled(:string)
           optional(:rated).filled(:string)
+          optional(:lastcardid).filled(:string)
         end
 
         def handle(req, res)
           deck = awu(res) { |adptr| adptr.decks[req.params[:name]] }
           sessionid = req.params[:sessionid]
           session = nil
+          lastcardid = req.params[:lastcardid]
+          rated = req.params[:rated]
 
           if not sessionid
             sopts = req.params[:length] ? { length: req.params[:length] } : { }
@@ -34,7 +37,7 @@ module Ha2itat::Slices
             card = s.cards.first
             cardid = card.id
 
-            res.render(view, sessionid: s.id, name: req.params[:name], cardid: cardid, deck: deck, card: card, s: s, lastcard: s.last_card)
+            res.render(view, sessionid: s.id, name: req.params[:name], cardid: cardid, deck: deck, card: card, s: s, lastcardid: lastcardid, rated: rated)
           end
           
         end

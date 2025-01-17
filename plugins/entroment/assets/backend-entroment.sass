@@ -87,9 +87,19 @@ a.session-start-link
         &.field-correct_count
           color: $rColor4
 
+.entroment-preview
+  .card-side-front, .card-side-back
+    padding: 2px
+  .spacer
+    hr
+      border-color: rgba($c1, .3)
+    
 
 
 .entroment-entry
+  .card-side-front, .card-side-back
+    padding: 1vw
+
   @include entroment-body-box
   background-color: rgba($c2, .1)
   padding: 2vw
@@ -145,8 +155,10 @@ a.session-start-link
         padding-right: 3px
         &.session-score
           font-size: 2em
-          &.score-0, &.score-1, &.score2
+          &.score-0, &.score-1 
             color: rgba(red, .7)
+          &.score-2
+            color: rgba(red, .5)
           &.score-3
             color: rgba(yellow, .6)
           &.score-4 
@@ -219,8 +231,10 @@ a.session-start-link
     background-color: rgba($c1, .7)
     padding: 1vw
   .topline
+    padding-top: 5px
+    padding-right: 5px
     a
-      color: rgba($c1, .8)
+      color: rgba($c2, .9)
   @include entroment-body-box
   hr
     border-color: rgba(#111, .2)
@@ -272,3 +286,19 @@ a.session-start-link
       &.cfive a
         background-color: $rColor5
         
+#lastcard
+  &.rated-1
+    background-color: rgba($rColor1, .2)
+  &.rated-2
+    background-color: rgba($rColor2, .2)
+  &.rated-3
+    background-color: rgba($rColor3, .2)
+  &.rated-4
+    background-color: rgba($rColor4, .2)
+  &.rated-5
+    background-color: rgba($rColor5, .2)
+  
+  .card-side-front
+    opacity: .5
+  .card-side-back
+    background-color: rgba($c1, .5)

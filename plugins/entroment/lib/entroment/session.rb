@@ -36,7 +36,7 @@ module Plugins
         end
         result
       end
-
+      
       def [](sid)
         select{ |sl| sl.id == sid }.shift
       end
@@ -144,8 +144,7 @@ module Plugins
       end
 
       def last_card
-        
-        r = deck.cards.select{ |c| c =~ log[-2].cardid  }.shift rescue nil
+        r = deck.cards.select{ |c| c =~ log[-1].cardid  }.shift rescue nil
         r
       end
 
