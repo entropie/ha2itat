@@ -143,6 +143,12 @@ module Plugins
         card_to_deal
       end
 
+      def last_card
+        
+        r = deck.cards.select{ |c| c =~ log[-2].cardid  }.shift rescue nil
+        r
+      end
+
       def session_score
         answered_count = total_count - remaining_count
         return 0 if answered_count.zero?

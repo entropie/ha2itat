@@ -153,6 +153,10 @@ module Plugins
         truncate_log!
       end
 
+      def to_human_time
+        @log.last.to_human_time
+      end
+
       def path
         ::File.join(deck.path, "card-%s" % ::File.basename(entry.filename))
       end

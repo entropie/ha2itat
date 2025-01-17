@@ -21,8 +21,8 @@ module Plugins
       end
 
 
-      def html_encouragement
-        super(repetition_count)
+      def html_encouragement(n = nil)
+        super(n || repetition_count)
       end
 
       def to_human_time

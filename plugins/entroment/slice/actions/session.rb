@@ -34,7 +34,7 @@ module Ha2itat::Slices
             card = s.cards.first
             cardid = card.id
 
-            res.render(view, sessionid: s.id, name: req.params[:name], cardid: cardid, deck: deck, card: card, s: s)
+            res.render(view, sessionid: s.id, name: req.params[:name], cardid: cardid, deck: deck, card: card, s: s, lastcard: s.last_card)
           end
           
         end

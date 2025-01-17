@@ -1,9 +1,15 @@
+
 %h1
   = t.be.topics.entroment.session
   %small #{deck.name}
   %small= session_html_progress(s)
 
-= render "cardbuttons", card: card, deck: deck, sessionid: sessionid
+- if lastcard
+  #lastcard.entroment-entry
+    = lastcard.to_html
+
+= render "cardbuttons", card: card, deck: deck, sessionid: sessionid, lastcard: lastcard, s: s
 
 .backend-content.entroment-card
-  = card.to_html(true)
+  .entroment-entry
+    = card.to_html(true)
