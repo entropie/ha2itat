@@ -5,12 +5,11 @@
 - if collapsed
   = render "cardbuttons", card: card, deck: deck, sessionid: nil
 
-.backend-content.entroment-card{class: "rated-%s" % [rated || "unrated"]}
+#resultcard.backend-content.entroment-card{class: "rated-%s" % [rated || "unrated"]}
   .topline
     = render "controls", entry: card.entry
 
-  %article
-    = card.to_html(collapsed)
+  = card.to_html(cls: "resultbox")
   - if rated
     .backend-content-rating
       = render "cardpreview", card: card, deck: deck, rated: rated, entry: card
