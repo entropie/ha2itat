@@ -101,7 +101,7 @@ module Plugins
 
         content_to_handle =
           if collapsed
-            content_to_handle.first
+            [content_to_handle].flatten.first
           else
             [content_to_handle].flatten.insert(1, "<div class='spacer'><hr /></div>").join
           end
