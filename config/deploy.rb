@@ -69,6 +69,7 @@ namespace :ha2itat do
     on roles(:app) do
       execute fetch(:init_file), "stop"
       execute fetch(:init_file), "start"
+      execute fetch(:init_file), "start"
     end
   end
 
