@@ -77,7 +77,7 @@ module Plugins
             begin
               ret = yield self if block_given?
             ensure
-              @user = nil
+              @user, @decks = nil, nil
             end
             return ret
           end

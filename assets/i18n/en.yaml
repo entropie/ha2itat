@@ -32,6 +32,7 @@ be:
     interval: Interval
     easiness_factor: Easiness
     message: CCCCombo
+    session_result: View results
   ask:
     destroy: Are you really sure to delete?
     archive: Are you really sure to archive?

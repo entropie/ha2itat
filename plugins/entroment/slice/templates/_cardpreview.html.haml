@@ -9,7 +9,7 @@
           = nlink(path(:backend_entroment_card, name: deck.name, cardid: card.id), card.id)
         - else
           %em= entry.cardid
-    - [:repetition_count, :correct_count, :incorrect_count, :interval, :easiness_factor].each do |fieldname|
+    - [:correct_count, :incorrect_count, :interval, :easiness_factor, :repetition_count].each do |fieldname|
       .line
         .left
           = t.be.entroment.send(fieldname)
@@ -17,13 +17,13 @@
           = entry.send(fieldname)
     .line
       .left
-        = t.be.entroment.last_reviewed
-      .right
-        - if entry.last_reviewed
-          %time= entry.to_human_time
-    .line
-      .left
         Message
 
       .right
         = entry.html_encouragement(entry.repetition_count)
+    .line
+      .left
+        = t.be.entroment.last_reviewed
+      .right
+        - if entry.last_reviewed
+          %time= entry.to_human_time

@@ -9,7 +9,7 @@
   .topline
     = render "controls", entry: card.entry
 
-  = card.to_html(cls: "resultbox")
+  = card.to_html(cls: "resultbox", collapsed: collapsed)
   - if rated
     .backend-content-rating
       = render "cardpreview", card: card, deck: deck, rated: rated, entry: card

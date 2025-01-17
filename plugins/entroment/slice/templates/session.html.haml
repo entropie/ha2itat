@@ -8,8 +8,12 @@
   #lastcard.entroment-entry{"class": "rated-%s"%rated}
     = s.last_card.to_html(highlight: :back)
 
-= render "cardbuttons", card: card, deck: deck, sessionid: sessionid, s: s
+- if card
+  = render "cardbuttons", card: card, deck: deck, sessionid: sessionid, s: s
 
-.backend-content.entroment-card
-  .entroment-entry
-    = card.to_html(true)
+  .backend-content.entroment-card
+    .entroment-entry
+      = card.to_html(collapsed: true)
+- else
+  .backend-content-entroment-box
+    = nlink(path(:backend_entroment_session_end, name: deck.name, sessionid: sessionid), t.be.entroment.session_result)

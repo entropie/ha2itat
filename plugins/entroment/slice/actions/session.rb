@@ -15,6 +15,7 @@ module Ha2itat::Slices
 
         def handle(req, res)
           deck = awu(res) { |adptr| adptr.decks[req.params[:name]] }
+
           sessionid = req.params[:sessionid]
           session = nil
           lastcardid = req.params[:lastcardid]
@@ -34,12 +35,12 @@ module Ha2itat::Slices
             deck = awu(res) { |adptr| adptr.decks[req.params[:name]] }
             s = deck.sessions[req.params[:sessionid]]
 
-            unless s.due_left?
+            if not s.due_left? and not lastcardid
               res.redirect_to( path(:backend_entroment_session_end, name: req.params[:name], sessionid: sessionid))
             end
 
             card = s.cards.first
-            cardid = card.id
+            cardid = card.id rescue nil
 
             res.render(view, sessionid: s.id, name: req.params[:name], cardid: cardid, deck: deck, card: card, s: s, lastcardid: lastcardid, rated: rated)
           end

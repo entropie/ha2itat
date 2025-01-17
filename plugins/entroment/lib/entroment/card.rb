@@ -173,7 +173,7 @@ module Plugins
         Psych.unsafe_load(::File.readlines(file).join)
       end
 
-      def to_html(collapsed = false, cls: nil, highlight: [])
+      def to_html(collapsed: false, cls: nil, highlight: [])
         entry.to_html(cls:, collapsed: collapsed, highlight: highlight)
       end
 
