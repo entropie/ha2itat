@@ -14,7 +14,7 @@
           &#x2022;
 
       .part-card
-        = card.to_html(cls: "render")
+        = card.to_html(cls: "render") rescue "missing"
       .part-stats
         = render "cardpreview", card: card, deck: deck, entry: logentry
       .part-rating
