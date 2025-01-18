@@ -3,7 +3,7 @@ module Plugins
 
     class Cards < Array
       def by_due
-        sort_by { |card| card.due_delta(Time.now)}
+        sort_by { |card| card.next_due_time}
       end
 
       def [](obj)
@@ -87,9 +87,9 @@ module Plugins
         @last_reviewed + @interval * 24 * 3600
       end
 
-      def due_delta(ftime)
-        ((next_due_time - ftime) / 3600).to_i
-      end
+      # def due_delta(ftime)
+      #   ((next_due_time - ftime) / 60).to_i
+      # end
 
       def write
         towrite = prepare_for_save.dup

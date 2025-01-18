@@ -90,24 +90,27 @@ module Plugins
         highlight = [highlight].flatten
 
         if content.include?("---")
-          clss = [:front, :back]
-          arr = [content.split("---")].flatten.map{ |cf| cf.strip }
+          clss = [:front]
+          clss << :back if not collapsed
+          arr = [content.split("---")].flatten.map{ |cf| cf }
           vh = Hash[clss.zip(arr) ]
           content_to_handle = clss.map{ |c|
             add = highlight.include?(c) ? " hl" : ""
-            "<div class='card-side-%s#{add}'>%s</div>" % [c, vh[c]]
+            val = Ha2itat::Renderer.render(:markdown, vh[c])
+            "<div class='card-side-%s#{add}'>%s</div>" % [c, val.strip]
           }
+        else
+          content_to_handle = [Ha2itat::Renderer.render(:markdown, content)]
         end
 
         content_to_handle =
           if collapsed
-            [content_to_handle].flatten.first
+            [content_to_handle].flatten
           else
-            [content_to_handle].flatten.insert(1, "<div class='spacer'><hr /></div>").join
+            [content_to_handle].flatten.insert(1, "<div class='spacer'><hr /></div>")
           end
 
-        html_content = Ha2itat::Renderer.render(:markdown, content_to_handle)
-        "<div class='%s' id='%s'>%s</div>" % [cls, "ee-#{id}", html_content]
+        "<div class='%s' id='%s'>%s</div>" % [cls, "ee-#{id}", content_to_handle.join]
       end
 
       def short_content
