@@ -48,7 +48,7 @@ module Ha2itat
           raise "no route named`#{name}' found for `#{Ha2itat.quart.identifier}'" unless route
           ret = bookmarklet % [::File.join(Ha2itat.C(:host), route), user.token]
           if goto
-            ret += "&redirect=#{goto}"
+            ret += "&goto=#{goto}"
           end
           puts ret
         end
