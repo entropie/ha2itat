@@ -18,11 +18,10 @@ module Plugins
         gallery = Ha2itat.adapter(:galleries).find(gal)
         img = gallery.images(ident)
 
-        msg = ""
         if !gallery
-          msg = "gallery <i>#{gal}</i> not existing"
+          "gallery <i>#{gal}</i> not existing"
         elsif !img
-          msg = "image <i>#{ident}</i> not existing in gallery <i>#{gal}</i>."
+          "image <i>#{ident}</i> not existing in gallery <i>#{gal}</i>."
         else
           begin
             return _raw(img.css_background_definition)
@@ -195,7 +194,7 @@ module Plugins
         end
 
         def self.hash_filename(file)
-          ret = Digest::SHA1.hexdigest(File.new(file).read) + File.extname(file).downcase
+          Digest::SHA1.hexdigest(File.new(file).read) + File.extname(file).downcase
         end
 
         def http_path(*args)

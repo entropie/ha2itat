@@ -140,7 +140,6 @@ module Ha2itat
     end
 
     def try_load_slice
-      string_name = name.to_s
       slice_source_file = plugin_root("slice", "slice.rb")
       do_log("loading slice #{slice_source_file}") do
         if ::File.exist?(slice_source_file)

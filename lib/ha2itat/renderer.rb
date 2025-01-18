@@ -20,5 +20,6 @@ module Ha2itat
     end
 
     module_function :render
+
   end
 end

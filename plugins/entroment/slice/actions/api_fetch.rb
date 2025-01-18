@@ -10,9 +10,9 @@ module Ha2itat::Slices
           if rid = req.params[:id]
             entries.push(*awu(req){ |adptr| adptr.by_id(rid) })
           elsif !tags.empty?
-            entries.push *awu(req){ |adptr| adptr.by_tags(*tags) }
+            entries.push(*awu(req){ |adptr| adptr.by_tags(*tags) })
           else
-            entries.push *awu(req){ |adptr| adptr.entries }
+            entries.push(*awu(req){ |adptr| adptr.entries })
           end
           res.body = entries.sort_by{ |e| e.updated_at }.reverse.map{ |e| e.to_hash }.to_json
         end

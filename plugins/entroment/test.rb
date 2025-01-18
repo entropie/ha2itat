@@ -73,8 +73,7 @@ class TestCreate < Minitest::Test
       adapter.create(content: TESTCONTENTS.first)
     end
     targetid = testentry.id
-    ostamp = testentry.created_at
-
+    
     @adapter.with_user(@user) do |adpt|
       entry = adpt.by_id(targetid)
       entry.content = "henlo world"
@@ -348,8 +347,7 @@ class TestDeck < Minitest::Test
 
   def test_session_rating_simple
     session = @deck.new_session(length: 3)
-    sessionid = session.id
-
+    
     ratings = [2,3,5]
     session.transaction do |session|
       0.upto(2) do |i|
@@ -360,6 +358,69 @@ class TestDeck < Minitest::Test
       end
     end
 
+  end
+
+
+  def test_session_order
+    session = @deck.new_session(length: 5)
+    first_order = []
+    5.times do
+      card = session.deal!
+      first_order << card.content
+      session.rate(card, 3)
+    end
+
+    second_session = @deck.new_session(length: 5)
+    second_order = []
+    5.times do
+      card = second_session.deal!
+      second_order << card.content
+      second_session.rate(card, 3)
+    end
+
+    assert_equal(first_order, second_order, "Die Kartenreihenfolge sollte konsistent sein")
+  end
+
+  def test_session_order_with_ratings
+    session = @deck.new_session(length: 5)
+    first_order = []
+    5.times do
+      card = session.deal!
+      first_order << card.content
+      session.rate(card, rand(1..5))
+    end
+  
+    second_session = @deck.new_session(length: 5)
+    second_order = []
+    5.times do
+      card = second_session.deal!
+      second_order << card.content
+      second_session.rate(card, rand(1..5))
+    end
+  
+    refute_equal(first_order, second_order)
+  end
+
+  
+  def test_session_order_with_specific_ratings
+    session = @deck.new_session(length: 5)
+    first_order = []
+    ratings = [1, 3, 5, 2, 4]
+    5.times do |i|
+      card = session.deal!
+      first_order << card.id
+      session.rate(card, ratings[i])
+    end
+  
+    second_session = @deck.new_session(length: 5)
+    second_order = []
+    5.times do
+      card = second_session.deal!
+      second_order << card.id
+    end
+
+    puts
+    refute_equal(first_order, second_order)
   end
 end
 

@@ -15,7 +15,7 @@ module Ha2itat::Slices
             text = req.params[:text]
             csv = CSV.new(text)
             csv.each do |a,b|
-              entry = awu(req){ |adapter| adapter.create(tags: ["deck:#{deck.name}"], content: [a, "---", b].join("\n")) }
+              awu(req){ |adapter| adapter.create(tags: ["deck:#{deck.name}"], content: [a, "---", b].join("\n")) }
             end
           end
           res.render(view, deck: deck,  name: deck.name)
