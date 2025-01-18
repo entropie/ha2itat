@@ -7,7 +7,7 @@ require "minitest/autorun"
 
 TESTCONTENTS = [
   "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  "Lorem ipsum dolor sit amet, consectetur adipisicing elit --- sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",  
+  "Lorem ipsum dolor sit amet, consectetur adipisicing elit --- sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 ]
 
 class TestCreate < Minitest::Test
@@ -65,7 +65,7 @@ class TestCreate < Minitest::Test
       entry = adpt.create(content: TESTCONTENTS.first, tags: ["foo", "bar"])
       assert entry.tags.include?("foo")
     end
-    
+
   end
 
   def test_edit
@@ -73,7 +73,7 @@ class TestCreate < Minitest::Test
       adapter.create(content: TESTCONTENTS.first)
     end
     targetid = testentry.id
-    
+
     @adapter.with_user(@user) do |adpt|
       entry = adpt.by_id(targetid)
       entry.content = "henlo world"
@@ -83,7 +83,7 @@ class TestCreate < Minitest::Test
       assert newentry.content, "henlo world"
       assert newentry.updated_at != testentry.updated_at
     end
-    
+
   end
 
   def test_context_edit
@@ -190,7 +190,7 @@ class TestDeck < Minitest::Test
     end
   end
 
-  
+
   def test_get_cards_from_entry
     @adapter.with_user(@user) do |adapter|
       testentry = adapter.create(content: TESTCONTENTS[1], tags: ["deck:keke11", "deck:fofof13"])
@@ -241,6 +241,25 @@ module Decksetup
     retdeck
   end
 
+
+  def create_deck_with_custom_reviews(deckname = :sessiontest2)
+    retdeck = @adapter.with_user(@user){ |a| a.decks[deckname] }
+
+    unless retdeck
+      adapter.with_user(@user) do |a|
+        review_times = [24, 12, 36, 48, 6]
+        review_times.each_with_index do |hours, index|
+          content = "Content #{index + 1}"
+          newe = a.create(content: content, tags: ["deck:#{deckname}"])
+          card = newe.cards.first
+          last_reviewed = Time.now - hours * 3600
+          card.hash_to_instance_variables(last_reviewed: last_reviewed)
+          card.write
+        end
+      end
+    end
+    retdeck
+  end
 end
 
 class TestDeck < Minitest::Test
@@ -295,7 +314,7 @@ class TestSession < Minitest::Test
     assert loaded_session.kind_of?(Plugins::Entroment::Session)
     assert loaded_session.deck.kind_of?(Plugins::Entroment::Deck)
   end
-  
+
   def test_session_loop
     session = @deck.new_session(length: 3)
     sessionid = session.id
@@ -347,7 +366,7 @@ class TestDeck < Minitest::Test
 
   def test_session_rating_simple
     session = @deck.new_session(length: 3)
-    
+
     ratings = [2,3,5]
     session.transaction do |session|
       0.upto(2) do |i|
@@ -389,7 +408,7 @@ class TestDeck < Minitest::Test
       first_order << card.content
       session.rate(card, rand(1..5))
     end
-  
+
     second_session = @deck.new_session(length: 5)
     second_order = []
     5.times do
@@ -397,11 +416,11 @@ class TestDeck < Minitest::Test
       second_order << card.content
       second_session.rate(card, rand(1..5))
     end
-  
+
     refute_equal(first_order, second_order)
   end
 
-  
+
   def test_session_order_with_specific_ratings
     session = @deck.new_session(length: 5)
     first_order = []
@@ -411,7 +430,7 @@ class TestDeck < Minitest::Test
       first_order << card.id
       session.rate(card, ratings[i])
     end
-  
+
     second_session = @deck.new_session(length: 5)
     second_order = []
     5.times do
@@ -421,6 +440,46 @@ class TestDeck < Minitest::Test
 
     puts
     refute_equal(first_order, second_order)
+  end
+end
+
+
+class SpacedRepetitionTestOrder < Minitest::Test
+  include Decksetup
+
+  def setup
+    @adapter = Ha2itat.adapter(:entroment)
+    @user    = Ha2itat.adapter(:user).user("test")
+    @deck    = create_deck_with_custom_reviews(:testdeck2)
+  end
+
+  def test_card_order_based_on_ratings_and_last_reviewed
+        session1 = @deck.new_session(length: 5)
+    first_order = []
+    ratings1 = [5, 2, 4, 3, 1]
+
+    session1.transaction do |session|
+      0.upto(4) do |i|
+        card = session.deal!
+        first_order << card.content
+        session.rate(card, ratings1[i])
+      end
+    end
+
+    session2 = @deck.new_session(length: 5)
+    second_order = []
+    ratings2 = [1, 3, 4, 2, 5]  # Potentially different ratings for second session
+
+    session2.transaction do |session|
+      0.upto(4) do |i|
+        card = session.deal!
+        second_order << card.content
+        session.rate(card, ratings2[i])
+      end
+    end
+
+    refute_equal(first_order, second_order, "Card order should change based on ratings given in the first session")
+    assert_equal(second_order, session2.cards.sort_by(&:next_review_time).map(&:content), "Cards should be presented in order based on adjusted review times from ratings")
   end
 end
 
