@@ -42,7 +42,7 @@ module Plugins
           end
 
           def entry_files(uid = nil)
-            files = Dir.glob("%s/*/*.yaml" % repository_path(user_path(uid)))
+            Dir.glob("%s/*/*.yaml" % repository_path(user_path(uid)))
           end
 
           def yaml_load(file:)
@@ -126,7 +126,7 @@ module Plugins
             dp = ::File.join(repository_path, deck_path)
             card_yaml_files = ::File.join(dp, "*", "card-%s" % ::File.basename(entry.filename))
             cards = Dir.glob(card_yaml_files).map{ |cf|
-              yl = yaml_load(file: cf)
+              yaml_load(file: cf)
             }
             cards
           end
@@ -175,7 +175,7 @@ module Plugins
 
           def update(entry, **param_hash)
             params = param_hash
-            params = param_hash.merge(user_id: @user.id) if @user
+            params = params.merge(user_id: @user.id) if @user
 
             oldtags = entry.tags
             entry.update(param_hash)
@@ -196,7 +196,7 @@ module Plugins
           def find(content: nil, tags: [], date: nil)
             result = []
             if content
-              result.push *read.select{ |entry| entry.content.include?(content) }
+              result.push(*read.select{ |entry| entry.content.include?(content) })
             end
             result
           end

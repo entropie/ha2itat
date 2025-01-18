@@ -32,7 +32,7 @@ module Plugins
         easiness_factor: 2.5
       }
 
-      attr_accessor *SRFieldsDefaults.keys
+      attr_accessor(*SRFieldsDefaults.keys)
 
       def initialize(entry, deck)
         @deck = deck
@@ -195,7 +195,6 @@ module Plugins
 
       def html_stats(show_time: true)
         html_block = "<div class='card-stats'>%s%s</div>"
-        numbers = "123"
         dateline   = "<div class='date-line'><time title='%s'>%s</time></div>" % [last_reviewed.to_human_time, RelativeTime.in_words(last_reviewed)]
 
         dateline = "" unless show_time

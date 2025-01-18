@@ -165,7 +165,7 @@ module Plugins
       end
 
       def sessions
-        sessions = Sessions.load(self)
+        Sessions.load(self)
       end
 
       def create

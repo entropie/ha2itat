@@ -64,7 +64,7 @@ module Plugins
         length: 20
       }
 
-      attr_reader *SettingsHash.keys
+      attr_reader(*SettingsHash.keys)
 
       def initialize(deck, **options)
         @deck = deck
@@ -139,7 +139,7 @@ module Plugins
 
       def deal!
         card_to_deal = cards.shift
-        cardid = @cardids.shift
+        @cardids.shift
         card_to_deal
       end
 
@@ -255,7 +255,7 @@ module Plugins
           logentry.mark_done_twice = true if logged_ids.select{ |lids| lids == card.id }.size > 1
           pair = [card, logentry]
           result << pair
-          yield *pair if block_given?
+          yield(*pair) if block_given?
         end
         result
       end

@@ -16,8 +16,8 @@ module Plugins
 
       attr_accessor :id
       attr_accessor :content
-      attr_accessor *Attributes.keys
-      attr_accessor *OptionalFields.keys
+      attr_accessor(*Attributes.keys)
+      attr_accessor(*OptionalFields.keys)
 
       def initialize(**params)
         parse_params(params)
