@@ -8,7 +8,7 @@ module Ha2itat::Slices
           entries = []
           tags = tagify(req.params[:tags])
           if rid = req.params[:id]
-            entries.push *awu(req){ |adptr| adptr.by_id(rid) }
+            entries.push(*awu(req){ |adptr| adptr.by_id(rid) })
           elsif !tags.empty?
             entries.push *awu(req){ |adptr| adptr.by_tags(*tags) }
           else
