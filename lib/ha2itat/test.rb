@@ -4,7 +4,7 @@ module Ha2itat
     TEST_QUART_DIR = "/tmp/ha2itattest"
     TEST_MEDIA_DIR = "/tmp/ha2itat-test-media"
     TEST_SOURCE_DIR = "/tmp"
-    
+
     def self.create_test_app(name = :test)
       Ha2itat::Creator.
         set_environment(media_dir: TEST_MEDIA_DIR,

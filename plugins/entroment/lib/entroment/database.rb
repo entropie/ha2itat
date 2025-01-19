@@ -81,7 +81,7 @@ module Plugins
             end
             return ret
           end
-          
+
           def decks
             @decks ||=
               begin
@@ -213,7 +213,7 @@ module Plugins
             # do that before we prepare for saving because it touches #user
             # which we dont want to have in our result yaml
             complete_path = repository_path(entry.filename)
-            
+
             to_save = prepare_for_save(entry)
             yaml = YAML::dump(to_save)
 

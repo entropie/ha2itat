@@ -44,7 +44,7 @@ module Ha2itat::Slices
 
             res.render(view, sessionid: s.id, name: req.params[:name], cardid: cardid, deck: deck, card: card, s: s, lastcardid: lastcardid, rated: rated)
           end
-          
+
         end
       end
     end

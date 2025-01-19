@@ -14,7 +14,7 @@ module Ha2itat::Slices
          end
 
          pager.link_proc = -> (n) { routes.path(:backend_entroment_cards, page: n) }
-                   
+
          res.render(view, pager: pager)
         end
       end

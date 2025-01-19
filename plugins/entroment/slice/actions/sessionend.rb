@@ -4,7 +4,7 @@ module Ha2itat::Slices
       class Sessionend < Action
 
         include Ha2itat.h(:pager)
-        
+
         params do
           required(:name).filled(:string)
           required(:sessionid).filled(:string)

@@ -35,7 +35,7 @@ module Plugins
       end
 
     end
-    
+
     module EntromentAdapter
       def adapter(&blk)
         Ha2itat.adapter(:entroment).dup.with_user(user, &blk)

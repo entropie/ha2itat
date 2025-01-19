@@ -209,7 +209,7 @@ module Plugins
           total: total_count
         }
         fields = fields.sort_by{ |f,k| f.to_s}.map{ |f,k| '<span class="%s">%s</span>' % ["field-#{f}", k]}
-        
+
         streaktxt = if repetition_count == 0 then "" else "#{html_encouragement(repetition_count)} <small>(#{fields[3]})</small>" end
 
         statsline = "%s/%s/<strong>%s</strong> <small>(%s%%)</small> %s" % [fields[0], fields[1], fields[4], fields[2], streaktxt]

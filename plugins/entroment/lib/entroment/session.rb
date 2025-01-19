@@ -36,7 +36,7 @@ module Plugins
         end
         result
       end
-      
+
       def [](sid)
         select{ |sl| sl.id == sid }.shift
       end
@@ -158,7 +158,7 @@ module Plugins
 
         # score = 5 * accuracy * progress
         score = (5 * accuracy * progress) - penalty
-          
+
         score.round
       end
 

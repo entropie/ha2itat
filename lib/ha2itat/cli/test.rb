@@ -11,7 +11,7 @@ module Ha2itat
           if what
             Dir.glob("%s/#{what}/test.rb" % Ha2itat.root("plugins"))
           else
-            Dir.glob("%s/*/test.rb" % Ha2itat.root("plugins"))            
+            Dir.glob("%s/*/test.rb" % Ha2itat.root("plugins"))
           end
         end
 
@@ -29,7 +29,7 @@ module Ha2itat
 
             #::FileUtils.rm_rf("/tmp/ha2itattest", verbose: true)
           end
-          
+
         end
       end
 

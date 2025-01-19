@@ -9,7 +9,7 @@ module Ha2itat::Slices::Entroment
     def awu(req, &blk)
       adapter.with_user(session_user(req), &blk)
     end
-    
+
     def by_id(req)
       awu(req){ |adptr| adptr.by_id(req.params[:id]) }
     end

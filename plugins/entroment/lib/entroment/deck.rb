@@ -90,7 +90,7 @@ module Plugins
     class Deck
 
       include EntromentAdapter
-      
+
       attr_reader :name, :decks
 
       def deckname_to_path(name = nil)
@@ -179,7 +179,7 @@ module Plugins
       def yaml_load(file:)
         Psych.unsafe_load(::File.readlines(file).join)
       end
-      
+
       def read
         @cards = Cards.new
         Dir.glob("%s/card*" % path).each do |a|
@@ -199,7 +199,7 @@ module Plugins
         }
         self
       end
-      
+
     end
   end
 end
