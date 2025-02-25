@@ -244,7 +244,7 @@ module Plugins
           attr_accessor :extension
 
           def self.match
-            @match ||= [:gif, :jpg, :png, :gif, :tiff, :webp].map{|type|
+            @match ||= [:gif, :jpg, :jpeg, :png, :gif, :tiff, :webp].map{|type|
               /#{type}$/
             }
           end
