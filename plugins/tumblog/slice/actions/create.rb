@@ -38,6 +38,8 @@ module Ha2itat::Slices
               post.handler.process!
             rescue Plugins::Tumblog::SkipForYTDLPClientVersion
               res.redirect_to path(:backend_tumblog_clytdlp, { content:, tags:, title: })
+            rescue Plugins::Tumblog::SkipForImgClientVersion
+              res.redirect_to path(:backend_tumblog_climgdl, { content:, tags:, title: })
             # rescue
             #   pp $!
             end

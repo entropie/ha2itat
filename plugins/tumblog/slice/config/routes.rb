@@ -8,6 +8,9 @@ module Ha2itat::Slices::Tumblog
     get "/clytdlp",            to: "clytdlp",  as: :clytdlp
     post "/clytdlp",           to: "clytdlp"
 
+    get "/climgdl",            to: "climgdl",  as: :climgdl
+    post "/climgdl",           to: "climgdl"
+
     post "/upload",            to: "upload",   as: :upload
 
     get "/show/:id",           to: "show",     as: :show

@@ -8,7 +8,7 @@ module Ha2itat::Slices::Tumblog
 
     config.renderer_options = { escape_html: false }
 
-    expose :post, :pager, :posts
+    expose :post, :pager, :posts, :content
 
   end
 end

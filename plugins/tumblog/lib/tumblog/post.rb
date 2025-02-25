@@ -195,8 +195,6 @@ module Plugins
             [/^https:\/\/youtube\.com/, /^https:\/\/www\.youtube\.com/]
           end
 
-
-
           def options
             {format: "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"}
           end
@@ -242,6 +240,8 @@ module Plugins
         class Img < Handler
           attr_accessor :extension
 
+          include ResponseCode
+
           def self.match
             @match ||= [:gif, :jpg, :jpeg, :png, :gif, :tiff, :webp].map{|type|
               /\.#{type}(?:\?|$)/
@@ -285,6 +285,13 @@ module Plugins
             FileUtils.mkdir_p(post.datadir)
             purl = parsed_url(post.content)
             @extension = purl.split(".").last
+
+            # use client side yt-dlp implementation if blocked of forced by config
+            if not responding?(200) or Ha2itat::C(:climgdl)
+              raise Plugins::Tumblog::SkipForImgClientVersion.new("skipped to client implementation due server not responding 200 or C[:climgdl]==true")
+            end
+
+
             download(purl, thumbnail_file)
             true
           end

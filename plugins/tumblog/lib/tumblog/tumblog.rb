@@ -6,7 +6,9 @@ module Plugins
   module Tumblog
 
     class SkipForYTDLPClientVersion < StandardError
+    end
 
+    class SkipForImgClientVersion < StandardError
     end
 
     DEFAULT_ADAPTER = :File

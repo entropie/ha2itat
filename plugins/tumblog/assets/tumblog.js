@@ -11,7 +11,7 @@ function formatBytes(bytes, decimals = 2) {
 }
 
 function logProgess(message) {
-    let target = $("#clytdlp-client");
+    let target = $("#clytdlp-client").length ? $("#clytdlp-client") : $("#climgdl-client")
     target.append("<p><strong>&gt; </strong>" + message + "</p>");
 }
 
@@ -49,7 +49,15 @@ function getAndUploadMediaByUrl(media_url, target_url, content) {
 
     let ul = function(file, target_url) {
         var formData = new FormData();
-        var csrf_token = $("#clytdlp-client").attr("data-csrf-token")
+        var target;
+
+        if( $("#clytdlp-client").length )
+            target = $("#clytdlp-client");
+        else
+            target = $("#climgdl-client");
+
+        var csrf_token = target.attr("data-csrf-token");
+
         formData.append("file", file);
         formData.append("_csrf_token", csrf_token);
         formData.append("content", content);
@@ -89,9 +97,23 @@ function clytdlp(content) {
     return true;
 }
 
+function climgdl(content) {
+    console.log("climgdl starting with", content)
+    var url = content;
+    var create_url = $("#climgdl-client").attr("data-create-url");
+
+    logProgess(`(down|up)loading <code>${url}</code> to <code>${create_url}</code>`);
+    getAndUploadMediaByUrl(url, create_url, content)
+    return true;
+}
+
+
 
 $(document).ready(function() {
     if( $("#clytdlp-client").length ) {
         clytdlp($("#clytdlp-content").text());
+    }
+    if( $("#climgdl-client").length ) {
+        climgdl($("#climgdl-content").text());
     }
 })
