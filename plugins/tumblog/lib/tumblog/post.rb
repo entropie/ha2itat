@@ -22,7 +22,6 @@ module Plugins
             h.responsible_for?(post)
           }
 
-          # pp ret
           # raise "multiple handler for #{post} found; cannot continue" if ret.size > 1
           handler = ret.last
           handler = DefaultHandler unless handler
@@ -245,7 +244,7 @@ module Plugins
 
           def self.match
             @match ||= [:gif, :jpg, :jpeg, :png, :gif, :tiff, :webp].map{|type|
-              /#{type}$/
+              /\.#{type}(?:\?|$)/
             }
           end
 
@@ -270,6 +269,8 @@ module Plugins
             when StringIO then File.open(path, 'w') { |f| f.write(io.read) }
             when Tempfile then io.close; ::FileUtils.mv(io.path, path)
             end
+          rescue
+            pp url, path
           end
 
           def request_result(uristr)
@@ -284,11 +285,6 @@ module Plugins
             FileUtils.mkdir_p(post.datadir)
             purl = parsed_url(post.content)
             @extension = purl.split(".").last
-            if purl =~ /reddit\.com/
-              uuri = URI(purl)
-              purl =  parsed_url(CGI.unescape(uuri.query.split("=").last))
-              Ha2itat.log("reddit image; using uri from query #{purl}")
-            end
             download(purl, thumbnail_file)
             true
           end
