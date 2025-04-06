@@ -56,9 +56,11 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'builder',  '~> 3.2', '>= 3.2.2'
 
+  s.add_dependency 'net-ssh' #, '~> 1.2'
+  s.add_dependency 'sshkit', '~> 1.7'
+
   s.add_dependency 'capistrano', '~> 3.17'
   s.add_dependency 'capistrano-bundler' #, '~> 2.0.1'
-  s.add_dependency 'capistrano-rvm'     #, '~> 0.1.2'
   s.add_dependency 'capistrano-git'     #, '~> 0.1.2'
   s.add_dependency 'sass'
   s.add_dependency 'unicorn'
