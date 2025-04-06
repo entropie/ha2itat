@@ -121,7 +121,7 @@ namespace :ha2itat do
       # execute fetch(:init_file), "stop"
       # execute fetch(:init_file), "start"
       # execute fetch(:init_file), "start"
-      sudo :systemctl, "restart h2-wecoso"
+      sudo :systemctl, "restart h2-#{fetch(:application)}"
     end
   end
 
