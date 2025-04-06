@@ -105,7 +105,7 @@ namespace :bundler do
   end
 end
 
-
+before "bundler:install", "ha2itat:copy_nix_shell"
 
 namespace :ha2itat do
 
@@ -114,7 +114,6 @@ namespace :ha2itat do
       sudo :cp, "/etc/nixos/res/ha2itat-shell.nix #{ release_path.join("shell.nix") }"
     end
   end
-  before "bundler:install", "ha2itat:copy_nix_shell"
 
   task :restart do
     on roles(:app) do
