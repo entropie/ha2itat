@@ -92,7 +92,8 @@ namespace :bundler do
             #execute "nix-shell -p pkg-config libyaml --command 'bundle install'", *options
             ##execute "nix develop --command bundle install", *options
             #execute :nix, "develop", "--command", "bundle install", *options
-            execute "nix-shell", "--run", "'bundle install'", *options
+            args = "'bundle install #{options.join(' ')}'"
+            execute "nix-shell", "--run", *args
             
             if fetch(:bundle_binstubs) &&
                fetch(:bundle_binstubs_command) == :binstubs
