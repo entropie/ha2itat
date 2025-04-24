@@ -77,7 +77,7 @@ Gem::Specification.new do |s|
   # s.add_development_dependency 'flamegraph', '~> 0.9.5'
   # s.add_development_dependency 'fast_stack', '~> 0.2.0'
 
-  # s.add_dependency 'bundler'
+  s.add_dependency 'bundler', '~> 2.6.6'
   # s.add_dependency 'rake', '~> 13.0.6'
   # s.add_dependency 'hanami', '~> 1.3.2'
   # s.add_dependency 'hanami-model', '~> 1.3.2'
