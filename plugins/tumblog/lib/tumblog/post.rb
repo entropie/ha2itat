@@ -281,18 +281,16 @@ module Plugins
           include Ha2itat::Mixins::FU
 
           def process!
-
             FileUtils.mkdir_p(post.datadir)
             purl = parsed_url(post.content)
             @extension = purl.split(".").last
 
-            # use client side yt-dlp implementation if blocked of forced by config
-            if not responding?(200) or Ha2itat::C(:climgdl)
-              raise Plugins::Tumblog::SkipForImgClientVersion.new("skipped to client implementation due server not responding 200 or C[:climgdl]==true")
+            direct_uri = purl
+            if purl =~ /reddit\.com/ or purl =~ /redd\.it/
+              uri = URI.parse(purl)
+              direct_uri = URI.decode_www_form(uri.query).to_h["url"]
             end
-
-
-            download(purl, thumbnail_file)
+            download(direct_uri, thumbnail_file)
             true
           end
 
