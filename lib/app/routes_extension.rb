@@ -5,13 +5,9 @@ module Ha2itat
     slices = Hanami.app.slices.keys
     proc {
 
-      # get '/assets/*path',      to: Rack::Directory.new( Ha2itat.quart.media_path("public") )
-      # get '/data/*path',        to: Rack::Directory.new( Ha2itat.quart.media_path("public") )
-
       if Ha2itat.quart.plugins.enabled?(:icons)
         slice :icons,           at: "/icons/"
       end
-
 
       if slices.include?(:backend)
         slice :backend,         at: "/backend"
@@ -41,14 +37,11 @@ module Ha2itat
       end
 
       if slices.include?(:tumblog)
-        slice :tumblog,         at: "/"
+        slice :tumblog,         at: "/" # scope is "/backend/tumblog"
       end
 
       if slices.include?(:zettel)
-        get '/_zettel/data/*fragments', to: proc{ |env| Ha2itat::Slices::Zettel::Actions::Read.new.call(env) }, as: :zl_read
-        #get '/_zettel/data/*fragments', to: Ha2itat.directory_serve_block("zettel/data", "/_zettel/data"), as: :zl_read
-
-        slice :zettel,          at: "/backend/zettel"
+        slice :zettel,          at: "/" # scope is "/backend/zettel"
       end
 
       if slices.include?(:bagpipe)
