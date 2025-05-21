@@ -1,3 +1,4 @@
+require 'mime/types'
 module Ha2itat
 
   def self.module_routes
@@ -40,12 +41,13 @@ module Ha2itat
       end
 
       if slices.include?(:tumblog)
-        get '/_tumblog/data/*fragments', to: proc{ |env| Ha2itat::Slices::Tumblog::Actions::Read.new.call(env) }, as: :tl_read
-        slice :tumblog,         at: "/backend/tumblog"
+        slice :tumblog,         at: "/"
       end
 
       if slices.include?(:zettel)
         get '/_zettel/data/*fragments', to: proc{ |env| Ha2itat::Slices::Zettel::Actions::Read.new.call(env) }, as: :zl_read
+        #get '/_zettel/data/*fragments', to: Ha2itat.directory_serve_block("zettel/data", "/_zettel/data"), as: :zl_read
+
         slice :zettel,          at: "/backend/zettel"
       end
 

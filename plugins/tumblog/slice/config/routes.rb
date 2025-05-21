@@ -1,27 +1,32 @@
 module Ha2itat::Slices::Tumblog
   class Routes < Hanami::Routes
-    get "/",                   to: "index",    as: :index
+    scope "backend/tumblog" do
+      get "/",                   to: "index",    as: :index
 
-    get "/create",             to: "create",   as: :create
-    post "/create",            to: "create"
+      get "/create",             to: "create",   as: :create
+      post "/create",            to: "create"
 
-    get "/clytdlp",            to: "clytdlp",  as: :clytdlp
-    post "/clytdlp",           to: "clytdlp"
+      get "/clytdlp",            to: "clytdlp",  as: :clytdlp
+      post "/clytdlp",           to: "clytdlp"
 
-    get "/climgdl",            to: "climgdl",  as: :climgdl
-    post "/climgdl",           to: "climgdl"
+      get "/climgdl",            to: "climgdl",  as: :climgdl
+      post "/climgdl",           to: "climgdl"
 
-    post "/upload",            to: "upload",   as: :upload
+      post "/upload",            to: "upload",   as: :upload
 
-    get "/show/:id",           to: "show",     as: :show
-    post "/settitle/:id",      to: "settitle", as: :settitle
+      get "/show/:id",           to: "show",     as: :show
+      post "/settitle/:id",      to: "settitle", as: :settitle
 
-    post "/destroy/:id",       to: "destroy"
-    get "/destroy/:id",        to: "destroy",  as: :destroy
-    get "/edit/:id",           to: "edit",     as: :edit
-    post "/edit/:id",          to: "edit",     as: :edit
+      post "/destroy/:id",       to: "destroy"
+      get "/destroy/:id",        to: "destroy",  as: :destroy
+      get "/edit/:id",           to: "edit",     as: :edit
+      post "/edit/:id",          to: "edit",     as: :edit
 
-    post "/toggle_private/:id", to: "toggleprivate"
-    get "/toggle_private/:id", to: "toggleprivate",  as: :toggleprivate
+      post "/toggle_private/:id",to: "toggleprivate"
+      get "/toggle_private/:id", to: "toggleprivate",  as: :toggleprivate
+    end
+
+    get '/_tumblog/data/*fragments',        to: "read", as: :tl_read
+    
   end
 end
