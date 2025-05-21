@@ -30,6 +30,8 @@ Gem::Specification.new do |s|
     "source_code_uri"   => "https://github.com/entropie/ha2itat"
   }
 
+  s.add_dependency 'mime-types'
+  
   hanami_version = "2.2"
 
   s.add_dependency "hanami",              "~> %s" % hanami_version
