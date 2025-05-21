@@ -32,7 +32,7 @@ module Ha2itat
         slice :blog,            at: "/backend/blog"
 
         if slices.include?(:blogtools)
-          slice :blogtools,       at: "/"
+          slice :blogtools,     at: "/"
         end
       end
 
@@ -45,11 +45,11 @@ module Ha2itat
       end
 
       if slices.include?(:bagpipe)
-        get '/_bagpipe/*fragments', to: proc{ |env| Ha2itat::Slices::Bagpipe::Actions::Read.new.call(env) }, as: :bp_read
-        slice :bagpipe,         at: "/backend/bagpipe"
+        slice :bagpipe,         at: "/" # scope is "/backend/bagpipe"
       end
 
       if slices.include?(:galleries)
+        # FIXME: ?
         get '/galleries/*path', to: Rack::Directory.new( Ha2itat.quart.media_path("public") ), as: :image
         slice :galleries,       at: "/backend/galleries"
       end
@@ -58,9 +58,8 @@ module Ha2itat
         slice :i18n,            at: "/backend/i18n"
       end
 
-
       if slices.include?(:entroment)
-        slice :entroment,            at: "/"
+        slice :entroment,       at: "/" # scope is "/backend/entroment"
       end
     }
   end
