@@ -20,7 +20,7 @@ module Ha2itat
         "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
         "style-src 'self' 'unsafe-inline'",
         "img-src 'self' https: data:",
-        "connect-src 'self' https://i.imgur.com",
+        "connect-src 'self' https://i.imgur.com https://www.reddit.com https://v.redd.it",
         "font-src 'self' https: data:",
         "media-src 'self'",
         "object-src 'none'"
