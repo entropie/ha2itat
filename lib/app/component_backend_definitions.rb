@@ -17,33 +17,31 @@ module Ha2itat
       include Helper::Translation::Actions
       before :locales_setup
 
-
       include Hanami::Action::Session
       before :set_default_meta
 
     }
 
     Slice = proc {
-      environment(:development) do
-        config.actions.content_security_policy[:script_src] = "'self' 'unsafe-inline' 'unsafe-eval' http: https:"
-        config.actions.content_security_policy[:frame_src] =  "self 'unsafe-inline' 'unsafe-eval' http: https:"
-        config.actions.content_security_policy[:font_src] =
-          '\'self\' data: https://fonts.googleapis.com https://fonts.gstatic.com https://maxcdn.bootstrapcdn.com'
+      config.actions.content_security_policy = false
+      config.middleware.use Ha2itat::Middelware::SecureHeaders
 
-      end
+      # environment(:production) do
+      # end
+
+      # environment(:development) do
+      # end
 
       config.actions.sessions = :cookie, {
         key: SESSION_KEY,
         secret: Ha2itat.quart.secret,
         expire_after: SESSION_EXPIRY_TIME_IN_SECONDS
       }
-
     }
 
     View = proc {
       include ViewMethodsCommon
       include Helper::Translation
-
     }
   end
 

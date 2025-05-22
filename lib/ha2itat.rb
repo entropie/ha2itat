@@ -37,6 +37,7 @@ module Ha2itat
   require_relative "mixins/log_in_block"
   require_relative "mixins/pretty_date"
 
+  require_relative "app/middelware/middelware"
   require_relative "app/component_backend_definitions"
   require_relative "app/routes_extension"
 
