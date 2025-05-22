@@ -55,7 +55,6 @@ module Ha2itat
 
       def call(env)
         status, hdrs, body = @app.call(env)
-        p self.class
         hdrs.merge!(self.class.headers)
         [status, hdrs, body]
       end
