@@ -293,7 +293,7 @@ module Plugins
               direct_uri = URI.decode_www_form(uri.query).to_h["url"]
             end
 
-            if not responding?(302) or Ha2itat::C(:climgdl)
+            if direct_uri.start_with?("https://i.imgur.com") and (Ha2itat::C(:climgdl) or not responding?(302))
               raise Plugins::Tumblog::SkipForImgClientVersion.new("imgur blocked (probably subnetwide)")
             end
 
