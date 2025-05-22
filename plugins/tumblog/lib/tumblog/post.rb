@@ -265,10 +265,12 @@ module Plugins
           end
 
           def download(url, path)
+            Ha2itat.debug "DL: #{url} -> #{path}"
             case io = URI.open(url)
             when StringIO then File.open(path, 'w') { |f| f.write(io.read) }
             when Tempfile then io.close; ::FileUtils.mv(io.path, path)
             end
+            Ha2itat.debug "DL: wrote #{path}"
           rescue
             pp url, path
           end
@@ -286,7 +288,7 @@ module Plugins
             @extension = purl.split(".").last
 
             direct_uri = purl
-            if purl =~ /reddit\.com/ or purl =~ /redd\.it/
+            if purl =~ /reddit\.com\/media/
               uri = URI.parse(purl)
               direct_uri = URI.decode_www_form(uri.query).to_h["url"]
             end
