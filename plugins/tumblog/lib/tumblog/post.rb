@@ -215,26 +215,26 @@ module Plugins
           end
         end
 
-        class Gifv < Handler
-          def self.match
-            [/\.gifv$/i]
-          end
+        # class Gifv < Handler
+        #   def self.match
+        #     [/\.gifv$/i]
+        #   end
 
-          def process!
-            FileUtils.mkdir_p(post.datadir)
+        #   def process!
+        #     FileUtils.mkdir_p(post.datadir)
 
-            target_file = post.datadir(post.id + ".mp4")
+        #     target_file = post.datadir(post.id + ".mp4")
 
-            ydl = YoutubeDL.download(post.content, output: target_file)
-            true
-          end
+        #     ydl = YoutubeDL.download(post.content, output: target_file)
+        #     true
+        #   end
 
 
-          def to_html(logged_in = false)
-            super % post.http_data_dir(post.id + ".mp4")
-          end
+        #   def to_html(logged_in = false)
+        #     super % post.http_data_dir(post.id + ".mp4")
+        #   end
 
-        end
+        # end
 
 
         class Img < Handler
@@ -292,6 +292,11 @@ module Plugins
               uri = URI.parse(purl)
               direct_uri = URI.decode_www_form(uri.query).to_h["url"]
             end
+
+            if not responding?(302) or Ha2itat::C(:climgdl)
+              raise Plugins::Tumblog::SkipForImgClientVersion.new("imgur blocked (probably subnetwide)")
+            end
+
             download(direct_uri, thumbnail_file)
             true
           end
