@@ -2,7 +2,12 @@ module Ha2itat::Slices
   module Tumblog
     module Actions
 
-      class Read < Action
+      class Read < Hanami::Action
+
+        include ActionMethodsCommon
+
+        before :check_token
+        include Hanami::Action::Session
 
         def handle(req, res)
           path = params_path(req.params).shift
