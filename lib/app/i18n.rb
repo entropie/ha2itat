@@ -19,12 +19,13 @@ module Ha2itat
 
     include R18n
 
-    def self.init(locale = ::R18n::I18n.default )
+    def self.init(locale = nil )
+      locale ||= Ha2itat.C(:default_locale)
+      locale ||= ::R18n::I18n.default
 
       R18n.clear_cache! if Ha2itat.quart.development?
 
       R18n.default_places = [backend_places, default_places].flatten
-
       i18n = ::R18n::I18n.new(
         locale, ::R18n.default_places, off_filters: :untranslated, on_filters: :untranslated_html
       )
