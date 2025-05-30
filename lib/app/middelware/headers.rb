@@ -15,6 +15,7 @@ module Ha2itat
       DefaultContentSecurityPolicy = [
         "default-src 'none'",
         "base-uri 'self'",
+        "manifest-src 'self'",
         "form-action 'self'",
         "frame-ancestors 'self'",
         "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
