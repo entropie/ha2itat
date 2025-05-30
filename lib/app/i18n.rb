@@ -53,6 +53,8 @@ module Ha2itat
         end
 
         Ha2itat::I18n.init(locales)
+      ensure
+        res.session[:locale] = locales.first unless res.session[:locale]
       end
     end
 
