@@ -34,6 +34,16 @@ module Ha2itat
       add_meta property: "twitter:image",  content: @image if @image
     }
 
+    MANIFEST = proc {
+      add_link rel: "manifest", href: "/assets/site.webmanifest"
+      add_link rel: "shortcut icon", type: "image/x-icon", href: "/assets/favicon.ico"
+      add_link rel: "apple-touch-icon", sizes: "180x180", href: "/assets/apple-touch-icon.png"
+      add_link rel: "icon", type: "image/png", sizes: "32x32", href: "/assets/favicon-32x32.png"
+      add_link rel: "icon", type: "image/png", sizes: "16x16", href: "/assets/favicon-16x16.png"
+      add_link rel: "icon", type: "image/png", sizes: "192x192", href: "/assets/android-chrome-192x192.png"
+      add_link rel: "icon", type: "image/png", sizes: "512x512", href: "/assets/android-chrome-512x512.png"
+    }
+
     def self.title_seperator=(obj)
       @title_seperator = obj
     end
@@ -96,6 +106,11 @@ module Ha2itat
 
     def with_social_media
       instance_eval(&SOCIAL_MEDIA)
+      self
+    end
+
+    def with_manifest
+      instance_eval(&MANIFEST)
       self
     end
 
