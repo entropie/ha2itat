@@ -5,6 +5,23 @@ module ViewMethodsCommon
     snippet.render(self)
   end
 
+  def rsnip(what, locale = nil)
+    locale ||= session[:locale]
+    locale_snip = "%s-%s" % [locale, what.to_s]
+    if locale == Ha2itat.C(:default_locale)
+      Ha2itat.debug "snippets(%s): requested locale(%s) == default_locale(%s)" % [what, locale, Ha2itat.C(:default_locale)]
+      return snip(what)
+    end
+
+    snippet = Ha2itat.adapter(:snippets).select(locale_snip)
+    unless snippet.kind_of?(Plugins::Snippets::NotExistingSnippet)
+      snippet.render(self)
+    else
+      Ha2itat.log "rsnip `%s' requested but does not exist" % locale_snip
+      snip(what)
+    end
+  end
+
 end
 
 module Plugins
