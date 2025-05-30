@@ -125,7 +125,7 @@ module Ha2itat
           center = pager.current_page
           (1..pager.page_count).each_with_index do |pgnr|
             if [1, pager.page_count].include?(pgnr) or
-              [center - 1, center, center + 1].include?(pgnr)
+              [center - 1, center, center + 1, center + 2].include?(pgnr)
 
               items << PagerItem.new(value: pgnr, pager: self)
             else
