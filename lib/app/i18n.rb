@@ -31,6 +31,10 @@ module Ha2itat
 
       ::R18n.thread_set(i18n)
     end
+
+    def self.available_locales
+      R18n.available_locales.map{ |lc| lc.class.to_s.split("::").last.downcase }
+    end
   end
 
   module Helper::Translation
@@ -45,13 +49,18 @@ module Ha2itat
 
       def locales_setup(req, res)
         locales = ::R18n::I18n.parse_http(req.env['HTTP_ACCEPT_LANGUAGE'])
+        locales = locales.map{|l| l.split("-").first }
 
         if req.params[:locale]
-          locales.unshift(req.params[:locale])
+          user_locale = req.params[:locale]
+          if I18n.available_locales.include?(user_locale)
+            locales.unshift(user_locale)
+          else
+            Ha2itat.debug "i18n: locale `%s' requested but not available" % user_locale
+          end
         elsif res.session[:locale]
           locales.unshift(res.session[:locale])
         end
-
         Ha2itat::I18n.init(locales)
       ensure
         res.session[:locale] = locales.first unless res.session[:locale]
