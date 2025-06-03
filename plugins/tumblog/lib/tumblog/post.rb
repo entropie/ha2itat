@@ -1,5 +1,5 @@
 require "open-uri"
-require "youtube-dl"
+require "ytdltt"
 
 module Plugins
   module Tumblog
@@ -176,6 +176,7 @@ module Plugins
               rm(target_file)
             end
 
+            # FIXME: 
             log "ytdl: #{post.id} #{post.content} #{target_file}"
 
             ydl = YoutubeDL.download(post.content, output: target_file, write_thumbnail: true)
@@ -200,12 +201,8 @@ module Plugins
           end
 
           def process!
-            FileUtils.mkdir_p(post.datadir)
-
-            target_file = target_media_file(post.id+".mp4")
-            ydl = YoutubeDL.download(post.content, output: target_file, **options)
-            post.title = ydl.information[:title]
-            true
+            retval, completefile = YTDLTT::Downloader.download_syncron("V---#{post.content}", post.datadir)
+            retval
           end
 
           def to_html(logged_in = false)
@@ -214,27 +211,6 @@ module Plugins
             ret % [add, media_file_src]
           end
         end
-
-        # class Gifv < Handler
-        #   def self.match
-        #     [/\.gifv$/i]
-        #   end
-
-        #   def process!
-        #     FileUtils.mkdir_p(post.datadir)
-
-        #     target_file = post.datadir(post.id + ".mp4")
-
-        #     ydl = YoutubeDL.download(post.content, output: target_file)
-        #     true
-        #   end
-
-
-        #   def to_html(logged_in = false)
-        #     super % post.http_data_dir(post.id + ".mp4")
-        #   end
-
-        # end
 
 
         class Img < Handler
