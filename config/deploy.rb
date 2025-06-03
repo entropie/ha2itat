@@ -6,7 +6,14 @@ set :application, Q.identifier.to_s
 
 set :ha2itat_repo, "git@github.com:entropie/ha2itat.git"
 
+set :vendor_gems, [
+      "git@github.com:entropie/ha2itat.git",
+      "git@github.com:entropie/trompie.git",
+      "git@github.com:entropie/ytdltt.git",
+    ]
+
 set :repo_url,     "/home/mit/Source/quarters/#{Q.identifier}.git"
+
 
 set :media_path,   "/home/mit/Data/quarters/newmedia/#{fetch(:application)}"
 
@@ -141,8 +148,9 @@ namespace :ha2itat do
   task :checkout do
     on roles(:app) do
       within release_path.join("vendor/gems") do
-        execute :git, "clone #{fetch(:ha2itat_repo)} ha2itat"
-
+        fetch(:vendor_gems).each do |vg|
+          execute :git, "clone #{vg}"
+        end
       end
     end
   end
