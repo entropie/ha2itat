@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+app_path = File.expand_path(File.join( File.expand_path(File.dirname(__FILE__)), "../../../../"))
+
+vendorpath = ::File.join(app_path, "vendor/gems")
+
+
+def sayAndDo(*args)
+  args.each do |arg|
+    puts arg
+    `#{arg}`
+  end
+end
+
+
+Dir.chdir(vendorpath) do
+
+  ["ha2itat", "ytdltt", "trompie"].each { |mgem|
+    if File.exist?(mgem)
+      puts "skipping vendor/gems/#{::File.join(mgem)}"
+    else
+      puts "linking ~/Source/#{mgem} to #{Dir.pwd}"
+      `ln -s ../../../../#{mgem}`
+    end
+  }
+end
+
+
+unless File.exist?(media_path = ::File.join(app_path, "media"))
+  media_path_target = File.join(File.expand_path("~/Data/quarters/newmedia"),
+                                ::File.basename(app_path))
+
+  sayAndDo "ln -s #{media_path_target} media"
+end
