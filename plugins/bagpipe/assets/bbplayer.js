@@ -1,5 +1,7 @@
 /*global $, document, alert*/
 
+// https://github.com/73rhodes/bbplayer
+
 (function () {
   // Track multiple players on the page
   var bbplayers = [];
