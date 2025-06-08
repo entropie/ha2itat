@@ -54,33 +54,42 @@ def nix_shell(cmd)
 end
 
 Rake::Task["bundler:install"].clear
+Rake::Task["bundler:config"].clear
 
 namespace :bundler do
+  task :config do
+    on fetch(:bundle_servers) do
+      within release_path do
+        with fetch(:bundle_env_variables) do
+          configuration = fetch(:bundle_config).dup || {}
+          configuration[:gemfile] = fetch(:bundle_gemfile)
+          configuration[:path] = fetch(:bundle_path)
+          configuration[:without] = fetch(:bundle_without)
+
+          configuration.each do |key, value|
+            unless value.nil?
+              args = "bundle", "config", "--local", key, value.to_s.shellescape
+              execute "nix-shell", "--run", "'#{args.join(" ")}'"
+            end
+          end
+        end
+      end
+    end
+  end
+
   task install: :config do
     on fetch(:bundle_servers) do
       within release_path do
-        #with fetch(:bundle_env_variables) do
-          # if fetch(:bundle_check_before_install) && test(:bundle, :check)
-          #   info "The Gemfile's dependencies are satisfied, skipping installation"
-          # else
-            options = []
-            if fetch(:bundle_binstubs) &&
-               fetch(:bundle_binstubs_command) == :install
-              options << "--binstubs #{fetch(:bundle_binstubs)}"
-            end
-            options << "--jobs #{fetch(:bundle_jobs)}" if fetch(:bundle_jobs)
-            options << "#{fetch(:bundle_flags)}" if fetch(:bundle_flags)
-            ##execute "nix develop --command bundle install", *options
-            #execute :nix, "develop", "--command", "bundle install", *options
-            args = "'bundle install #{options.join(' ')}'"
-            execute "nix-shell", "--run", *args
-            
-            if fetch(:bundle_binstubs) &&
-               fetch(:bundle_binstubs_command) == :binstubs
-              execute :bundle, :binstubs, '--all', '--path', fetch(:bundle_binstubs)
-            end
-          # end
-        #end
+        options = []
+        if fetch(:bundle_binstubs) &&
+           fetch(:bundle_binstubs_command) == :install
+          options << "--binstubs #{fetch(:bundle_binstubs)}"
+        end
+        options << "--jobs #{fetch(:bundle_jobs)}" if fetch(:bundle_jobs)
+        options << "#{fetch(:bundle_flags)}" if fetch(:bundle_flags)
+
+        args = "'bundle install #{options.join(' ')}'"
+        execute "nix-shell", "--run", *args
       end
     end
   end
