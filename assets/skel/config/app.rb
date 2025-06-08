@@ -52,6 +52,8 @@ Ha2itat.quart.plugins do |plugs|
   # plugs.register(:bagpipe)
 
   plugs.write_javascript_include_file!
+
+  plugs.generate_user_groups
 end
 Ha2itat::I18n.init
 
