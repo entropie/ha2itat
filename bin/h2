@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
-require "dry/cli"
-require "hanami"
 
 require_relative "../lib/ha2itat"
+
+require "dry/cli"
 
 require_relative "../lib/ha2itat/cli/test"
 require_relative "../lib/ha2itat/cli/generator"

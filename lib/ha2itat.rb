@@ -1,5 +1,9 @@
 require "pp"
 
+require "bundler"
+Bundler.setup(:default)
+
+require "rubygems"
 require "pathname"
 require "hanami"
 require "net/http"
