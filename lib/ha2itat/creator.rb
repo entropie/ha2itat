@@ -160,6 +160,8 @@ module Ha2itat
         run_list("hanami new #{name} --skip-install",
                  "mkdir -p #{name}/vendor/gems",
                  "ln -s ~/Source/ha2itat #{name}/vendor/gems/ha2itat",
+                 "ln -s ~/Source/trompie #{name}/vendor/gems/trompie",
+                 "ln -s ~/Source/ytdltt  #{name}/vendor/gems/ytdltt",
                  "ln -s #{::File.join(Creator.environment.fetch(:media_dir), name)} #{name}/media" )
 
         relative_skeleton_files.each do |rf|
@@ -173,6 +175,7 @@ module Ha2itat
 
         run_list("cd #{name} && bundle install",
                  "ln -s ../vendor/gems/ha2itat/config/deploy.rb #{name}/config/deploy.rb",
+                 "cd #{name} && ln -s vendor/gems/ha2itat/shell.nix",
                  "cd #{name} && rm app/templates/layouts/app.html.erb",
                  "cd #{name} && rm -rf app/assets/{js,css}")
 
@@ -197,7 +200,7 @@ module Ha2itat
          "touch vendor/gems/.keep && git add -f vendor/gems/.keep",
          "git remote add origin #{origin}",
          "git commit -am initial",
-         "git push --set-upstream origin master"].each do |rc|
+         "git push --set-upstream origin main"].each do |rc|
           Command.in(name).run(rc)
         end
       end
