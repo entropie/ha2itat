@@ -65,7 +65,6 @@ namespace :bundler do
           configuration[:gemfile] = fetch(:bundle_gemfile)
           configuration[:path] = fetch(:bundle_path)
           configuration[:without] = fetch(:bundle_without)
-
           configuration.each do |key, value|
             unless value.nil?
               args = "bundle", "config", "--local", key, value.to_s.shellescape
