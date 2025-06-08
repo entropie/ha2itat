@@ -55,10 +55,11 @@ in pkgs.mkShell {
     pkgs.git
     pkgs.overmind
   ];
-
   shellHook = ''
+
     ruby_api_version=$(ruby -e 'puts RbConfig::CONFIG["ruby_version"]')
-    project_name=$(basename "$PWD")
+    project_dir=$(readlink -f "$PWD")
+    project_name=$(echo "$PWD" | cut -d/ -f4)
 
     if [ -d "/home/ha2itats/$project_name/shared/" ]; then
       export GEM_HOME="/home/ha2itats/$project_name/shared/bundle/ruby/$ruby_api_version"
@@ -74,6 +75,7 @@ in pkgs.mkShell {
     export SSH_AUTH_SOCK=${builtins.getEnv "SSH_AUTH_SOCK"}
     export HOME=${builtins.getEnv "HOME"}
 
-    echo "Ruby version: $(ruby --version) $(bundle --version || true)"
+    echo "[base: $project_name] Ruby version: $(ruby --version) $(bundle --version || true)"
   '';
+
 }
