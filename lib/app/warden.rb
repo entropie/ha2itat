@@ -3,23 +3,29 @@ require "warden"
 module WardenCheckToken
 
   def check_token(request, response)
-    goto = proc{|path| response.redirect_to path }
+    redirect_target = request.params[:goto] || request.params[:redirect]
+    maybe_redirect = -> { response.redirect_to(redirect_target) if redirect_target }
 
-    if request.env["warden"] and request.env["warden"].user and request.params[:redirect]
-      goto.call(request.params[:redirect])
+    warden = request.env["warden"]
+    return false unless warden
+
+    if warden.user
+      maybe_redirect.call
+      return false
     end
 
-    return false if not request.params[:token] or request.env["warden"].user
+    return false unless request.params[:token]
+
     if ::Warden::Strategies[:token]
-      user_authenticated = request.env["warden"].authenticate(:token)
-      if user_authenticated
-        if request.params[:goto]
-          goto.call(request.params[:goto])
-        end
+      if warden.authenticate(:token)
+        maybe_redirect.call
         return true
       end
     end
+
+    false
   end
+
 end
 
 
