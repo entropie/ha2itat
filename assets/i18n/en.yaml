@@ -39,16 +39,16 @@ be:
   messages:
     not_published: not published
   menu:
-    frontend: Frontend
-    user: User
-    snippets: Contents
-    booking: Events
-    blog: Blahg
-    tumblog: TBlog
-    galleries: Galleries
-    zettel: Zettel
-    bagpipe: Bagpipe
-    entroment: Entroment
+    frontend:  frntnd
+    user:      usr
+    snippets:  cntnts
+    booking:   vnts
+    blog:      blhg
+    tumblog:   tblg
+    galleries: glrs
+    zettel:    ztl
+    bagpipe:   bgp
+    entroment: ntrmt
   links:
     user:
       create: add User
