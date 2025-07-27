@@ -34,6 +34,7 @@ Gem::Specification.new do |s|
   
   hanami_version = "2.2"
 
+
   s.add_dependency "hanami",              "~> %s" % hanami_version
   s.add_dependency "hanami-router",       "~> %s" % hanami_version
   s.add_dependency "hanami-controller",   "~> %s" % hanami_version
@@ -52,6 +53,8 @@ Gem::Specification.new do |s|
   s.add_dependency "warden"
   s.add_dependency 'jwt'
   s.add_dependency 'bcrypt'
+
+  s.add_dependency 'minitest'
 
   s.add_dependency 'nokogiri'
   s.add_dependency 'r18n-core'
