@@ -221,6 +221,7 @@ module Plugins
       def read_or_setup
         if not exist?
           hash_to_instance_variables(SRFieldsDefaults)
+          @last_reviewed = Time.now
           write
           self
         else
