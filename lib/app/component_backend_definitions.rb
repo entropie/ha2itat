@@ -14,7 +14,7 @@ module Ha2itat
       before :check_token
       before :reject_unless_authenticated!
 
-      before :follow_redirect
+      before :follow_redirect_param
 
       include Helper::Translation::Actions
       before :locales_setup
