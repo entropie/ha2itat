@@ -6,17 +6,12 @@ module Ha2itat
 
         argument :name, type: :string,  required: true, desc: "username"
         argument :route, type: :string,  required: true, desc: "internal route"
-        argument :goto, type: :string,  required: false, desc: "goto after"
 
-        def bookmarklet(goto = nil)
-          gotostr = ""
-          if goto
-            gotostr = "&redirect=#{goto}"
-          end
-          %Q|javascript:(function(){var url=encodeURI(document.location.href),endp="%s",token="%s";document.location.href=endp+"?token="+token+"#{gotostr}&content="+url;}());|
+        def bookmarklet
+          %Q|javascript:(function(){var url=encodeURI(document.location.href),endp="%s",token="%s";document.location.href=endp+"?token="+token+"&content="+url;}());|
         end
 
-        def call(name:, route:, goto: nil, **options)
+        def call(name:, route:, **options)
           require_relative Dir.pwd + "/config/app"
           user = Ha2itat.adapter(:user).by_name(name)
           route = Hanami.app.boot["routes"].path(route.to_sym)
@@ -24,7 +19,7 @@ module Ha2itat
           raise "no user named `#{name}' found for `#{Ha2itat.quart.identifier}'" unless user
           raise "no route named`#{name}' found for `#{Ha2itat.quart.identifier}'" unless route
           puts
-          puts bookmarklet(goto) % [::File.join(Ha2itat.C(:host), route), user.token]
+          puts bookmarklet % [::File.join(Ha2itat.C(:host), route), user.token]
         end
       end
 
