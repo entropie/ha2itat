@@ -3,6 +3,11 @@ module ActionMethodsCommon
 
   class EntryNotFound < ArgumentError;  end
 
+  def follow_redirect_param(req, res)
+    rtfr = req.params[:redirect]
+    res.redirect_to(rtfr) if rtfr
+  end
+
   def set_meta(view, req, **kwargs)
     if view
       view.exposures.add(:meta, proc{ Ha2itat::Meta.new(view, req, **kwargs) }, layout: true)
