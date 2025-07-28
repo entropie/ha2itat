@@ -11,7 +11,7 @@ module Ha2itat
         def bookmarklet(goto = nil)
           gotostr = ""
           if goto
-            gotostr = "&goto=#{goto}"
+            gotostr = "&redirect=#{goto}"
           end
           %Q|javascript:(function(){var url=encodeURI(document.location.href),endp="%s",token="%s";document.location.href=endp+"?token="+token+"#{gotostr}&content="+url;}());|
         end
@@ -48,7 +48,7 @@ module Ha2itat
           raise "no route named`#{name}' found for `#{Ha2itat.quart.identifier}'" unless route
           ret = bookmarklet % [::File.join(Ha2itat.C(:host), route), user.token]
           if goto
-            ret += "&goto=#{goto}"
+            ret += "&redirect=#{goto}"
           end
           puts ret
         end
