@@ -65,7 +65,7 @@ module ViewMethodsCommon
     end
 
     parsed_opts = opts.inject("") {|opt, m|
-      opt << "#{m.first}=\"#{m.last}\" "
+      opt << " #{m.first}=\"#{m.last}\""
     }
     "<a class='#{css}' href='#{href}'#{parsed_opts}>#{text}</a>"
   end
