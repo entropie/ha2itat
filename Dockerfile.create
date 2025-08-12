@@ -1,0 +1,58 @@
+FROM alpine:latest
+
+ENV NAME=randomHa2itat
+ENV H2_HOSTNAME=randomHostname
+
+RUN apk add \
+    git \
+    ruby \
+    ruby-bundler \
+    ruby-dev \
+    build-base \
+    pkgconf \
+    zlib-dev \
+    yaml-dev \
+    libffi-dev \
+    rust \
+    cargo \
+    clang \
+    autoconf \
+    automake \
+    libtool \
+    nodejs \
+    ffmpeg \
+    yt-dlp \
+    bash \
+    libxml2-dev \
+    libxslt-dev \
+    npm \
+    curl
+
+WORKDIR /app
+
+RUN mkdir /tmp/template
+
+RUN git clone https://github.com/entropie/ha2itat.git /tmp/template/ha2itat
+
+WORKDIR /tmp/template/ha2itat
+
+RUN bundle install && \
+    bundle exec bin/h2 create $NAME
+
+WORKDIR /app
+
+# clean links
+RUN rm /tmp/template/ha2itat/$NAME/vendor/gems/*
+
+# move generated app to /app and move ha2itat into /app/vendor/gems
+RUN cp -a /tmp/template/ha2itat/$NAME/. /app/ && \
+    mv    /tmp/template/ha2itat /app/vendor/gems
+
+# install gems for app
+RUN bundle install
+RUN unlink media && mkdir media
+
+RUN gem install overmind
+
+CMD ["overmind s"]
+
