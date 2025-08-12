@@ -1,7 +1,7 @@
 # ha2itat: Hanami Application Management & Deployment
 
 **ha2itat** is a dedicated tool designed to streamline the management
-and deployment of @anami applications.
+and deployment of @hanami applications.
 
 It features a versatile plugin system that can extend your application
 with CMS-like capabilities and other sophisticated enhancements.
@@ -32,7 +32,7 @@ with CMS-like capabilities and other sophisticated enhancements.
 
 ### Plugins
 
-* `blog` - A classic blog engine
+* `blog` - A classic blog engine, pretty full featured including multi language support
 * `booking` - A calendar, event, and booking system
 * `galleries` - For creating and managing image galleries
 * `notifier` -  Notifications
