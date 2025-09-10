@@ -54,5 +54,5 @@ RUN unlink media && mkdir media
 
 RUN gem install overmind
 
-CMD ["overmind s"]
+CMD ["overmind", "s"]
 

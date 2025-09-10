@@ -78,7 +78,7 @@ with CMS-like capabilities and other sophisticated enhancements.
     $ # generate admin user: `vendor/gems/ha2itat/bin/user.rb <name> <email> <password>'
     $ docker run -it --rm -v /tmp/ha2itat-media:/app/media ha2-create bundle exec ruby vendor/gems/ha2itat/bin/user.rb admin ad@mi.n foobar
     
-    $ docker run -it --rm -v /tmp/ha2itat-media:/app/media -p 2300:2300 ha2-create overmind s
+    $ docker run -it --rm -v /tmp/ha2itat-media:/app/media -p 2300:2300 ha2-create
  
     $ open http://localhost:2300
     $ open http://localhost:2300/backend/user/login
