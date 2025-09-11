@@ -38,6 +38,10 @@ module Ha2itat
 
       if slices.include?(:tumblog)
         slice :tumblog,         at: "/" # scope is "/backend/tumblog"
+
+        if slices.include?(:tumblogtools)
+          slice :tumblogtools,  at: "/"
+        end
       end
 
       if slices.include?(:zettel)
