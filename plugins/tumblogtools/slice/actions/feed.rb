@@ -47,7 +47,7 @@ module Ha2itat::Slices
         format :xml
 
         def handle(req, res)
-          tags = req.params[:fragments]&.split("/").reject{ |frag| frag !~ /^\w+$/ }
+          tags = req.params[:fragments]&.split("/")&.grep(/^[\w-]+$/)
 
           posts = tumblog_posts(req, tags: tags)
           ret = to_xml do |xml|
