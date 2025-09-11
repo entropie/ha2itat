@@ -3,13 +3,22 @@ module Ha2itat::Slices
     module Actions
       class API < Action
 
-        def handle(req, res)
-          tags = req.params[:fragments]&.split("/")&.grep(/^[\w-_]+$/)
+        def post_to_json(post)
+          ret = {  }
+          ret[:content] = post.to_html.strip
+          ret[:date] = post.created_at.strftime("%Y-%m-%d %H%m")
+          ret
+        end
 
-          limit = Ha2itat.C(:pager_max) || 10
-          posts = adapter.posts.sort_by{|p| p.created_at}.reverse.first(limit).map{ |p| p.to_hash }
-          res.format = :json
-          res.body = posts.to_json
+
+        def handle(req, res)
+          tags = req.params[:fragments]&.split("/")&.grep(/^[\w-]+$/)
+          rformat = req.params.raw[:format] || "json"
+          raise "nope" if rformat != "json"
+
+          posts = tumblog_posts(req, tags: tags).map{ |pst| post_to_json(pst) }
+
+          res.body = posts.to_yaml
         end
       end
     end
