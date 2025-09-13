@@ -6,11 +6,11 @@ let
   bundler = pkgs.buildRubyGem {
     inherit ruby;
     gemName = "bundler";
-    version = "2.6.8";
+    version = "2.7.2";
     source = {
       type = "gem";
-      url = "https://rubygems.org/downloads/bundler-2.6.8.gem";
-      sha256 = "sha256-vemZkXKWoWLklWSULcIxLtmo0y/C97SWyV9t88/Mh6k=";
+      url = "https://rubygems.org/downloads/bundler-2.7.2.gem";
+      sha256 = "sha256-Heyvni4ay5G2WGopJcjz9tojNKgnMaYv8t7RuDwoOHE=";
     };
   };
 
