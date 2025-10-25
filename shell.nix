@@ -1,8 +1,17 @@
 let
   pkgs = import <nixpkgs> {};
 
-  ruby = pkgs.ruby_3_2;
-
+  oldPkgs = import (fetchTarball {
+    # I want to switch ruby version when I want to, not when its not in nixpkgs anymore
+    # 
+    # Revision:      8eb28adfa3dc4de28e792e3bf49fcf9007ca8ac9
+    # Last modified: 2025-09-05 12:37:2
+    url = "https://github.com/NixOS/nixpkgs/archive/8eb28adfa3dc4de28e792e3bf49fcf9007ca8ac9.tar.gz";
+  }) {};
+  
+  # ruby = pkgs.ruby_3_2;
+  ruby = oldPkgs.ruby_3_2;
+  
   bundler = pkgs.buildRubyGem {
     inherit ruby;
     gemName = "bundler";
