@@ -7,6 +7,7 @@ let
     # Revision:      8eb28adfa3dc4de28e792e3bf49fcf9007ca8ac9
     # Last modified: 2025-09-05 12:37:2
     url = "https://github.com/NixOS/nixpkgs/archive/8eb28adfa3dc4de28e792e3bf49fcf9007ca8ac9.tar.gz";
+    sha256 = "sha256:0vi9nycvag2a9142n6gi5migp7fl5wdzsi1xk8p8542ki2sd9sil";
   }) {};
   
   # ruby = pkgs.ruby_3_2;
