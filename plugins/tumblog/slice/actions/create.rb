@@ -10,12 +10,14 @@ module Ha2itat::Slices
           optional(:tags).value(:string)
           optional(:token).value(:string)
           optional(:edit).value(:string)
+          optional(:marked_text).value(:string)
         end
 
 
-        def convert_input_url(content)
-          urlwohttp = content.dup.gsub(/^https?:\/\//, "").gsub(/\/$/, "").gsub(/^www\./, "")
-          "[%s](%s)" % [urlwohttp, content]
+        def convert_input_url(content, description = nil)
+          desc = content.dup.gsub(/^https?:\/\//, "").gsub(/\/$/, "").gsub(/^www\./, "")
+          desc = description if description && !description.empty? 
+          "[%s](%s)" % [desc, content]
         end
 
         def handle(req, res)
@@ -23,6 +25,7 @@ module Ha2itat::Slices
             content = req.params[:content]
             tags = Plugins::Tumblog.tagify(req.params[:tags])
             title = req.params[:title]
+            marked_text = req.params[:marked_text]
 
             post = adapter.with_user(session_user(req)).create(content: content, tags: tags, title: title)
 
@@ -31,7 +34,7 @@ module Ha2itat::Slices
             if req.params[:edit] or post.handler.create_interactive?
               redirect_target = :backend_tumblog_edit
               post.private!
-              post.update(content: convert_input_url(post.content))
+              post.update(content: convert_input_url(post.content, marked_text))
             end
 
             begin

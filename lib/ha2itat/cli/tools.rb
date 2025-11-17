@@ -8,7 +8,16 @@ module Ha2itat
         argument :route, type: :string,  required: true, desc: "internal route"
 
         def bookmarklet
-          %Q|javascript:(function(){var url=encodeURI(document.location.href),endp="%s",token="%s";document.location.href=endp+"?token="+token+"&content="+url;}());|
+          js = %Q|
+            javascript:(function(){
+              var url = encodeURIComponent(document.location.href);
+              var sel = encodeURIComponent(window.getSelection().toString());
+              var endp = "%s";
+              var token = "%s";
+              document.location.href = endp + "?token=" + token + "&content=" + url + "&marked_text=" + sel;
+            })();
+          |
+          js.gsub(/\s*\n\s*/, "")
         end
 
         def call(name:, route:, **options)
