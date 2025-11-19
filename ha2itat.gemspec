@@ -76,5 +76,5 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "dotenv"
 
-  s.add_dependency 'bundler', '~> 2.6.6'
+  s.add_dependency 'bundler', '~> 2.7.2'
 end
