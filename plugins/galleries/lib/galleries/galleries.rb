@@ -1,3 +1,5 @@
+require "image_processing/mini_magick"
+
 module Plugins
 
   module Galleries
@@ -157,6 +159,49 @@ module Plugins
     class Gallery
       include Plugins::Galleries
 
+      class ImageResizer
+        def variant_path(variant, path)
+          *ff, fext = path.split(".")
+          new_file = [ff, "-#{variant}.", fext].flatten.join
+        end
+
+        def generate_if_needed(**kwargs)
+          variant = kwargs[:variant]
+
+          full_image_file = variant_path(variant, @image.path)
+          relative_variant_filename = variant_path(variant, @image.filename)
+
+          unless File.exist?(full_image_file)
+            Ha2itat.log("gallery: generating #{relative_variant_filename}")
+            self.send("process_#{variant}")
+            default_convert
+            @result.call(destination: full_image_file)
+          end
+
+          ImageVariant.new(relative_variant_filename, @image.gallery)
+        end
+
+        def initialize(img)
+          @image = img
+        end
+
+        def processor
+          @processor ||= ImageProcessing::MiniMagick.source(@image.path)
+        end
+
+        def default_convert
+          @result = @result.saver(quality: 70)
+        end
+
+        def process_preview(max: 600)
+          @result = processor.resize_to_limit(max, max)
+        end
+
+        def process_thumbnail(max: 300)
+          @result = processor.resize_to_fill(max, max)
+        end
+      end
+
       class Image
         attr_reader :filename
         attr_reader :gallery
@@ -201,7 +246,11 @@ module Plugins
           Hanami.app["routes"].path(:image, path: ::File.join(filename))
         end
 
-        def url
+        def url(**kwargs)
+          if kwargs.include?(:variant)
+            irmaybe = ImageResizer.new(self).generate_if_needed(**kwargs)
+            return irmaybe.http_path
+          end
           http_path
         end
 
@@ -233,6 +282,12 @@ module Plugins
           else
             ident == obj or @hash == obj
           end
+        end
+      end
+
+      class ImageVariant < Image
+        def url
+          http_path
         end
       end
 

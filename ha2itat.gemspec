@@ -72,6 +72,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'commonmarker'
   s.add_dependency 'pony'
 
+  s.add_dependency "mini_magick"
+  s.add_dependency "image_processing"
+
   s.add_dependency 'relative_time'
 
   s.add_development_dependency "dotenv"
