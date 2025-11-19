@@ -55,6 +55,7 @@ in pkgs.mkShell {
     pkgs.autoconf
     pkgs.automake
     pkgs.libtool
+    pkgs.imagemagick
 
     pkgs.nodejs_22
     pkgs.nodePackages.node-gyp
