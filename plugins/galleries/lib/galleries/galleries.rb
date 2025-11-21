@@ -243,7 +243,7 @@ module Plugins
         end
 
         def http_path(*args)
-          Hanami.app["routes"].path(:image, path: ::File.join(filename))
+          File.join(Hanami.app["routes"].path(:image), ::File.join(filename))
         end
 
         def url(**kwargs)
