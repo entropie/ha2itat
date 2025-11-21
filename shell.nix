@@ -57,13 +57,8 @@ in pkgs.mkShell {
     project_dir=$(readlink -f "$PWD")
     project_name=$(echo "$PWD" | cut -d/ -f4)
 
-    if [ -d "/home/ha2itats/$project_name/shared/" ]; then
-      export GEM_HOME="/home/ha2itats/$project_name/shared/bundle/ruby/$ruby_api_version"
-      export BUNDLE_PATH="/home/ha2itats/$project_name/shared/bundle"
-    else
-      export GEM_HOME="$PWD/.bundle/gems-$ruby_api_version"
-      export BUNDLE_PATH="$PWD/.bundle/bundle-$ruby_api_version"
-    fi
+    export GEM_HOME="$PWD/.bundle/gems-$ruby_api_version"
+    export BUNDLE_PATH="$PWD/.bundle/bundle-$ruby_api_version"
 
     export GEM_PATH="$GEM_HOME:${bundler}/lib/ruby/gems/$ruby_api_version:${ruby}/lib/ruby/gems/$ruby_api_version"
     export PATH="$GEM_HOME/bin:$PATH"
