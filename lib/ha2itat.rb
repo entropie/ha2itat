@@ -9,6 +9,9 @@ require "hanami"
 require "net/http"
 require "relative_time"
 
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
+
 module Ha2itat
 
   Source = File.expand_path(File.join(File.dirname( File.expand_path(__FILE__))))
