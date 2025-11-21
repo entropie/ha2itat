@@ -53,6 +53,9 @@ in pkgs.mkShell {
   ];
   shellHook = ''
 
+    export LANG=en_US.UTF-8
+    export LC_ALL=en_US.UTF-8
+
     ruby_api_version=$(ruby -e 'puts RbConfig::CONFIG["ruby_version"]')
     project_dir=$(readlink -f "$PWD")
     project_name=$(echo "$PWD" | cut -d/ -f4)
