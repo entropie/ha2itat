@@ -1,11 +1,11 @@
 let
-  pkgs = import <nixpkgs> {};
+  # pkgs = import <nixpkgs> {};
 
-  opensslPinned = pkgs.openssl_3;
-
-  ruby = pkgs.ruby_3_4.override {
-    openssl = opensslPinned;
-  };
+  pkgs = import (builtins.fetchTarball {
+    url = "https://github.com/NixOS/nixpkgs/archive/nixos-24.05.tar.gz";
+  }) {};
+  
+  ruby = pkgs.ruby_3_2;
   
   bundler = pkgs.buildRubyGem {
     inherit ruby;
@@ -18,19 +18,10 @@ let
     };
   };
 
-  rubyEnv = pkgs.symlinkJoin {
-    name = "clean-ruby-env";
-    paths = [ ruby bundler opensslPinned ];
-    buildInputs = [ pkgs.makeWrapper ];
-    postBuild = ''
-      wrapProgram $out/bin/ruby --set GEM_PATH "${bundler}/lib/ruby/gems/3.4.0:${ruby}/lib/ruby/gems/3.4.0"
-      wrapProgram $out/bin/bundle --set GEM_PATH "${bundler}/lib/ruby/gems/3.4.0:${ruby}/lib/ruby/gems/3.4.0"
-    '';
-  };
-
 in pkgs.mkShell {
   buildInputs = [
-    rubyEnv
+    ruby
+    bundler
 
     pkgs.gcc
     pkgs.gnumake
