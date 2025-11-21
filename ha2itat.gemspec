@@ -44,6 +44,9 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rufus-scheduler",     "~> 3.9.2"
 
+  s.add_dependency "mustermann", ">= 3.0.3", "< 4.0"
+  s.add_dependency "mustermann-contrib", ">= 3.0.3", "< 4.0"
+
   s.add_dependency "rdoc"
 
   s.add_dependency "dry-types",           "~> 1.0", ">= 1.6.1"
