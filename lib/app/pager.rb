@@ -82,6 +82,12 @@ module Ha2itat
           @link_proc = obj
         end
 
+        def pagination_path=(path)
+          @link_proc = -> (n) {
+            "#{path}?page=#{n}"
+          }
+        end
+
         def current_page
           @pager.current_page
         end
