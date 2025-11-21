@@ -1,7 +1,11 @@
 let
   pkgs = import <nixpkgs> {};
 
-  ruby = pkgs.ruby_3_4;
+  opensslPinned = pkgs.openssl_3;
+
+  ruby = pkgs.ruby_3_4.override {
+    openssl = opensslPinned;
+  };
   
   bundler = pkgs.buildRubyGem {
     inherit ruby;
@@ -16,7 +20,7 @@ let
 
   rubyEnv = pkgs.symlinkJoin {
     name = "clean-ruby-env";
-    paths = [ ruby bundler ];
+    paths = [ ruby bundler opensslPinned ];
     buildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
       wrapProgram $out/bin/ruby --set GEM_PATH "${bundler}/lib/ruby/gems/3.4.0:${ruby}/lib/ruby/gems/3.4.0"
