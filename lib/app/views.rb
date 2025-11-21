@@ -54,7 +54,7 @@ module ViewMethodsCommon
     ([ Ha2itat::C(:page_prefix) ] + args).join("/")
   end
 
-  def path(routename, *args, **hargs)
+  def path(routename, **hargs)
     Hanami.app["routes"].path(routename.to_sym, **hargs)
   end
 
