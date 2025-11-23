@@ -189,11 +189,16 @@ module Plugins
           @processor ||= ImageProcessing::MiniMagick.source(@image.path)
         end
 
-        def default_convert
+        def default_convert(interlace: true, quality: 70)
+          @result = @result.saver(
+            quality: quality,
+            interlace: interlace && "Plane"
+          )
+
           @result = @result.saver(quality: 70)
         end
 
-        def process_preview(max: 600)
+        def process_preview(max: 2000)
           @result = processor.resize_to_limit(max, max)
         end
 
