@@ -198,7 +198,7 @@ module Plugins
           @result = @result.saver(quality: 70)
         end
 
-        def process_preview(max: 2000)
+        def process_preview(max: 600)
           @result = processor.resize_to_limit(max, max)
         end
 
