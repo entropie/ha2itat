@@ -55,7 +55,7 @@ in pkgs.mkShell {
 
     ruby_api_version=$(ruby -e 'puts RbConfig::CONFIG["ruby_version"]')
     project_dir=$(readlink -f "$PWD")
-    project_name=$(echo "$PWD" | cut -d/ -f4)
+    project_name=$(basename $project_dir)
 
     export GEM_HOME="$PWD/.bundle/gems-$ruby_api_version"
     export BUNDLE_PATH="$PWD/.bundle/bundle-$ruby_api_version"
@@ -66,6 +66,22 @@ in pkgs.mkShell {
     export HOME=${builtins.getEnv "HOME"}
 
     echo "[base: $project_name] Ruby version: $(ruby --version) $(bundle --version || true)"
+
+
+    nix_roots="$HOME/.nix-roots"
+    mkdir -p "$nix_roots"
+
+    out_link="$nix_roots/$project_name-shell"
+
+    hash_file="$out_link.hash"
+    current_hash=$(sha256sum "$project_dir/shell.nix" | cut -d' ' -f1)
+
+    if [ ! -f "$hash_file" ] || [ "$(cat "$hash_file")" != "$current_hash" ]; then
+      echo "pinning dev shell for $project_name -> $out_link..."
+      nix-build "$project_dir/shell.nix" --out-link "$out_link"
+      echo "$current_hash" > "$hash_file"
+      echo "updated pinned shell $out_link"
+    fi
   '';
 
 }
