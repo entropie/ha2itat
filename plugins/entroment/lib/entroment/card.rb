@@ -14,7 +14,7 @@ module Plugins
     class Card
       include EntromentAdapter
 
-      attr_reader :entry, :deck
+      attr_reader :deck
       attr_accessor :logsize
 
       DefaultLogSize = 10
@@ -57,6 +57,8 @@ module Plugins
 
       def entry
         @entry ||= adapter{ |adptr| adptr.by_id(@entry_id) }
+        @entry ||= MissingEntry.new(deck: deck, user_id: @user_id, ref: self)
+        @entry
       end
 
       def user

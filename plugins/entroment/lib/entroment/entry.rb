@@ -23,6 +23,10 @@ module Plugins
         parse_params(params)
       end
 
+      def has_controls?
+        exist
+      end
+
       def parse_params(params)
         params.each_pair { |k,v|
           instance_variable_set("@%s"%k.to_s, v)
@@ -82,14 +86,15 @@ module Plugins
       end
 
       def exist
-        Ha2itat.adapter(:entroment).exist?(filename)
+        Ha2itat.adapter(:entroment).with_user(user) { |db| db.exist?(self) }
       end
 
       def to_html(cls: "entroment-entry", collapsed: false, highlight: [])
         content_to_handle = content
         highlight = [highlight].flatten
-
-        if content.include?("---")
+        if !content
+          content_to_handle = "<span class='important'>Missing <code>card/#{ref.id rescue nil}</code></br> The Deck wants to access a card that does not exist anymore. Most probably that is because of manual file deletion.</span>"
+        elsif content.include?("---")
           clss = [:front]
           clss << :back if not collapsed
           arr = [content.split("---")].flatten.map{ |cf| cf }
@@ -157,6 +162,14 @@ module Plugins
 
       def destroy
         adapter { |a| a.destroy(self) }
+      end
+    end
+
+    class MissingEntry < Entry
+      attr_reader :ref
+      def initialize(**params)
+        @ref = params[:ref]
+        parse_params(params)
       end
     end
   end
