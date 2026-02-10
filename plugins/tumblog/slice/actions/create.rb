@@ -25,8 +25,8 @@ module Ha2itat::Slices
             content = req.params[:content]
             tags = Plugins::Tumblog.tagify(req.params[:tags])
             title = req.params[:title]
-            marked_text = req.params[:marked_text]
 
+            marked_text = req.params[:marked_text]&.strip
             post = adapter.with_user(session_user(req)).create(content: content, tags: tags, title: title)
 
             redirect_target = :backend_tumblog_show
