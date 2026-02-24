@@ -20,19 +20,20 @@ module Plugins
             @path = path
           end
 
-          def path(*args)
-          end
+          # def path(*args)
+          #   repository_path(@id)
+          # end
 
           def repository_path(*args)
-          #   ::File.join(::File.realpath(path), "entroment", *args)
-          # rescue Errno::ENOENT
-          #   warn "does not exist: #{path("user")}"
-          #   path("entroment", *args)
+            ::File.join(::File.realpath(@path), "polygram", *args)
+          rescue Errno::ENOENT
+            warn "does not exist: #{path("user")}"
+            path("polygram", *args)
           end
 
-          # def deck_path(uid = nil)
-          #   ::File.join(user_path(uid), "decks")
-          # end
+          def case_path(*args)
+            repository_path("cases", *args)
+          end
 
           # def entry_files(uid = nil)
           #   Dir.glob("%s/*/*.yaml" % repository_path(user_path(uid)))
@@ -83,6 +84,8 @@ module Plugins
           # end
 
           def create(**param_hash)
+            ret = Case.new(**param_hash)
+            ret
             # params = param_hash
             # params = param_hash.merge(user_id: @user.id) if @user
             # entry = Entry.new(**params)
