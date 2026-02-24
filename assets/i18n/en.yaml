@@ -24,6 +24,7 @@ form:
     ident_suggestion: week number
 
 be:
+  polygram:
   entroment:
     last_reviewed: Reviewed
     repetition_count: Streak
@@ -49,6 +50,7 @@ be:
     zettel:    ztl
     bagpipe:   bgp
     entroment: ntrmt
+    polygram:  plygrm
   links:
     user:
       create: add User

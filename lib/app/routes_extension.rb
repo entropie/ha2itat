@@ -65,6 +65,11 @@ module Ha2itat
       if slices.include?(:entroment)
         slice :entroment,       at: "/" # scope is "/backend/entroment"
       end
+
+      if slices.include?(:polygram)
+        slice :polygram,       at: "/"
+      end
+
     }
   end
 
