@@ -43,6 +43,7 @@ with CMS-like capabilities and other sophisticated enhancements.
 * `simpledb` - A basic framework for inputting and managing various kinds of data
 * `tumblog` - A microblogging tool that can also function as a data dump, a mirror for YouTube/Reddit, and more. I've been using it to manage my bookmarks for a while now
 * `zettel` - A Zettelkasten-style system for creating interconnected notes using tags
+* `polygram` - A collaborative system for analyzing media cases through multiple expert interpretations
 
 
 ### App-Structure
