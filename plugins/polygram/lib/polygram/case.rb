@@ -21,6 +21,16 @@ module Plugins
             @case = caze
           end
 
+          def mid
+            basename.split(".").first
+          end
+
+          alias :id :mid
+
+          def path
+            file
+          end
+
           def url
             @case.http_path("storage", basename)
           end
@@ -43,6 +53,10 @@ module Plugins
             Video.new(file, caze)
           }
           CaseMedia.new(ret)
+        end
+
+        def [](mid)
+          select{ |cme| cme.mid == mid }.shift
         end
       end
 

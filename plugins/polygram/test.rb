@@ -7,6 +7,10 @@ require "minitest/autorun"
 
 TESTFILES = [ "test/cases/a/video.mp4", "test/cases/b/video.mp4" ]
 
+user = Plugins::User::User.new.populate(name: "test1", email: "test1@te.st", password: "test1")
+user.add_to_group(Plugins::User::Groups.to_group_cls("default"))
+Ha2itat.adapter(:user).store(user)
+
 PLUGIN_PATH = File.dirname(__FILE__)
 
 class TestCreateCaseBasics < Minitest::Test
@@ -84,6 +88,61 @@ class TestCreateCaseCreateVideo < Minitest::Test
     @adapter.upload_for(caze, path: File.join(PLUGIN_PATH, TESTFILES.first))
     bn = ::File.basename(caze.media.first.file)
     assert_equal caze.media.first.url, "/polygram/cases/%s/storage/%s" % [caze.id, bn]
-
   end
+
+  def test_get_media_by_mid
+    caze = @adapter.create(user_id: @user.id)
+    @adapter.upload_for(caze, path: File.join(PLUGIN_PATH, TESTFILES.first))
+    mid = caze.media.first.mid
+    assert_kind_of Plugins::Polygram::Case::CaseMedia::Video, caze.media[mid]
+  end
+
+end
+
+
+class TestCaseDocument < Minitest::Test
+  def setup
+    @adapter = Ha2itat.adapter(:polygram)
+    @user    = Ha2itat.adapter(:user).user("test")
+    @user1   = Ha2itat.adapter(:user).user("test1")
+    @caze    = @adapter.create(user_id: @user.id)
+    @adapter.upload_for(@caze, path: File.join(PLUGIN_PATH, TESTFILES.first))
+    @testmedia = @caze.media.first
+  end
+
+  def test_edit_not_existing_observation
+    obs = @adapter.edit_observation(@caze, @testmedia.mid, @user, "observation text")
+    assert_equal obs.mid, @testmedia.id
+    assert_equal obs.text, "observation text"
+  end
+
+  def test_edit_not_existing_reading
+    obs = @adapter.edit_reading(@caze, @testmedia.mid, @user, "reading text")
+    assert_equal obs.mid, @testmedia.id
+    assert_equal obs.text, "reading text"
+  end
+
+  def test_observations_from_case
+    @adapter.edit_reading(@caze, @testmedia.mid, @user, "reading text")
+    @adapter.edit_observation(@caze, @testmedia.mid, @user, "observation text")
+    observations = @adapter.observations_for(@caze)
+    assert_equal observations.size, 1
+  end
+
+  def test_readings_from_case
+    @adapter.edit_reading(@caze, @testmedia.mid, @user, "reading text")
+    @adapter.edit_observation(@caze, @testmedia.mid, @user, "observation text")
+    readings = @adapter.readings_for(@caze)
+    assert_equal readings.size, 1
+  end
+
+  def test_multiple_readings_from_case
+    @adapter.edit_reading(@caze, @testmedia.mid, @user, "reading text")
+    @adapter.edit_reading(@caze, @testmedia.mid, @user1, "reading text")
+    readings = @adapter.readings_for(@caze)
+    assert_equal readings.map(&:user).uniq.size, 2
+    assert_equal readings.size, 2
+  end
+
+
 end

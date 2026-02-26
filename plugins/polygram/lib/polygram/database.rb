@@ -142,6 +142,57 @@ module Plugins
               Ha2itat.log "polygram handle_normalized_video:both files do not exist and therefore we delete nothing: #{target_file}"            end
           end
 
+          def observations_for(entry)
+            res = []
+            entry.media.each do |casemedia|
+              observation_path_glob = entry.path("observation/*/#{casemedia.mid}/observation.markdown")
+              observation_files = Dir.glob(observation_path_glob)
+              observation_files.each do |file|
+                uid = file.split("/")[-3]
+                observation = Case::Observation.new(entry, casemedia.id, Ha2itat.adapter(:user).by_id(uid))
+                res << observation
+              end
+            end
+            res
+          end
+
+          def readings_for(entry)
+            res = []
+            entry.media.each do |casemedia|
+              reading_path_glob = entry.path("observation/*/#{casemedia.mid}/reading.markdown")
+              reading_files = Dir.glob(reading_path_glob)
+              reading_files.each do |file|
+                uid = file.split("/")[-3]
+                reading = Case::Reading.new(entry, casemedia.id, Ha2itat.adapter(:user).by_id(uid))
+                res << reading
+              end
+            end
+            res
+
+          end
+
+          def observation_for(entry, mid, user)
+            Case::Observation.new(entry, mid, user)
+          end
+
+          def reading_for(entry, mid, user)
+            Case::Reading.new(entry, mid, user)
+          end
+
+          def edit_observation(entry, mid, user, text)
+            obs = Case::Observation.find_or_create(entry, mid, user)
+            FileUtils.mkdir_p(::File.dirname(obs.path), verbose: true)
+            ::File.open(obs.path, "w+"){ |fp| fp.write(text) }
+            obs
+          end
+
+          def edit_reading(entry, mid, user, text)
+            obs = Case::Reading.find_or_create(entry, mid, user)
+            FileUtils.mkdir_p(::File.dirname(obs.path), verbose: true)
+            ::File.open(obs.path, "w+"){ |fp| fp.write(text) }
+            obs
+          end
+
           def upload_for(entry, path: nil, file: nil, ext: nil)
             Ha2itat.log "polygram upload_for:#{entry.id} (path=#{path},file=#{file and file.size })"
             fc = nil
