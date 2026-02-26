@@ -1,3 +1,6 @@
+require "streamio-ffmpeg"
+
+
 module Plugins
   module Polygram
 
@@ -35,9 +38,9 @@ module Plugins
             repository_path("cases", *args)
           end
 
-          # def entry_files(uid = nil)
-          #   Dir.glob("%s/*/*.yaml" % repository_path(user_path(uid)))
-          # end
+          def media_files(caze)
+            Dir.glob("%s/*" % caze.storage_path)
+          end
 
           # def yaml_load(file:)
           #   Psych.unsafe_load(::File.readlines(file).join)
@@ -84,19 +87,12 @@ module Plugins
           # end
 
           def create(**param_hash)
-            ret = Case.new(**param_hash)
+            kind = param_hash.delete(:kind)
+            kind ||= :videos
+            clz = kind == :images ? ImagesCase : VideosCase
+
+            ret = clz.new(**param_hash)
             ret
-            # params = param_hash
-            # params = param_hash.merge(user_id: @user.id) if @user
-            # entry = Entry.new(**params)
-
-            # # to be sure
-            # while !(b = by_id(entry.id)).nil?
-            #   Ha2itat.log("entroment entry:create #{entry.id} already in database, requesting new")
-            #   entry.newid!
-            # end
-
-            # store(entry)
           end
 
           def update(entry, **param_hash)
@@ -127,7 +123,62 @@ module Plugins
             # result
           end
 
+          def normalize_video(ifile, ofile, **param_hash)
+            video = FFMPEG::Movie.new(ifile)
+            video.transcode(ofile, %w[
+              -vf fps=25,scale=iw:-2
+              -c:v libx264 -preset fast -crf 23
+              -x264-params keyint=50:min-keyint=50
+              -c:a aac -b:a 128k
+              -movflags +faststart
+            ])
+          end
+
+          def handle_normalized_video(target_file, normalized_file)
+            if ::File.exist?(target_file) and ::File.exist?(normalized_file)
+              Ha2itat.log "polygram handle_normalized_video:removing uploaded filed afer normalization #{target_file}"
+              ::FileUtils.rm(target_file, verbose: true)
+            else
+              Ha2itat.log "polygram handle_normalized_video:both files do not exist and therefore we delete nothing: #{target_file}"            end
+          end
+
+          def upload_for(entry, path: nil, file: nil, ext: nil)
+            Ha2itat.log "polygram upload_for:#{entry.id} (path=#{path},file=#{file and file.size })"
+            fc = nil
+            if path
+              fc = ::File.read(path)
+              ext = ::File.extname(path).gsub(/\./, "")
+            elsif file
+              fc = file
+            end
+
+            raise "upload failed" unless fc
+            raise "ext parameter missing; we dont guess extensions" unless ext
+
+            fdig = Digest::SHA1.hexdigest(Ha2itat.quart.secret + fc)
+
+            # write
+            filename = "tainted-%s.%s" % [fdig, ext]
+            target_file = entry.storage_path(filename)
+            Ha2itat.log "polygram upload_for:writing #{target_file}"
+            FileUtils.mkdir_p(::File.dirname(target_file), verbose: true)
+            bytes = ::File.open(target_file, "w"){ |fp| fp.write(fc) }
+
+            # normalize
+            normalized_file = entry.storage_path("%s.%s" % [fdig, ext])
+            Ha2itat.log "polygram upload_for:wrote %i bytes to %s" % [bytes, target_file]
+            if normalize_video(target_file, normalized_file)
+              handle_normalized_video(target_file, normalized_file)
+            end
+
+            bytes
+          end
+
           def store(entry)
+            FileUtils.mkdir_p(repository_path, verbose: true)
+
+            puts
+            pp entry.metadata
             # validate!(entry)
 
             # human_kind = "creating"
