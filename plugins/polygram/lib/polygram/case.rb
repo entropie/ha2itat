@@ -1,6 +1,8 @@
 module Plugins
   module Polygram
 
+    class Cases < Array
+    end
 
     class Case
 
@@ -60,13 +62,26 @@ module Plugins
         end
       end
 
-      attr_reader :user, :id, :variables, :public
+      attr_accessor :id, :variables, :public, :kind, :path
+
+      def self.from_json(json)
+        ret = new
+        [:id, :path, :public, :kind, :variables].each do |attr|
+          ret.send("#{attr}=", json[attr.to_s])
+        end
+        ret
+      end
 
       def initialize(**param_hash)
+      end
+
+      def setup(**param_hash)
         @variables = CaseVariables.new.merge_from_input(**param_hash)
         @id = Ha2itat::Database.get_random_id
         @public = false
+        self
       end
+
 
       def adapter
         @adapter ||= Ha2itat.adapter(:polygram)
@@ -94,25 +109,21 @@ module Plugins
       end
 
       def media
-        @media ||=
-          begin
-            CaseMedia.read_for(self)
-          end
+        CaseMedia.read_for(self)
       end
 
       def metadata
         {
-          user_id: variables[:user_id],
           id: id,
           path: relative_path,
           public: public,
           kind: kind,
-          media: [media.map{ |m| "%s:%s" % [m.kind, ::File.basename(m.file)] }.join(",")]
+          variables: variables
         }
       end
 
       def metadata_file
-        relative_path("metadata.yaml")
+        relative_path("metadata.json")
       end
 
       def storage_path(*args)

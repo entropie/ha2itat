@@ -48,7 +48,7 @@ class TestCreateCaseBasics < Minitest::Test
   end
 
   def test_create_case_should_not_exist
-    caze = @adapter.create(user_id: @user)
+    caze = @adapter.create(user_id: @user, noop: true)
     assert !caze.exist?
   end
 
@@ -161,3 +161,32 @@ class TestCaseDocument < Minitest::Test
     assert_equal @adapter.reading_and_observation_set_for(@caze, @testmedia.mid, @user1).size, 2
   end
 end
+
+
+class TestListCases < Minitest::Test
+  def setup
+    @adapter = Ha2itat.adapter(:polygram)
+    @user    = Ha2itat.adapter(:user).user("test")
+    @user1   = Ha2itat.adapter(:user).user("test1")
+
+    @cases = []
+    0.upto(5) do |i|
+      caze = @adapter.create(user_id: @user.id)
+      testmedia = @adapter.upload_for(caze, path: File.join(PLUGIN_PATH, TESTFILES.first))
+
+      @adapter.edit_reading(caze, testmedia.mid, @user, "user reading text")
+      @adapter.edit_observation(caze, testmedia.mid, @user, "reading text")
+      @adapter.edit_reading(caze, testmedia.mid, @user1, "other reading text")
+      @adapter.edit_observation(caze, testmedia.mid, @user1, "other reading text")
+      @cases << caze
+    end
+  end
+
+  def test_get
+    @cases.each do |caze|
+      assert_equal 2, @adapter.readings_for(caze).size
+      assert_equal 2, @adapter.observations_for(caze).size
+    end
+  end
+end
+

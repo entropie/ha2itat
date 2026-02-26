@@ -23,15 +23,8 @@ module Plugins
             @path = path
           end
 
-          # def path(*args)
-          #   repository_path(@id)
-          # end
-
           def repository_path(*args)
             ::File.join(::File.realpath(@path), "polygram", *args)
-          rescue Errno::ENOENT
-            warn "does not exist: #{path("user")}"
-            path("polygram", *args)
           end
 
           def case_path(*args)
@@ -42,30 +35,23 @@ module Plugins
             Dir.glob("%s/*" % caze.storage_path)
           end
 
-          # def yaml_load(file:)
-          #   Psych.unsafe_load(::File.readlines(file).join)
-          # end
-
-          def read(uid = nil)
-            target_id = uid || @user.id rescue nil
-            raise Ha2itat::Database::NoUserContext, "no user context" unless target_id
-
-            user_entries = []
-            entry_files(target_id).each do |entryfile|
-              user_entries << yaml_load(file: entryfile)
-            end
-            user_entries
-          end
-          alias :entries :read
-
-          def by_id(id, uid = nil)
-            read(uid).select{ |uentry| uentry =~ id }.shift
+          def case_directories
+            Dir.glob("%s/cases/*" % repository_path)
           end
 
-          def by_tags(*search_tags)
-            entries.select do |entry|
-              (entry.tags & search_tags).any?
+          def read
+            ret = Cases.new
+            read_cases = case_directories.map do |cdir|
+              metadata_json = JSON.parse(::File.read(::File.join(cdir, "metadata.json")))
+              Case.from_json(metadata_json)
             end
+            ret.push(*read_cases)
+          end
+
+          alias :cases :read
+
+          def by_id(id)
+            read.select{ |uentry| uentry.id == id }.shift
           end
 
           def with_user(user, &blk)
@@ -79,16 +65,23 @@ module Plugins
             return ret
           end
 
-          def create(**param_hash)
+          def class_by_kind(knd)
+            knd == :images ? ImagesCase : VideosCase
+          end
+
+          def create(noop: nil, **param_hash)
             kind = param_hash.delete(:kind)
             kind ||= :videos
-            clz = kind == :images ? ImagesCase : VideosCase
 
-            ret = clz.new(**param_hash)
-            ret
+            clz = class_by_kind(kind)
+
+            entry = clz.new.setup(**param_hash)
+            store(entry) if not noop
+            entry
           end
 
           def update(entry, **param_hash)
+            store(entry, **param_hash)
           end
 
           def exist?(entry)
@@ -143,7 +136,6 @@ module Plugins
               end
             end
             res
-
           end
 
           def observation_for(entry, mid, user)
@@ -201,37 +193,16 @@ module Plugins
               handle_normalized_video(target_file, normalized_file)
             end
 
-            bytes
+            Case::CaseMedia::Video.new(normalized_file, entry)
           end
 
-          def store(entry)
-            FileUtils.mkdir_p(repository_path, verbose: true)
-            pp entry.metadata
-            # validate!(entry)
-
-            # human_kind = "creating"
-            # if exist?(entry)
-            #   human_kind = "updating"
-            #   entry.updated_at = Time.now
-            # end
-
-            # # do that before we prepare for saving because it touches #user
-            # # which we dont want to have in our result yaml
-            # complete_path = repository_path(entry.filename)
-
-            # to_save = prepare_for_save(entry)
-            # yaml = YAML::dump(to_save)
-
-            # dirname = ::File.dirname(complete_path)
-            # ::FileUtils.mkdir_p(dirname, verbose: true) unless ::File.exist?(dirname)
-
-            # Ha2itat.log "entroment entry:#{human_kind} #{entry.id} (#{entry.user.name})"
-            # write(complete_path, yaml)
-
-            # if entry.decked?
-            #   synchronize_decks(entry)
-            # end
-            # to_save
+          def store(entry, **param_hash)
+            FileUtils.mkdir_p(repository_path, verbose: true) unless ::File.exist?(repository_path)
+            complete_metadata_path = repository_path(entry.metadata_file)
+            FileUtils.mkdir_p(::File.dirname(complete_metadata_path))
+            Ha2itat.log "polygram store:write #{complete_metadata_path}"
+            ::File.open(complete_metadata_path, "w+"){ |fp| fp.write(entry.metadata.to_json) }
+            entry
           end
 
           def destroy(entry)
