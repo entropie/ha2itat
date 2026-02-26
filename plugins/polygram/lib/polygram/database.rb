@@ -79,13 +79,6 @@ module Plugins
             return ret
           end
 
-          # def setup
-          #   @setup = true
-          #   Ha2itat.log "setting up adapter directory #{path}"
-          #   FileUtils.mkdir_p(path)
-          #   @setup
-          # end
-
           def create(**param_hash)
             kind = param_hash.delete(:kind)
             kind ||= :videos
@@ -96,19 +89,6 @@ module Plugins
           end
 
           def update(entry, **param_hash)
-            # params = param_hash
-            # params = params.merge(user_id: @user.id) if @user
-
-            # oldtags = entry.tags
-            # entry.update(param_hash)
-            # tags = entry.tags
-
-            # # remove entry from deck if no longer tagged
-            # oldtags.select{ |ot| not tags.include?(ot) }.each do |oldtag|
-            #   deck = decks[oldtag.to_s]
-            #   deck.remove(entry) if deck
-            # end
-            # store(entry)
           end
 
           def exist?(entry)
@@ -116,11 +96,6 @@ module Plugins
           end
 
           def find(content: nil, tags: [], date: nil)
-            # result = []
-            # if content
-            #   result.push(*read.select{ |entry| entry.content.include?(content) })
-            # end
-            # result
           end
 
           def normalize_video(ifile, ofile, **param_hash)
@@ -179,6 +154,10 @@ module Plugins
             Case::Reading.new(entry, mid, user)
           end
 
+          def reading_and_observation_set_for(entry, mid, user)
+            return [reading_for(entry, mid, user), observation_for(entry, mid, user)]
+          end
+
           def edit_observation(entry, mid, user, text)
             obs = Case::Observation.find_or_create(entry, mid, user)
             FileUtils.mkdir_p(::File.dirname(obs.path), verbose: true)
@@ -227,8 +206,6 @@ module Plugins
 
           def store(entry)
             FileUtils.mkdir_p(repository_path, verbose: true)
-
-            puts
             pp entry.metadata
             # validate!(entry)
 

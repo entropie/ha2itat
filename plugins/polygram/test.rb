@@ -144,5 +144,20 @@ class TestCaseDocument < Minitest::Test
     assert_equal readings.size, 2
   end
 
+  def test_multiple_readings_and_user
+    @adapter.edit_reading(@caze, @testmedia.mid, @user, "reading text")
+    @adapter.edit_observation(@caze, @testmedia.mid, @user, "reading text")
+    @adapter.edit_reading(@caze, @testmedia.mid, @user1, "reading text")
+    @adapter.edit_observation(@caze, @testmedia.mid, @user1, "reading text")
+    readings = @adapter.readings_for(@caze)
+    assert_equal readings.map(&:path).uniq.size, 2
+    observations = @adapter.observations_for(@caze)    
+    assert_equal observations.map(&:path).uniq.size, 2
+  end
 
+  def test_reading_and_observation_set
+    @adapter.edit_reading(@caze, @testmedia.mid, @user, "reading text")
+    @adapter.edit_observation(@caze, @testmedia.mid, @user, "reading text")
+    assert_equal @adapter.reading_and_observation_set_for(@caze, @testmedia.mid, @user1).size, 2
+  end
 end
