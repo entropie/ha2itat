@@ -136,7 +136,7 @@ module Plugins
 
           def handle_normalized_video(target_file, normalized_file)
             if ::File.exist?(target_file) and ::File.exist?(normalized_file)
-              Ha2itat.log "polygram handle_normalized_video:removing uploaded filed afer normalization #{target_file}"
+              Ha2itat.log "polygram handle_normalized_video:removing uploaded filed after normalization #{target_file}"
               ::FileUtils.rm(target_file, verbose: true)
             else
               Ha2itat.log "polygram handle_normalized_video:both files do not exist and therefore we delete nothing: #{target_file}"            end
