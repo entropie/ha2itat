@@ -9,8 +9,10 @@ module Ha2itat::Slices
           if req.post?
             caze = adapter.create(user_id: session_user(req).id)
 
-            req.params[:file].each do |userfile|
-              adapter.upload_for(caze, path: userfile[:tempfile].path)
+            if req.params[:file]
+              req.params[:file].each do |userfile|
+                adapter.upload_for(caze, path: userfile[:tempfile].path)
+              end
             end
           end
 

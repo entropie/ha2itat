@@ -68,6 +68,7 @@ module Ha2itat
 
       if slices.include?(:polygram)
         slice :polygram,       at: "/"
+        get '/polygram/*path', to: Rack::Files.new( Ha2itat.quart.media_path("polygram") )
       end
 
     }

@@ -138,6 +138,7 @@ be:
       show: Show
     polygram:
       index: Polygram <small>List of Cases</small>
+      show: Case Data
     entroment:
       index: Dashboard
       cards: Entroment <small>cards</small>

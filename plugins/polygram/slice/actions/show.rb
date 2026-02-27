@@ -4,7 +4,8 @@ module Ha2itat::Slices
       class Show < Action
 
         def handle(req, res)
-          # res.render(view)
+          caze = adapter.by_id(req.params[:id])
+          res.render(view, caze: caze, complete: true)
         end
       end
     end

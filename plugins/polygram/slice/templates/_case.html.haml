@@ -6,5 +6,15 @@
       by
       %strong #{caze.user.name}  
 
+  .checkbox
+    .files-attached
+      = caze.media.size
+      attachment(s)
+
+  - if complete
+    %hr
+
+
   - caze.media.each do |cm|
-    = cm.url
+    %video{ controls: true, muted: true, src: cm.url, style: "display: #{complete ? 'block' : 'none'}" }
+
