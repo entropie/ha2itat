@@ -6,13 +6,13 @@ module Ha2itat::Slices::Polygram
       Ha2itat.adapter(:polygram)
     end
 
-    def awu(req, &blk)
-      adapter.with_user(session_user(req), &blk)
-    end
+    # def awu(req, &blk)
+    #   adapter.with_user(session_user(req), &blk)
+    # end
 
-    def by_id(req)
-      awu(req){ |adptr| adptr.by_id(req.params[:id]) }
-    end
+    # def by_id(req)
+    #   awu(req){ |adptr| adptr.by_id(req.params[:id]) }
+    # end
 
     # def create_or_edit_post(req, res)
     #   entry = by_id(req)
