@@ -163,7 +163,7 @@ class TestCaseDocument < Minitest::Test
 end
 
 
-class TestListCases < Minitest::Test
+class Test01ListCases < Minitest::Test
   def setup
     @adapter = Ha2itat.adapter(:polygram)
     @user    = Ha2itat.adapter(:user).user("test")
@@ -182,10 +182,24 @@ class TestListCases < Minitest::Test
     end
   end
 
+  def localcases
+    @adapter.cases.select do |caze|
+      @cases.include?(caze)
+    end
+  end
+
   def test_get
     @cases.each do |caze|
+      next unless @cases.include?(caze)
       assert_equal 2, @adapter.readings_for(caze).size
       assert_equal 2, @adapter.observations_for(caze).size
+    end
+  end
+
+  def test_get_userpairs
+    @cases.each do |caze|
+      bcontrib = caze.by_contributor
+      assert_equal 2, bcontrib.size
     end
   end
 end
