@@ -43,9 +43,11 @@ module Plugins
             ret = Cases.new
             read_cases = case_directories.map do |cdir|
               metadata_json = JSON.parse(::File.read(::File.join(cdir, "metadata.json")))
-              Case.from_json(metadata_json)
+              if ::File.exist?(metadata_json)
+                Case.from_json(metadata_json)
+              end
             end
-            ret.push(*read_cases)
+            ret.push(*read_cases.compact)
           end
 
           alias :cases :read
