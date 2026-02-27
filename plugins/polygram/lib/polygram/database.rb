@@ -57,17 +57,6 @@ module Plugins
             read.select{ |uentry| uentry.id == id }.shift
           end
 
-          def with_user(user, &blk)
-            @user = user
-            ret = nil
-            begin
-              ret = yield self if block_given?
-            ensure
-              @user, @decks = nil, nil
-            end
-            return ret
-          end
-
           def class_by_kind(knd)
             knd == :images ? ImagesCase : VideosCase
           end
