@@ -42,8 +42,9 @@ module Plugins
           def read
             ret = Cases.new
             read_cases = case_directories.map do |cdir|
-              metadata_json = JSON.parse(::File.read(::File.join(cdir, "metadata.json")))
-              if ::File.exist?(metadata_json)
+              json_file = ::File.read(::File.join(cdir, "metadata.json"))
+              metadata_json = JSON.parse(json_file)
+              if ::File.exist?(json_file)
                 Case.from_json(metadata_json)
               end
             end
