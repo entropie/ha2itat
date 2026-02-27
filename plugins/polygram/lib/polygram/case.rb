@@ -64,11 +64,22 @@ module Plugins
 
       attr_accessor :id, :variables, :public, :kind, :path
 
+      module ForceSymbolHash
+        def clean(target = Hash)
+          old = self
+          new = target.new
+
+          old.each_pair { |k,v| new.store(k.to_sym, v) }
+          new
+        end
+      end
+      
       def self.from_json(json)
         ret = new
-        [:id, :path, :public, :kind, :variables].each do |attr|
+        [:id, :path, :public, :kind].each do |attr|
           ret.send("#{attr}=", json[attr.to_s])
         end
+        ret.variables = json["variables"].extend(ForceSymbolHash).clean(CaseVariables)
         ret
       end
 
@@ -96,6 +107,15 @@ module Plugins
 
       def user
         Ha2itat.adapter(:user).by_id(variables[:user_id])
+      end
+
+      def title(length = 8)
+        "case <code>%s</code>" % id[0..length-1]
+      end
+
+      def css_class
+        type_class = kind == "videos" ? "video-case" : "image-case"
+        "%s %s" % [public ? "case public-case" : "case private-case", type_class]
       end
 
       # return:
