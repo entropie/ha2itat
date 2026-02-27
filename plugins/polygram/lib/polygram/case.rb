@@ -34,7 +34,7 @@ module Plugins
           end
 
           def url
-            @case.http_path("storage", basename)
+            @case.http_path("polygram", @case.id, basename)
           end
 
           def basename
@@ -102,7 +102,7 @@ module Plugins
       end
 
       def http_path(*args)
-        "/polygram/%s" % relative_path(*args)
+        ::File.join("/", *args)
       end
 
       def user
@@ -167,11 +167,11 @@ module Plugins
       end
 
       def storage_path(*args)
-        path("storage", *args)
+        adapter.repository_path("polygram/%s" % id, *args)
       end
 
       def relative_storage_path(*args)
-        relative_path("storage", *args)
+        ::File.join("polygram/%s" % id, *args)
       end
     end
 

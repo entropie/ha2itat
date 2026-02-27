@@ -56,8 +56,10 @@ class TestCreateCaseBasics < Minitest::Test
     caze = @adapter.create(user_id: @user)
     cpath = ::File.join(@adapter.repository_path, "cases", caze.id)
     assert_equal caze.path, cpath
-    assert_equal caze.storage_path, ::File.join(cpath, "storage")
-    assert_equal caze.relative_storage_path, ::File.join("cases", caze.id, "storage")
+
+    assert_equal caze.storage_path, ::File.join(@adapter.repository_path, "storage", caze.id)
+
+    assert_equal caze.relative_storage_path, ::File.join("storage", caze.id)
   end
 end
 
