@@ -82,7 +82,6 @@ module Plugins
         self
       end
 
-
       def adapter
         @adapter ||= Ha2itat.adapter(:polygram)
       end
@@ -97,6 +96,27 @@ module Plugins
 
       def user
         Ha2itat.adapter(:user).by_id(variables[:user_id])
+      end
+
+      # return:
+      #     { 'USERID':
+      #         'MEDIAID': [
+      #           [ reading, observation ]
+      #         ],
+      #         ..
+      #       ...
+      #     }
+      def by_contributor
+        user = {}
+        [
+          Ha2itat.adapter(:polygram).readings_for(self),
+          Ha2itat.adapter(:polygram).observations_for(self)
+        ].flatten.each do |rooentry|
+          user[rooentry.user.id] ||= {  }
+          user[rooentry.user.id][rooentry.mid] ||= []
+          user[rooentry.user.id][rooentry.mid] << rooentry
+        end
+        user
       end
 
       def exist?
