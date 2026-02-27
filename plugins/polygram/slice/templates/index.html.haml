@@ -1,4 +1,6 @@
-hello from polygram::index
+%h2= t.be.topics.polygram.index
 
-- cases.each do |caze|
-  %li= caze.path
+- pager.each do |caze|
+  = render "case", caze: caze
+
+= pager.navigation

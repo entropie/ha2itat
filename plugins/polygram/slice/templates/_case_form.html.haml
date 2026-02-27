@@ -1,0 +1,16 @@
+#BE-form
+  %form{method: :post, action: action, enctype: 'multipart/form-data'}
+    = _csrf_field
+    %input.form-input{type: :hidden, value: (caze && caze.id ? caze.id : ""), name: :id}
+    .container
+      .columns
+        .column.col-12
+          %textarea#form-desc.form-input.cm-form{name: :usertext, "data-codemirror-mode": "text/x-markdown"}= ""
+      .columns.mtop
+        .column.col-12
+          %input.form-input{type: :file, name: "file[]", multiple: true}
+
+
+      .columns.mtop
+        .column.col-2.col-mx-auto
+          %input.form-input{type: :submit, value: t.form.submit}

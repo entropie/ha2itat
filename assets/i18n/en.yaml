@@ -136,6 +136,8 @@ be:
     zettel:
       index: Overview
       show: Show
+    polygram:
+      index: Polygram <small>List of Cases</small>
     entroment:
       index: Dashboard
       cards: Entroment <small>cards</small>

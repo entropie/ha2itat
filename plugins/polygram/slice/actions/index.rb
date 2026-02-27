@@ -3,8 +3,12 @@ module Ha2itat::Slices
     module Actions
       class Index < Action
 
+        include Ha2itat.h(:pager)
+
         def handle(req, res)
-          res.render(view, cases: adapter.cases)
+          pager = Pager.new(req.params.to_hash, adapter.cases)
+          pager.link_proc = -> (n) { routes.path(:backend_polygram_index, page: n ) }
+          res.render(view, pager: pager)
         end
       end
     end

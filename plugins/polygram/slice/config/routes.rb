@@ -3,6 +3,10 @@ module Ha2itat::Slices::Polygram
     scope "backend" do
       scope  "polygram" do
         get  "/",               to: "index",  as: :index
+        get  "/create",         to: "create",  as: :create
+        post "/create",         to: "create"
+        get  "/show/:id",       to: "show",  as: :show
+
       end
     end
 

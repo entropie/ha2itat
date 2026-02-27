@@ -1,0 +1,10 @@
+.case{"data-case-id": caze.id, class: caze.css_class }
+  %h3
+    %a{href: path(:backend_polygram_show, id: caze.id)} ↳
+    = caze.title
+    %small
+      by
+      %strong #{caze.user.name}  
+
+  - caze.media.each do |cm|
+    = cm.url
