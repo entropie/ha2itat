@@ -1,5 +1,5 @@
 .case{"data-case-id": caze.id, class: caze.css_class }
-  %h3
+  .head
     %a{href: path(:backend_polygram_show, id: caze.id)} ↳
     = caze.title
     %small
@@ -8,13 +8,23 @@
 
   .checkbox
     .files-attached
-      = caze.media.size
+      %strong= caze.media.size
       attachment(s)
 
   - if complete
     %hr
 
+  - if menu
+    .media-line
+      %dl
+        - caze.media.each do |cm|
+          %dt
+            Mediasample
+            %strong= cm.title
+          %dd
+            = render "media-links", caze: caze, mid: cm.id
+            
+            .media-entry{style: "display: #{complete ? 'block' : 'none'}" }
+              = render "video", caze: caze, media: cm
 
-  - caze.media.each do |cm|
-    %video{ controls: true, muted: true, src: cm.url, style: "display: #{complete ? 'block' : 'none'}" }
 

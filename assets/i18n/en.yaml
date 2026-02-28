@@ -139,6 +139,7 @@ be:
     polygram:
       index: Polygram <small>List of Cases</small>
       show: Case Data
+      read: Case reading  <small>Only describe, do not interpret
     entroment:
       index: Dashboard
       cards: Entroment <small>cards</small>

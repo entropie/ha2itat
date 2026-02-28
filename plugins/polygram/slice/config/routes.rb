@@ -7,6 +7,13 @@ module Ha2itat::Slices::Polygram
         post "/create",         to: "create"
         get  "/show/:id",       to: "show",  as: :show
 
+        get  "/observe/:id/:mid",    to: "observe",  as: :observe
+        get  "/read/:id/:mid",       to: "read",  as: :read
+
+        post  "/observe/:id/:mid",   to: "observe"
+        post  "/read/:id/:mid",      to: "read"
+
+
       end
     end
 

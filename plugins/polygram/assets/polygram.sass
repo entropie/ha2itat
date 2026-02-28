@@ -1,0 +1,60 @@
+@import "../../backend/assets/variables"
+
+.case
+  position: relative
+  .media-links
+    @include clean-ul
+    display: inline-block
+    li
+      margin-right: 5px
+      margin-left: 5px
+    
+  .head
+    display: inline-block
+  .checkbox
+    display: inline-block
+    .files-attached strong
+      color: orange
+  hr
+    opacity: .1
+
+  .media-line
+    padding: 5px
+    background-color: rgba(silver, .01)
+    dl
+      display: flex
+      dt
+        strong
+          color: $c1
+      dd
+        margin: 0
+        padding: 0
+        margin-left: 5vw
+        width: auto
+
+  .media-entry
+    padding: 1vw
+    border: 1px solid red
+
+#case-reading
+  display: flex
+  align-content: stretch
+  flex-direction: column
+  .video
+    text-align: center
+  @include desktop
+    flex-direction: row
+  .formbox
+    width: auto
+    @include desktop
+      flex-grow: 4
+  video
+    margin-right: 2vw
+  textarea
+    width: 100%
+
+.backend-content
+ .polygram-cases
+   .backend-list-entry.polygram-entry
+
+

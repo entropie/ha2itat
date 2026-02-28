@@ -5,7 +5,7 @@ module Ha2itat::Slices
 
         def handle(req, res)
           caze = adapter.by_id(req.params[:id])
-          res.render(view, caze: caze, complete: true)
+          res.render(view, caze: caze, complete: false, menu: true)
         end
       end
     end

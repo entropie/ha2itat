@@ -40,6 +40,19 @@ module Plugins
           def basename
             ::File.basename(@file)
           end
+
+          def title(l = 8)
+            mid[0..l-1]
+          end
+
+          def =~(idormedia)
+            id = idormedia
+            if idormedia.kind_of?(CaseMediaEntry)
+              id = idormedia.id
+            end
+            self.id == id
+          end
+
         end
 
         class Video < CaseMediaEntry
@@ -139,6 +152,10 @@ module Plugins
         user
       end
 
+      def done_by?(userid)
+        !!by_contributor[userid]
+      end
+
       def exist?
         File.exist?(path)
       end
@@ -148,8 +165,12 @@ module Plugins
         File.join(base_path, *args)
       end
 
-      def media
-        CaseMedia.read_for(self)
+      def media(idmaybe = nil, force: false)
+        res = CaseMedia.read_for(self)
+        if idmaybe
+          return res.select{ |cm| cm =~ idmaybe }.shift
+        end
+        res
       end
 
       def metadata

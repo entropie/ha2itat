@@ -8,7 +8,7 @@ module Ha2itat::Slices::Polygram
 
     config.renderer_options = { escape_html: false }
 
-    expose :pager, :caze, :cases, :page, :complete
+    expose :pager, :caze, :cases, :page, :complete, :menu, :media, :text
 
   end
 end

@@ -1,6 +1,8 @@
 %h2= t.be.topics.polygram.index
 
-- pager.each do |caze|
-  = render "case", caze: caze, complete: false
+.backend-listing.polygram-cases
+  - pager.each do |caze|
+    .backend-list-entry.polygram-entry
+      = render "case", caze: caze, complete: false, menu: false
 
 = pager.navigation
