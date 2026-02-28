@@ -1,14 +1,15 @@
 .media-links
   %ul
-    - unless user_has_observed?(session_user.id, caze.id)
+    - if not user_has_observed?(session_user.id, caze.id, mid)
+
       %li
-        %a{href: path(:backend_polygram_read, id: caze.id, mid: mid) } read
-      %li observe
-          
+        %a{href: path(:backend_polygram_observe, id: caze.id, mid: mid) } observe
+
     - else
       %li
         %a{href: path(:backend_polygram_read, id: caze.id, mid: mid) } read
       %li
-        %a{href: path(:backend_polygram_observe, id: caze.id, mid: mid) } observe
+        observe
+
       
       

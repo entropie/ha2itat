@@ -1,5 +1,5 @@
-def user_has_observed?(userid, cazeid)
-  Ha2itat.adapter(:polygram).by_id(cazeid).done_by?(userid)
+def user_has_observed?(userid, cazeid, mid)
+  Ha2itat.adapter(:polygram).by_id(cazeid).observed_by?(userid, mid)
 end
 
 require_relative "polygram/case"

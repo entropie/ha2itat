@@ -152,8 +152,12 @@ module Plugins
         user
       end
 
-      def done_by?(userid)
-        !!by_contributor[userid]
+      def observed_by?(userid, mid)
+        by_contributor[userid][mid].any?{ |obsorreading| obsorreading.class == Case::Observation } rescue false
+      end
+
+      def read_by?(userid, mid)
+        by_contributor[userid][mid].any?{ |obsorreading| obsorreading.class == Case::Reading } rescue false
       end
 
       def exist?
