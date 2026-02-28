@@ -1,6 +1,6 @@
 %h2= t.be.topics.polygram.observe
 
-#case-reading
+#case-observation
   = render "video", caze: caze, media: media
   = render "media_form", caze: caze, action: path(:backend_polygram_observe, id: caze.id, mid: media.id), text: text
 
