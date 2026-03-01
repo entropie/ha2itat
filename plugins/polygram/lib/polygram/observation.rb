@@ -25,7 +25,7 @@ module Plugins
         end
 
         def path
-          caze.path("observation/#{user.id}/#{mid}/observation.markdown")
+          caze.path("annotations/#{user.id}/#{mid}/observation.markdown")
         end
       end
 
@@ -35,7 +35,7 @@ module Plugins
         end
 
         def path
-          caze.path("observation/#{user.id}/#{mid}/reading.markdown")
+          caze.path("annotations/#{user.id}/#{mid}/reading.markdown")
         end
       end
     end

@@ -105,7 +105,7 @@ module Plugins
           def observations_for(entry)
             res = []
             entry.media.each do |casemedia|
-              observation_path_glob = entry.path("observation/*/#{casemedia.mid}/observation.markdown")
+              observation_path_glob = entry.path("annotations/*/#{casemedia.mid}/observation.markdown")
               observation_files = Dir.glob(observation_path_glob)
               observation_files.each do |file|
                 uid = file.split("/")[-3]
@@ -119,7 +119,7 @@ module Plugins
           def readings_for(entry)
             res = []
             entry.media.each do |casemedia|
-              reading_path_glob = entry.path("observation/*/#{casemedia.mid}/reading.markdown")
+              reading_path_glob = entry.path("annotations/*/#{casemedia.mid}/reading.markdown")
               reading_files = Dir.glob(reading_path_glob)
               reading_files.each do |file|
                 uid = file.split("/")[-3]
