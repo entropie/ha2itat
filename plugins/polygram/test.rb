@@ -57,9 +57,9 @@ class TestCreateCaseBasics < Minitest::Test
     cpath = ::File.join(@adapter.repository_path, "cases", caze.id)
     assert_equal caze.path, cpath
 
-    assert_equal caze.storage_path, ::File.join(@adapter.repository_path, "storage", caze.id)
+    assert_equal caze.storage_path, ::File.join(@adapter.repository_path, "polygram", caze.id)
 
-    assert_equal caze.relative_storage_path, ::File.join("storage", caze.id)
+    assert_equal ::File.join("polygram", caze.id), caze.relative_storage_path
   end
 end
 
@@ -89,7 +89,7 @@ class TestCreateCaseCreateVideo < Minitest::Test
     caze = @adapter.create(user_id: @user.id)
     @adapter.upload_for(caze, path: File.join(PLUGIN_PATH, TESTFILES.first))
     bn = ::File.basename(caze.media.first.file)
-    assert_equal caze.media.first.url, "/polygram/cases/%s/storage/%s" % [caze.id, bn]
+    assert_equal "/polygram/%s/%s" % [caze.id, bn], caze.media.first.url
   end
 
   def test_get_media_by_mid
