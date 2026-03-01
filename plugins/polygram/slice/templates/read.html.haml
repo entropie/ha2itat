@@ -2,4 +2,4 @@
 
 #case-reading
   = render "video", caze: caze, media: media
-  = render "media_form", caze: caze, action: path(:backend_polygram_read, id: caze.id, mid: media.id), text: text
+  = render "media-form", caze: caze, action: path(:backend_polygram_read, id: caze.id, mid: media.id), text: text
