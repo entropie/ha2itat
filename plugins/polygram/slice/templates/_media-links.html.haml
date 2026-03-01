@@ -1,14 +1,14 @@
 .media-links
   %strong Attend
   %ul
-    %li
+    %li>
       %a.polygram-observe-link{href: path(:backend_polygram_observe, id: caze.id, mid: mid) } observe
 
     - if user_has_observed?(session_user.id, caze.id, mid)
-      %li
+      %li>
         %a.polygram-read-link{href: path(:backend_polygram_read, id: caze.id, mid: mid) } read
     - else
-      %li
+      %li>
         %a.polygram-read-link.disabled read
 
         
