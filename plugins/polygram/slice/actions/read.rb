@@ -7,8 +7,12 @@ module Ha2itat::Slices
           caze = adapter.by_id(req.params[:id])
           cazemedia = caze.media(req.params[:mid])
 
-          reading = adapter.readings_for(caze).select{ |rdng| rdng.user.id == session_user(req).id }.shift rescue nil
+          readings = adapter.readings_for(caze).select{ |rdng| rdng.user.id == session_user(req).id }
+          readings.reject!{ |obs| obs.mid != cazemedia.mid }
+          raise "this should not happen; multiple reading candidates available" if readings.size > 1
+          reading = readings.shift
 
+          
           if req.post?
             text = req.params[:text]
             reading = adapter.edit_reading(caze, cazemedia.id, session_user(req), text)
