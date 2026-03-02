@@ -17,7 +17,7 @@ module Ha2itat::Slices
           adapter.transaction_with(caze) do |adptr|
             adptr.remove_attachment(caze, req.params[:mid])
           end
-
+          res.redirect_to path(:backend_polygram_show, id: caze.id)
           res.render(view, caze: caze.id)
         end
 
