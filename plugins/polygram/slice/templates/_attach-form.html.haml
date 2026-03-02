@@ -1,0 +1,13 @@
+#BE-form
+  %form{method: :post, action: action, enctype: 'multipart/form-data'}
+    = _csrf_field
+    .container
+      .columns.mtop
+        .column.col-4
+        .column.col-4
+          %input.form-input{type: :file, name: "file[]", multiple: true}
+        .column.col-4
+
+      .columns.mtop
+        .column.col-2.col-mx-auto
+          %input.form-input{type: :submit, value: t.form.submit}

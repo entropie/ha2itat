@@ -72,6 +72,10 @@ module Plugins
             entry
           end
 
+          def transaction_with(entry)
+            yield self
+          end
+
           def update(entry, **param_hash)
             store(entry, **param_hash)
           end

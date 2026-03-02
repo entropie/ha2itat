@@ -5,13 +5,24 @@ module Ha2itat::Slices::Polygram
         get  "/",               to: "index",  as: :index
         get  "/create",         to: "create",  as: :create
         post "/create",         to: "create"
-        get  "/show/:id",       to: "show",  as: :show
 
-        get  "/observe/:id/:mid",    to: "observe",  as: :observe
-        get  "/read/:id/:mid",       to: "read",  as: :read
+        get  "/:id/destroy",    to: "destroy",  as: :destroy
 
-        post  "/observe/:id/:mid",   to: "observe"
-        post  "/read/:id/:mid",      to: "read"
+        get  "/:id/show",       to: "show",  as: :show
+
+        get  "/:id/observe/:mid",    to: "observe",  as: :observe
+        get  "/:id/read/:mid",       to: "read",  as: :read
+
+        get  "/:id/attach",          to: "attach",  as: :attach
+        post "/:id/attach",          to: "attach"
+
+        get  "/:id/detach",          to: "detach",  as: :detach
+        post "/:id/aetach",          to: "detach"
+
+
+
+        post  "/:id/observe/:mid",   to: "observe"
+        post  "/:id/read/:mid",      to: "read"
 
 
       end

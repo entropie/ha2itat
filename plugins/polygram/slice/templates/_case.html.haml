@@ -1,31 +1,34 @@
 .case{"data-case-id": caze.id, class: caze.css_class }
   .head
-    %a{href: path(:backend_polygram_show, id: caze.id)} ↳
-    = caze.title
-    %small
-      by
-      %strong #{caze.user.name}  
+    .title
+      %a{href: path(:backend_polygram_show, id: caze.id)} ↳
+      = caze.title
+      %small
+        by
+        %strong #{caze.user.name}  
 
-  .checkbox
-    .files-attached
-      %strong= caze.media.size
-      attachment(s)
+    .checkbox
+      .files-attached
+        %strong= caze.media.size
+        attachment(s)
 
 
-  .case-menu
-    menu
-  - if complete
-    %hr
+    - if menu
+      .case-menu
+        = render "case-menu", caze: caze
 
   - if menu
+    %h4 Attached Media Files
+
     .media-line
-      %dl
+      %ul
         - caze.media.each do |cm|
-          %dt
-            Mediasample
-            %strong= cm.title
-          %dd
-            = render "media-links", caze: caze, mid: cm.id
+          %li
+            .media-line-entry
+              %span
+                Mediasample
+                %code= cm.title
+              = render "media-links", caze: caze, mid: cm.id
             
             .media-entry{style: "display: #{complete ? 'block' : 'none'}" }
               = render "video", caze: caze, media: cm

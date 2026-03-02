@@ -2,42 +2,67 @@
 
 .case
   position: relative
-  .media-links
-    @include clean-ul
-    display: inline-block
-    li
-      margin-right: 5px
-      margin-left: 5px
     
   .head
-    display: inline-block
-  .checkbox
-    display: inline-block
-    .files-attached strong
-      color: orange
+    display: flex
+    justify-content: space-between
+    color: $c5
+    .checkbox
+      display: inline-block
+      .files-attached strong
+        color: orange
+    .case-menu
+      @include clean-ul
+      text-align: right
   hr
     opacity: .1
 
   .case-menu
     float: right
+  h1,h2,h3,h4,h5
+    border-top: 3px solid rgba(red, 0.1)
+    margin: 0
+    padding: 0
+    margin-top: 2vh
+    padding-top: 2vh
+
+
+  .media-links
+    display: inline-block
+    ul
+      @include clean-ul
+      display: inline-block
+      li
+        display: inline-block
+        padding-right: 5px
+        padding-left: 5px
 
   .media-line
+    margin-top: 2vh
     padding: 5px
-    background-color: rgba(silver, .01)
-    dl
+    ul
+      @include clean-ul
       display: flex
-      dt
+      flex-flow: row wrap
+      justify-content: space-between
+      li
+        color: $c3
+        padding-right: 5px
+        padding-left: 5px
+        flex-basis: 1
         strong
-          color: $c1
-      dd
-        margin: 0
-        padding: 0
-        margin-left: 5vw
-        width: auto
+          color: $c3
 
-  .media-entry
-    padding: 1vw
-    border: 1px solid red
+    .media-entry
+      padding: 1vw
+      border: 1px solid red
+    .media-line-entry
+      background-color: rgba(silver, 0.01)
+      padding: 10px
+
+  &.private-case
+    border-left: 10px solid rgba(red, .1)
+    padding-left: 10px
 
 #case-reading, #case-observation
   display: flex
