@@ -25,6 +25,8 @@
         - caze.media.each do |cm|
           %li
             .media-line-entry
+              %a.media-detach-link{onclick: "return confirm('#{t.be.polygram.confirmdetach}')", href: path(:backend_polygram_detach, id: caze.id, mid: cm.id) } X
+
               %span
                 Mediasample
                 %code= cm.title
@@ -32,5 +34,3 @@
             
             .media-entry{style: "display: #{complete ? 'block' : 'none'}" }
               = render "video", caze: caze, media: cm
-
-

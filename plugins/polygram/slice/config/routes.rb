@@ -16,9 +16,7 @@ module Ha2itat::Slices::Polygram
         get  "/:id/attach",          to: "attach",  as: :attach
         post "/:id/attach",          to: "attach"
 
-        get  "/:id/detach",          to: "detach",  as: :detach
-        post "/:id/aetach",          to: "detach"
-
+        get  "/:id/detach/:mid",     to: "detach",  as: :detach
 
 
         post  "/:id/observe/:mid",   to: "observe"

@@ -28,6 +28,9 @@
 
 
   .media-links
+    strong
+      opacity: .1
+
     display: inline-block
     ul
       @include clean-ul
@@ -59,6 +62,12 @@
     .media-line-entry
       background-color: rgba(silver, 0.01)
       padding: 10px
+
+      a.media-detach-link
+        opacity: .1
+        color: red
+        &:hover
+          opacity: 1
 
   &.private-case
     border-left: 10px solid rgba(red, .1)

@@ -14,9 +14,13 @@ module Ha2itat::Slices
           caze = adapter.by_id(req.params[:id])
           halt 500 unless caze
 
-          adapter.transaction_with(caze) do |adptr|
-            (req.params[:file] || []).each do |userfile|
-              adptr.upload_for(caze, path: userfile[:tempfile].path)
+          if req.post?
+
+            adapter.transaction_with(caze) do |adptr|
+              (req.params[:file] || []).each do |userfile|
+                adptr.upload_for(caze, path: userfile[:tempfile].path)
+              end
+              res.redirect_to path(:backend_polygram_show, id: caze.id)
             end
           end
 

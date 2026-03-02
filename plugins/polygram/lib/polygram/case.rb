@@ -53,6 +53,10 @@ module Plugins
             self.id == id
           end
 
+          def exist?
+            ::File.exist?(@file)
+          end
+
         end
 
         class Video < CaseMediaEntry

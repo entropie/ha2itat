@@ -134,6 +134,9 @@ class TestCaseDocument < Minitest::Test
   def test_readings_from_case
     @adapter.edit_reading(@caze, @testmedia.mid, @user, "reading text")
     @adapter.edit_observation(@caze, @testmedia.mid, @user, "observation text")
+    # pp @user
+    
+    # exit
     readings = @adapter.readings_for(@caze)
     assert_equal readings.size, 1
   end
@@ -141,6 +144,7 @@ class TestCaseDocument < Minitest::Test
   def test_multiple_readings_from_case
     @adapter.edit_reading(@caze, @testmedia.mid, @user, "reading text")
     @adapter.edit_reading(@caze, @testmedia.mid, @user1, "reading text")
+
     readings = @adapter.readings_for(@caze)
     assert_equal readings.map(&:user).uniq.size, 2
     assert_equal readings.size, 2
@@ -206,3 +210,28 @@ class Test01ListCases < Minitest::Test
   end
 end
 
+
+
+
+
+class TestCaseRemove < Minitest::Test
+  def setup
+    @adapter = Ha2itat.adapter(:polygram)
+    @user    = Ha2itat.adapter(:user).user("test")
+    @caze    = @adapter.create(user_id: @user.id)
+    @adapter.upload_for(@caze, path: File.join(PLUGIN_PATH, TESTFILES.first))
+    @testmedia = @caze.media.first
+  end
+
+  def test_remove_testmedia_with_annotations
+    o = @adapter.edit_observation(@caze, @testmedia.mid, @user, "observation text")
+    r = @adapter.edit_reading(@caze, @testmedia.mid, @user, "reading text")
+    assert o.exist?
+    assert r.exist?
+    @adapter.remove_attachment(@caze, @testmedia.mid)
+    assert !o.exist?
+    assert !r.exist?
+    assert !@testmedia.exist?
+  end
+
+end

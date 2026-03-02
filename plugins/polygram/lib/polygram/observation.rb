@@ -17,6 +17,12 @@ module Plugins
         def text
           @text = ::File.read(path)
         end
+
+        def exist?
+          ::File.exist?(path)
+        rescue
+          false
+        end
       end
 
       class Observation < Document

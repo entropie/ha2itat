@@ -106,6 +106,10 @@ module Plugins
               Ha2itat.log "polygram handle_normalized_video:both files do not exist and therefore we delete nothing: #{target_file}"            end
           end
 
+          def annotations_for(entry)
+            [observations_for(entry), readings_for(entry)].flatten
+          end
+
           def observations_for(entry)
             res = []
             entry.media.each do |casemedia|
@@ -190,6 +194,22 @@ module Plugins
             end
 
             Case::CaseMedia::Video.new(normalized_file, entry)
+          end
+
+          def remove_attachment(entry, mid)
+            media_entry = entry.media[mid]
+
+            annotations_dirs =
+              annotations_for(entry).
+                map{ |a| ::File.dirname(a.path) }.
+                uniq.
+                each { |annotation_dir|
+              Ha2itat.log "polygram remove_attachment:annotations path: '%s'" % [annotation_dir]
+              FileUtils.rm_rf(annotation_dir, verbose: true)
+            }
+
+            Ha2itat.log "polygram remove_attachment:media: '%s'" % [media_entry.path]
+            FileUtils.rm_rf(media_entry.path, verbose: true)
           end
 
           def store(entry, **param_hash)

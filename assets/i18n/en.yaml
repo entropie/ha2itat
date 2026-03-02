@@ -26,6 +26,7 @@ form:
 be:
   polygram:
     observebeforereading: Before you interpret, you must first assess the situation neutrally
+    confirmdetach: Delete attached file permanently?
   entroment:
     last_reviewed: Reviewed
     repetition_count: Streak
