@@ -5,5 +5,6 @@
   = render "media-form", caze: caze, action: path(:backend_polygram_observe, id: caze.id, mid: media.id), text: text
 
 - if observation
-  #case-observation-render  
+  #case-observation-json{style: "display:none", data: { markers: observation.json_markers }}
+  #case-observation-render
     = observation.text.to_html

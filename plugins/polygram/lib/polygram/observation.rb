@@ -79,6 +79,14 @@ module Plugins
           markers
         end
 
+        def markers
+          extract_markers(text)
+        end
+
+        def json_markers
+          markers.to_json
+        end
+
         def exist?
           ::File.exist?(path)
         rescue

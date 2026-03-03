@@ -99,25 +99,36 @@ class PolygramVideoPlayer {
         this._onTimeUpdate(); // initial overlay update
     }
 
-    renderMarkers() {
-        const duration = this.video.duration;
-        if (!this.timelineEl || !Number.isFinite(duration) || duration <= 0) return;
+renderMarkers() {
+    const duration = this.video.duration;
+    if (!this.timelineEl || !Number.isFinite(duration) || duration <= 0) return;
 
-        this.timelineEl.innerHTML = "";
+    this.timelineEl.innerHTML = "";
 
-        for (const m of this.markers) {
-            const pct = this._clamp((m.ts / duration) * 100, 0, 100);
+    for (const m of this.markers) {
+        const pct = this._clamp((m.ts / duration) * 100, 0, 100);
 
-            const dot = document.createElement("button");
-            dot.type = "button";
-            dot.className = "marker";
-            dot.style.left = `${pct}%`;
-            dot.title = m.label ?? this._formatTs(m.ts);
-            dot.addEventListener("click", () => this.jumpWithSlowmo(m.ts));
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "marker";
+        dot.style.left = `${pct}%`;
 
-            this.timelineEl.appendChild(dot);
-        }
+        const durationPart = m.duration ? `:${m.duration}` : "";
+        const description = m.text ?? "";
+        dot.title = `${m.ts}: ${description}`;
+
+        dot.addEventListener("click", () =>
+            this.jumpWithSlowmo(
+                m.ts,
+                this.defaultSlowRate,
+                m.duration ?? this.defaultSlowSeconds
+            )
+        );
+
+        this.timelineEl.appendChild(dot);
     }
+}
+
 
     _bindVideoTimeOverlay() {
         // frequent updates while playing
@@ -192,11 +203,20 @@ class PolygramVideoPlayer {
 
 // Boot
 document.addEventListener("DOMContentLoaded", () => {
+
+    const dataEl = document.getElementById("case-observation-json");
+
+    let markers = [];
+    if (dataEl && dataEl.dataset.markers) {
+        try {
+            markers = JSON.parse(dataEl.dataset.markers);
+        } catch (e) {
+            console.error("Invalid marker JSON", e);
+        }
+    }
+
     const player = new PolygramVideoPlayer({
-        markers: [
-            { ts: 4, label: "avoid gaze" },
-            { ts: 14, label: "avoid gaze" },
-        ],
+        markers: markers,
         defaultSlowRate: 0.3,
         defaultSlowSeconds: 5,
     });
