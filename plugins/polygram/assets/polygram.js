@@ -159,13 +159,21 @@ class PolygramVideoPlayer {
     }
 
     _seekFromHash() {
-        const match = window.location.hash.match(/t=(\d+)/);
-        if (!match) return;
+        const hash = window.location.hash;
+        if (!hash || hash.length < 2) return;
 
-        const t = Number(match[1]);
+        const params = new URLSearchParams(hash.slice(1));
+
+        const t = Number(params.get("t"));
         if (!Number.isFinite(t)) return;
 
-        this.jumpWithSlowmo(t);
+        const d = Number(params.get("d"));
+
+        if (Number.isFinite(d) && d > 0) {
+            this.jumpWithSlowmo(t, this.defaultSlowRate, d);
+        } else {
+            this.jumpWithSlowmo(t);
+        }
     }
 
     _clamp(n, min, max) {
