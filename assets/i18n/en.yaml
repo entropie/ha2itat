@@ -142,6 +142,7 @@ be:
       index: Polygram <small>List of Cases</small>
       show: Case Data
       read: Case reading  <small>Only describe, do not interpret
+      observe: Observe the media <strong>without</strong> interpreting
     entroment:
       index: Dashboard
       cards: Entroment <small>cards</small>
@@ -251,3 +252,52 @@ robots: !!pl
   0: No robots
   1: One Robot
   n: "%1 Robots"
+
+
+polygram:
+  interpret_howo: "# Observation (not interpretation)\n
+
+This text field is for structured observation.\n
+
+Please watch the video multiple times. *Try to reduce bias and avoid projecting meaning* based on prior knowledge or experience. Focus only on what is objectively visible.
+**You can and should reference specific timestamps in the video**. The current timestamp, the current second of the video is displayed in the top-right corner of the player.\n
+
+Use the following format:\n
+
+5: example observation at second 5
+
+25:10 example observation at second 25 that will play 10 seconds in slow motion\n
+
+Important\n
+
+* The description must follow on the same line as the timestamp.
+
+* Do not insert a line break after the number.
+
+* The text after the timestamp can be detailed.
+
+
+Write only what is directly observable\n
+  
+* body posture
+
+* sound
+
+* movement
+
+* distance
+
+* orientation
+
+* facial expression
+
+* interaction patterns\n
+
+Use simple language.
+Avoid complex sentence structures.
+Remain neutral.
+Describe, do not explain.
+
+The interpretation step follows separately.\n
+
+Replace this text with your observation. Submit the form periodically to verify your timestamps using the markers displayed on the timeline above this text field."
