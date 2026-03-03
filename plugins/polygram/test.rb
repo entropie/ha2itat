@@ -235,3 +235,90 @@ class TestCaseRemove < Minitest::Test
   end
 
 end
+
+
+TEST_MARKER_CASES = {
+  simple: {
+    input: <<~MD,
+      5: foobar
+      120: bazbzmssssssdaasd
+      150:5 other
+    MD
+    expected: [
+      { ts: 5,   text: "foobar" },
+      { ts: 120, text: "bazbzmssssssdaasd" },
+      { ts: 150, text: "other", duration: 5 }
+    ]
+  },
+
+  mixed: {
+    input: <<~MD,
+      # Heading
+
+      Some introductory text.
+
+      5: first marker
+
+      More explanation text.
+
+      45: second marker
+    MD
+    expected: [
+      { ts: 5,  text: "first marker" },
+      { ts: 45, text: "second marker" }
+    ]
+  },
+
+  duration_and_spacing: {
+    input: <<~MD,
+      10:2 short event
+      30:   normal event
+      60:15 longer event
+    MD
+    expected: [
+      { ts: 10, text: "short event", duration: 2 },
+      { ts: 30, text: "normal event" },
+      { ts: 60, text: "longer event", duration: 15 }
+    ]
+  },
+
+  invalid_lines: {
+    input: <<~MD,
+      abc: not a marker
+      12 test without colon
+      99:valid marker
+      100:5another invalid
+      150:5 valid again
+    MD
+    expected: [
+      { ts: 150, text: "valid again", duration: 5 }
+    ]
+  },
+
+  unordered: {
+    input: <<~MD,
+      300: late event
+      5: early event
+      120: mid event
+      120:5 overlapping duration
+    MD
+    expected: [
+      { ts: 300, text: "late event" },
+      { ts: 5,   text: "early event" },
+      { ts: 120, text: "mid event" },
+      { ts: 120, text: "overlapping duration", duration: 5 }
+    ]
+  }
+}
+
+
+
+class TestMarkers < Minitest::Test
+  def test_remove_testmedia_with_annotations
+    doc = Plugins::Polygram::Case::Document.new(nil, nil, nil)
+    TEST_MARKER_CASES.each do |name, data|
+      assert_equal(data[:expected], doc.extract_markers(data[:input]))
+    end
+  end
+
+end

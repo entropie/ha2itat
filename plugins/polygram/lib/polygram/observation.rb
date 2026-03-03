@@ -3,6 +3,8 @@ module Plugins
 
     class Case
       class Document
+        TIMESTAMP_LINE_RE = /\A(\d+):(?:(\d+)\s+|\s+)(.+)\z/
+
         attr_reader :caze, :mid, :user
         def initialize(caze, mid, user)
           @caze = caze
@@ -16,6 +18,33 @@ module Plugins
 
         def text
           @text = ::File.read(path)
+        rescue
+          nil
+        end
+
+        def extract_markers(txt = nil)
+          txt ||= (exist? ? text : nil)
+          return [] unless txt
+
+          markers = []
+
+          txt.each_line do |line|
+            line = line.strip
+            next if line.empty?
+
+            m = TIMESTAMP_LINE_RE.match(line)
+            next unless m
+
+            ts = m[1].to_i
+            duration = m[2] ? m[2].to_i : nil
+            content = m[3].strip
+
+            marker = { ts: ts, text: content }
+            marker[:duration] = duration if duration && duration > 0
+            markers << marker
+          end
+
+          markers
         end
 
         def exist?
