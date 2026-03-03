@@ -5,6 +5,37 @@ module Plugins
       class Document
         TIMESTAMP_LINE_RE = /\A(\d+):(?:(\d+)\s+|\s+)(.+)\z/
 
+        module DocumentHTMLOutput
+          MARKER_LINE_RE = /\A(\d+):(?:(\d+)\s+|\s+)(.+)\z/
+
+          def linkify_marker_lines(text)
+            return "" if text.nil? || text.empty?
+
+            text.each_line.map do |line|
+              stripped = line.strip
+              next line if stripped.empty?
+
+              m = MARKER_LINE_RE.match(stripped)
+              next line unless m
+
+              ts = m[1].to_i
+              duration = m[2] ? m[2].to_i : nil
+              content = m[3].strip
+
+              hash = +"#t=#{ts}"
+              hash << "&d=#{duration}" if duration && duration > 0
+
+              "[#{ts}](#{hash}): #{content}\n"
+            end.join
+          end
+
+
+          def to_html
+            Ha2itat::Renderer.render(:markdown, linkify_marker_lines(self))
+          end
+        end
+
+
         attr_reader :caze, :mid, :user
         def initialize(caze, mid, user)
           @caze = caze
@@ -18,6 +49,7 @@ module Plugins
 
         def text
           @text = ::File.read(path)
+          @text.extend(DocumentHTMLOutput)
         rescue
           nil
         end
