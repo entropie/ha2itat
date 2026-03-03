@@ -2,7 +2,7 @@
   %form{method: :post, action: action, enctype: 'multipart/form-data'}
     = _csrf_field
     %input.form-input{type: :hidden, value: (caze && caze.id ? caze.id : ""), name: :id}
-    %textarea{name: :text}= text
+    %textarea#annotation-textarea.cm-form{name: :text, "data-codemirror-mode": "text/x-markdown"}= (text || t.polygram.interpret_howo)
 
     .columns.mtop
       .column.col-10

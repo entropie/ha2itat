@@ -11,15 +11,13 @@ module Ha2itat::Slices
           observations.reject!{ |obs| obs.mid != cazemedia.mid }
           raise "this should not happen; multiple observation candidates available" if observations.size > 1
           observation = observations.shift
-          
 
           if req.post?
             text = req.params[:text]
             observation = adapter.edit_observation(caze, cazemedia.id, session_user(req), text)
-            res.redirect_to path(:backend_polygram_show, id: caze.id)
           end
 
-          res.render(view, caze: caze, media: cazemedia, text: observation&.text)
+          res.render(view, caze: caze, media: cazemedia, text: observation&.text, observation: observation)
         end
       end
     end

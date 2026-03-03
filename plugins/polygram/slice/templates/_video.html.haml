@@ -1,2 +1,12 @@
-.video
-  %video{ controls: true, muted: true, src: media.url }
+.videobox
+
+  .playspeed
+    %label.playspeed
+      Speed
+      %input#playspeed{:max => "2.0", :min => "0.1", :step => "0.05", :type => "range", :value => "1.0"}/
+      %span#playspeed-value 1.00
+
+  #video-is-at-timestamp
+  %video#annotation-video{ controls: true, muted: true, src: media.url, "vjs-fluid": "" }
+.timeline-line
+  #timeline.timeline
