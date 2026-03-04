@@ -141,7 +141,7 @@ be:
     polygram:
       index: Polygram <small>List of Cases</small>
       show: Case Data
-      read: Case reading  <small>Only describe, do not interpret
+      read: Case interpreting <small>now its time</small>
       observe: Observe the media <strong>without</strong> interpreting
     entroment:
       index: Dashboard

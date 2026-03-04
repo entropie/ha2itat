@@ -7,19 +7,16 @@ module Ha2itat::Slices
           caze = adapter.by_id(req.params[:id])
           cazemedia = caze.media(req.params[:mid])
 
-          readings = adapter.readings_for(caze).select{ |rdng| rdng.user.id == session_user(req).id }
-          readings.reject!{ |obs| obs.mid != cazemedia.mid }
-          raise "this should not happen; multiple reading candidates available" if readings.size > 1
-          reading = readings.shift
+          observation = observation_for(caze, session_user(req), cazemedia.id)
+          reading = reading_for(caze, session_user(req), cazemedia.id)
 
-          
           if req.post?
             text = req.params[:text]
             reading = adapter.edit_reading(caze, cazemedia.id, session_user(req), text)
             res.redirect_to path(:backend_polygram_show, id: caze.id)
           end
 
-          res.render(view, caze: caze, media: cazemedia, text: reading&.text)
+          res.render(view, caze: caze, media: cazemedia, text: observation.reading_template, reading: reading, observation: observation)
         end
       end
     end

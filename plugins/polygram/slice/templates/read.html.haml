@@ -3,3 +3,8 @@
 #case-reading
   = render "video", caze: caze, media: media
   = render "media-form", caze: caze, action: path(:backend_polygram_read, id: caze.id, mid: media.id), text: text
+
+- if observation
+  #case-observation-json{style: "display:none", data: { markers: observation.json_markers }}
+  #case-observation-render{style: "display:none"}
+    = observation.text.to_html

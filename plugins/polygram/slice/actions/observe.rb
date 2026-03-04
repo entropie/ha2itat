@@ -7,10 +7,7 @@ module Ha2itat::Slices
           caze = adapter.by_id(req.params[:id])
           cazemedia = caze.media(req.params[:mid])
 
-          observations = adapter.observations_for(caze).select{ |rdng| rdng.user.id == session_user(req).id }
-          observations.reject!{ |obs| obs.mid != cazemedia.mid }
-          raise "this should not happen; multiple observation candidates available" if observations.size > 1
-          observation = observations.shift
+          observation = observation_for(caze, session_user(req), cazemedia.id)
 
           if req.post?
             text = req.params[:text]

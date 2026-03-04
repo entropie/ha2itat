@@ -58,7 +58,7 @@ module Plugins
           txt ||= (exist? ? text : nil)
           return [] unless txt
 
-          markers = []
+          markers = Marker.new
 
           txt.each_line do |line|
             line = line.strip
@@ -94,6 +94,17 @@ module Plugins
         end
       end
 
+      class Marker < Array
+        def to_markdown
+          ret = []
+          sort_by{ |h| h[:ts] }.each do |markhsh|
+            ret << "%s%s" % [markhsh[:ts], (markhsh[:duration] ? ":#{markhsh[:duration]}" : ":")]
+          end
+
+          ret.join("\n\n")
+        end
+      end
+
       class Observation < Document
         def self.find_or_create(caze, mid, user)
           obs = Ha2itat.adapter(:polygram).observation_for(caze, mid, user)
@@ -101,6 +112,10 @@ module Plugins
 
         def path
           caze.path("annotations/#{user.id}/#{mid}/observation.markdown")
+        end
+
+        def reading_template
+          self.markers.to_markdown
         end
       end
 
