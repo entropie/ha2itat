@@ -10,7 +10,8 @@ module ActionMethodsCommon
 
   def set_meta(view, req, **kwargs)
     if view
-      view.exposures.add(:meta, proc{ Ha2itat::Meta.new(view, req, **kwargs) }, layout: true)
+      meta_class = kwargs.delete(:meta_class) || Ha2itat::Meta
+      view.exposures.add(:meta, proc{ meta_class.new(view, req, **kwargs) }, layout: true)
     end
   end
 

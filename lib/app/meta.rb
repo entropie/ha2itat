@@ -150,6 +150,11 @@ module Ha2itat
     def app_desc
       @desc || Ha2itat.C(:desc) || "[default-desc]"
     end
+  end
 
+  class CleanTitleMeta < Meta
+    def app_title
+      @title
+    end
   end
 end
