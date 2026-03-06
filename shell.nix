@@ -48,6 +48,7 @@ in pkgs.mkShell {
     pkgs.ffmpeg
     pkgs.yt-dlp
 
+    pkgs.ffmpeg-headless
     pkgs.git
     pkgs.overmind
   ];
