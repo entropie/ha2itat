@@ -92,6 +92,10 @@ module Plugins
         rescue
           false
         end
+
+        def observation?
+          false
+        end
       end
 
       class Marker < Array
@@ -106,6 +110,10 @@ module Plugins
       end
 
       class Observation < Document
+        def observation?
+          true
+        end
+
         def self.find_or_create(caze, mid, user)
           obs = Ha2itat.adapter(:polygram).observation_for(caze, mid, user)
         end
