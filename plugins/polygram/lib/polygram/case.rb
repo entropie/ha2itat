@@ -57,6 +57,16 @@ module Plugins
             ::File.exist?(@file)
           end
 
+          def annotations_by_user
+            @case.by_contributor.each_pair do |uid, datahash|
+              annotations = datahash[id]
+              next unless annotations
+              observations = annotations.select{ |a| a.observation? }.shift
+              readings = annotations.select{ |a| not a.observation? }.shift
+
+              yield Ha2itat.adapter(:user).by_id(uid), self, observations, readings
+            end
+          end
         end
 
         class Video < CaseMediaEntry
