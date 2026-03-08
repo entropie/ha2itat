@@ -153,6 +153,7 @@ module Plugins
           def edit_observation(entry, mid, user, text)
             obs = Case::Observation.find_or_create(entry, mid, user)
             FileUtils.mkdir_p(::File.dirname(obs.path), verbose: true)
+            Ha2itat.log "polygram: edit_observation(#{entry.id}): #{text}"
             ::File.open(obs.path, "w+"){ |fp| fp.write(text) }
             obs
           end
@@ -160,6 +161,7 @@ module Plugins
           def edit_reading(entry, mid, user, text)
             obs = Case::Reading.find_or_create(entry, mid, user)
             FileUtils.mkdir_p(::File.dirname(obs.path), verbose: true)
+            Ha2itat.log "polygram: edit_reading(#{entry.id}): #{text}"
             ::File.open(obs.path, "w+"){ |fp| fp.write(text) }
             obs
           end
