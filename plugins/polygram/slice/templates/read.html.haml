@@ -4,6 +4,8 @@
   .case-head
     .link-to-observation.left
       %a{href: path(:backend_polygram_observe, id: caze.id, mid: media.id)}= t.be.polygram.observationLink
+    .link-case
+      %a{href: path(:backend_polygram_show, id: caze.id, mid: media.id, activeMedia: media.id)}= t.be.polygram.case
 
 
   = render "video", caze: caze, media: media

@@ -27,6 +27,7 @@ be:
   polygram:
     observationLink: Describe and annotate what you see
     readLink: Annotate and interpret media file
+    case: Case
     observebeforereading: Before you interpret, you must first assess the situation neutrally
     confirmdetach: Delete attached file permanently?
   entroment:

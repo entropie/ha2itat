@@ -2,6 +2,8 @@
 
 #case-observation
   .case-head
+    .link-case
+      %a{href: path(:backend_polygram_show, id: caze.id, mid: media.id, activeMedia: media.id)}= t.be.polygram.case
     - if observation
       .link-to-read.right
         %a{href: path(:backend_polygram_read, id: caze.id, mid: media.id)}= t.be.polygram.readLink
