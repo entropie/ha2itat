@@ -68,6 +68,8 @@
         color: red
         &:hover
           opacity: 1
+      &.active
+        border-bottom: 1px solid rgba(red, .3)
 
   &.private-case
     border-left: 10px solid rgba(red, .1)
@@ -99,8 +101,23 @@
   color: $c5
   margin-top: 5vh
   background-color: rgba($c1, .1)
+  h5
+    line-height: 30px
+.case-head
+  display: flex
+  justify-content: flex-end
+  .right
+    margin-left: auto
+  .left
+    margin-right: auto
+  .link-to-read
+  .link-to-observation
+
+
 
 #case-observation, #case-reading
+  .errors
+    color: red
   .timeline-line
     .timeline
       width: 100%

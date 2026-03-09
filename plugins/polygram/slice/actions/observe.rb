@@ -12,6 +12,7 @@ module Ha2itat::Slices
           if req.post?
             text = req.params[:text]
             observation = adapter.edit_observation(caze, cazemedia.id, session_user(req), text)
+            #res.redirect_to path(:backend_polygram_show, id: caze.id, activeMedia: cazemedia.id)
           end
 
           res.render(view, caze: caze, media: cazemedia, text: observation&.text, observation: observation)

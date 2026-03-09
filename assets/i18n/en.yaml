@@ -25,6 +25,8 @@ form:
 
 be:
   polygram:
+    observationLink: Describe and annotate what you see
+    readLink: Annotate and interpret media file
     observebeforereading: Before you interpret, you must first assess the situation neutrally
     confirmdetach: Delete attached file permanently?
   entroment:
@@ -142,7 +144,7 @@ be:
       index: Polygram <small>List of Cases</small>
       show: Case Data
       read: Case interpreting <small>now its time</small>
-      observe: Observe the media <strong>without</strong> interpreting
+      observe: Observe the media <small>without interpreting</small>
     entroment:
       index: Dashboard
       cards: Entroment <small>cards</small>
@@ -255,6 +257,7 @@ robots: !!pl
 
 
 polygram:
+  yoursubmission: Your Submission
   interpret_howo: "# Observation (not interpretation)\n
 
 This text field is for structured observation.\n

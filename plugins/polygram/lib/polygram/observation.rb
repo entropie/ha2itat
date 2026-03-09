@@ -99,6 +99,10 @@ module Plugins
       end
 
       class Marker < Array
+        def keys
+          map{ |he| he[:ts] }
+        end
+
         def to_markdown
           ret = []
           sort_by{ |h| h[:ts] }.each do |markhsh|

@@ -1,10 +1,16 @@
 %h2= t.be.topics.polygram.observe
 
 #case-observation
+  .case-head
+    - if observation
+      .link-to-read.right
+        %a{href: path(:backend_polygram_read, id: caze.id, mid: media.id)}= t.be.polygram.readLink
+
   = render "video", caze: caze, media: media
   = render "media-form", caze: caze, action: path(:backend_polygram_observe, id: caze.id, mid: media.id), text: text
 
 - if observation
   #case-observation-json{style: "display:none", data: { markers: observation.json_markers }}
+  %h5= t.polygram.yoursubmission
   #case-observation-render
     = observation.text.to_html

@@ -5,6 +5,7 @@ module Ha2itat::Slices
 
         params do
           optional(:id).filled(:string)
+          optional(:activeMedia).filled(:string)
         end
 
         def handle(req, res)
@@ -12,7 +13,7 @@ module Ha2itat::Slices
 
           caze = adapter.by_id(req.params[:id])
           halt 500 unless caze
-          res.render(view, caze: caze, complete: false, menu: true)
+          res.render(view, caze: caze, complete: false, menu: true, activeMedia: req.params[:activeMedia])
         end
       end
     end

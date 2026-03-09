@@ -24,7 +24,7 @@
       %ul
         - caze.media.each do |cm|
           %li
-            .media-line-entry
+            .media-line-entry{class: ("active" if cm.id == activeMedia.to_s)}
               %a.media-detach-link{onclick: "return confirm('#{t.be.polygram.confirmdetach}')", href: path(:backend_polygram_detach, id: caze.id, mid: cm.id) } X
 
               %span
