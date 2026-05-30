@@ -85,15 +85,10 @@ function getAndUploadMediaByUrl(media_url, target_url, content) {
 
 function clytdlp(content) {
     console.log("clytdlp starting with", content)
-    var url = content.slice(0, -1) + ".json";
-
-    loadJSON(url, function(resp) {
-        let media_url = resp[0]['data']['children'][0]['data']['media']['reddit_video']['fallback_url'];
-        logProgess(`extracted media url <code>${media_url}</code>`)
-        let upload_url = $("#clytdlp-client").attr("data-create-url");
-        getAndUploadMediaByUrl(media_url, upload_url, content);
-    });
-
+    let media_url = $("#clytdlp-client").attr("data-media-url");
+    let upload_url = $("#clytdlp-client").attr("data-create-url");
+    logProgess(`extracted media url <code>${media_url}</code>`);
+    getAndUploadMediaByUrl(media_url, upload_url, content);
     return true;
 }
 

@@ -63,6 +63,8 @@ module Ha2itat
   require_relative "app/actions"
   require_relative "app/views"
 
+  require_relative "app/reddit"
+
   def self.quart=(obj)
     @quart = obj
   end
