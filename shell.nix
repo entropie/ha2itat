@@ -55,8 +55,13 @@ in pkgs.mkShell {
   shellHook = ''
 
     ruby_api_version=$(ruby -e 'puts RbConfig::CONFIG["ruby_version"]')
-    project_dir=$(readlink -f "$PWD")
-    project_name=$(basename $project_dir)
+    project_dir="$(readlink -f "$PWD")"
+    project_name="$(basename "$project_dir")"
+
+    if [[ "$project_name" =~ ^[0-9]+$ ]]; then
+      project_name="$(basename "$(dirname "$(dirname "$project_dir")")")"
+    fi
+
 
     export GEM_HOME="$PWD/.bundle/gems-$ruby_api_version"
     export BUNDLE_PATH="$PWD/.bundle/bundle-$ruby_api_version"
